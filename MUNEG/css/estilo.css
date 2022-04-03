@@ -48,3 +48,85 @@ height: 60px;
 #fondo{
     background-color: #E2E2E2;
 }
+
+
+.bgTerm{
+    background-image: url(../img/casa.jpg);
+    padding-bottom: 150px;
+  }
+
+#tituloTerm{
+    padding-top: 180px;
+    text-align: center;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    color: black;
+    font-size: 70px;
+  }
+  
+#partesTerm{
+    padding-top: 40px;
+  }
+
+.textterm{
+      text-align: justify;
+  }
+
+.faqtext{
+    color: #018080;
+    font-size: 25px;
+    padding-top: 25px;
+}
+
+.containervalores{
+    height: auto;
+    color: black;
+    align-items: center;
+    background-color: #94D2CC;
+    text-align: center;
+}
+
+.card{
+    height: 300px;
+    max-width: 100%;
+    margin: 2px ;
+    background: white;
+    border-radius: 50px;
+    border-color: #A1A39F;
+    align-items: center;
+    padding-top: 4%;
+  }
+
+.card .img{
+    height: 90%;
+    width: 90%;
+    align-items: center;
+  }
+
+
+   
+.card .imgval{
+    height: 80%;
+    width: 80%;
+    align-items: center;
+  }
+
+  .containerfaq{
+      background-color: #018080;
+      height: auto;
+      width: 100%;
+      text-align: center;
+      color: white;
+      padding-bottom: 5%;
+  }
+
+  .btnfaq{
+    background-color: white;
+    border-radius: 30px;
+    border-color: blue;
+    font-style: bold;
+    font-size: large;
+    width: auto;
+    padding-bottom: 5px;
+  }
+
+

@@ -22,8 +22,9 @@
 }
 
 .carrouselContainer{
-    width: 20%;
-    height: 20%;
+    width: 40%;
+    height: 40%;
+    margin: 10px;
 }
 
 .cardDescription {
@@ -35,7 +36,16 @@
     justify-content: space-around;
 }
 
-/* pagina privada paginaPrincipal */
+.detallesPropiedad{
+    font-size: 30px;
+    color: gray;
+}
+
+.direccionPropiedad{
+    color: gray;
+}
+
+/* pagina privada "paginaPrincipal" */
 
 #welcomeContainer{
     position: relative;
@@ -130,7 +140,4 @@
     opacity: 1; 
   }
 
-  #modalInformationContainer {
-      
-  }
 

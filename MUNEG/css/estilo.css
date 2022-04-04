@@ -77,6 +77,10 @@ height: 60px;
     padding-top: 25px;
 }
 
+.textcel{
+    color: #018080;
+}
+
 .containervalores{
     height: auto;
     color: black;
@@ -127,4 +131,99 @@ height: 60px;
     padding-bottom: 5px;
   }
 
+  .containeralq{
+    background-color: gray;
+    height: auto;
+    width: 100%;
+    text-align: center;
+    color: white;
+    padding: 1%;
+  }
+
+  .textalq{
+      text-align: right;
+  }
+
+  .containeralqdos{
+      background-color: #018080;
+      padding: 7%;
+      text-align: justify;
+      color: white;
+  }
+
+  .containeralqtres{
+    background-color: #018080;
+    padding: 1%;
+    text-align: justify;
+    color: white;
+}
+  
+    #imgvision{
+     width: 100%;
+  }
+
+  .textalqdos{
+    text-align: right;
+    padding: 2%;
+  }
+
+  .containertres{
+      align-items: center;
+      text-align: center;
+      padding-left: 5%;
+      padding-bottom: 5%;
+      padding-right: 5%;
+  }
+  .containerhow{
+    height: auto;
+    width: 100%;
+    background-color: #018080;
+    padding: 5%;
+    padding-bottom: 2%;
+    align-items: center;
+    text-align: center;
+  }
+
+  .containerhowcuatro{
+    height: auto;
+    width: 100%;
+    background-color: #018080;
+    padding: 0%;
+    padding-bottom: 2%;
+    padding-left: 5%;
+    padding-right: 5%;
+    align-items: center;
+    text-align: center;
+  }
+
+  
+  .containerhowcinco{
+    height: auto;
+    width: 100%;
+    background-color: #018080;
+    padding: 0%;
+    padding-bottom: 2%;
+    padding-top: 2%;
+    align-items: center;
+    text-align: center;
+  }
+
+
+
+  .containerhowdos{
+      height: auto;
+      width: 100%;
+      background-color: white;
+      border-radius: 20px;
+      align-items: center;
+      text-align: justify;
+      padding:3%;
+  }
+
+  #imghow{
+      border-radius: 20px;
+      align-items: center;
+      text-align: center;
+      height: 125px;
+  }
 

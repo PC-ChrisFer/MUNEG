@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" href="../../resources/css/estilo_publico.css">
+    <title>MUNEG</title>
+</head>
+
+<body>
+    <header>
+        <nav class="navbar fixed-top navbar-light" id="navcolor">
+          <div class="container-fluid">
+    
+            <div id="con">
+              <a class="navbar-brand" href="#"><img src="../img/logo.png" id="imgnav" usemap="#home"></a>
+              <!-- Mapeando la imagen -->
+              <map name="home">
+                <area shape="rect" coords="0,0,311,98" href="index.html">
+              </map>
+              <a class="navbar-brand" id="contactenos" href="#">CONTACTENOS: <img src="../img/phone_30px.png" id="celimg">
+                2278-9879</a>
+            </div>
+    
+            <ul class="nav" id="menu1">
+              <li class="nav-item dropdown  ">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+                  aria-expanded="false">
+                  TIPO DE PROPIEDAD
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <li><a class="dropdown-item" href="#">Apartamento</a></li>
+                  <li>
+                    <hr class="dropdown-divider">
+                  </li>
+                  <li><a class="dropdown-item" href="#">Casa</a></li>
+                  <li>
+                    <hr class="dropdown-divider">
+                  </li>
+                  <li><a class="dropdown-item" href="#">Something else here</a></li>
+                </ul>
+              </li>
+    
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+                  aria-expanded="false">
+                  ZONA
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <li><a class="dropdown-item" href="#">San Salvador</a></li>
+                  <li>
+                    <hr class="dropdown-divider">
+                  </li>
+                  <li><a class="dropdown-item" href="#">La Union</a></li>
+                  <li>
+                    <hr class="dropdown-divider">
+                  </li>
+                  <li><a class="dropdown-item" href="#">Something else here</a></li>
+                </ul>
+              </li>
+    
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+                  aria-expanded="false">
+                  PRECIO
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <li><a class="dropdown-item" href="#">5000.000 USD</a></li>
+                  <li>
+                    <hr class="dropdown-divider">
+                  </li>
+                  <li><a class="dropdown-item" href="#">5000.000 USD</a></li>
+                  <li>
+                    <hr class="dropdown-divider">
+                  </li>
+                  <li><a class="dropdown-item" href="#">Something else here</a></li>
+                </ul>
+              </li>
+    
+              <li>
+                <a href=""><img src="../img/search_24px.png"></a>
+              </li>
+            </ul>
+    
+    
+            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
+              aria-controls="offcanvasNavbar">
+              <span><img src="../img/menu_30px.png"></span>
+            </button>
+    
+            <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+              <div class="offcanvas-header">
+                <h5 class="offcanvas-title" id="offcanvasNavbarLabel">MENU</h5>
+                <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+              </div>
+              <div class="offcanvas-body" id="fondo">
+                <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                  <li class="nav-item">
+                    <a class="nav-link" href="sobre_nosotros.html"><img src="../img/person_30px.png">Sobre
+                      Nostros</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="preguntas_frecuentes.html"><img src="../img/poll_30px.png">Preguntas
+                      Frecuentes</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="contactenos.html"><img src="../img/contact_30px.png">Contactenos</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="propiedades_alquiler.html"><img src="../img/rent_30px.png">Alquiler de
+                      Inmueble</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="propiedades_venta.html"><img src="../img/land_sales_30px.png">Venta de
+                      Inmueble</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="confianos_venta_alquiler.html"><img src="../img/sale_30px.png">Alquila tu
+                      Inmueble</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="confianos_venta_alquiler.html"><img src="../img/sale_30px.png">Vende tu
+                      Inmueble</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </nav>
+      </header>
+    <main>
+        <section class="bgTerm" id="carouselExampleIndicators">
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <h2 id="tituloTerm">Preguntas frecuentes</h2>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="container textterm">
+                <h3 class="faqtext">¿Cómo funciona nuestro servicio?</h3>
+                <P>Lorem ipsum dolor sit amet consectetur adipisicing
+                    elit. Qui totam id eveniet animi laudantium dignissimos a ullam placeat, quis facilis voluptatibus,
+                    enim
+                    sunt itaque! Doloremque dolor consequatur eius natus dolores!</P>
+
+                <h3 class="faqtext">¿Cuánto tiempo tarda en verderser una propiedad?</h3>
+                <P>Lorem ipsum dolor sit amet consectetur adipisicing
+                    elit. Qui totam id eveniet animi laudantium dignissimos a ullam placeat, quis facilis voluptatibus,
+                    enim
+                    sunt itaque! Doloremque dolor consequatur eius natus dolores! Lorem, ipsum dolor sit amet
+                    consectetur adipisicing elit. Ad suscipit quisquam voluptate aperiam ducimus recusandae omnis
+                    repellat? Veniam, totam itaque ad dicta sequi tempora nesciunt ex ratione aperiam placeat magnam?
+                </P>
+                <h3 class="faqtext">¿Cuánto cuesta este servicio?</h3>
+                <P>Lorem ipsum dolor sit amet consectetur adipisicing
+                    elit. Qui totam id eveniet animi laudantium dignissimos a ullam placeat, quis facilis voluptatibus,
+                    enim
+                    sunt itaque! Doloremque dolor consequatur eius natus dolores!</P>
+                <h3 class="faqtext">¿Existen otros costos adicionales?</h3>
+                <P>Lorem ipsum dolor sit amet consectetur adipisicing
+                    elit. Qui totam id eveniet animi laudantium dignissimos a ullam placeat, quis facilis voluptatibus,
+                    enim
+                    sunt itaque! Doloremque dolor consequatur eius natus dolores!</P>
+                <h3 class="faqtext">¿Por qué debería contratarlos y no vender por mi cuenta?</h3>
+                <P>Lorem ipsum dolor sit amet consectetur adipisicing
+                    elit. Qui totam id eveniet animi laudantium dignissimos a ullam placeat, quis facilis voluptatibus,
+                    enim
+                    sunt itaque! Doloremque dolor consequatur eius natus dolores!</P>
+            </div>
+
+        </section>
+
+        <!--Primer footer Footer-->
+        <div class="text-white pt-5 pb-4" id="Primerfooter">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-8 col-md-12">
+                        <img src="../img/vende_alquila_casa.png">
+                    </div>
+                    <div class="col-lg-4 col-md-12">
+                        <div class="col-12">
+                            <a class="navbar-brand" id="contactenos_footer" href="#">CONTACTENOS: <img
+                                    src="../img/phone_30px.png">
+                                2278-9879</a>
+                        </div>
+                        <div class="col-12">
+                            <img src="../img/Facebook_75px.png">
+                            <img src="../img/instagram_circle_75px.png">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!--Segundo footer Footer-->
+    <footer class="text-white  pt-5 pb-4" id="Segundofooter">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-4 text-justify">
+                    <h1 id="Encabezado_footer">MUNEG</h1>
+                    <p>"HACEMOS DE LA VENTA O ALQUILER DE SU PROPIEDAD UN PROCESO FÁCIL Y RÁPIDO, GARANTIZANDO LA
+                        SEGURIDAD PARA
+                        USTED Y SU FAMILIA"</p>
+                    <a href="sobre_nosotros.html" id="enlaces_footer">
+                        <h4>Conozca sobre nosotros</h4>
+                    </a>
+                    <a href="terminos_condiciones.html" id="enlaces_footer">
+                        <h4>Términos y condiciones</h4>
+                    </a>
+                </div>
+                <div class="col-lg-4" id="color2">
+                    <h1 id="Encabezado_footer">Encuentra Propiedades</h1>
+                    <a href="propiedades_venta.html" id="enlaces_footer">
+                        <h4>>Casas en Venta</h4>
+                    </a>
+                    <a href="propiedades_alquiler.html" id="enlaces_footer">
+                        <h4>>Casas en Alquiler</h4>
+                    </a>
+                    <a href="propiedades_venta.html" id="enlaces_footer">
+                        <h4>>Comercios en Venta</h4>
+                    </a>
+                    <a href="propiedades_alquiler.html" id="enlaces_footer">
+                        <h4>>Comercios en Alquiler</h4>
+                    </a>
+                </div>
+                <div class="col-lg-4 ">
+                    <h1 id="Encabezado_footer">Recibe Ofertas por Correo:</h1>
+                    <div class="row">
+                        <div class="col-2">
+                            <img src="../img/gmail.png">
+                        </div>
+                        <div class="col-10">
+                            <p>Ingrese su nombre:</p>
+                            <input type="email" class="form-control" id="exampleInputEmail1"
+                                aria-describedby="emailHelp" placeholder="Ingrese su nombre">
+                        </div>
+                        <div class="col-12">
+                            <p>Ingrese su correo electronico:</p>
+                            <input type="email" class="form-control" id="exampleInputEmail1"
+                                aria-describedby="emailHelp" placeholder="Ingrese el correo">
+                        </div>
+                        <div class="col-12 d-flex justify-content-center">
+                            <a class="btn">Enviar</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- JavaScript de Boostrap-->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
+        integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"
+        integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13"
+        crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+</body>
+
+<footer>
+
+
+</footer>
+
+</html>

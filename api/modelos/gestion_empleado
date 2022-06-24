@@ -85,10 +85,8 @@ class tipo_empleado extends validator
     //(sin parametros)
     public function readAll()
     {
-        $sql = 'SELECT id_municipio, municipio, municipio.id_departamento, departamento
-        FROM public.municipio
-        INNER JOIN public.departamento
-        ON public.municipio.id_departamento = public.departamento.id_departamento';
+        $sql = 'SELECT id_tipo_empleado, nombre_tipo, visibilidad
+        FROM public.tipo_empleado';
         $params = null;
         return Database::getRows($sql, $params);
     }

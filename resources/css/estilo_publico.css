@@ -483,23 +483,6 @@
     text-align: center;
 }
 
-img{
-	max-width: 100%;
-}
-.gallery{
-	padding: 30px 0;
-}
-.gallery img{
-	background-color: #ffffff;
-	padding: 15px;
-	width: 100%;
-	box-shadow: 0 0 15px rgba(0,0,0,0.3);
-	cursor: pointer;
-}
-#gallery-modal .modal-img{
-	width: 100%;
-}
-
 #fotos{
     margin-right: 70px;
 }
@@ -514,4 +497,70 @@ img{
 .gallery-item{
     max-width: 400px;
 }
+
+/*carta de detalle*/
+
+#card_detalle{
+    background-color: #FFFFFF;
+    margin-top: 80px;
+    align-items: center;
+    justify-content: center;
+}
+
+/*galeria de imagenes*/
+
+
+.gallery img{
+	background-color:#839599;
+	padding: 15px;
+	width: 100%;
+	box-shadow: 0 0 15px rgba(0,0,0,0.3);
+	cursor: pointer;
+}
+#gallery-modal .modal-img{
+	width: 100%;
+}
+
+#contenero_cartas12{
+    align-items: center;
+}
+
+#completo12{
+    align-items: center;
+    text-align: center;
+    justify-content: end;
+}
+
+#precio11 h5{
+    padding-top:  20px;
+    padding-bottom: 20px;
+    color:#626262;
+    font-size:xx-large;
+}
+
+#contenero_cartas12{
+    justify-content: center;
+}
+
+.card12465{
+    background-color: #2698A2;
+    margin-bottom: 80px;
+}
+
+
+.card12465 p{
+    color: black;
+}
+
+.card12465 h5{
+    color: white;
+}
+
+
+#separadoF{
+    justify-content:center;
+}
+
+
+
 

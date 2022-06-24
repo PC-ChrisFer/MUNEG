@@ -2,7 +2,7 @@
 //Llama a otros documentos de php respectivo, el database, el validador, y el respectivo modelo
 require_once('../helpers/database.php');
 require_once('../helpers/validator.php');
-require_once('../modelos/reporte.php');
+require_once('../modelos/contrato.php');
 
 // constants 
 const ACTION = 'action';
@@ -17,9 +17,8 @@ const CREATE = 'create';
 const UPDATE = 'update';
 const DELETE = 'delete';
 const SUCESS_RESPONSE = 1;
-
-/ NOMBRES DE PARAMETROS, DEBEN DE SER IGUALES AL ID Y NAME DEL INPUT DE EL FORMULARIO
-
+    
+// NOMBRES DE PARAMETROS, DEBEN DE SER IGUALES AL ID Y NAME DEL INPUT DE EL FORMULARIO
 
 // Se comprueba si existe una acción a realizar, de lo contrario se finaliza el script con un mensaje de error.
 if (isset($_GET[ACTION])) {

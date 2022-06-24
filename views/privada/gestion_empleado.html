@@ -135,7 +135,7 @@
 
         <!-- Botones de SCRUD, actualizar y agregar -->
         <div class="container-fluid" id="opciones">
-            <div class="btn-group" role="group" aria-label="Basic example">
+            <div class="btn-group" role="group">
                 <button type="button" class="btn btn-primary" id="btnmenu" data-bs-toggle="modal"
                     data-bs-target="#agregar"><a class="nav-link" href="#"><img
                             src="../../resources/img/iconos_formularios/agregar_26px.png"></a></button>
@@ -274,165 +274,167 @@
 
         <!-- Los modals formularios -->
         <!-- Modal de AGREGAR REGISTRO-->
-        <div class="modal fade" id="agregar" tabindex="-1" aria-labelledby="agregarform" aria-hidden="true">
+        <div class="modal fade" id="agregar" tabindex="-1">
             <div class="modal-dialog modal-xl modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header" id="formHeader">
                         <h5 class="modal-title" id="actualizarformLabel">Agregar Empleado</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div class="modal-body" id="formModal">
-                        <div class="row">
-                            <div class="col">
-                                <label for="nombre_empleado" class="form-label">Nombre</label>
-                                <input type="text" class="form-control" id="nombre_empleado" name="nombre_empleado"
-                                    placeholder="Cristian Fernnado">
+                    <!-- Formulario de Insert-->
+                    <form method="post" id="insert_form">
+                        <div class="modal-body" id="formModal">
+                            <div class="row">
+                                <div class="col">
+                                    <label for="nombre_empleado" class="form-label">Nombre</label>
+                                    <input type="text" class="form-control" id="nombre_empleado" name="nombre_empleado"
+                                        placeholder="Ingrese el nombre del empleado" required>
 
-                                <label for="apellido_empleado" class="form-label">Apellido</label>
-                                <input type="text" class="form-control" id="apellido_empleado" name="apellido_empleado"
-                                    placeholder="Parada Mira">
+                                    <label for="apellido_empleado" class="form-label">Apellido</label>
+                                    <input type="text" class="form-control" id="apellido_empleado"
+                                        name="apellido_empleado" placeholder="Ingrese el apellido del empleado"
+                                        required>
 
-                                <label for="telefono" class="form-label">Teléfono</label>
-                                <input type="tel" class="form-control" id="telefono" name="telefono"
-                                    placeholder="+503 77237602">
+                                    <label for="telefono" class="form-label">Teléfono</label>
+                                    <input type="tel" class="form-control" id="telefono" name="telefono"
+                                        placeholder="Ingrese el telefono del empleado" required>
 
-                                <label for="correo_electronico" class="form-label">Correo Electrónico</label>
-                                <input type="email" class="form-control" id="correo_electronico" name="correo_electronico"
-                                    placeholder="cristianfernandoparadamira@gmail.com">
+                                    <label for="correo_electronico" class="form-label">Correo Electrónico</label>
+                                    <input type="email" class="form-control" id="correo_electronico"
+                                        name="correo_electronico" placeholder="Ingrese correo electrónico" required>
 
-                                <label for="fecha_nacimiento" class="form-label">Fecha de Nacimiento</label>
-                                <input type="date" class="form-control" id="fecha_nacimiento" name="fecha_nacimiento"
-                                    placeholder="12-03-2003">
-                            </div>
-                            <div class="col">
-                                <label for="genero" class="form-label">Género</label>
-                                <select id="genero" name="genero" class="form-control">
-                                    <option value="value1">Masculino</option>
-                                    <option value="value2" selected>Femenino</option>
-                                </select>
+                                    <label for="fecha_nacimiento" class="form-label">Fecha de Nacimiento</label>
+                                    <input type="date" class="form-control" id="fecha_nacimiento"
+                                        name="fecha_nacimiento" required>
+                                </div>
+                                <div class="col">
+                                    <label for="genero" class="form-label">Género</label>
+                                    <select id="genero" name="genero" class="form-control" required>
+                                        <option value="value1">Masculino</option>
+                                        <option value="value2" selected>Femenino</option>
+                                    </select>
 
-                                <label for="dui" class="form-label">DUI</label>
-                                <input type="text" class="form-control" id="dui" name="dui"
-                                    placeholder="09101810-2">
+                                    <label for="dui" class="form-label">DUI</label>
+                                    <input type="text" class="form-control" id="dui" name="dui"
+                                        placeholder="Ingrese el DUI del empleado" required>
 
-                                <label for="nit" class="form-label">NIT</label>
-                                <input type="text" class="form-control" id="nit" name="nit"
-                                    placeholder="3101-291120-229-1">
+                                    <label for="nit" class="form-label">NIT</label>
+                                    <input type="text" class="form-control" id="nit" name="nit"
+                                        placeholder="Ingrese NIT del empleado" required>
 
-                                <label for="tipo_empleado" class="form-label">Tipo de Empleado</label>
-                                <select name="select" class="form-control" id="tipo_empleado" name="tipo_empleado">
+                                    <label for="tipo_empleado" class="form-label">Tipo de Empleado</label>
+                                    <select name="select" class="form-control" id="tipo_empleado" name="tipo_empleado"
+                                        required>
+                                    </select>
 
-                                </select>
-
-                                <label for="estado_empleado" class="form-label">Estado de Empleado</label>
-                                <select name="select" class="form-control" id="estado_empleado" name="estado_empleado">
-
-                                </select>
-                            </div>
-                            <div class="col">
-                                <label for="upload_image" class="form-label">Imagen</label>
-                                <a class="btn"  id="upload_image" name="archivo">
-                                    <input type="file" class="form-control form-control-sm form-Input-Style">
-                                    <img src="../../resources/img/iconos_formularios/download_100px.png">
-                                </a>
+                                    <label for="estado_empleado" class="form-label">Estado de Empleado</label>
+                                    <select name="select" class="form-control" id="estado_empleado"
+                                        name="estado_empleado" required>
+                                    </select>
+                                </div>
+                                <div class="col">
+                                    <label for="upload_image" class="form-label">Imagen</label>
+                                    <a class="btn" id="upload_image" name="archivo">
+                                        <input type="file" class="form-control form-control-sm form-Input-Style"
+                                            required>
+                                        <img src="../../resources/img/iconos_formularios/download_100px.png">
+                                    </a>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <!-- Fotter del modal -->
-                    <div class="modal-footer">
-                        <div class="btn-group" role="group" aria-label="Basic example" id="opcionesModal">
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                href="#actualizarConfirmar" id="btnmenu"><a class="nav-link"><img
-                                        src="../../resources/img/iconos_formularios/agregar_26px.png"></a></button>
-                            <button type="button" class="btn btn-primary" id="btnmenu" data-bs-toggle="modal"
-                                data-bs-target="#actualizarform"><a class="nav-link"><img
-                                        src="../../resources/img/iconos_formularios/cerrar_26px.png"></a></button>
+                        <!-- Fotter del modal -->
+                        <div class="modal-footer">
+                            <div class="btn-group" role="group" id="opcionesModal">
+                                <button type="submit" class="btn btn-primary" id="btnmenu"><a class="nav-link"><img
+                                            src="../../resources/img/iconos_formularios/agregar_26px.png"></a></button>
+                                <button type="button" class="btn btn-primary" id="btnmenu"><a class="nav-link"><img
+                                            src="../../resources/img/iconos_formularios/cerrar_26px.png"></a></button>
+                            </div>
                         </div>
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>
         <!-- Modal de ACTUALIZAR REGISTRO -->
-        <div class="modal fade" id="actualizar" tabindex="-1" aria-labelledby="actualizarform" aria-hidden="true">
+        <div class="modal fade" id="actualizar" tabindex="-1">
             <div class="modal-dialog modal-xl modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header" id="formHeader">
                         <h5 class="modal-title">Actualizar Empleado</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div class="modal-body" id="formModal">
-                        <div class="row">
-                            <div class="col">
-                                <label for="nombre_empleado_update" class="form-label">Nombre</label>
-                                <input type="text" class="form-control" id="nombre_empleado_update" name="nombre_empleado_update"
-                                    placeholder="Cristian Fernnado">
+                    <!-- Formulario de update-->
+                    <form method="post" id="update_form">
+                        <div class="modal-body" id="formModal">
+                            <div class="row">
+                                <div class="col">
+                                    <label for="nombre_empleado_update" class="form-label">Nombre</label>
+                                    <input type="text" class="form-control" id="nombre_empleado_update"
+                                        name="nombre_empleado_update">
 
-                                <label for="apellido_empleado_update" class="form-label">Apellido</label>
-                                <input type="text" class="form-control" id="apellido_empleado_update" name="apellido_empleado_update"
-                                    placeholder="Parada Mira">
+                                    <label for="apellido_empleado_update" class="form-label">Apellido</label>
+                                    <input type="text" class="form-control" id="apellido_empleado_update"
+                                        name="apellido_empleado_update">
 
-                                <label for="telefono_update" class="form-label">Teléfono</label>
-                                <input type="tel" class="form-control" id="telefono_update" name="telefono_update"
-                                    placeholder="+503 77237602">
+                                    <label for="telefono_update" class="form-label">Teléfono</label>
+                                    <input type="tel" class="form-control" id="telefono_update" name="telefono_update">
 
-                                <label for="correo_electronico_update" class="form-label">Correo Electrónico</label>
-                                <input type="email" class="form-control" id="correo_electronico_update" name="correo_electronico_update"
-                                    placeholder="cristianfernandoparadamira@gmail.com">
+                                    <label for="correo_electronico_update" class="form-label">Correo Electrónico</label>
+                                    <input type="email" class="form-control" id="correo_electronico_update"
+                                        name="correo_electronico_update">
 
-                                <label for="fecha_nacimiento_update" class="form-label">Fecha de Nacimiento</label>
-                                <input type="date" class="form-control" id="fecha_nacimiento_update" name="fecha_nacimiento_update"
-                                    placeholder="12-03-2003">
-                            </div>
-                            <div class="col">
-                                <label for="genero_update" class="form-label">Género</label>
-                                <select id="genero_update" name="genero_update" class="form-control">
+                                    <label for="fecha_nacimiento_update" class="form-label">Fecha de Nacimiento</label>
+                                    <input type="date" class="form-control" id="fecha_nacimiento_update"
+                                        name="fecha_nacimiento_update">
+                                </div>
+                                <div class="col">
+                                    <label for="genero_update" class="form-label">Género</label>
+                                    <select id="genero_update" name="genero_update" class="form-control">
 
-                                </select>
+                                    </select>
 
-                                <label for="dui_update" class="form-label">DUI</label>
-                                <input type="text" class="form-control" id="dui_update" name="dui_update"
-                                    placeholder="09101810-2">
+                                    <label for="dui_update" class="form-label">DUI</label>
+                                    <input type="text" class="form-control" id="dui_update" name="dui_update">
 
-                                <label for="nit_update" class="form-label">NIT</label>
-                                <input type="text" class="form-control" id="nit_update" name="nit_update"
-                                    placeholder="3101-291120-229-1">
+                                    <label for="nit_update" class="form-label">NIT</label>
+                                    <input type="text" class="form-control" id="nit_update" name="nit_update">
 
-                                <label for="tipo_empleado_update" class="form-label">Tipo de Empleado</label>
-                                <select name="select" class="form-control" id="tipo_empleado_update" name="tipo_empleado_update">
+                                    <label for="tipo_empleado_update" class="form-label">Tipo de Empleado</label>
+                                    <select name="select" class="form-control" id="tipo_empleado_update"
+                                        name="tipo_empleado_update">
 
-                                </select>
+                                    </select>
 
-                                <label for="estado_empleado_update" class="form-label">Estado de Empleado</label>
-                                <select name="select" class="form-control" id="estado_empleado_update" name="estado_empleado_update">
+                                    <label for="estado_empleado_update" class="form-label">Estado de Empleado</label>
+                                    <select name="select" class="form-control" id="estado_empleado_update"
+                                        name="estado_empleado_update">
 
-                                </select>
-                            </div>
-                            <div class="col">
-                                <label for="upload_image" class="form-label">Imagen</label>
-                                <a class="btn"  id="upload_image" name="archivo">
-                                    <input type="file" class="form-control form-control-sm form-Input-Style">
-                                    <img src="../../resources/img/iconos_formularios/download_100px.png">
-                                </a>
+                                    </select>
+                                </div>
+                                <div class="col">
+                                    <label for="upload_image" class="form-label">Imagen</label>
+                                    <a class="btn" id="upload_image" name="archivo">
+                                        <input type="file" class="form-control form-control-sm form-Input-Style">
+                                        <img src="../../resources/img/iconos_formularios/download_100px.png">
+                                    </a>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <!-- Fotter del modal -->
-                    <div class="modal-footer">
-                        <div class="btn-group" role="group" aria-label="Basic example" id="opcionesModal">
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                href="#actualizarConfirmar" id="btnmenu"><a class="nav-link"><img
-                                        src="../../resources/img/iconos_formularios/editar_26px.png"></a></button>
-                            <button type="button" class="btn btn-primary" id="btnmenu" data-bs-toggle="modal"
-                                data-bs-target="#actualizarform"><a class="nav-link"><img
-                                        src="../../resources/img/iconos_formularios/cerrar_26px.png"></a></button>
+                        <!-- Fotter del modal -->
+                        <div class="modal-footer">
+                            <div class="btn-group" role="group" id="opcionesModal">
+                                <button type="button" class="btn btn-primary" id="btnmenu"><a class="nav-link"><img
+                                            src="../../resources/img/iconos_formularios/editar_26px.png"></a></button>
+                                <button type="button" class="btn btn-primary" id="btnmenu"><a class="nav-link"><img
+                                            src="../../resources/img/iconos_formularios/cerrar_26px.png"></a></button>
+                            </div>
                         </div>
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>
         <!-- Modal de ELIMINAR -->
-        <div class="modal fade" id="eliminar" aria-hidden="true" aria-labelledby="exampleModalToggleLabel"
-            tabindex="-1">
+        <div class="modal fade" id="eliminar" tabindex="-1">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header" id="formHeader">
@@ -442,18 +444,18 @@
                     <div class="modal-body">
                         Desea Eliminar la información de este registro?
                     </div>
-                    <div class="modal-footer">
-                        <button class="btn btn-primary" data-bs-target="#actualizarform" data-bs-toggle="modal"
-                            id="btnmenu">Volver</button>
-                        <button class="btn btn-primary" data-bs-target="#eliminado" data-bs-toggle="modal"
-                            id="btnmenu">Confirmar</button>
-                    </div>
+                    <!-- Formulario de Update -->
+                    <form method="post" id="delete_form">
+                        <div class="modal-footer">
+                            <button class="btn btn-primary" id="btnmenu">Volver</button>
+                            <button class="btn btn-primary" id="btnmenu">Confirmar</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
         <!-- Modal de ELIMINAR REALIZADO -->
-        <div class="modal fade" id="eliminado" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2"
-            tabindex="-1">
+        <div class="modal fade" id="eliminado" tabindex="-1">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header" id="formHeader">

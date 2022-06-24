@@ -15,7 +15,7 @@ class propietario extends validator
     private $DUI = null;
     private $imagen = null;
     private $id_tipo_propietario = null;
-    private $ruta = 
+    private $ruta;
     
     //Metodos para setear los valores de los campos
     //Id
@@ -119,15 +119,15 @@ class propietario extends validator
         
     }
     //Genero
-    public function getId($value)
+    public function getGenero($value)
     {
         return $this->genero;
         
     }
     //DUI
-    public function getId($value)
+    public function getDUI($value)
     {
-        return $this->id_propietario;
+        return $this->DUI;
         
     }
     //imagen

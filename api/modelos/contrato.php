@@ -13,7 +13,7 @@ class contrato extends validator
     private $id_propiedad = null;
     private $id_empleado = null;
     private $id_inquilino = null;
-    private $ruta = 
+    private $ruta;
 
     //Metodos para setear los valores de los campos
     //Id

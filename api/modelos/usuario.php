@@ -234,4 +234,22 @@ class usuario extends validator
         $params = array(4, $this->id_usuario);
         return Database::executeRow($sql, $params);
     }
+
+    //Buscar el nombre del usuario
+    public function searchUser($nombre_Usuario)
+    {
+        $sql = 'SELECT id_usuario, nombre_usuario, password, id_tipo_usuario
+        FROM usuario
+        WHERE nombre_usuario = ? AND id_tipo_usuario != 4';
+        $param = array($nombre_Usuario);
+        if ($data = Database::getRow($sql, $param)) {
+            $this->id_usuario = $data['id_usuario'];
+            $this->nombre_usuario = $nombre_Usuario;
+            return true;
+        } else {
+            return false;
+        }
+        return Database::getRow($sql, $param);
+    }
+
 }

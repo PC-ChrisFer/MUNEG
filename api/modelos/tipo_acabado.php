@@ -84,7 +84,7 @@ class tipo_acabado extends validator
     //(sin parametros)
     public function readAll()
     {
-        $sql = 'SELECT id_tipo_acabado, nombre_tipo
+        $sql = 'SELECT id_tipo_acabado, nombre_tipo, visibilidad
         FROM public.tipo_acabado';
         $params = null;
         return Database::getRows($sql, $params);

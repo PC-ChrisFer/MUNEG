@@ -1,5 +1,5 @@
 <?php
-//Maneja la tabla de categoria  de la base de datos
+//Maneja la tabla de tipo propiedad  de la base de datos
 //Contiene validaciones de validator
 
 class tipo_propiedad extends validator
@@ -93,7 +93,7 @@ class tipo_propiedad extends validator
     //(nombre_tipo)
     public function searchRows($value)
     {
-        $sql = 'SELECT id_tipo_propiedad, id_categoria, categoria, nombre_tipo
+        $sql = 'SELECT id_tipo_propiedad, categoria.id_categoria, nombre_categoria, nombre_tipo, tipo_propiedad.visibilidad
         FROM public.tipo_propiedad
         INNER JOIN public.categoria
         ON tipo_propiedad.id_categoria = categoria.id_categoria
@@ -106,10 +106,10 @@ class tipo_propiedad extends validator
     //(sin parametros)
     public function readAll()
     {
-        $sql = 'SELECT id_tipo_propiedad, id_categoria, categoria, nombre_tipo
+        $sql = 'SELECT id_tipo_propiedad, tipo_propiedad.id_categoria, categoria, nombre_tipo, tipo_propiedad.visibilidad
         FROM public.tipo_propiedad
-        INNER JOIN public.categoria
-        ON tipo_propiedad.id_categoria = categoria.id_categoria';
+        INNER JOIN public.tipo_propiedad
+        ON tipo_propiedad.id_categoria = categoria.id_categoria AND categoria.visibilidad = true';
         $params = null;
         return Database::getRows($sql, $params);
     }
@@ -120,9 +120,9 @@ class tipo_propiedad extends validator
     public function createRow()
     {
         $sql = 'INSERT INTO public.tipo_propiedad(
-        nombre_tipo, categoria, visibilidad)
+        nombre_tipo, id_categoria, visibilidad)
         VALUES (?, ?, ?)';
-        $params = array($this->tipo_propiedad, $this->categoria_id ,$this->true);
+        $params = array($this->tipo_propiedad, $this->categoria_id ,$this->visibilidad);
         return Database::executeRow($sql, $params);
     }
 
@@ -131,9 +131,9 @@ class tipo_propiedad extends validator
     public function updateRow()
     {
         $sql = 'UPDATE public.tipo_propiedad
-        SET nombre_tipo=?, categoria=? ,visibilidad=?
+        SET nombre_tipo=? ,visibilidad=?, id_categoria=?
         WHERE id_tipo_propiedad=?';
-        $params = array($this->tipo_propiedad, $this->categoria_id, $this->visibilidad, $this->id_tipo_propiedad);
+        $params = array($this->tipo_propiedad, $this->visibilidad, $this->categoria_id, ,$this->visibilidad, $this->id_tipo_propiedad);
         return Database::executeRow($sql, $params);
     }
 

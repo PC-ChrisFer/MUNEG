@@ -73,7 +73,7 @@ class tipo_usuario extends validator
     //(nombre_tipo)
     public function searchRows($value)
     {
-        $sql = 'SELECT id_tipo_usuario, nombre_tipo
+        $sql = 'SELECT id_tipo_usuario, nombre_tipo, visibilidad
         FROM public.tipo_usuario
         WHERE nombre_tipo ILIKE ?';
         $params = array("%$value%");
@@ -84,7 +84,7 @@ class tipo_usuario extends validator
     //(sin parametros)
     public function readAll()
     {
-        $sql = 'SELECT id_tipo_usuario, nombre_tipo
+        $sql = 'SELECT id_tipo_usuario, nombre_tipo, visibilidad
         FROM public.tipo_usuario';
         $params = null;
         return Database::getRows($sql, $params);

@@ -81,7 +81,7 @@ if (isset($_GET[ACTION])) {
             }
             break;
         case DELETE:
-            $result[EXCEPTION] = $tipo_propiedad->setId($_POST['id_tipo_propietario']) ? null : 'Tipo Acabado incorrecto';
+            $result[EXCEPTION] = $tipo_propiedad->setId($_POST['id_tipo_propidad']) ? null : 'Tipo Acabado incorrecto';
 
             if ($tipo_propiedad->deleteRow()) {
                 $result[MESSAGE] = 'Registro eliminado correctamente';

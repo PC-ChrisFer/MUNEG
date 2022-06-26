@@ -1,5 +1,5 @@
 <?php
-//Maneja la tabla de categoria  de la base de datos
+//Maneja la tabla de tipo propietario  de la base de datos
 //Contiene validaciones de validator
 
 class tipo_propietario extends validator
@@ -73,7 +73,7 @@ class tipo_propietario extends validator
     //(nombre_tipo)
     public function searchRows($value)
     {
-        $sql = 'SELECT id_tipo_propietario, nombre_tipo
+        $sql = 'SELECT id_tipo_propietario, nombre_tipo, visibilidad
         FROM public.tipo_propietario
         WHERE nombre_tipo ILIKE ?';
         $params = array("%$value%");
@@ -84,7 +84,7 @@ class tipo_propietario extends validator
     //(sin parametros)
     public function readAll()
     {
-        $sql = 'SELECT id_tipo_propietario, nombre_tipo
+        $sql = 'SELECT id_tipo_propietario, nombre_tipo, visibilidad
         FROM public.tipo_propietario';
         $params = null;
         return Database::getRows($sql, $params);

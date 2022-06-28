@@ -13,8 +13,6 @@
     <title>MUNEG S.A C.V</title>
 </head>
 
-
-
 <body>
     <!-- Header Privado -->
     <header>
@@ -132,9 +130,9 @@
     <main>
         <!-- Searchbar -->
         <div class="container-fluid" id="busqueda">
-            <form class="d-flex">
-                <input class="form-control me-2" type="search" placeholder="Búsqueda de Datos" aria-label="Search">
-                <a class="nav-link" href="#"><img src="../../resources/img/iconos_navbar/search_24px.png"></a>
+            <form class="d-flex" method="post" id="search-bar">
+                <input class="form-control me-2" name="search" placeholder="Búsqueda de Datos" aria-label="Search" required>
+                <button class="btn" type="submit"><img src="../../resources/img/iconos_navbar/search_24px.png"></button>
             </form>
         </div>
         <div class="container-fluid" id="opciones">
@@ -177,6 +175,9 @@
                                     <label for="tipo_propiedad" class="form-label">Nombre de Tipo Propiedad.</label>
                                     <input type="text" class="form-control" id="tipo_propiedad" name="tipo_propiedad"
                                         placeholder="Escriba un nombre a la Tipo Propiedad" required>
+                                    <select onchange="selectIdCategoria('listado_categorias_id')"
+                                        id="listado_categorias_id" name="proveedores_select" class="form-control">
+                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -203,7 +204,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <!-- Formulario de Update-->
-                    <form method="post" id="update_form">
+                    <form id="update_form">
                         <div class="modal-body" id="formModal">
                             <div class="row">
                                 <div class="col">
@@ -211,6 +212,9 @@
                                         Propiedad.</label>
                                     <input type="text" class="form-control" id="tipo_propiedad_update"
                                         name="tipo_propiedad_update" required>
+                                        <select onchange="selectIdCategoria('listado_categorias_id_u')"
+                                        id="listado_categorias_id_u" name="proveedores_select" class="form-control">
+                                    </select>
                                         <input id="switchButton" type="button" onclick="cambiarEstadoTipoPropiedad()">
                                 </div>
                             </div>

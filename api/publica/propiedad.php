@@ -16,10 +16,7 @@ const READ_ONE = 'readOne';
 const CREATE = 'create';
 const UPDATE = 'update';
 const DELETE = 'delete';
-const READ_DEPARTAMENTO = 'readDepartamento';
-const READ_MUNICIPIO = 'readMunicipio';
-const READ_TIPO_PROPIEDAD = 'readTipoPropiedad';
-const READ_CATEGORIA = 'readCategoria';
+
 const SUCESS_RESPONSE = 1;
 
 //NOMBRES DE PARAMETROS, DEBEN DE SER IGUALES AL ID Y NAME DEL INPUT DE EL FORMULARIO
@@ -47,10 +44,10 @@ if (isset($_GET[ACTION])) {
             }
             break;
         case SEARCH:
-            $result[EXCEPTION] = $propiedad->setDepartamento($_POST['departamento']) ? null : 'Departamento incorrecto';
-            $result[EXCEPTION] = $propiedad->setIdMunicipio($_POST['visibilidad']) ? null : 'Municipio incorrecto';
+            $result[EXCEPTION] = $propiedad->setDepartamento($_POST['id_departamento']) ? null : 'Departamento incorrecto';
+            $result[EXCEPTION] = $propiedad->setIdMunicipio($_POST['id_municipio']) ? null : 'Municipio incorrecto';
             $result[EXCEPTION] = $propiedad->setIdTipoPropiedad($_POST['id_tipo_propiedad']) ? null : 'Tipo Propiedad incorrecto';
-            $result[EXCEPTION] = $propiedad->setCategoria($_POST['id_tipo_propiedad']) ? null : 'Categoria incorrecta';
+            $result[EXCEPTION] = $propiedad->setCategoria($_POST['id_categoria']) ? null : 'Categoria incorrecta';
             if ($result[DATA_SET] = $propiedad->searchRowsPublic()) {
                 $result[STATUS] = SUCESS_RESPONSE;
                 $result[MESSAGE] = 'Valor encontrado';

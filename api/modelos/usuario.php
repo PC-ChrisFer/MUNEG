@@ -135,7 +135,7 @@ class usuario extends validator
         $params = array("%$value%", "%$value%", "%$value%");
         return Database::getRows($sql, $params);
     }
-    
+
     //Metodo para la busqueda SEARCH
     //(nombre_tipo, nombre_usuario, nombre_empleado)
     public function searchRowsEmpleado($value)
@@ -170,7 +170,7 @@ class usuario extends validator
     //(sin parametros)
     public function readAllEmpleado()
     {
-        $sql = 'SELECT id_usuario, nombre_usuario, password, usuario.id_tipo_usuario, nombre_tipo, usuario.id_empleado, nombre	    
+        $sql = 'SELECT id_usuario, nombre_usuario, password, usuario.id_tipo_usuario, nombre_tipo, usuario.id_empleado, nombre, apellido	    
         FROM public.usuario
         INNER JOIN public.empleado 
         ON empleado.id_empleado = usuario.id_empleado
@@ -178,6 +178,16 @@ class usuario extends validator
 	    ON tipo_usuario.id_tipo_usuario = usuario.id_tipo_usuario';
         $params = null;
         return Database::getRows($sql, $params);
+    }
+
+    //Metodo para la inserción de Adminitrador
+    public function createRow()
+    {
+        $sql = 'INSERT INTO usuario(
+            nombre_usuario, password, id_tipo_usuario)
+            VALUES (?, ?, ?)';
+        $params = array($this->nombre_usuario, $this->password, $this->tipo_administrador);
+        return Database::executeRow($sql, $params);
     }
 
     //Metodo para la insercción INSERT (propietario)
@@ -218,9 +228,9 @@ class usuario extends validator
     public function updateRowEmpleado()
     {
         $sql = 'UPDATE public.usuario
-        SET nombre_usuario=?, password=?, id_tipo_usuario=?, id_empleado=?
+        SET nombre_usuario=?, id_tipo_usuario=?, id_empleado=?
         WHERE id_usuario=?';
-        $params = array($this->nombre_usuario, $this->password, $this->tipo_usuario_id, $this->empleado_id, $this->id_usuario);
+        $params = array($this->nombre_usuario,  $this->tipo_usuario_id, $this->empleado_id, $this->id_usuario);
         return Database::executeRow($sql, $params);
     }
 
@@ -252,4 +262,13 @@ class usuario extends validator
         return Database::getRow($sql, $param);
     }
 
+    //Buscar el password
+    public function searchPassword()
+    {
+        $sql = 'SELECT password 
+         FROM usuario 
+         WHERE id_usuario = ? AND id_tipo_usuario != 4';
+        $param = array($this->id_usuario);
+        return Database::getRow($sql, $param);
+    }
 }

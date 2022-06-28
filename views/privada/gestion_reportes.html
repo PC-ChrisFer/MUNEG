@@ -129,13 +129,13 @@
   </header>
 
   <main>
-    <!-- Searchbar -->
-    <div class="container-fluid" id="busqueda">
-      <form class="d-flex">
-        <input class="form-control me-2" type="search" placeholder="Búsqueda de Datos" aria-label="Search">
-        <a class="nav-link" href="#"><img src="../../resources/img/iconos_navbar/search_24px.png"></a>
-      </form>
-    </div>
+        <!-- Searchbar -->
+        <div class="container-fluid" id="busqueda">
+          <form class="d-flex" method="post" id="search-bar">
+              <input class="form-control me-2" name="search" placeholder="Búsqueda de Datos" aria-label="Search" required>
+              <button class="btn" type="submit"><img src="../../resources/img/iconos_navbar/search_24px.png"></button>
+          </form>
+      </div>
 
     <!-- Botones de SCRUD, actualizar y agregar -->
     <div class="container-fluid" id="opciones">
@@ -190,9 +190,8 @@
                 </div>
                 <div class="col">
                   <label for="upload_image" class="form-label">Imagen</label>
-                  <p></p>
                   <a class="btn" name="archivo" id="upload_image">
-                    <input type="file" class="form-control form-control-sm form-Input-Style">
+                    <input type="file" class="form-control form-control-sm form-Input-Style" name="archivo">
                     <img src="../../resources/img/iconos_formularios/download_100px.png">
                   </a>
                 </div>
@@ -231,7 +230,7 @@
                     class="form-control"></input>
 
                   <label for="inquilino_update" class="form-label">Inquilino</label>
-                  <select onchange="seleccionarInquilino()" id="inquilinos" name="tipo_empleado">
+                  <select onchange="seleccionarInquilino()" id="inquilinos_u" name="tipo_empleado">
                   </select>
 
                   <input id="switchButton" type="button" onclick="cambiarEstadoReporte()">
@@ -239,9 +238,8 @@
                 </div>
                 <div class="col">
                   <label for="upload_image" class="form-label">Imagen</label>
-                  <p></p>
                   <a class="btn" name="archivo" id="upload_image">
-                    <input type="file" class="form-control form-control-sm form-Input-Style">
+                    <input name="archivo" type="file" class="form-control form-control-sm form-Input-Style">
                     <img src="../../resources/img/iconos_formularios/download_100px.png">
                   </a>
                 </div>
@@ -331,6 +329,7 @@
     crossorigin="anonymous"></script>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script type="module" src="../../controller/privada/reportes.js"></script>
+
 
 
 </body>

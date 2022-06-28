@@ -132,9 +132,9 @@
     <main>
         <!-- Searchbar -->
         <div class="container-fluid" id="busqueda">
-            <form class="d-flex">
-                <input class="form-control me-2" type="search" placeholder="Búsqueda de Datos" aria-label="Search">
-                <a class="nav-link" href="#"><img src="../../resources/img/iconos_navbar/search_24px.png"></a>
+            <form class="d-flex" method="post" id="search-bar">
+                <input class="form-control me-2" name="search" placeholder="Búsqueda de Datos" aria-label="Search" required>
+                <button class="btn" type="submit"><img src="../../resources/img/iconos_navbar/search_24px.png"></button>
             </form>
         </div>
         <div class="container-fluid" id="opciones">
@@ -223,7 +223,7 @@
                                             src="../../resources/img/iconos_formularios/editar_26px.png"></a></button>
                                 <button type="button" class="btn btn-primary" id="btnmenu" data-bs-dismiss="modal"><a
                                         class="nav-link"><img
-                                            src="../../resources/iconos_formularios/cerrar_26px.png"></a></button>
+                                            src="../../resources/img/iconos_formularios/cerrar_26px.png"></a></button>
                             </div>
                         </div>
                     </form>
@@ -244,8 +244,8 @@
                     <!-- Formulario de Update -->
                     <form method="post" id="delete_form">
                         <div class="modal-footer">
-                            <button type="submit" class="btn btn-primary" id="btnmenu">Volver</button>
-                            <button class="btn btn-primary" id="btnmenu">Confirmar</button>
+                            <button class="btn btn-primary" id="btnmenu">Volver</button>
+                            <button type="" class="btn btn-primary" id="btnmenu">Confirmar</button>
                         </div>
                     </form>
                 </div>

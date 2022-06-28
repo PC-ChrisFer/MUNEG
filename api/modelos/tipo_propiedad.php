@@ -106,9 +106,9 @@ class tipo_propiedad extends validator
     //(sin parametros)
     public function readAll()
     {
-        $sql = 'SELECT id_tipo_propiedad, tipo_propiedad.id_categoria, categoria, nombre_tipo, tipo_propiedad.visibilidad
+        $sql = 'SELECT id_tipo_propiedad, tipo_propiedad.id_categoria, nombre_categoria, nombre_tipo, tipo_propiedad.visibilidad
         FROM public.tipo_propiedad
-        INNER JOIN public.tipo_propiedad
+        INNER JOIN public.categoria
         ON tipo_propiedad.id_categoria = categoria.id_categoria AND categoria.visibilidad = true';
         $params = null;
         return Database::getRows($sql, $params);
@@ -133,7 +133,7 @@ class tipo_propiedad extends validator
         $sql = 'UPDATE public.tipo_propiedad
         SET nombre_tipo=? ,visibilidad=?, id_categoria=?
         WHERE id_tipo_propiedad=?';
-        $params = array($this->tipo_propiedad, $this->visibilidad, $this->categoria_id, ,$this->visibilidad, $this->id_tipo_propiedad);
+        $params = array($this->tipo_propiedad, $this->visibilidad, $this->categoria_id , $this->id_tipo_propiedad);
         return Database::executeRow($sql, $params);
     }
 

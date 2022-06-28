@@ -61,10 +61,16 @@ if (isset($_GET[ACTION])) {
             $result[EXCEPTION] = $reporte->setDescripcion($_POST['descripcion']) ? null : 'Descripción no encontrada';
             $result[EXCEPTION] = $reporte->setInquilino($_POST['inquilino']) ? null : 'Inquilino incorrecto';
             $result[EXCEPTION] = $reporte->setEstado($_POST['estado']) ? null : 'Estado incorrecto';
+            $result[EXCEPTION] = is_uploaded_file($_FILES['archivo']['tmp_name']) ? null : "ARCHIVO INCORRECTO";
+            $result[EXCEPTION] = $reporte->setImage($_FILES['archivo']) ? null : $reporte->getFileError();
+            
             if ($reporte->createRow()) {
                 $result[MESSAGE] = 'Registro creado correctamente';
                 $result[DATA_SET] = $reporte->readAll();
                 $result[STATUS] =  $result[DATA_SET] ? SUCESS_RESPONSE : 'No hay datos registrados';
+                if ($reporte->saveFile($_FILES["archivo"], $reporte->getRutaImagenes(), $reporte->getImagen())) {
+                    $result[MESSAGE] = 'Imagen ingresada correctanente';
+                }
             } else {
                 $result[EXCEPTION] = Database::getException();
             }
@@ -76,11 +82,16 @@ if (isset($_GET[ACTION])) {
             $result[EXCEPTION] = $reporte->setInquilino($_POST['inquilino_update']) ? null : 'Inquilino incorrecto';
             $result[EXCEPTION] = $reporte->setEstado($_POST['estado_update']) ? null : 'Estado incorrecto';
             $result[EXCEPTION] = $reporte->setId($_POST['reporte_id']) ? null : 'Reporte incorrecto';
+            $result[EXCEPTION] = is_uploaded_file($_FILES['archivo']['tmp_name']) ? null : "ARCHIVO INCORRECTO";
+            $result[EXCEPTION] = $reporte->setImage($_FILES['archivo']) ? null : $reporte->getFileError();
 
             if ($reporte->updateRow()) {
                 $result[MESSAGE] = 'Registro modificado correctamente';
                 $result[DATA_SET] = $reporte->readAll();
                 $result[STATUS] =  $result[DATA_SET] ? SUCESS_RESPONSE : 'No hay datos registrados';
+                if ($reporte->saveFile($_FILES["archivo"], $reporte->getRutaImagenes(), $reporte->getImagen())) {
+                    $result[MESSAGE] = 'Imagen ingresada correctanente';
+                }
             } else {
                 $result[EXCEPTION] = Database::getException();
             }

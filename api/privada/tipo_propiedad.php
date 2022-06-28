@@ -3,6 +3,8 @@
 require_once('../helpers/database.php');
 require_once('../helpers/validator.php');
 require_once('../modelos/tipo_propiedad.php');
+require_once('../modelos/categoria.php');
+
 
 // constants 
 const ACTION = 'action';
@@ -27,6 +29,7 @@ if (isset($_GET[ACTION])) {
     session_start();
     // Se instancia la clase correspondiente.
     $tipo_propiedad = new tipo_propiedad;
+    $categoria = new categoria;
     // Se declara e inicializa un arreglo para guardar el resultado que retorna la API.
     $result = array(STATUS => 0, MESSAGE => null, EXCEPTION => null);
     // Se verifica si existe una sesión iniciada como administrador, de lo contrario se finaliza el script con un mensaje de error.
@@ -35,6 +38,15 @@ if (isset($_GET[ACTION])) {
             //Leer todo
         case READ_ALL:
             if ($result[DATA_SET] = $tipo_propiedad->readAll()) {
+                $result[STATUS] = SUCESS_RESPONSE;
+            } elseif (Database::getException()) {
+                $result[EXCEPTION] = Database::getException();
+            } else {
+                $result[EXCEPTION] = 'No hay datos registrados';
+            }
+            break;
+        case "readAllCategorias":
+            if ($result[DATA_SET] = $categoria->readAll()) {
                 $result[STATUS] = SUCESS_RESPONSE;
             } elseif (Database::getException()) {
                 $result[EXCEPTION] = Database::getException();
@@ -58,6 +70,8 @@ if (isset($_GET[ACTION])) {
         case CREATE:
             $_POST = $tipo_propiedad->validateSpace($_POST);
             $result[EXCEPTION] = $tipo_propiedad->setNombre($_POST['tipo_propiedad']) ? null : 'Nombre incorrecto';
+            $result[EXCEPTION] = $tipo_propiedad->setCategoria($_POST['categoria']) ? null : 'categoria incorrecto';
+
             if ($tipo_propiedad->createRow()) {
                 $result[MESSAGE] = 'Registro creado correctamente';
                 $result[DATA_SET] = $tipo_propiedad->readAll();
@@ -71,6 +85,8 @@ if (isset($_GET[ACTION])) {
             $result[EXCEPTION] = $tipo_propiedad->setNombre($_POST['tipo_propiedad_update']) ? null : 'Nombre incorrecto';
             $result[EXCEPTION] = $tipo_propiedad->setVisibilidad($_POST['visibilidad']) ? null : 'Visibilidad no encontrada';
             $result[EXCEPTION] = $tipo_propiedad->setId($_POST['id_tipo_propiedad']) ? null : 'Tipo Acabado incorrecto';
+            $result[EXCEPTION] = $tipo_propiedad->setCategoria($_POST['categoria']) ? null : 'categoria incorrecto';
+
 
             if ($tipo_propiedad->updateRow()) {
                 $result[MESSAGE] = 'Registro modificado correctamente';

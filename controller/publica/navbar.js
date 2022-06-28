@@ -59,15 +59,16 @@ async function fillComboBoxDepartamento() {
     getElementById(
       "departamento"
     ).innerHTML += `<option value="${element.id_departamento}" > ${element.departamento} </option>`;
-  });
+  }); 
 }
+
 
 //Guardar el elemento seleccionado
 //@ts-ignore 
 window.guardarDepartamento = () => {
   //@ts-ignore
   datos_propiedad.id_departamento = document.getElementById('departamento').value
-  console.log(datos_propiedad.id_departamento);
+  location.href= `propiedades_venta.html?id_departamento=${datos_propiedad.id_departamento}&id_municipio=${datos_propiedad.id_municipio}&id_categoria=${datos_propiedad.categoria}&id_tipo_propiedad=${datos_propiedad.id_tipo_propiedad}`;
 }
 
 //Obtener los datos de combobox municipio
@@ -90,7 +91,7 @@ async function fillComboBoxMunicipio() {
 window.guardarMunicipio = () => {
   //@ts-ignore
   datos_propiedad.id_municipio = document.getElementById('municipio').value
-  console.log(datos_propiedad.id_municipio);
+  location.href= `propiedades_venta.html?id_departamento=${datos_propiedad.id_departamento}&id_municipio=${datos_propiedad.id_municipio}&id_categoria=${datos_propiedad.categoria}&id_tipo_propiedad=${datos_propiedad.id_tipo_propiedad}`;
 }
 
 //Obtener los datos de combobox estado empleado
@@ -113,7 +114,7 @@ async function fillComboBoxTipoPropiedad() {
 window.guardarTipoPropiedad= () => {
   //@ts-ignore
   datos_propiedad.id_tipo_propiedad = document.getElementById('tipo_propiedad').value
-  console.log(datos_propiedad.id_tipo_propiedad);
+  location.href= `propiedades_venta.html?id_departamento=${datos_propiedad.id_departamento}&id_municipio=${datos_propiedad.id_municipio}&id_categoria=${datos_propiedad.categoria}&id_tipo_propiedad=${datos_propiedad.id_tipo_propiedad}`;
 }
 
 //Obtener los datos de combobox estado empleado
@@ -136,5 +137,5 @@ async function fillComboBoxCategoria() {
 window.guardarCategoria = () => {
   //@ts-ignore
   datos_propiedad.categoria = document.getElementById('categoria').value
-  console.log(datos_propiedad.categoria);
+  location.href= `propiedades_venta.html?id_departamento=${datos_propiedad.id_departamento}&id_municipio=${datos_propiedad.id_municipio}&id_categoria=${datos_propiedad.categoria}&id_tipo_propiedad=${datos_propiedad.id_tipo_propiedad}`;
 }

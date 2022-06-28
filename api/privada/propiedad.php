@@ -2,7 +2,7 @@
 //Llama a otros documentos de php respectivo, el database, el validador, y el respectivo modelo
 require_once('../helpers/database.php');
 require_once('../helpers/validator.php');
-require_once('../modelos/reporte.php');
+require_once('../modelos/propiedad.php');
 
 // constants 
 const ACTION = 'action';
@@ -59,7 +59,7 @@ if (isset($_GET[ACTION])) {
             $_POST = $propiedad->validateSpace($_POST);
             $result[EXCEPTION] = $propiedad->setDireccion($_POST['direccion_update']) ? null : 'Dirreción incorrecta';
             $result[EXCEPTION] = $propiedad->setAreaPro($_POST['area_propiedad_update']) ? null : 'Area de propiedad no encontrada';
-            $result[EXCEPTION] = $propiedad->setAreaCons($_POST['area_contruccion_update']) ? null : 'Area de construcción no encontrada';
+            $result[EXCEPTION] = $propiedad->setAreaCons($_POST['area_construccion_update']) ? null : 'Area de construcción no encontrada';
             $result[EXCEPTION] = $propiedad->setCodigo($_POST['codigo_update']) ? null : 'Código incorrecto';
             $result[EXCEPTION] = $propiedad->setPrecio($_POST['precio_update']) ? null : 'Precio incorrecto';
             $result[EXCEPTION] = $propiedad->setAlquiler($_POST['alquiler_update']) ? null : 'Alquiler incorrecto';
@@ -73,11 +73,16 @@ if (isset($_GET[ACTION])) {
             $result[EXCEPTION] = $propiedad->setIdEmpleado($_POST['id_empleado_update']) ? null : 'Empleado incorrecto';
             $result[EXCEPTION] = $propiedad->setIdInquilino($_POST['id_inquilino_update']) ? null : 'Inquilino incorrecto';
             $result[EXCEPTION] = $propiedad->setIdTipoAcabado($_POST['id_tipo_acabado_update']) ? null : 'Tipo de acabado incorrecto';
+            $result[EXCEPTION] = is_uploaded_file($_FILES['archivo']['tmp_name']) ? null : "ARCHIVO INCORRECTO";
+            $result[EXCEPTION] = $propiedad->setImage($_FILES['archivo']) ? null : $propiedad->getFileError();
 
             if ($propiedad->createRow()) {
                 $result[MESSAGE] = 'Registro creado correctamente';
                 $result[DATA_SET] = $propiedad->readAll();
                 $result[STATUS] =  $result[DATA_SET] ? SUCESS_RESPONSE : 'No hay datos registrados';
+                if ($propiedad->saveFile($_FILES["archivo"], $propiedad->getRutaImagenes(), $propiedad->getImagen())) {
+                    $result[MESSAGE] = 'Imagen ingresada correctanente';
+                }
             } else {
                 $result[EXCEPTION] = Database::getException();
             }
@@ -86,7 +91,7 @@ if (isset($_GET[ACTION])) {
             $_POST = $propiedad->validateSpace($_POST);
             $result[EXCEPTION] = $propiedad->setDireccion($_POST['direccion_update']) ? null : 'Dirreción incorrecta';
             $result[EXCEPTION] = $propiedad->setAreaPro($_POST['area_propiedad_update']) ? null : 'Area de propiedad no encontrada';
-            $result[EXCEPTION] = $propiedad->setAreaCons($_POST['area_contruccion_update']) ? null : 'Area de construcción no encontrada';
+            $result[EXCEPTION] = $propiedad->setAreaCons($_POST['area_construccion_update']) ? null : 'Area de construcción no encontrada';
             $result[EXCEPTION] = $propiedad->setCodigo($_POST['codigo_update']) ? null : 'Código incorrecto';
             $result[EXCEPTION] = $propiedad->setPrecio($_POST['precio_update']) ? null : 'Precio incorrecto';
             $result[EXCEPTION] = $propiedad->setAlquiler($_POST['alquiler_update']) ? null : 'Alquiler incorrecto';
@@ -101,11 +106,16 @@ if (isset($_GET[ACTION])) {
             $result[EXCEPTION] = $propiedad->setIdInquilino($_POST['id_inquilino_update']) ? null : 'Inquilino incorrecto';
             $result[EXCEPTION] = $propiedad->setIdTipoAcabado($_POST['id_tipo_acabado_update']) ? null : 'Tipo de acabado incorrecto';
             $result[EXCEPTION] = $propiedad->setId($_POST['id_propiedad']) ? null : 'Id incorrecto';
+            $result[EXCEPTION] = is_uploaded_file($_FILES['archivo']['tmp_name']) ? null : "ARCHIVO INCORRECTO";
+            $result[EXCEPTION] = $propiedad->setImage($_FILES['archivo']) ? null : $propiedad->getFileError();
 
             if ($propiedad->updateRow()) {
                 $result[MESSAGE] = 'Registro modificado correctamente';
                 $result[DATA_SET] = $propiedad->readAll();
                 $result[STATUS] =  $result[DATA_SET] ? SUCESS_RESPONSE : 'No hay datos registrados';
+                if ($propiedad->saveFile($_FILES["archivo"], $propiedad->getRutaImagenes(), $propiedad->getImagen())) {
+                    $result[MESSAGE] = 'Imagen ingresada correctanente';
+                }
             } else {
                 $result[EXCEPTION] = Database::getException();
             }

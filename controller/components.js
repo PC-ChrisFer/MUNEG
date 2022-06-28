@@ -18,6 +18,7 @@ export async function readRows(ENDPOINT, fillrows) {
   let APIEndpoint = ENDPOINT + API_READALL;
   //Llamar a la función de conexión api para realizar fetch y then
   let APIResponse = await APIConnection(APIEndpoint, GET_METHOD, null);
+  console.log(APIResponse.dataset)
   if (APIResponse.status == API_SUCESS_REQUEST) {
     fillrows(APIResponse.dataset)
     return

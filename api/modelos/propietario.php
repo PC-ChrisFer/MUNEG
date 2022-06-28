@@ -15,7 +15,7 @@ class propietario extends validator
     private $DUI = null;
     private $imagen = null;
     private $id_tipo_propietario = null;
-    private $ruta = 
+    private $ruta = null;
     
     //Metodos para setear los valores de los campos
     //Id

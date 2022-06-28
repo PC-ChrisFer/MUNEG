@@ -30,23 +30,19 @@ class reporte extends validator
     //Asunto - Varchar
     public function setAsunto($value)
     {
-        if ($this->validateAlphabetic($value, 1, 100)) {
-            $this->asunto = $value;
-            return true;
-        } else {
-            return false;
-        }
+        // FIX
+        // ARREGLAR VALIDACION
+        $this->asunto = $value;
+        return true;
     }
 
     //Descripcion - varchar
     public function setDescripcion($value)
     {
-        if ($this->validateAlphabetic($value, 6, 300)) {
-            $this->descripcion = $value;
-            return true;
-        } else {
-            return false;
-        }
+        // FIX
+        // ARREGLAR VALIDACION
+        $this->descripcion = $value;
+        return true;
     }
 
     //Id Inquilino - Integer

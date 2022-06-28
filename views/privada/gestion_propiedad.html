@@ -58,6 +58,11 @@
                                     Propietario</a>
                             </li>
                             <li class="nav-item">
+                                <a class="nav-link" href="gestion_cliente.html"><img
+                                        src="../../resources/img/iconos_navbar/person_30px.png">Gestion
+                                    de Cliente</a>
+                            </li>
+                            <li class="nav-item">
                                 <a class="nav-link" href="gestion_inquilino.html"><img
                                         src="../../resources/img/iconos_navbar/person_30px.png">Gestion
                                     Inquilino</a>
@@ -159,101 +164,6 @@
                 </thead>
                 <tbody id="tbody-propiedad">
                     <!-- Linea de Informacion -->
-                    <tr>
-                        <td><img src="../img/home_100px.png"></td>
-                        <td>La Cima, San Salvador, El Salvador</td>
-                        <td>rj-02013</td>
-                        <td>350,000.00$</td>
-                        <td>750.00$</td>
-                        <td>Mi casa es grande. Tiene un salón comedor, una cocina,
-                            tres cuartos de baños y cuatro dormitorios.</td>
-                        <td>10</td>
-                        <td>3</td>
-                        <td class="d-flex justify-content-center">
-                            <a class="btn" href="#" id="button_ver_mas" data-bs-toggle="modal"
-                                data-bs-target="#actualizar"><img
-                                    src="../../resources/img/iconos_formularios/edit_35px.png"></a>
-                            <a class="btn" href="#" id="button_ver_mas" data-bs-toggle="modal"
-                                data-bs-target="#eliminar"><img
-                                    src="../../resources/img/iconos_formularios/trash_can_35px.png"></a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><img src="../img/home_100px.png"></td>
-                        <td>La Cima, San Salvador, El Salvador</td>
-                        <td>rj-02013</td>
-                        <td>350,000.00$</td>
-                        <td>750.00$</td>
-                        <td>Mi casa es grande. Tiene un salón comedor, una cocina,
-                            tres cuartos de baños y cuatro dormitorios.</td>
-                        <td>10</td>
-                        <td>3</td>
-                        <td class="d-flex justify-content-center">
-                            <a class="btn" href="#" id="button_ver_mas" data-bs-toggle="modal"
-                                data-bs-target="#actualizar"><img
-                                    src="../../resources/img/iconos_formularios/edit_35px.png"></a>
-                            <a class="btn" href="#" id="button_ver_mas" data-bs-toggle="modal"
-                                data-bs-target="#eliminar"><img
-                                    src="../../resources/img/iconos_formularios/trash_can_35px.png"></a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><img src="../img/home_100px.png"></td>
-                        <td>La Cima, San Salvador, El Salvador</td>
-                        <td>rj-02013</td>
-                        <td>350,000.00$</td>
-                        <td>750.00$</td>
-                        <td>Mi casa es grande. Tiene un salón comedor, una cocina,
-                            tres cuartos de baños y cuatro dormitorios.</td>
-                        <td>10</td>
-                        <td>3</td>
-                        <td class="d-flex justify-content-center">
-                            <a class="btn" href="#" id="button_ver_mas" data-bs-toggle="modal"
-                                data-bs-target="#actualizar"><img
-                                    src="../../resources/img/iconos_formularios/edit_35px.png"></a>
-                            <a class="btn" href="#" id="button_ver_mas" data-bs-toggle="modal"
-                                data-bs-target="#eliminar"><img
-                                    src="../../resources/img/iconos_formularios/trash_can_35px.png"></a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><img src="../img/home_100px.png"></td>
-                        <td>La Cima, San Salvador, El Salvador</td>
-                        <td>rj-02013</td>
-                        <td>350,000.00$</td>
-                        <td>750.00$</td>
-                        <td>Mi casa es grande. Tiene un salón comedor, una cocina,
-                            tres cuartos de baños y cuatro dormitorios.</td>
-                        <td>10</td>
-                        <td>3</td>
-                        <td class="d-flex justify-content-center">
-                            <a class="btn" href="#" id="button_ver_mas" data-bs-toggle="modal"
-                                data-bs-target="#actualizar"><img
-                                    src="../../resources/img/iconos_formularios/edit_35px.png"></a>
-                            <a class="btn" href="#" id="button_ver_mas" data-bs-toggle="modal"
-                                data-bs-target="#eliminar"><img
-                                    src="../../resources/img/iconos_formularios/trash_can_35px.png"></a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><img src="../img/home_100px.png"></td>
-                        <td>La Cima, San Salvador, El Salvador</td>
-                        <td>rj-02013</td>
-                        <td>350,000.00$</td>
-                        <td>750.00$</td>
-                        <td>Mi casa es grande. Tiene un salón comedor, una cocina,
-                            tres cuartos de baños y cuatro dormitorios.</td>
-                        <td>10</td>
-                        <td>3</td>
-                        <td class="d-flex justify-content-center">
-                            <a class="btn" href="#" id="button_ver_mas" data-bs-toggle="modal"
-                                data-bs-target="#actualizar"><img
-                                    src="../../resources/img/iconos_formularios/edit_35px.png"></a>
-                            <a class="btn" href="#" id="button_ver_mas" data-bs-toggle="modal"
-                                data-bs-target="#eliminar"><img
-                                    src="../../resources/img/iconos_formularios/trash_can_35px.png"></a>
-                        </td>
-                    </tr>
                 </tbody>
             </table>
         </div>
@@ -320,27 +230,27 @@
 
                                 <div class="col">
                                     <label for="tipo_acabado" class="form-label">Tipo de Acabados</label>
-                                    <select id="tipo_acabado" name="tipo_acabado" class="form-control">
+                                    <select id="cmb_tipo_acabado" name="tipo_acabado" class="form-control">
 
                                     </select>
 
                                     <label for="municipio" class="form-label">Municipio</label>
-                                    <select id="municipio" name="municipio" class="form-control">
+                                    <select id="cmb_municipio" name="municipio" class="form-control">
 
                                     </select>
 
                                     <label for="tipo_propiedad" class="form-label">Tipo de Propiedad</label>
-                                    <select id="tipo_propiedad" name="tipo_propiedad" class="form-control">
+                                    <select id="cmb_tipo_propiedad" name="tipo_propiedad" class="form-control">
 
                                     </select>
 
                                     <label for="inquilino" class="form-label">Inquilino</label>
-                                    <select id="inquilino" name="inquilino" class="form-control">
+                                    <select id="cmb_inquilino" name="inquilino" class="form-control">
 
                                     </select>
 
                                     <label for="empleado" class="form-label">Empleado</label>
-                                    <select id="empleado" name="empleado" class="form-control">
+                                    <select id="cmb_empleado" name="empleado" class="form-control">
 
                                     </select>
 

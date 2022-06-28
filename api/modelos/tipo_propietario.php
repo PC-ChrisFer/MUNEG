@@ -114,8 +114,7 @@ class tipo_propietario extends validator
     //Metodo para la eliminación DELETE
     //(visibilidad, id_tipo_propietario)
     public function deleteRow(){
-        $sql = 'UPDATE public.tipo_propietario
-        SET visibilidad=?
+        $sql = 'DELETE FROM public.tipo_propietario
         WHERE id_tipo_propietario=?';
         $params = array($this->false, $this->id_tipo_propietario);
         return Database::executeRow($sql,$params);

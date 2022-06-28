@@ -68,12 +68,12 @@ if (isset($_GET[ACTION])) {
                 if ($result[DATASET] = $usuario->readAllEmpleado()) {
                     $result[STATUS] = 1;
                 } elseif (Database::getException()) {
-                    $result[EXCEPTION] = Database::getException(); 
+                    $result[EXCEPTION] = Database::getException();
                 } else {
                     $result[EXCEPTION] = 'No hay datos registrados';
                 }
                 break;
-                //case SEARCH:
+            case SEARCH:
                 $_POST = $usuario->validateForm($_POST);
                 if ($_POST[SEARCH] == '') {
                     $result[EXCEPTION] = 'Ingrese un valor para buscar';
@@ -84,6 +84,24 @@ if (isset($_GET[ACTION])) {
                     $result[EXCEPTION] = Database::getException();
                 } else {
                     $result[EXCEPTION] = 'No hay coincidencias';
+                }
+                break;
+            case "update":
+                $usuario->setId($_POST['id']) ? null : "id incorrecto";
+                $usuario->setNombre($_POST['nombre_usuario']) ? null : "nombre incorrecto";
+                $usuario->setTipoUsuario($_POST['tipo_usuario']) ? null : "tipo usuario incorrecto";
+                $usuario->setEmpleado($_POST['empleado']) ? null : "empleado ID incorrecto";
+
+                if ($usuario->updateRowEmpleado()) {
+                    $result[STATUS] = SUCESS_RESPONSE;
+                    $result[MESSAGE] = 'Usuario actualizado correctamente';
+                    if ($result[DATASET] = $usuario->readAllEmpleado()) {
+                        $result[STATUS] = 1;
+                    } elseif (Database::getException()) {
+                        $result[EXCEPTION] = Database::getException();
+                    } else {
+                        $result[EXCEPTION] = 'No hay datos registrados';
+                    }
                 }
                 break;
             case DELETE:
@@ -110,8 +128,8 @@ if (isset($_GET[ACTION])) {
     } else {
         // Se compara la acción a realizar cuando el administrador no ha iniciado sesión.
         switch ($_GET[ACTION]) {
-            case 'readEmpleadosUsers':
-                if ($usuario->readAllEmpleado()) {
+            case 'readAll':
+                if ($result[DATASET] = $usuario->readAllEmpleado()) {
                     $result[STATUS] = 1;
                     $result[MESSAGE] = 'Existe al menos un usuario registrado';
                 } else {
@@ -126,6 +144,7 @@ if (isset($_GET[ACTION])) {
                     $result[EXCEPTION] = 'Claves diferentes';
                 } elseif (!$usuario->setPassword($_POST['contraseñaUsuarioCheck'])) {
                     $result[EXCEPTION] = $usuario->getPasswordError();
+                    // arreglar
                 } elseif ($usuario->createRow()) {
                     $result[STATUS] = 1;
                     $result[MESSAGE] = 'Usuario registrado correctamente';
@@ -137,6 +156,7 @@ if (isset($_GET[ACTION])) {
                 $_POST = $usuario->validateForm($_POST);
                 if (!$usuario->searchUser($_POST[NOMBRE_USUARIO])) {
                     $result[EXCEPTION] = 'Alias incorrecto';
+                    // arreglar
                 } elseif ($usuario->searchPassword($_POST['contraseñaUsuario'])) {
                     $result[STATUS] = 1;
                     $result[MESSAGE] = 'Autenticación correcta';

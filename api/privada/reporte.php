@@ -57,10 +57,10 @@ if (isset($_GET[ACTION])) {
             break;
         case CREATE:
             $_POST = $reporte->validateSpace($_POST);
-            $result[EXCEPTION] = $reporte->setAsunto($_POST['asunto_update']) ? null : 'Asunto incorrecto';
-            $result[EXCEPTION] = $reporte->setDescripcion($_POST['descripcion_update']) ? null : 'Descripción no encontrada';
-            $result[EXCEPTION] = $reporte->setInquilino($_POST['inquilino_update']) ? null : 'Inquilino incorrecto';
-            $result[EXCEPTION] = $reporte->setEstado($_POST['estado_update']) ? null : 'Estado incorrecto';
+            $result[EXCEPTION] = $reporte->setAsunto($_POST['asunto']) ? null : 'Asunto incorrecto';
+            $result[EXCEPTION] = $reporte->setDescripcion($_POST['descripcion']) ? null : 'Descripción no encontrada';
+            $result[EXCEPTION] = $reporte->setInquilino($_POST['inquilino']) ? null : 'Inquilino incorrecto';
+            $result[EXCEPTION] = $reporte->setEstado($_POST['estado']) ? null : 'Estado incorrecto';
             if ($reporte->createRow()) {
                 $result[MESSAGE] = 'Registro creado correctamente';
                 $result[DATA_SET] = $reporte->readAll();

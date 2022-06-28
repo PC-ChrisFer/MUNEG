@@ -44,7 +44,7 @@ class factura extends validator
     //Subtotal
     public function setSubtotal($value)
     {
-        $this->id_factura = $value;
+        $this->subtotal = $value;
         return true;
     }
     //IVA
@@ -95,7 +95,7 @@ class factura extends validator
     //Dirección
     public function getDireccion($value)
     {
-        return $this->id_factura;
+        return $this->direccion;
         
     }
     //Subtotal
@@ -158,7 +158,7 @@ class factura extends validator
         $sql = 'UPDATE public.factura
         SET codigo_factura=?, descripcion=?, direccion=?, subtotal=?, "IVA"=?, venta_gravada=?, fecha=?, id_inquilino=?
         WHERE id_factura = ?';
-        $params = array($this->codigo_factura, $this->descripcion, $this->direccion, $this->subtotal, $this->IVA, $this->venta_gravada, $this->fecha, $this->id_inquilino);
+        $params = array($this->codigo_factura, $this->descripcion, $this->direccion, $this->subtotal, $this->IVA, $this->venta_gravada, $this->fecha, $this->id_inquilino, $this->id_factura);
         return Database::executeRow($sql, $params);
     }
 
@@ -166,7 +166,7 @@ class factura extends validator
     public function deleteRow()
     {
         $sql = 'DELETE FROM public.factura
-	    WHERE id_factura';
+	    WHERE id_factura = ?';
         $params = array($this->id_factura);
         return Database::executeRow($sql, $params);
     }
@@ -189,5 +189,15 @@ class factura extends validator
         WHERE id_factura = ?';
         $params = ($this->id_factura);
         return Database::getRow($sql, $params);
+    }
+
+    //Llenar combobox
+    //Combobox del Inquilino
+    public function readInquilino()
+    {
+        $sql = 'SELECT  id_inquilino, nombre
+        FROM inquilino';
+        $params = null;
+        return Database::getRows($sql, $params);
     }
 }

@@ -84,7 +84,7 @@ class tipo_propietario extends validator
     //(sin parametros)
     public function readAll()
     {
-        $sql = 'SELECT id_tipo_propietario, nombre_tipo
+        $sql = 'SELECT id_tipo_propietario, nombre_tipo, visibilidad
         FROM public.tipo_propietario';
         $params = null;
         return Database::getRows($sql, $params);

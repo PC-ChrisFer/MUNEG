@@ -57,8 +57,7 @@ if (isset($_GET[ACTION])) {
             break;
         case CREATE:
             $_POST = $categoria->validateSpace($_POST);
-                $result[EXCEPTION] = $categoria->setNombre($_POST['nombre_update']) ? null : 'Nombre incorrecto';
-                $result[EXCEPTION] = $categoria->setVisibilidad($_POST['visibilidad_update']) ? null : 'Visibilidad no encontrada';
+                $result[EXCEPTION] = $categoria->setNombre($_POST['nombre_categoria']) ? null : 'Nombre incorrecto';
             if ($categoria->createRow()) {
                 $result[MESSAGE] = 'Registro creado correctamente';
                 $result[DATA_SET] = $categoria->readAll();
@@ -69,9 +68,10 @@ if (isset($_GET[ACTION])) {
             break;
         case UPDATE:
             $_POST = $categoria->validateSpace($_POST);
-            $result[EXCEPTION] = $categoria->setNombre($_POST['nombre_update']) ? null : 'Nombre incorrecto';
+            $result[EXCEPTION] = $categoria->setNombre($_POST['nombre_categoria_update']) ? null : 'Nombre incorrecto';
+            $_POST['visibilidad_update'] = $_POST['visibilidad_update'] == '1' ? 1 : 0;
             $result[EXCEPTION] = $categoria->setVisibilidad($_POST['visibilidad_update']) ? null : 'Visibilidad no encontrada';
-            $result[EXCEPTION] = $categoria->setId($_POST['id_categoria']) ? null : 'Id incorrecto';
+            $result[EXCEPTION] = $categoria->setId($_POST['id']) ? null : 'Id incorrecto';
     
         if ($categoria->updateRow()) {
             $result[MESSAGE] = 'Registro modificado correctamente';
@@ -82,7 +82,7 @@ if (isset($_GET[ACTION])) {
         }
         break;
     case DELETE:
-        $result[EXCEPTION] = $categoria->setId($_POST['id_categoria']) ? null : 'Id incorrecto';
+        $result[EXCEPTION] = $categoria->setId($_POST['id']) ? null : 'Id incorrecto';
     
         if ($categoria->deleteRow()) {
             $result[MESSAGE] = 'Registro eliminado correctamente';

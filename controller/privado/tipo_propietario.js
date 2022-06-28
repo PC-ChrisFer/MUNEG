@@ -2,19 +2,17 @@
 //Importar las constantes y metodos de components.js y api_constant.js
 import { readRows, saveRow, searchRows, deleteRow } from "../components.js";
 import {
-  DELETE_FORM,
-  DOM_CONTENT_LOADED,
-  INSERT_MODAL,
-  SEARCH_BAR,
-  SERVER,
-  SUBMIT,
-  UPDATE_MODAL,
+    INSERT_MODAL,
+    SEARCH_BAR,
+    SERVER,
+    SUBMIT,
 } from "../constants/api_constant.js";
 import {
-  getElementById,
-  validateExistenceOfUser,
+    getElementById,
+    validateExistenceOfUser,
 } from "../constants/functions.js";
-import { API_CREATE, API_UPDATE } from "../constants/api_constant.js";
+import { API_CREATE, API_UPDATE, GET_METHOD } from "../constants/api_constant.js";
+import { APIConnection } from "../APIConnection.js";
 
 //Constantes que establece la comunicación entre la API y el controller utilizando parametros y rutas
 const API_TIPO_PROPIETARIO = SERVER + "privada/tipo_propietario.php?action=";
@@ -26,6 +24,7 @@ let datos_tipo_propietario = {
     nombre_tipo: " ",
     visibilidad: " ",
 };
+
 // Método manejador de eventos que se ejecuta cuando el documento ha cargado.
 document.addEventListener("DOMContentLoaded", async () => {
     //Valida que el usuario este logeado
@@ -35,10 +34,11 @@ document.addEventListener("DOMContentLoaded", async () => {
 });
 
 //Metodo para llenar las tablas de datos, utiliza la función readRows()
-export function fillTableTipoPropietario(dataset) {
+ function fillTableTipoPropietario(dataset) {
   let content = "";
   // Se recorre el conjunto de registros (dataset) fila por fila a través del objeto row.
   dataset.map((row) => {
+    console.log(row)
     // Se crean y concatenan las filas de la tabla con los datos de cada registro.
     content += ` 
             <tr>  
@@ -47,13 +47,13 @@ export function fillTableTipoPropietario(dataset) {
                 
                 <td class="d-flex justify-content-center">
                     <div class="btn-group" role="group">
-                        <form method="post" id="read-one">
-                            <a onclick="guardarDatosCategoriaUpdate(${row.id_tipo_propietario},'${row.nombre_tipo}, ${row.visibilidad}')" class="btn btn-primary">
-                                <img src="../../resources/img/iconos_formularios/edit_35px.png"></a>
-                            <a  onclick="guardarDatosCategoriaDelete(${row.id_tipo_propietario})"  class="btn btn-primary"  
+                            <a onclick="guardarDatosTipoPropietarioUpdate('${row.id_tipo_propietario}', '${row.nombre_tipo}', '${row.visibilidad}')" class="btn btn-primary">
+                                <img src="../../resources/img/iconos_formularios/edit_35px.png" data-bs-toggle="modal"
+                                data-bs-target="#actualizar"></a>
+                            <a  onclick="guardarDatosTipoPropietarioDelete(${row.id_tipo_propietario})"  class="btn btn-primary"  
                             name="search">
-                                <img src="../../resources/img/iconos_formularios/trash_can_35px.png"></a>
-                        </form>
+                                <img src="../../resources/img/iconos_formularios/trash_can_35px.png" data-bs-toggle="modal"
+                                data-bs-target="#eliminar"></a>
                     </div>
                 </td>
             </tr>
@@ -67,9 +67,9 @@ export function fillTableTipoPropietario(dataset) {
 // @ts-ignore
 window.guardarDatosTipoPropietarioUpdate = (id_tipo_propietario, nombre_tipo, visibilidad) => {
     datos_tipo_propietario.id = id_tipo_propietario;
-    $("#actualizarform").modal("show");
+    $("#actualizar").modal("show");
   
-    // SE ACTUALIZA EL VALOR DEL INPUT CON EL ID ESPECIFICADO AL VALOR INGRESADO AL PARAMETRO, ASEGURENSE DE QUE ELINPUT TENGA
+    // SE ACTUALIZA EL VALOR DEL INPUT CON EL ID ESPECIFICADO AL VALOR INGRESADO AL PARAMETRO, ASEGURENSE DE QUE EL INPUT TENGA
     //EL ATRIBUTO "value="""
     //@ts-ignore
     getElementById("tipo_propietario_update").value = String(nombre_tipo);
@@ -82,25 +82,26 @@ window.guardarDatosTipoPropietarioDelete = (id_tipo_propietario) => {
 datos_tipo_propietario.id = id_tipo_propietario;
 $("#eliminarForm").modal("show");
 };
-  
+
 // Método que se ejecuta al enviar un formulario de busqueda
 getElementById("search-bar").addEventListener("submit", async (event) => {
     // Se evita recargar la página web después de enviar el formulario.
     event.preventDefault();
     // Se llama a la función que realiza la búsqueda. Se encuentra en el archivo components.js
     await searchRows(API_TIPO_PROPIETARIO, "search-bar", fillTableTipoPropietario);
-});
+});  
+
 
 // EVENTO PARA INSERT
 // Método manejador de eventos que se ejecuta cuando se envía el formulario de guardar.
-getElementById("insert-modal").addEventListener("submit", async (event) => {
+getElementById("insert-form").addEventListener("submit", async (event) => {
     // Se evita recargar la página web después de enviar el formulario.
     event.preventDefault();
     // Se cierra el formulario de registro
-    $("#agregarform").modal("hide");
+    $("#agregar").modal("hide");
     //@ts-ignore
     //OBTIENE LOS DATOS DEL FORMULARIO QUE TENGA COMO ID "'insert-modal'"
-    let parameters = new FormData(getElementById("insert-modal"));
+    let parameters = new FormData(getElementById("insert-form"));
   
     // PETICION A LA API POR MEDIO DEL ENPOINT, Y LOS PARAMETROS NECESARIOS PARA LA INSERSION DE DATOS
     await saveRow(API_TIPO_PROPIETARIO, API_CREATE, parameters, fillTableTipoPropietario);
@@ -108,15 +109,17 @@ getElementById("insert-modal").addEventListener("submit", async (event) => {
 
 // EVENTO PARA UPDATE
 // SE EJECUTARA CUANDO EL BOTON DE TIPO "submit" DEL FORMULARIO CON EL ID 'actualizarConfirmar_buttons' SE CLICKEE
-getElementById("update-modal").addEventListener("submit", async (event) => {
+getElementById("update-form").addEventListener("submit", async (event) => {
     // Se evita recargar la página web después de enviar el formulario.
     event.preventDefault();
     // Se cierra el formulario de registro
-    $("#actualizarform").modal("hide");
+    $("#actualizar").modal("hide");
     //@ts-ignore
-    let parameters = new FormData(getElementById("update-modal"));
+    let parameters = new FormData(getElementById("update-form"));
     //@ts-ignore
-    parameters.append("id", datos_tipo_propietario["id"]);
+    parameters.append("id_tipo_propietario", datos_tipo_propietario.id);
+    parameters.append("visibilidad_update", getElementById("visibilidad_update").checked == true ? '1' : '0');
+
   
     // API REQUEST
     await saveRow(API_TIPO_PROPIETARIO, API_UPDATE, parameters, fillTableTipoPropietario);
@@ -126,12 +129,14 @@ getElementById("update-modal").addEventListener("submit", async (event) => {
 getElementById("delete-form").addEventListener("submit", async (event) => {
     event.preventDefault();
     // Se cierra el formulario de registro
-    $("#eliminarForm").modal("hide");
+    console.log('prueba')
     // CONVIRTIENDO EL JSON A FORMDATA
     let parameters = new FormData();
     //@ts-ignore
-    parameters.append("id", datos_tipo_propietario["id"]);
+    parameters.append("id_tipo_propietario", datos_tipo_propietario.id);
   
     //API REQUEST
     await deleteRow(API_TIPO_PROPIETARIO, parameters, fillTableTipoPropietario);
+    $("#eliminar").modal("hide");
+
 });

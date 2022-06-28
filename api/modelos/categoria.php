@@ -9,29 +9,44 @@ class categoria extends validator
     private $nombre_categoria = null;
     private $visibilidad = null;
 
+    //Variables true -- false
+    private $true = true;
+    private $false = '0';
+
     //Metodos para setear los valores de los campos
     //Id de Categoria
     public function setId($value)
     {
-        $this->id_categoria = $value;
-        return true;
+        if ($this->validateNaturalNumber($value)) {
+            $this->id_categoria = $value;
+            return true;
+        } else {
+            return false;
+        }
 
     }
 
     //Nombre de Categoria
     public function setNombre($value)
     {
-        $this->nombre_categoria = $value;
-        return true;
+        if ($this->validateAlphabetic($value, 1, 50)) {
+            $this->nombre_categoria = $value;
+            return true;
+        } else {
+            return false;
+        }
         
     }
 
     //Visibilidad de Categoria
     public function setVisibilidad($value)
     {
-        $this->visibilidad = $value;
-        return true;
-        
+        if ($this->validateBoolean($value)) {
+            $this->visibilidad = $value;
+            return true;
+        } else {
+            return false;
+        }
     }
     
 
@@ -88,13 +103,13 @@ class categoria extends validator
         $params = array($this->nombre_categoria, $this->visibilidad, $this->id_categoria);
         return Database::executeRow($sql, $params);
     }
-    //Metodo para la eliminación DELETE 
-    public function deleteRow()
-    {
-        $sql = 'DELETE FROM categoria
-        WHERE id_categoria = ?';
-        $params = array($this->id_categoria);
-        return Database::executeRow($sql, $params);
+    //Metodo para la eliminación DELETE
+    public function deleteRow(){
+        $sql = 'UPDATE public.categoria
+        SET visibilidad=?
+        WHERE id_categoria=?';
+        $params = array($this->false, $this->id_categoria);
+        return Database::executeRow($sql,$params);
     }
     //Metodo para leer READ
     //Leer todas las filas de la Tabla

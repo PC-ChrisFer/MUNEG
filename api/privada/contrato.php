@@ -17,6 +17,16 @@ const CREATE = 'create';
 const UPDATE = 'update';
 const DELETE = 'delete';
 const SUCESS_RESPONSE = 1;
+
+const READ_PROPIETARIO = 'readPropietario';
+const READ_PROPIEDAD = 'readPropiedad';
+const READ_EMPLEADO = 'readEmpleado';
+const READ_INQUILINO = 'readInquilino';
+
+const CONTRATO_ARCHIVO = 'archivo';
+const TMP_NAME = 'tmp_name';
+
+
     
 // NOMBRES DE PARAMETROS, DEBEN DE SER IGUALES AL ID Y NAME DEL INPUT DE EL FORMULARIO
 
@@ -56,17 +66,34 @@ if (isset($_GET[ACTION])) {
             break;
         case CREATE:
             $_POST = $contrato->validateSpace($_POST);
-            $result[EXCEPTION] = $contrato->setDescripcion($_POST['descripcion_update']) ? null : 'Nombre incorrecto';
-            $result[EXCEPTION] = $contrato->setFechaFirma($_POST['fecha_firma_update']) ? null : 'Fecha de firma incorrecta';
-            $result[EXCEPTION] = $contrato->setImagen($_POST['imagen_update']) ? null : 'Imagen no agregada';
-            $result[EXCEPTION] = $contrato->setIdPropietario($_POST['id_propietario_update']) ? null : 'Propietario incorrecto';
-            $result[EXCEPTION] = $contrato->setIdPropiedad($_POST['id_propietario_update']) ? null : 'Propiedad incorrecta';
-            $result[EXCEPTION] = $contrato->setIdEmpleado($_POST['id_empleado_update']) ? null : 'Empleado incorrecto';
-            $result[EXCEPTION] = $contrato->setIdInquilino($_POST['id_inquilino_update']) ? null : 'Inquilino incorrecto';
+            $result[EXCEPTION] = $contrato->setDescripcion($_POST['descripcion']) ? null : 'Nombre incorrecto';
+            $result[EXCEPTION] = $contrato->setFechaFirma($_POST['fecha_firma']) ? null : 'Fecha de firma incorrecta';
+            if (!is_uploaded_file($_FILES[CONTRATO_ARCHIVO][TMP_NAME])) {
+            $result[EXCEPTION] = 'Seleccione una imagen';
+            } elseif (!$contrato->setImage($_FILES[CONTRATO_ARCHIVO])){
+            $result[EXCEPTION] = $contrato->getFileError();
+            }
+            $result[EXCEPTION] = $contrato->setIdPropietario($_POST['id_propietario']) ? null : 'Propietario incorrecto';
+            $result[EXCEPTION] = $contrato->setIdPropiedad($_POST['id_propietario']) ? null : 'Propiedad incorrecta';
+            $result[EXCEPTION] = $contrato->setIdEmpleado($_POST['id_empleado']) ? null : 'Empleado incorrecto';
+            $result[EXCEPTION] = $contrato->setIdInquilino($_POST['id_inquilino']) ? null : 'Inquilino incorrecto';
             if ($contrato->createRow()) {
                 $result[MESSAGE] = 'Registro creado correctamente';
-                $result[DATA_SET] = $contrato->readAll();
-                $result[STATUS] =  $result[DATA_SET] ? SUCESS_RESPONSE : 'No hay datos registrados';
+                if ($contrato->saveFile($_FILES[CONTRATO_ARCHIVO], $contrato->getRutaImagenes(), $contrato->getImagen())) {
+                    $result[MESSAGE] = 'Imagen ingresada correctanente';
+                    if ($result[DATA_SET] = $contrato->readAll()) {
+                        $result[STATUS] = SUCESS_RESPONSE;
+                    } else {
+                        $result[EXCEPTION] = 'No hay datos registrados';
+                    }
+                } else {
+                    $result[MESSAGE] = 'Imagen no se a ingresado correctanente';
+                    if ($result[DATA_SET] = $contrato->readAll()) {
+                        $result[STATUS] = SUCESS_RESPONSE;
+                    } else {
+                        $result[EXCEPTION] = 'No hay datos registrados';
+                    }
+                }
             } else {
                 $result[EXCEPTION] = Database::getException();
             }
@@ -75,22 +102,39 @@ if (isset($_GET[ACTION])) {
             $_POST = $contrato->validateSpace($_POST);
             $result[EXCEPTION] = $contrato->setDescripcion($_POST['descripcion_update']) ? null : 'Nombre incorrecto';
             $result[EXCEPTION] = $contrato->setFechaFirma($_POST['fecha_firma_update']) ? null : 'Fecha de firma incorrecta';
-            $result[EXCEPTION] = $contrato->setImagen($_POST['imagen_update']) ? null : 'Imagen no agregada';
+            if (!is_uploaded_file($_FILES[CONTRATO_ARCHIVO][TMP_NAME])) {
+                $result[EXCEPTION] = 'Seleccione una imagen';
+                } elseif (!$contrato->setImage($_FILES[CONTRATO_ARCHIVO])){
+                $result[EXCEPTION] = $contrato->getFileError();
+                }
             $result[EXCEPTION] = $contrato->setIdPropietario($_POST['id_propietario_update']) ? null : 'Propietario incorrecto';
             $result[EXCEPTION] = $contrato->setIdPropiedad($_POST['id_propietario_update']) ? null : 'Propiedad incorrecta';
             $result[EXCEPTION] = $contrato->setIdEmpleado($_POST['id_empleado_update']) ? null : 'Empleado incorrecto';
             $result[EXCEPTION] = $contrato->setIdInquilino($_POST['id_inquilino_update']) ? null : 'Inquilino incorrecto';
-            $result[EXCEPTION] = $contrato->setId($_POST['id_contratocontrato']) ? null : 'Id incorrecto';
+            $result[EXCEPTION] = $contrato->setId($_POST['id']) ? null : 'Id incorrecto';
         if ($contrato->updateRow()) {
             $result[MESSAGE] = 'Registro modificado correctamente';
-            $result[DATA_SET] = $contrato->readAll();
-            $result[STATUS] =  $result[DATA_SET] ? SUCESS_RESPONSE : 'No hay datos registrados';
+            if ($contrato->saveFile($_FILES[CONTRATO_ARCHIVO], $contrato->getRutaImagenes(), $contrato->getImagen())) {
+                $result[MESSAGE] = 'Imagen ingresada correctanente';
+                if ($result[DATA_SET] = $contrato->readAll()) {
+                    $result[STATUS] = SUCESS_RESPONSE;
+                } else {
+                    $result[EXCEPTION] = 'No hay datos registrados';
+                }
+            } else {
+                $result[MESSAGE] = 'Imagen no se a ingresado correctanente';
+                if ($result[DATA_SET] = $contrato->readAll()) {
+                    $result[STATUS] = SUCESS_RESPONSE;
+                } else {
+                    $result[EXCEPTION] = 'No hay datos registrados';
+                }
+            }
         } else {
             $result[EXCEPTION] = Database::getException();
         }
         break;
     case DELETE:
-        $result[EXCEPTION] = $contrato->setId($_POST['id_contrato']) ? null : 'Id incorrecto';
+        $result[EXCEPTION] = $contrato->setId($_POST['id']) ? null : 'Id incorrecto';
         
         if ($contrato->deleteRow()) {
             $result[MESSAGE] = 'Registro eliminado correctamente';
@@ -100,6 +144,43 @@ if (isset($_GET[ACTION])) {
             $result[EXCEPTION] = Database::getException();
         }
         break;
+        case READ_PROPIETARIO:
+            if ($result[DATA_SET] = $contrato->readPropietario()) {
+                $result[STATUS] = SUCESS_RESPONSE;
+            } elseif (Database::getException()) {
+                $result[EXCEPTION] = Database::getException();
+            } else {
+                $result[EXCEPTION] = 'No hay datos registrados';
+            }
+            break;
+        case READ_PROPIEDAD:
+            if ($result[DATA_SET] = $contrato->readPropiedad()) {
+                $result[STATUS] = SUCESS_RESPONSE;
+            } elseif (Database::getException()) {
+                $result[EXCEPTION] = Database::getException();
+            } else {
+                $result[EXCEPTION] = 'No hay datos registrados';
+            }
+            break;
+        case READ_EMPLEADO:
+            if ($result[DATA_SET] = $contrato->readEmpleado()) {
+                $result[STATUS] = SUCESS_RESPONSE;
+            } elseif (Database::getException()) {
+                $result[EXCEPTION] = Database::getException();
+            } else {
+                $result[EXCEPTION] = 'No hay datos registrados';
+            }
+            break;
+        case READ_INQUILINO:
+            if ($result[DATA_SET] = $contrato->readInquilino()) {
+                $result[STATUS] = SUCESS_RESPONSE;
+            } elseif (Database::getException()) {
+                $result[EXCEPTION] = Database::getException();
+            } else {
+                $result[EXCEPTION] = 'No hay datos registrados';
+            }
+            break;
+            
     default:
         $result[EXCEPTION] = 'Acción no disponible dentro de la sesión';
     }

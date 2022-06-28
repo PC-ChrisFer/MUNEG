@@ -17,6 +17,7 @@ const CREATE = 'create';
 const UPDATE = 'update';
 const DELETE = 'delete';
 const SUCESS_RESPONSE = 1;
+const READ_INQUILINO = 'readInquilino';
 
 
 // Se comprueba si existe una acción a realizar, de lo contrario se finaliza el script con un mensaje de error.
@@ -56,13 +57,14 @@ if (isset($_GET[ACTION])) {
         break;
     case CREATE:
         $_POST = $factura->validateSpace($_POST);
-            $result[EXCEPTION] = $factura->setCodigo($_POST['codigo_update']) ? null : 'Codigo incorrecto';
-            $result[EXCEPTION] = $factura->setDescripcion($_POST['descripcion_update']) ? null : 'Descripción no encontrada';
-            $result[EXCEPTION] = $factura->setDireccion($_POST['direccion_update']) ? null : 'Direccion incorrecta';
-            $result[EXCEPTION] = $factura->setSubtotal($_POST['subtotal_update']) ? null : 'Estado incorrecto';
-            $result[EXCEPTION] = $factura->setIVA($_POST['IVA_update']) ? null : 'IVA incorrecto';
-            $result[EXCEPTION] = $factura->setVenta($_POST['venta_update']) ? null : 'Fecha Gravada incorrecta';
-            $result[EXCEPTION] = $factura->setIdInquilino($_POST['id_inquilino_update']) ? null : 'Inquilino incorrecto';
+            $result[EXCEPTION] = $factura->setCodigo($_POST['codigo_factura']) ? null : 'Codigo incorrecto';
+            $result[EXCEPTION] = $factura->setDescripcion($_POST['descripcion']) ? null : 'Descripción no encontrada';
+            $result[EXCEPTION] = $factura->setDireccion($_POST['direccion']) ? null : 'Direccion incorrecta';
+            $result[EXCEPTION] = $factura->setSubtotal($_POST['subtotal']) ? null : 'Subtotal incorrecto';
+            $result[EXCEPTION] = $factura->setIVA($_POST['IVA']) ? null : 'IVA incorrecto';
+            $result[EXCEPTION] = $factura->setVenta($_POST['venta_gravada']) ? null : 'Fecha Gravada incorrecta';
+            $result[EXCEPTION] = $factura->setFecha($_POST['fecha_emision']) ? null : 'Fecha incorrecta';
+            $result[EXCEPTION] = $factura->setIdInquilino($_POST['id_inquilino']) ? null : 'Inquilino incorrecto';
         if ($factura->createRow()) {
             $result[MESSAGE] = 'Registro creado correctamente';
             $result[DATA_SET] = $factura->readAll();
@@ -73,14 +75,15 @@ if (isset($_GET[ACTION])) {
         break;
     case UPDATE:
             $_POST = $factura->validateSpace($_POST);
-            $result[EXCEPTION] = $factura->setCodigo($_POST['codigo_update']) ? null : 'Codigo incorrecto';
+            $result[EXCEPTION] = $factura->setCodigo($_POST['codigo_factura_update']) ? null : 'Codigo incorrecto';
             $result[EXCEPTION] = $factura->setDescripcion($_POST['descripcion_update']) ? null : 'Descripción no encontrada';
             $result[EXCEPTION] = $factura->setDireccion($_POST['direccion_update']) ? null : 'Direccion incorrecta';
             $result[EXCEPTION] = $factura->setSubtotal($_POST['subtotal_update']) ? null : 'Estado incorrecto';
             $result[EXCEPTION] = $factura->setIVA($_POST['IVA_update']) ? null : 'IVA incorrecto';
-            $result[EXCEPTION] = $factura->setVenta($_POST['venta_update']) ? null : 'Fecha Gravada incorrecta';
+            $result[EXCEPTION] = $factura->setVenta($_POST['venta_gravada_update']) ? null : 'Fecha Gravada incorrecta';
+            $result[EXCEPTION] = $factura->setFecha($_POST['fecha_emision_update']) ? null : 'Fecha incorrecta';
             $result[EXCEPTION] = $factura->setIdInquilino($_POST['id_inquilino_update']) ? null : 'Inquilino incorrecto';
-            $result[EXCEPTION] = $factura->setId($_POST['id_factura']) ? null : 'Id incorrecto';
+            $result[EXCEPTION] = $factura->setId($_POST['id']) ? null : 'Id incorrecto';
 
         if ($factura->updateRow()) {
             $result[MESSAGE] = 'Registro modificado correctamente';
@@ -91,7 +94,7 @@ if (isset($_GET[ACTION])) {
         }
         break;
     case DELETE:
-        $result[EXCEPTION] = $factura->setId($_POST['id_factura']) ? null : 'Id incorrecto';
+        $result[EXCEPTION] = $factura->setId($_POST['id']) ? null : 'Id incorrecto';
 
         if ($factura->deleteRow()) {
             $result[MESSAGE] = 'Registro eliminado correctamente';
@@ -101,6 +104,15 @@ if (isset($_GET[ACTION])) {
             $result[EXCEPTION] = Database::getException();
         }
         break;
+        case READ_INQUILINO:
+            if ($result[DATA_SET] = $factura->readInquilino()) {
+                $result[STATUS] = SUCESS_RESPONSE;
+            } elseif (Database::getException()) {
+                $result[EXCEPTION] = Database::getException();
+            } else {
+                $result[EXCEPTION] = 'No hay datos registrados';
+            }
+            break;
     default:
         $result[EXCEPTION] = 'Acción no disponible dentro de la sesión';
     }

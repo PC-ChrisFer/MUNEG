@@ -2,19 +2,17 @@
 //Importar las constantes y metodos de components.js y api_constant.js
 import { readRows, saveRow, searchRows, deleteRow } from "../components.js";
 import {
-  DELETE_FORM,
-  DOM_CONTENT_LOADED,
   INSERT_MODAL,
   SEARCH_BAR,
   SERVER,
   SUBMIT,
-  UPDATE_MODAL,
 } from "../constants/api_constant.js";
 import {
   getElementById,
   validateExistenceOfUser,
 } from "../constants/functions.js";
-import { API_CREATE, API_UPDATE } from "../constants/api_constant.js";
+import { API_CREATE, API_UPDATE, GET_METHOD } from "../constants/api_constant.js";
+import { APIConnection } from "../APIConnection.js";
 
 //Constantes que establece la comunicación entre la API y el controller utilizando parametros y rutas
 const API_FACTURA = SERVER + "privada/factura.php?action=";
@@ -33,13 +31,40 @@ let datos_factura = {
     id_inquilino: " "
 };
 
+let datos_inquilino = {
+    id_inquilino: 0,
+    nombre: " "
+};
+
 // Método manejador de eventos que se ejecuta cuando el documento ha cargado.
 document.addEventListener("DOMContentLoaded", async () => {
     //Valida que el usuario este logeado
-    validateExistenceOfUser();
     // Se llama a la función que obtiene los registros para llenar la tabla. Se encuentra en el archivo components.js
     await readRows(API_FACTURA, fillTableFactura);
+    //Cargar combo box de Factura
+    await fillComboBoxInquilino();
 });
+
+//Obtener los datos de combobox tipo empleado
+async function fillComboBoxInquilino() {
+    //Se crea un endpoint especifico para el caso de leer tipo empleado
+    let APIEndpoint = SERVER + 'privada/factura.php?action=readInquilino'
+    //Se utiliza como api connection para realizar la consulta
+    let APIResponse = await APIConnection(APIEndpoint, GET_METHOD, null)
+    //Obtiene todos los valores y los ordena en un array, presentandolos en el select
+    APIResponse.dataset.map(element => {
+        getElementById('id_inquilino').innerHTML += `<option value="${element.id_inquilino}" > ${element.nombre} </option>`
+    })
+    APIResponse.dataset.map(element => {
+        getElementById('id_inquilino_update').innerHTML += `<option value="${element.id_inquilino}" > ${element.nombre} </option>`
+    })
+}
+
+//@ts-ignore
+window.seleccionarInquilino = () => {
+    //@ts-ignore
+    datos_inquilino.id_inquilino = document.getElementById('id_inquilino').value
+}
 
 //Metodo para llenar las tablas de datos, utiliza la función readRows()
 export function fillTableFactura(dataset) {
@@ -61,9 +86,9 @@ export function fillTableFactura(dataset) {
                   <td class="d-flex justify-content-center">
                       <div class="btn-group" role="group">
                           <form method="post" id="read-one">
-                              <a onclick="guardarDatosCategoriaUpdate(${row.id_factura},'${row.codigo_factura}, ${row.descripcion}, ${row.direccion}, ${row.subtotal}, ${row.IVA}, ${row.venta_gravada}, ${row.fecha}, ${row.id_inquilino}')" class="btn btn-primary">
+                              <a onclick="guardarDatosFacturaUpdate(${row.id_factura},'${row.codigo_factura}', '${row.descripcion}', '${row.direccion}', '${row.subtotal}', '${row.IVA}', '${row.venta_gravada}', '${row.fecha}', '${row.id_inquilino}')" class="btn btn-primary">
                               <img src="../../resources/img/iconos_formularios/edit_35px.png"></a>
-                              <a  onclick="guardarDatosCategoriaDelete(${row.id_categoria})"  class="btn btn-primary"  
+                              <a  onclick="guardarDatosFacturaDelete(${row.id_factura})"  class="btn btn-primary"  
                               name="search">
                               <img src="../../resources/img/iconos_formularios/trash_can_35px.png"></a>
                               </form>
@@ -80,7 +105,7 @@ export function fillTableFactura(dataset) {
 // @ts-ignore
 window.guardarDatosFacturaUpdate = (id_factura, codigo_factura, descripcion, direccion, subtotal, IVA, venta_gravada, fecha) => {
     datos_factura.id = id_factura;
-    $("#actualizarform").modal("show");
+    $("#actualizar").modal("show");
   
     // SE ACTUALIZA EL VALOR DEL INPUT CON EL ID ESPECIFICADO AL VALOR INGRESADO AL PARAMETRO, ASEGURENSE DE QUE ELINPUT TENGA
     //EL ATRIBUTO "value="""
@@ -91,9 +116,16 @@ window.guardarDatosFacturaUpdate = (id_factura, codigo_factura, descripcion, dir
     getElementById("subtotal_update").value = String(subtotal);
     getElementById("IVA_update").value = String(IVA);
     getElementById("venta_gravada_update").value = String(venta_gravada);
-    getElementById("fecha_update").value = String(fecha);
+    getElementById("fecha_emision_update").value = String(fecha);
 
 };
+
+// FUNCION PARA GUARDAR LOS DATOS DEL TIPO DE PROPIETARIO
+// @ts-ignore
+window.guardarDatosFacturaDelete = (id_factura) => {
+    datos_factura.id = id_factura;
+    $("#eliminar").modal("show");
+    };
 
 // Método que se ejecuta al enviar un formulario de busqueda
 getElementById("search-bar").addEventListener("submit", async (event) => {
@@ -101,18 +133,18 @@ getElementById("search-bar").addEventListener("submit", async (event) => {
     event.preventDefault();
     // Se llama a la función que realiza la búsqueda. Se encuentra en el archivo components.js
     await searchRows(API_FACTURA, "search-bar", fillTableFactura);
-});
+});  
 
 // EVENTO PARA INSERT
 // Método manejador de eventos que se ejecuta cuando se envía el formulario de guardar.
-getElementById("insert-modal").addEventListener("submit", async (event) => {
+getElementById("insert-form").addEventListener("submit", async (event) => {
     // Se evita recargar la página web después de enviar el formulario.
     event.preventDefault();
     // Se cierra el formulario de registro
-    $("#agregarform").modal("hide");
+    $("#agregar").modal("hide");
     //@ts-ignore
     //OBTIENE LOS DATOS DEL FORMULARIO QUE TENGA COMO ID "'insert-modal'"
-    let parameters = new FormData(getElementById("insert-modal"));
+    let parameters = new FormData(getElementById("insert-form"));
   
     // PETICION A LA API POR MEDIO DEL ENPOINT, Y LOS PARAMETROS NECESARIOS PARA LA INSERSION DE DATOS
     await saveRow(API_FACTURA, API_CREATE, parameters, fillTableFactura);
@@ -121,13 +153,13 @@ getElementById("insert-modal").addEventListener("submit", async (event) => {
 
 // EVENTO PARA UPDATE
 // SE EJECUTARA CUANDO EL BOTON DE TIPO "submit" DEL FORMULARIO CON EL ID 'actualizarConfirmar_buttons' SE CLICKEE
-getElementById("update-modal").addEventListener("submit", async (event) => {
+getElementById("update-form").addEventListener("submit", async (event) => {
     // Se evita recargar la página web después de enviar el formulario.
     event.preventDefault();
     // Se cierra el formulario de registro
-    $("#actualizarform").modal("hide");
+    $("#actualizar").modal("hide");
     //@ts-ignore
-    let parameters = new FormData(getElementById("update-modal"));
+    let parameters = new FormData(getElementById("update-form"));
     //@ts-ignore
     parameters.append("id", datos_factura["id"]);
   
@@ -140,7 +172,7 @@ getElementById("update-modal").addEventListener("submit", async (event) => {
 getElementById("delete-form").addEventListener("submit", async (event) => {
     event.preventDefault();
     // Se cierra el formulario de registro
-    $("#eliminarForm").modal("hide");
+    $("#eliminar").modal("hide");
     // CONVIRTIENDO EL JSON A FORMDATA
     let parameters = new FormData();
     //@ts-ignore

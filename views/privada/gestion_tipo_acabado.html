@@ -58,6 +58,11 @@
                                     Propietario</a>
                             </li>
                             <li class="nav-item">
+                                <a class="nav-link" href="gestion_cliente.html"><img
+                                        src="../../resources/img/iconos_navbar/person_30px.png">Gestion
+                                    de Cliente</a>
+                            </li>
+                            <li class="nav-item">
                                 <a class="nav-link" href="gestion_inquilino.html"><img
                                         src="../../resources/img/iconos_navbar/person_30px.png">Gestion
                                     Inquilino</a>
@@ -127,9 +132,9 @@
     <main>
         <!-- Searchbar -->
         <div class="container-fluid" id="busqueda">
-            <form class="d-flex">
-                <input class="form-control me-2" type="search" placeholder="Búsqueda de Datos" aria-label="Search">
-                <a class="nav-link" href="#"><img src="../../resources/img/iconos_navbar/search_24px.png"></a>
+            <form class="d-flex" method="post" id="search-bar">
+                <input class="form-control me-2" name="search" placeholder="Búsqueda de Datos" aria-label="Search" required>
+                <button class="btn" type="submit"><img src="../../resources/img/iconos_navbar/search_24px.png"></button>
             </form>
         </div>
         <div class="container-fluid" id="opciones">
@@ -151,18 +156,6 @@
                 </thead>
                 <tbody id="tbody-tipo-acabado">
                     <!-- Linea de Informacion -->
-                    <tr>
-                        <td>Rogelio Gadabriel Cardonado Mandanghi</td>
-                        <td>Cristian Fernando Parada Mira</td>
-                        <td class="d-flex justify-content-center">
-                            <a class="btn" href="#" id="button_ver_mas" data-bs-toggle="modal"
-                                data-bs-target="#actualizar"><img
-                                    src="../../resources/img/iconos_formularios/edit_35px.png"></a>
-                            <a class="btn" href="#" id="button_ver_mas" data-bs-toggle="modal"
-                                data-bs-target="#eliminar"><img
-                                    src="../../resources/img/iconos_formularios/trash_can_35px.png"></a>
-                        </td>
-                    </tr>
 
                 </tbody>
             </table>
@@ -190,7 +183,7 @@
                         </div>
                         <div class="modal-footer">
                             <div class="btn-group" role="group" id="opcionesModal">
-                                <button type="button" class="btn btn-primary" id="btnmenu"><a class="nav-link"><img
+                                <button type="submit" class="btn btn-primary" id="btnmenu"><a class="nav-link"><img
                                             src="../../resources/img/iconos_formularios/agregar_26px.png"></a></button>
                                 <button type="button" class="btn btn-primary" id="btnmenu" data-bs-dismiss="modal"><a
                                         class="nav-link"><img
@@ -219,19 +212,18 @@
                                         name="tipo_acabado_update" required>
                                     <p></p>
                                     <div class="custom-control custom-switch">
-                                        <input type="checkbox" class="custom-control-input" id="visibilidad">
-                                        <label class="custom-control-label" for="visibilidad">Visible?</label>
+                                        <input type="button"  onclick="cambiarEstadoGestionAcabado()" id="visibilidad" >
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="modal-footer">
                             <div class="btn-group" role="group" id="opcionesModal">
-                                <button type="button" class="btn btn-primary" id="btnmenu"><a class="nav-link"><img
+                                <button type="submit" class="btn btn-primary" id="btnmenu"><a class="nav-link"><img
                                             src="../../resources/img/iconos_formularios/editar_26px.png"></a></button>
                                 <button type="button" class="btn btn-primary" id="btnmenu" data-bs-dismiss="modal"><a
                                         class="nav-link"><img
-                                            src="../../resources/iconos_formularios/cerrar_26px.png"></a></button>
+                                            src="../../resources/img/iconos_formularios/cerrar_26px.png"></a></button>
                             </div>
                         </div>
                     </form>
@@ -253,7 +245,7 @@
                     <form method="post" id="delete_form">
                         <div class="modal-footer">
                             <button class="btn btn-primary" id="btnmenu">Volver</button>
-                            <button class="btn btn-primary" id="btnmenu">Confirmar</button>
+                            <button type="" class="btn btn-primary" id="btnmenu">Confirmar</button>
                         </div>
                     </form>
                 </div>
@@ -311,6 +303,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"
         integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13"
         crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script type="module" src="../../controller/privada/gestion_acabado.js"></script>
 
 </body>
 

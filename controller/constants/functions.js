@@ -99,8 +99,8 @@ import {
   
       `;
     }
-  
     // Se asigna a la página web el contenido del encabezado.
+    //@ts-ignore
     getElementById("segunda_mitad_navbar").innerHTML = content;
     return;
   }

@@ -1,8 +1,9 @@
 <?php
+
 //Llama a otros documentos de php respectivo, el database, el validador, y el respectivo modelo
 require_once('../helpers/database.php');
 require_once('../helpers/validator.php');
-require_once('../modelos/gestion_empleado.php');
+require_once('../modelos/tipo_empleado.php');
 
 // constants 
 const ACTION = 'action';
@@ -19,9 +20,10 @@ const DELETE = 'delete';
 const SUCESS_RESPONSE = 1;
 
 // NOMBRES DE PARAMETROS, DEBEN DE SER IGUALES AL ID Y NAME DEL INPUT DE EL FORMULARI
-const TIPO_EMPLEADO_ID = 'id';
-const NOMBRE_TIPO_EMPLEADO = 'nombre_tipo_empleado';
-const TIPO_EMPLEADO = 'tipo_empleado';
+const ID = 'id';
+const NOMBRE = 'tipo_empleado_update';
+const VISIBILIDAD = 'visibilidad_update';
+
 
 // Se comprueba si existe una acción a realizar, de lo contrario se finaliza el script con un mensaje de error.
 if (isset($_GET[ACTION])) {
@@ -38,7 +40,6 @@ if (isset($_GET[ACTION])) {
         case READ_ALL:
             if ($result[DATA_SET] = $tipo_empleado->readAll()) {
                 $result[STATUS] = SUCESS_RESPONSE;
-                
             } elseif (Database::getException()) {
                 $result[EXCEPTION] = Database::getException();
             } else {
@@ -60,16 +61,17 @@ if (isset($_GET[ACTION])) {
             break;
         case CREATE:
             $_POST = $tipo_empleado->validateSpace($_POST);
-            if (!$tipo_empleado->setNombre($_POST[NOMBRE_TIPO_EMPLEADO])) {
-                $result[EXCEPTION] = 'Nombre incorrecto';
-            } elseif ($tipo_empleado->createRow()) {
-                $result[STATUS] = SUCESS_RESPONSE;
-                $result[MESSAGE] = 'Tipo de empleado creado existosamente';
-                if ($result[DATA_SET] = $tipo_empleado->readAll()) {
-                    $result[STATUS] = SUCESS_RESPONSE; 
-                } else {
-                    $result[EXCEPTION] = 'No hay datos registrados';
-                }
+
+            $result[EXCEPTION] = $tipo_empleado->setNombre($_POST['tipo_empleado']) ? null : 'Nombre incorrecto';
+
+            $_POST['visibilidad'] = $_POST['visibilidad'] == '1' ? 1 : 0;
+
+            $result[EXCEPTION] = $tipo_empleado->setVisibilidad($_POST['visibilidad']) ? null : 'Fecha de firma incorrecta';
+
+            if ($tipo_empleado->createRow()) {
+                $result[MESSAGE] = 'Registro creado correctamente';
+                $result[DATA_SET] = $tipo_empleado->readAll();
+                $result[STATUS] =  $result[DATA_SET] ? SUCESS_RESPONSE : 'No hay datos registrados';
             } else {
                 $result[EXCEPTION] = Database::getException();
             }
@@ -87,31 +89,27 @@ if (isset($_GET[ACTION])) {
             break;
         case UPDATE:
             $_POST = $tipo_empleado->validateSpace($_POST);
-            if (!$tipo_empleado->setId($_POST[TIPO_EMPLEADO_ID])) {
-                $result[EXCEPTION] = 'Tipo empleado incorrecta';
-            } elseif (!$tipo_empleado->setNombre($_POST[NOMBRE_TIPO_EMPLEADO])) {
-                $result[EXCEPTION] = 'Nombre incorrecto';
-            } elseif ($tipo_empleado->updateRow()) {
-                $result[STATUS] = SUCESS_RESPONSE;
-                $result[MESSAGE] = 'Cantidad modificada correctamente';
-                if ($result[DATA_SET] = $tipo_empleado->readAll()) {
-                    $result[STATUS] = SUCESS_RESPONSE;
-                } else {
-                    $result[EXCEPTION] = 'No hay datos registrados';
-                }
+            $result[EXCEPTION] = $tipo_empleado->setNombre($_POST[NOMBRE]) ? null : 'Nombre incorrecto';
+            $_POST[VISIBILIDAD] = $_POST[VISIBILIDAD] == '1' ? 1 : 0;
+            $result[EXCEPTION] = $tipo_empleado->setVisibilidad($_POST[VISIBILIDAD]) ? null : 'Visibilidad no encontrada';
+            $result[EXCEPTION] = $tipo_empleado->setId($_POST[ID]) ? null : 'Id incorrecto';
+
+            if ($tipo_empleado->updateRow()) {
+                $result[MESSAGE] = 'Registro modificado correctamente';
+                $result[DATA_SET] = $tipo_empleado->readAll();
+                $result[STATUS] =  $result[DATA_SET] ? SUCESS_RESPONSE : 'No hay datos registrados';
             } else {
                 $result[EXCEPTION] = Database::getException();
             }
             break;
         case DELETE:
-            if (!$tipo_empleado->setId($_POST[TIPO_EMPLEADO_ID])) {
+            if (!$tipo_empleado->setId($_POST[ID])) {
                 $result[EXCEPTION] = 'Tipo de empleado incorrecto';
             } elseif ($tipo_empleado->deleteRow()) {
                 $result[STATUS] = SUCESS_RESPONSE;
                 $result[MESSAGE] = 'Tipo de empleado removido correctamente';
                 if ($result[DATA_SET] = $tipo_empleado->readAll()) {
                     $result[STATUS] = SUCESS_RESPONSE;
-                    
                 } else {
                     $result[EXCEPTION] = 'No hay datos registrados';
                 }

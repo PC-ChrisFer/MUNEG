@@ -135,7 +135,7 @@
         <!-- Botones de SCRUD, actualizar y agregar -->
 
         <div class="container-fluid" id="opciones">
-            <div class="btn-group" role="group" aria-label="Basic example">
+            <div class="btn-group" role="group">
                 <button type="button" class="btn btn-primary" id="btnmenu" data-bs-toggle="modal"
                     data-bs-target="#agregar"><a class="nav-link" href="#"><img
                             src="../../resources/img/iconos_formularios/agregar_26px.png"></a></button>
@@ -239,63 +239,63 @@
                         <h5 class="modal-title" id="actualizarformLabel">Agregar Usuario</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div class="modal-body" id="formModal">
-                        <div class="row">
-                            <div class="col-6">
-                                <div class="row g-3">
-                                    <div class="col-12">
-                                        <label for="nombre_usuario" class="form-label">Nombre de Usuario</label>
-                                        <input type="text" class="form-control" id="nombre_usuario"
-                                            name="nombre_usuario" placeholder="CrisPa-Fer">
-                                    </div>
-                                    <div class="col-12">
-                                        <label for="password" class="form-label">Password</label>
-                                        <input type="text" class="form-control" id="password"
-                                            name="password" placeholder="AKDOE-0394-394riLO-235">
-                                    </div>
-                                    <div class="col-md-12">
-                                        <label for="tipo_usuario" class="form-label">Tipo Usuario</label>
-                                        <select id="tipo_usuario" name="tipo_usuario"
-                                            class="form-control">
+                    <!-- Formulario de Insert-->
+                    <form method="post" id="insert_form">
+                        <div class="modal-body" id="formModal">
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="row g-3">
+                                        <div class="col-12">
+                                            <label for="nombre_usuario" class="form-label">Nombre de Usuario</label>
+                                            <input type="text" class="form-control" id="nombre_usuario"
+                                                name="nombre_usuario" placeholder="Ingrese el nombre de Usuario">
+                                        </div>
+                                        <div class="col-12">
+                                            <label for="password" class="form-label">Password</label>
+                                            <input type="password" class="form-control" id="password" name="password"
+                                                placeholder="Ingrese la contraseña de Usuario">
+                                        </div>
+                                        <div class="col-md-12">
+                                            <label for="tipo_usuario" class="form-label">Tipo Usuario</label>
+                                            <select id="tipo_usuario" name="tipo_usuario" class="form-control">
 
-                                        </select>
-                                    </div>
-                                    <div class="col-12">
-                                        <label for="propietario" class="form-label">Propietario</label>
-                                        <select id="propietario" name="propietario" class="form-control">
+                                            </select>
+                                        </div>
+                                        <div class="col-12">
+                                            <label for="propietario" class="form-label">Propietario</label>
+                                            <select id="propietario" name="propietario" class="form-control">
 
-                                        </select>
-                                    </div>
-                                    <div class="col-12">
-                                        <label for="empleado" class="form-label">Empleado</label>
-                                        <select id="empleado" name="empleado" class="form-control">
+                                            </select>
+                                        </div>
+                                        <div class="col-12">
+                                            <label for="empleado" class="form-label">Empleado</label>
+                                            <select id="empleado" name="empleado" class="form-control">
 
-                                        </select>
+                                            </select>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-1">
-                            </div>
-                            <div class="col-5">
-                                <label for="upload_image" class="form-label">Imagen</label>
-                                <p></p>
-                                <a class="btn" name="archivo" id="upload_image">
-                                    <input type="file" class="form-control form-control-sm form-Input-Style">
-                                    <img src="../../resources/img/iconos_formularios/download_100px.png">
-                                </a>
+                                <div class="col-1">
+                                </div>
+                                <div class="col-5">
+                                    <label for="upload_image" class="form-label">Imagen</label>
+                                    <p></p>
+                                    <a class="btn" name="archivo" id="upload_image">
+                                        <input type="file" class="form-control form-control-sm form-Input-Style">
+                                        <img src="../../resources/img/iconos_formularios/download_100px.png">
+                                    </a>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="modal-footer">
-                        <div class="btn-group" role="group" aria-label="Basic example" id="opcionesModal">
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                href="#actualizar" id="btnmenu"><a class="nav-link"><img
-                                        src="../../resources/img/iconos_formularios/agregar_26px.png"></a></button>
-                            <button type="button" class="btn btn-primary" id="btnmenu" data-bs-toggle="modal"
-                                data-bs-target="#actualizarform"><a class="nav-link"><img
-                                        src="../../resources/img/iconos_formularios/cerrar_26px.png"></a></button>
+                        <div class="modal-footer">
+                            <div class="btn-group" role="group" id="opcionesModal">
+                                <button type="submit" class="btn btn-primary" id="btnmenu"><a class="nav-link"><img
+                                            src="../../resources/img/iconos_formularios/agregar_26px.png"></a></button>
+                                <button type="button" class="btn btn-primary" id="btnmenu"><a class="nav-link"><img
+                                            src="../../resources/img/iconos_formularios/cerrar_26px.png"></a></button>
+                            </div>
                         </div>
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -307,63 +307,66 @@
                         <h5 class="modal-title" id="actualizarformLabel">Actualizar Usuario</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div class="modal-body" id="formModal">
-                        <div class="row">
-                            <div class="col-6">
-                                <div class="row g-3">
-                                    <div class="col-12">
-                                        <label for="nombre_usuario_update" class="form-label">Nombre de Usuario</label>
-                                        <input type="text" class="form-control" id="nombre_usuario_update"
-                                            name="nombre_usuario_update" placeholder="CrisPa-Fer">
-                                    </div>
-                                    <div class="col-12">
-                                        <label for="password_update" class="form-label">Password</label>
-                                        <input type="text" class="form-control" id="password_update"
-                                            name="password_update" placeholder="AKDOE-0394-394riLO-235">
-                                    </div>
-                                    <div class="col-md-12">
-                                        <label for="tipo_usuario_update" class="form-label">Tipo Usuario</label>
-                                        <select id="tipo_usuario_update" name="tipo_usuario_update"
-                                            class="form-control">
+                    <!-- Formulario de Update -->
+                    <form method="update_form">
+                        <div class="modal-body" id="formModal">
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="row g-3">
+                                        <div class="col-12">
+                                            <label for="nombre_usuario_update" class="form-label">Nombre de
+                                                Usuario</label>
+                                            <input type="text" class="form-control" id="nombre_usuario_update"
+                                                name="nombre_usuario_update">
+                                        </div>
+                                        <div class="col-12">
+                                            <label for="password_update" class="form-label">Password</label>
+                                            <input type="text" class="form-control" id="password_update"
+                                                name="password_update">
+                                        </div>
+                                        <div class="col-md-12">
+                                            <label for="tipo_usuario_update" class="form-label">Tipo Usuario</label>
+                                            <select id="tipo_usuario_update" name="tipo_usuario_update"
+                                                class="form-control">
 
-                                        </select>
-                                    </div>
-                                    <div class="col-12">
-                                        <label for="propietario_update" class="form-label">Propietario</label>
-                                        <select id="propietario_update" name="propietario_update" class="form-control">
+                                            </select>
+                                        </div>
+                                        <div class="col-12">
+                                            <label for="propietario_update" class="form-label">Propietario</label>
+                                            <select id="propietario_update" name="propietario_update"
+                                                class="form-control">
 
-                                        </select>
-                                    </div>
-                                    <div class="col-12">
-                                        <label for="empleado_update" class="form-label">Empleado</label>
-                                        <select id="empleado_update" name="empleado_update" class="form-control">
+                                            </select>
+                                        </div>
+                                        <div class="col-12">
+                                            <label for="empleado_update" class="form-label">Empleado</label>
+                                            <select id="empleado_update" name="empleado_update" class="form-control">
 
-                                        </select>
+                                            </select>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-1">
-                            </div>
-                            <div class="col-5">
-                                <label for="upload_image" class="form-label">Imagen</label>
-                                <p></p>
-                                <a class="btn" name="archivo" id="upload_image">
-                                    <input type="file" class="form-control form-control-sm form-Input-Style">
-                                    <img src="../../resources/img/iconos_formularios/download_100px.png">
-                                </a>
+                                <div class="col-1">
+                                </div>
+                                <div class="col-5">
+                                    <label for="upload_image" class="form-label">Imagen</label>
+                                    <p></p>
+                                    <a class="btn" name="archivo" id="upload_image">
+                                        <input type="file" class="form-control form-control-sm form-Input-Style">
+                                        <img src="../../resources/img/iconos_formularios/download_100px.png">
+                                    </a>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="modal-footer">
-                        <div class="btn-group" role="group" aria-label="Basic example" id="opcionesModal">
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                href="#actualizar" id="btnmenu"><a class="nav-link"><img
-                                        src="../../resources/img/iconos_formularios/editar_26px.png"></a></button>
-                            <button type="button" class="btn btn-primary" id="btnmenu" data-bs-toggle="modal"
-                                data-bs-target="#actualizarform"><a class="nav-link"><img
-                                        src="../../resources/img/iconos_formularios/cerrar_26px.png"></a></button>
+                        <div class="modal-footer">
+                            <div class="btn-group" role="group" id="opcionesModal">
+                                <button type="submit" class="btn btn-primary" id="btnmenu"><a class="nav-link"><img
+                                            src="../../resources/img/iconos_formularios/editar_26px.png"></a></button>
+                                <button type="button" class="btn btn-primary" id="btnmenu"><a class="nav-link"><img
+                                            src="../../resources/img/iconos_formularios/cerrar_26px.png"></a></button>
+                            </div>
                         </div>
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -378,12 +381,13 @@
                     <div class="modal-body">
                         Desea Eliminar la información de este registro?
                     </div>
-                    <div class="modal-footer">
-                        <button class="btn btn-primary" data-bs-target="#actualizarform" data-bs-toggle="modal"
-                            id="btnmenu">Volver</button>
-                        <button class="btn btn-primary" data-bs-target="#eliminado" data-bs-toggle="modal"
-                            id="btnmenu">Confirmar</button>
-                    </div>
+                    <!-- Formulario de Update -->
+                    <form method="post" id="delete_form">
+                        <div class="modal-footer">
+                            <button class="btn btn-primary" id="btnmenu">Volver</button>
+                            <button class="btn btn-primary" id="btnmenu">Confirmar</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>

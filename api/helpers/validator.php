@@ -242,12 +242,23 @@ class Validator
         }
     }
 
+    // Utilizar parametros "$value" que es el valor del campo a validar.  
+    public function validateNRC($value)
+    {
+        //Se verifica el formato de 0000-000000-000-0
+        if (preg_match('/^[0-9]{7}[-][0-9]{1}$/', $value)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     // Validar un numero de telefono
     // Utilizar parametros "$value" que es el valor del campo a validar.  
     public function validatePhone($value)
     {
         //Se verifica el formato de +00000000000
-        if (preg_match('/^[+][0-9]{11}$/', $value)) {
+        if (preg_match('/^[+][0-9]{4}[-][0-9]{4}$/', $value)) {
             return true;
         } else {
             return false;

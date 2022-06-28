@@ -1,4 +1,4 @@
-export const SERVER = 'http://localhost/AntojitoSV/api/';
+export const SERVER = 'http://localhost/MUNEG/api/';
 export const API_SUCESS_REQUEST = 1
 export const API_FAILED_REQUEST = 0
 //Contantes de metodo

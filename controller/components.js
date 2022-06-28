@@ -8,7 +8,6 @@ import {
   GET_METHOD,
   POST_METHOD,
   API_DELETE,
-  // @ts-ignore
   SERVER,
   API_READONE,
   API_UNDELETE,
@@ -35,14 +34,19 @@ export async function searchRows(ENDPOINT, formID, fillrows, parametersJson) {
 
   //Llamar a la función de conexión api para realizar fetch y then
   let APIResponse = await APIConnection(APIEndpoint, POST_METHOD, parameters);
-  console.log(APIEndpoint);
   //Utilizar la respuesta del api para realizar funciones
   if (APIResponse.status == API_SUCESS_REQUEST) {
     fillrows(APIResponse.dataset)
     // dado caso este if se ejecute con "return" hara que hasta este punto llegue el codigo
     return;
+  } else {
+    fillrows([])
+    // dado caso este if se ejecute con "return" hara que hasta este punto llegue el codigo
+    return;
   }
 }
+
+
 
 
 // GUARDAR REGISTROS
@@ -55,13 +59,11 @@ export async function saveRow(ENDPOINT, ACTION, parameters, fillrows) {
   // validando respuesta 
   if (APIResponse.status == API_SUCESS_REQUEST) {
     fillrows(APIResponse.dataset)
-    // @ts-ignore
-    $('#guardado').modal('show');
+    //$('#guardado').modal('show');
     return;
   }
   //En caso de fracaso se abrira un modal de error
-  // @ts-ignore
-  $('#error_proceso').modal('show');
+  //$('#error_proceso').modal('show');
 
 }
 
@@ -73,13 +75,11 @@ export async function deleteRow(ENDPOINT, parameters, fillrows) {
 
   if (APIResponse.status == API_SUCESS_REQUEST) {
     fillrows(APIResponse.dataset)
-    // @ts-ignore
-    $('#eliminado').modal('show');
+    //$('#eliminado').modal('show');
     return;
   }
   //En caso de fracaso se abrira un modal de error
-  // @ts-ignore
-  $('#error_proceso').modal('show');
+  //$('#error_proceso').modal('show');
 }
 
 // Hacer un readOne
@@ -106,6 +106,5 @@ export async function unDeleteRow(ENDPOINT, parameters, fillrows) {
     return;
   }
   //En caso de fracaso se abrira un modal de error
-  // @ts-ignore
-  $('#error_proceso').modal('show');
+  //$('#error_proceso').modal('show');
 }

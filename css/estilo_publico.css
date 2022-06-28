@@ -18,14 +18,6 @@
 
 }
 
-#carouselExampleIndicators{
-    margin-top: 75px;
-}
-
-#principalContainer{
-    margin-top: 50px;
-}
-
 #cotones {
     display: flex;
     align-items: center;
@@ -54,11 +46,6 @@
 #contactenos_footer {
     color: #2BCBD9;
     font-size: 25px;
-}
-
-/*Texto del encabezado segundo footer*/
-#container_propiedades{
-    margin-top: 50px;
 }
 
 /*Texto del encabezado segundo footer*/
@@ -229,7 +216,6 @@
     background-color: gray;
     height: auto;
     width: 100%;
-    margin-top: 75px;
     text-align: center;
     color: white;
     padding: 1%;
@@ -326,185 +312,3 @@
 #vision_mision{
     margin-bottom: 50px;
 }
-
-*{
-    margin: 0px;
-    padding: 0px;
-    font-family: 'Ubuntu', sans-serif;
-}
-
-
-/**** letra+******/
-
-.title{
-    padding: 40px 0px;
-    text-align: center;
-    align-items: center;
-}
-
-.title h1{
-    font-size: 25px;
-}
-
-#sombra{
-    box-shadow: 0 0 5px 1px rgba(0, 0, 0, 1);
-
-}
-.card6{
-    margin: 20px 7px;
-    background-color: #009AA4;
-}
-
-.card1{
-    margin: 20px 7px;
-    background-color: #E2E2E2;
-    justify-content: center;
-}
-
-.card2{
-    margin: 20px 7px;
-    background-color:#c6ebf1;
-    justify-content: center;
-}
-
-.card6 a{
-    background-color: #1D4347;
-}
-
-#color{
-    background-color: #1D4347;
-}
-
-#color a{
-    color: #E2E2E2;
-    text-decoration: none;
-
-}
-
-#color a:hover{
-    color: orange;
-    text-decoration: none;
-}
-
-#color2 a:hover{
-    color: orange;
-    text-decoration: none;
-}
-
-.card-body h5{
-    color:#312C2C ;
-}
-
-.card-body p{
-    color: #A2CFEB;
-}
-
-#borde{
-    border-style: solid;
-    border-color:#389ca4;
-    border-width: 1px;
-}
-
-.card6:hover{
-    /*****box-shadow: 5px 5px 20px rgba(0, 0, 0, 4);*****/
-    transform: translateY(-5%);
-    transition: all 300ms ease;
-}
-
-#boton{
-    text-align: center;
-    padding: 40px 0px;
-    
-    
-}
-
-#boton a{
-    text-align: center;
-    text-decoration: none;
-    background-color: #1D4347;
-    
-}
-
-#colorb{
-    background-color: #1D4347;
-    color: #E2E2E2;
-
-}
-
-#boton a:hover{
-    color: orange;
-    text-decoration: none;
-
-}
-
-#vende{
-    height: 200px;
-    max-width: 100%;
-}
-
-#vende1{
-    height: 80px;
-    max-width: 100%;
-}
-
-#pagina a{
-    color:#009AA4;
-}
-
-#pagina{
-    align-items: center;
-    justify-content: center;
-}
-
-
-.card1{
-    display: flex;
-}
-
-.phones h6{
-    padding-top: 55px;
-}
-
-#imgj{
-    padding-top: 70px;
-    padding-left: 30px;
-    padding-right: 30px;
-    padding-bottom: 30px;
-}
-
-#letrasc h5{
-    text-align: center;
-}
-
-img{
-	max-width: 100%;
-}
-.gallery{
-	padding: 30px 0;
-}
-.gallery img{
-	background-color: #ffffff;
-	padding: 15px;
-	width: 100%;
-	box-shadow: 0 0 15px rgba(0,0,0,0.3);
-	cursor: pointer;
-}
-#gallery-modal .modal-img{
-	width: 100%;
-}
-
-#fotos{
-    margin-right: 70px;
-}
-
-.card66ñ{
-    background-color: #018080;
-}
-
-.card66 h5{
-    color: white;
-}
-.gallery-item{
-    max-width: 400px;
-}
-

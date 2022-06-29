@@ -6,7 +6,7 @@ import {
   API_SUCESS_REQUEST,
   GET_METHOD,
 } from "../constants/api_constant.js";
-import { getElementById } from "../constants/functions.js";
+import { getElementById,  validateExistenceOfUser } from "../constants/functions.js";
 import { APIConnection } from "../APIConnection.js";
 
 const API_GESTION_URUSARIO = SERVER + "privada/usuario.php?action=";
@@ -23,7 +23,8 @@ let datosUsuario = {
 };
 
 document.addEventListener("DOMContentLoaded", async () => {
-  //validateExistenceOfUser();
+  //Valida que el usuario este logeado  
+  await validateExistenceOfUser();
   // Se llama a la función que obtiene los registros para llenar la tabla. Se encuentra en el archivo components.js
   await readRows(API_GESTION_URUSARIO, fillTableUsarios);
   await fillEmpleadoCMB();

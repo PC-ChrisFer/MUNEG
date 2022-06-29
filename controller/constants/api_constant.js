@@ -7,6 +7,7 @@ export const GET_METHOD = 'get'
 //Contantes de API
 export const API_SEARCH = 'search'
 export const API_READALL = 'readAll'
+export const API_READALL_DELETED= "readAllDeleted"
 export const API_READ_EMPLEADOS_USERS = 'readEmpleadosUsers'
 export const API_REGISTRAR_EMPLEADO_USER = 'registerEmpleadoUser'
 export const API_REGISTRAR_CLIENTE_USER = 'registerClienteUser'

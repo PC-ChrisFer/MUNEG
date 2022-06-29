@@ -1,6 +1,6 @@
 //@ts-check
 
-import { deleteRow, readRows, saveRow } from "../components.js";
+import { deleteRow, readRows, saveRow, searchRows} from "../components.js";
 import {
   SERVER,
   API_CREATE,
@@ -8,8 +8,9 @@ import {
   API_SUCESS_REQUEST,
   GET_METHOD,
 } from "../constants/api_constant.js";
-import { getElementById } from "../constants/functions.js";
+import { getElementById,  validateExistenceOfUser } from "../constants/functions.js";
 import { APIConnection } from "../APIConnection.js";
+import { fillPropiedad } from "../publica/inmuebles_alquiler.js";
 
 const API_PROPIEDAD = SERVER + "privada/propiedad.php?action=";
 const API_TIPO_ACABADO = SERVER + "privada/tipo_acabado.php?action=";
@@ -40,7 +41,8 @@ let datosPropiedad = {
 };
 
 document.addEventListener("DOMContentLoaded", async () => {
-  //validateExistenceOfUser();
+  //Valida que el usuario este logeado
+  await validateExistenceOfUser();
   // Se llama a la función que obtiene los registros para llenar la tabla. Se encuentra en el archivo components.js
   await readRows(API_PROPIEDAD, fillTablePropiedad);
   await fillTipoAcabado();
@@ -268,6 +270,16 @@ window.guardarDatosDelete = (id_propiedad) => {
   //@ts-ignore
   $("#eliminar").modal("show");
 };
+
+
+// Método que se ejecuta al enviar un formulario de busqueda
+//@ts-ignore
+getElementById("search-bar").addEventListener("submit", async (event) => {
+  // Se evita recargar la página web después de enviar el formulario.
+  event.preventDefault();
+  // Se llama a la función que realiza la búsqueda. Se encuentra en el archivo components.js
+  await searchRows(API_PROPIEDAD, "search-bar", fillTablePropiedad);
+});  
 
 getElementById("insert_form")?.addEventListener("submit", async (event) => {
   event.preventDefault();

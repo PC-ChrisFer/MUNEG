@@ -27,8 +27,8 @@ const EMPLEADO_NOMBRE = 'nombre_empleado';
 const EMPLEADO_APELLIDO = 'apellido_empleado';
 const EMPLEADO_DUI = 'dui';
 const EMPLEADO_NIT = 'nit';
-const EMPLEADO_TELEFONO = 'telefono';
-const EMPLEADO_CORREO = 'correo';
+const EMPLEADO_TELEFONO = 'numero_telefono';
+const EMPLEADO_CORREO = 'correo_electronico';
 const EMPLEADO_GENERO = 'genero';
 const EMPLEADO_FECHA_NACIMIENTO = 'fecha_nacimiento';
 const EMPLEADO_ESTADO = 'estado_empleado';
@@ -82,7 +82,7 @@ if (isset($_GET[ACTION])) {
                 $result[EXCEPTION] = 'DUI no valido';
             } else if (!$empleado->setNIT($_POST[EMPLEADO_NIT])) {
                 $result[EXCEPTION] = 'NIT no valido';
-            } else if (!$empleado->setFechaNacmiento($_POST['fecha_nacimiento'])) {
+            } else if (!$empleado->setFechaNacmiento($_POST[EMPLEADO_FECHA_NACIMIENTO])) {
                 $result[EXCEPTION] = 'Número de telefono no valido';
             } else if (!$empleado->setTelefono($_POST[EMPLEADO_TELEFONO])) {
                 $result[EXCEPTION] = 'Número de telefono no valido';

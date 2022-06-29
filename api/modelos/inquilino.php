@@ -23,7 +23,7 @@ class inquilino extends validator
 
     private $true = 1;
     private $still_true = 2;
-    private $false = 3;
+    private $false = '0';
     //Metodos para setear los valores de los campos
     //Id - integer
     public function setId($value)
@@ -61,12 +61,12 @@ class inquilino extends validator
     //DUI del empleado - char
     public function setDUI($value)
     {
-        // if ($this->validateDUI($value)) {
+        if ($this->validateDUI($value)) {
         $this->dui = $value;
         return true;
-        // } else {
-        //     return false;
-        // }
+        } else {
+            return false;
+        }
     }
 
 
@@ -296,9 +296,9 @@ class inquilino extends validator
     public function createRow()
     {
         $sql = 'INSERT INTO public.inquilino(
-            nombre, apellido, numero_telefono, correo_electronico, fecha_nacimiento, genero, "DUI", "NRC", "NIT", imagen, id_tipo_inquilino, id_estado_inquilino)
+            nombre, apellido, numero_telefono, correo_electronico, fecha_nacimiento, genero, "DUI", "NRC", "NIT", id_tipo_inquilino, id_estado_inquilino, imagen)
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
-        $params = array($this->nombre, $this->apellido, $this->dui, $this->nit, $this->nrc,  $this->numero_telefono, $this->correo_electronico, $this->genero, $this->fecha_nacimiento, $this->id_estado_inquilino, $this->id_tipo_inquilino, $this->imagen);
+        $params = array($this->nombre, $this->apellido,$this->numero_telefono,$this->correo_electronico,  $this->fecha_nacimiento,  $this->genero, $this->dui, $this->nrc, $this->nit,  $this->id_estado_inquilino, $this->id_tipo_inquilino, $this->imagen);
         return Database::executeRow($sql, $params);
     }
 
@@ -306,9 +306,9 @@ class inquilino extends validator
     public function updateRow()
     {
         $sql = 'UPDATE public.inquilino
-        SET id_inquilino=?, nombre=?, apellido=?, numero_telefono=?, correo_electronico=?, fecha_nacimiento=?, genero=?, "DUI"=?, "NRC"=?, "NIT"=?, imagen=?, id_tipo_inquilino=?, id_estado_inquilino=?
+        SET nombre=?, apellido=?, numero_telefono=?, correo_electronico=?, fecha_nacimiento=?, genero=?, "DUI"=?, "NRC"=?, "NIT"=?, id_tipo_inquilino=?, id_estado_inquilino=? ,imagen=?
         WHERE id_inquilino=?';
-        $params = array($this->nombre, $this->apellido, $this->dui, $this->nit,  $this->nrc, $this->numero_telefono, $this->correo_electronico, $this->genero, $this->fecha_nacimiento, $this->id_estado_inquilino, $this->id_estado_inquilino, $this->imagen, $this->id_inquilino);
+        $params = array($this->nombre, $this->apellido,$this->numero_telefono,$this->correo_electronico,$this->fecha_nacimiento,$this->genero,  $this->dui,$this->nrc, $this->nit, $this->id_tipo_inquilino,   $this->id_estado_inquilino,$this->imagen, $this->id_inquilino);
         return Database::executeRow($sql, $params);
     }
 
@@ -316,7 +316,8 @@ class inquilino extends validator
     //Metodo para la eliminación
     public function deleteRow()
     {
-        $sql = 'DELETE FROM public.inquilino
+        $sql = 'UPDATE public.inquilino
+        SET visibilidad=?
         WHERE id_inquilino=?';
         $params = array($this->false, $this->id_inquilino);
         return Database::executeRow($sql, $params);
@@ -332,7 +333,7 @@ class inquilino extends validator
         ON tipo_inquilino.id_tipo_inquilino = inquilino.id_tipo_inquilino
         INNER JOIN estado_inquilino
         ON estado_inquilino.id_estado_inquilino = inquilino.id_estado_inquilino
-        WHERE inquilino.id_estado_inquilino = ? OR inquilino.id_estado_inquilino = ?';
+        WHERE inquilino.visibilidad = true  AND inquilino.id_estado_inquilino = ? OR inquilino.id_estado_inquilino = ?';
         $params = array($this->true, $this->still_true);
         return Database::getRows($sql, $params);
     }

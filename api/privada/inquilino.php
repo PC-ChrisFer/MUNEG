@@ -74,6 +74,8 @@ if (isset($_GET[ACTION])) {
             break;
         case CREATE:
             $_POST = $inquilino->validateSpace($_POST);
+            $result[EXCEPTION] = is_uploaded_file($_FILES['archivo']['tmp_name']) ? null : "ARCHIVO INCORRECTO";
+            $result[EXCEPTION] = $inquilino->setImage($_FILES['archivo']) ? null : $inquilino->getFileError();
             if (!$inquilino->setNombre($_POST[INQUILINO_NOMBRE])) {
                 $result[EXCEPTION] = 'Nombre incorrecto';
             } else if (!$inquilino->setApellido($_POST[INQUILINO_APELLIDO])) {
@@ -88,33 +90,24 @@ if (isset($_GET[ACTION])) {
                 $result[EXCEPTION] = 'Número de telefono no valido';
             } else if (!$inquilino->setCorreo($_POST[INQUILINO_CORREO])) {
                 $result[EXCEPTION] = 'Correo electronico no valido';
-            } else if (!$inquilino->setGenero($_POST[INQUILINO_GENERO])) {
+            } else if (!$inquilino->setGenero($_POST[INQUILINO_GENERO])) 
                 $result[EXCEPTION] = 'Genero no disponible';
-            } elseif (!is_uploaded_file($_FILES[INQUILINO_ARCHIVO][TMP_NAME])) {
-                $result[EXCEPTION] = 'Seleccione una imagen';
-            } elseif (!$inquilino->setImage($_FILES[INQUILINO_ARCHIVO])) {
-                $result[EXCEPTION] = $inquilino->getFileError();
-            } else if (!$inquilino->setEstadoInquilino($_POST[INQUILINO_ESTADO])) {
+             else if (!$inquilino->setEstadoInquilino($_POST[INQUILINO_ESTADO])) {
                 $result[EXCEPTION] = 'Estado incorrecto';
             } else if (!$inquilino->setTipoInquilino($_POST[INQUILINO_TIPO])) {
                 $result[EXCEPTION] = 'Tipo incorrecto';
             } elseif ($inquilino->createRow()) {
                 $result[STATUS] = SUCESS_RESPONSE;
                 $result[MESSAGE] = 'Empleado creado existosamente';
-                if ($inquilino->saveFile($_FILES[INQUILINO_ARCHIVO], $inquilino->getRutaImagenes(), $inquilino->getImagen())) {
+                if ($inquilino->saveFile($_FILES["archivo"], $inquilino->getRutaImagenes(), $inquilino->getImagen())) {
                     $result[MESSAGE] = 'Imagen ingresada correctanente';
-                    if ($result[DATA_SET] = $inquilino->readAll()) {
-                        $result[STATUS] = SUCESS_RESPONSE;
-                    } else {
-                        $result[EXCEPTION] = 'No hay datos registrados';
-                    }
+                }
+                if ($result[DATA_SET] = $inquilino->readAll()) {
+                    $result[STATUS] = SUCESS_RESPONSE;
+                } elseif (Database::getException()) {
+                    $result[EXCEPTION] = Database::getException();
                 } else {
-                    $result[MESSAGE] = 'Imagen no se a ingresado correctanente';
-                    if ($result[DATA_SET] = $inquilino->readAll()) {
-                        $result[STATUS] = SUCESS_RESPONSE;
-                    } else {
-                        $result[EXCEPTION] = 'No hay datos registrados';
-                    }
+                    $result[EXCEPTION] = 'No hay datos registrados';
                 }
             } else {
                 $result[EXCEPTION] = Database::getException();
@@ -133,8 +126,10 @@ if (isset($_GET[ACTION])) {
             break;
         case UPDATE:
             $_POST = $inquilino->validateSpace($_POST);
+            $result[EXCEPTION] = is_uploaded_file($_FILES['archivo']['tmp_name']) ? null : "ARCHIVO INCORRECTO";
+            $result[EXCEPTION] = $inquilino->setImage($_FILES['archivo']) ? null : $inquilino->getFileError();
             if (!$inquilino->setId($_POST[INQUILINO_ID])) {
-                $result[EXCEPTION] = 'Nombre incorrecto';
+                $result[EXCEPTION] = 'id incorrecto';
             } else if (!$inquilino->setNombre($_POST[INQUILINO_NOMBRE])) {
                 $result[EXCEPTION] = 'Nombre incorrecto';
             } else if (!$inquilino->setApellido($_POST[INQUILINO_APELLIDO])) {
@@ -145,7 +140,7 @@ if (isset($_GET[ACTION])) {
                 $result[EXCEPTION] = 'Número de telefono no valido';
             } else if (!$inquilino->setNIT($_POST[INQUILINO_NIT])) {
                 $result[EXCEPTION] = 'NIT no valido';
-            } else if (!$inquilino->setTelefono($_POST[INQUILINO_TELEFONO])) {
+            } else if (!$inquilino->setTelefono($_POST['telefono'])) {
                 $result[EXCEPTION] = 'Número de telefono no valido';
             } else if (!$inquilino->setCorreo($_POST[INQUILINO_CORREO])) {
                 $result[EXCEPTION] = 'Correo electronico no valido';
@@ -153,10 +148,6 @@ if (isset($_GET[ACTION])) {
                 $result[EXCEPTION] = 'Genero no disponible';
             } else if (!$inquilino->setTelefono($_POST[INQUILINO_FECHA_NACIMIENTO])) {
                 $result[EXCEPTION] = 'Fecha incorrecta';
-            } elseif (!is_uploaded_file($_FILES[INQUILINO_ARCHIVO][TMP_NAME])) {
-                $result[EXCEPTION] = 'Seleccione una imagen';
-            } elseif (!$inquilino->setImage($_FILES[INQUILINO_ARCHIVO])) {
-                $result[EXCEPTION] = $inquilino->getFileError();
             } else if (!$inquilino->setEstadoInquilino($_POST[INQUILINO_ESTADO])) {
                 $result[EXCEPTION] = 'Estado incorrecto';
             } else if (!$inquilino->setTipoInquilino($_POST[INQUILINO_TIPO])) {
@@ -164,20 +155,15 @@ if (isset($_GET[ACTION])) {
             } elseif ($inquilino->updateRow()) {
                 $result[STATUS] = SUCESS_RESPONSE;
                 $result[MESSAGE] = 'EMPLEADO modificada correctamente';
-                if ($inquilino->saveFile($_FILES[INQUILINO_ARCHIVO], $inquilino->getRutaImagenes(), $inquilino->getImagen())) {
+                if ($inquilino->saveFile($_FILES["archivo"], $inquilino->getRutaImagenes(), $inquilino->getImagen())) {
                     $result[MESSAGE] = 'Imagen ingresada correctanente';
-                    if ($result[DATA_SET] = $inquilino->readAll()) {
-                        $result[STATUS] = SUCESS_RESPONSE;
-                    } else {
-                        $result[EXCEPTION] = 'No hay datos registrados';
-                    }
+                }
+                if ($result[DATA_SET] = $inquilino->readAll()) {
+                    $result[STATUS] = SUCESS_RESPONSE;
+                } elseif (Database::getException()) {
+                    $result[EXCEPTION] = Database::getException();
                 } else {
-                    $result[MESSAGE] = 'Imagen no se a ingresado correctanente';
-                    if ($result[DATA_SET] = $inquilino->readAll()) {
-                        $result[STATUS] = SUCESS_RESPONSE;
-                    } else {
-                        $result[EXCEPTION] = 'No hay datos registrados';
-                    }
+                    $result[EXCEPTION] = 'No hay datos registrados';
                 }
             } else {
                 $result[EXCEPTION] = Database::getException();
@@ -185,10 +171,10 @@ if (isset($_GET[ACTION])) {
             break;
         case DELETE:
             if (!$inquilino->setId($_POST[INQUILINO_ID])) {
-                $result[EXCEPTION] = 'Empleado incorrecto';
+                $result[EXCEPTION] = 'inquilino incorrecto';
             } elseif ($inquilino->deleteRow()) {
                 $result[STATUS] = SUCESS_RESPONSE;
-                $result[MESSAGE] = 'Empleado removido correctamente';
+                $result[MESSAGE] = 'inquilino removido correctamente';
                 if ($result[DATA_SET] = $inquilino->readAll()) {
                     $result[STATUS] = SUCESS_RESPONSE;
                 } else {

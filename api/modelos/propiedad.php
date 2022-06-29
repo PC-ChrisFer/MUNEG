@@ -254,7 +254,6 @@ class propiedad extends validator
 
     //Metodos para realizar las operaciones SCRUD(Search, Create, Read, Update, Delete)
 
-    //Metodo para la busqueda SEARCH
     //Utilizaremos los campos o (NOMBRE_TIPO)
     public function searchRows($value)
     {
@@ -359,7 +358,8 @@ class propiedad extends validator
         INNER JOIN public.inquilino
         ON propiedad.id_inquilino = inquilino.id_inquilino
         INNER JOIN public.tipo_acabado
-        ON propiedad.id_tipo_acabado = tipo_acabado.id_tipo_acabado';
+        ON propiedad.id_tipo_acabado = tipo_acabado.id_tipo_acabado
+        WHERE propiedad.visibilidad = true' ;
         $params = null;
         return Database::getRows($sql, $params);
     }

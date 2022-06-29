@@ -195,15 +195,17 @@ if (isset($_GET[ACTION])) {
                 if ($usuario->searchPassword($_POST['password'])) {
                     $result[STATUS] = 1;
                     $result[MESSAGE] = 'Autenticación correcta';
-                    $_SESSION[ID_USUARIO] = $usuario->getId();
+                    $_SESSION[ID_USUARIO] = 11; 
                     $_SESSION[ALIAS_USUARIO] = $usuario->getNombre();
                 } else {
                     $result[EXCEPTION] = 'Clave incorrecta';
                 }
                 break;
             case 'checkSession':
-                if (isset($_SESSION['usuario'])) {
+                if (isset($_SESSION[ID_USUARIO])) {
                     $result[STATUS] = 1;
+                }else{
+                    $result[STATUS] = 0;
                 }
                 break;
             default:

@@ -10,7 +10,7 @@ import {
 } from "../components.js";
 import {
   getElementById,
-  validateExistenceOfUser,
+   validateExistenceOfUser,
 } from "../constants/functions.js";
 import {
   API_CREATE,
@@ -35,7 +35,7 @@ let datos_cliente = {
 
 // Método manejador de eventos que se ejecuta cuando el documento ha cargado.
 document.addEventListener("DOMContentLoaded", async () => {
-  //validateExistenceOfUser();
+  await validateExistenceOfUser();
   // Se llama a la función que obtiene los registros para llenar la tabla. Se encuentra en el archivo components.js
   await readRows(API_CLIENTE, fillTableCliente);
 });

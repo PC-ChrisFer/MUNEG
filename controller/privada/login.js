@@ -25,10 +25,9 @@ document.addEventListener('DOMContentLoaded', async () => {
   // haciendo coneccion con la API pormedio del enpoint
   let APIResponse = await APIConnection(APIEndpoint, GET_METHOD, null);
   // valida session activa
-  console.log(APIResponse)
-  if (APIResponse.session === API_SUCESS_REQUEST) {
+  if (APIResponse.session == API_SUCESS_REQUEST) {
     // REENVIA A LA PAGINA ASIGNADA
-    location.href = "paginaprivada.html";
+    window.location.href = "pagina_principal.html";
   } 
 });
 
@@ -50,7 +49,7 @@ getElementById('logInForm')?.addEventListener('submit', async (event) => {
     );
   
     if (APIResponse.status) {
-      location.href = "pagina_principal.html";
+      window.location.href ="pagina_principal.html"
     } else {
       console.log("USER DOESNT EXIST");
     }

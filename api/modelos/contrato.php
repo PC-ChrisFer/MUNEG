@@ -13,7 +13,7 @@ class contrato extends validator
     private $id_propiedad = null;
     private $id_empleado = null;
     private $id_inquilino = null;
-    private $ruta = 
+    private $ruta;
 
     //Metodos para setear los valores de los campos
     //Id
@@ -37,10 +37,14 @@ class contrato extends validator
     }
 
     //Imagen
-    public function setImagen($value)
+    public function setImage($file)
     {
-        $this->imagen = $value;
-        return true;
+        if ($this->validateImageFile($file, 5000, 5000)) {
+            $this->imagen = $this->getFileName();
+            return true;
+        } else {
+            return false;
+        }
     }
 
     //IdPropietario
@@ -73,6 +77,11 @@ class contrato extends validator
 
     //Métodos para obtener los valores de los cambios
 
+    //ruta img
+    public function getRutaImagenes() {
+        return '../imagenes/contrato/';
+    }
+
     //IdContrato
     public function getId($value)
     {
@@ -95,7 +104,7 @@ class contrato extends validator
     }
 
     //Imagen
-    public function getImagen($value)
+    public function getImagen()
     {
         return $this->imagen;
         
@@ -148,7 +157,7 @@ class contrato extends validator
         $sql = 'INSERT INTO contrato(
             descripcion, fecha_firma, imagen, id_propietario, id_propiedad, id_empleado, id_inquilino)
             VALUES (?, ?, ?, ?, ?, ?, ?)';
-        $params = array($this->descripcion, $this->fecha_firma, $this->imagen, $this->id_propietario, $this->id_propiedad, $this->id_empledo, $this->id_inquilino);
+        $params = array($this->descripcion, $this->fecha_firma, $this->imagen, $this->id_propietario, $this->id_propiedad, $this->id_empleado, $this->id_inquilino);
         return Database::executeRow($sql, $params);
     }
 
@@ -158,14 +167,14 @@ class contrato extends validator
         $sql = 'UPDATE contrato
         SET  descripcion = ?, fecha_firma = ?, imagen = ?, id_propietario = ?, id_propiedad = ?, id_empleado = ?, id_inquilino = ?
         WHERE id_contrato =?';
-        $params = array($this->descripcion, $this->fecha_firma, $this->imagen, $this->id_propietario, $this->id_propiedad, $this->id_empledo, $this->id_inquilino, $this->id_contrato);
+        $params = array($this->descripcion, $this->fecha_firma, $this->imagen, $this->id_propietario, $this->id_propiedad, $this->id_empleado, $this->id_inquilino, $this->id_contrato);
         return Database::executeRow($sql, $params);
     }
 
     //Metodo para la eliminación DELETE 
     public function deleteRow()
     {
-        $sql = 'DELETE FROM contrato
+        $sql = 'DELETE FROM public.contrato
         WHERE id_contrato = ?';
         $params = array($this->id_contrato);
         return Database::executeRow($sql, $params);
@@ -176,7 +185,7 @@ class contrato extends validator
     public function readAll()
     {
         $sql = 'SELECT id_contrato, descripcion, fecha_firma, imagen, id_propietario, id_propiedad, id_empleado, id_inquilino
-        FROM contrato';
+        FROM public.contrato';
         $params = null;
         return Database::getRows($sql, $params);
     }
@@ -189,6 +198,43 @@ class contrato extends validator
         WHERE id_contrato = ?';
         $params = ($this->id_contrato);
         return Database::getRow($sql, $params);
+    }
+
+    //Llenar combobox
+    //Combobox del Propietario
+    public function readPropietario()
+    {
+        $sql = 'SELECT  id_propietario, nombre
+        FROM propietario';
+        $params = null;
+        return Database::getRows($sql, $params);
+    }
+
+    //Combobox del Propiedad
+    public function readPropiedad()
+    {
+        $sql = 'SELECT  id_propiedad, codigo
+        FROM propiedad';
+        $params = null;
+        return Database::getRows($sql, $params);
+    }
+
+    //Combobox del Propiedad
+    public function readEmpleado()
+    {
+        $sql = 'SELECT  id_empleado, nombre
+        FROM empleado';
+        $params = null;
+        return Database::getRows($sql, $params);
+    }
+
+    //Combobox del Inquilino
+    public function readInquilino()
+    {
+        $sql = 'SELECT  id_inquilino, nombre
+        FROM inquilino';
+        $params = null;
+        return Database::getRows($sql, $params);
     }
 
 }

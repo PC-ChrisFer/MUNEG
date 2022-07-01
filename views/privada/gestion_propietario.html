@@ -91,31 +91,6 @@
                                         src="../../resources/img/iconos_navbar/modern_art_30px.png">Gestion
                                     de Tipo Acabado</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="gestion_tipo_empleado.html"><img
-                                        src="../../resources/img/iconos_navbar/person_30px.png">Gestion
-                                    de Tipo Empleado</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="gestion_tipo_inquilino.html"><img
-                                        src="../../resources/img/iconos_navbar/person_30px.png">Gestion
-                                    de Tipo Inquilino</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="gestion_tipo_propiedad.html"><img
-                                        src="../../resources/img/iconos_navbar/rent_30px.png">Gestion
-                                    de Tipo Propiedad</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="gestion_tipo_propietario.html"><img
-                                        src="../../resources/img/iconos_navbar/person_30px.png">Gestion
-                                    de Tipo Propietario</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="gestion_tipo_usuario.html"><img
-                                        src="../../resources/img/iconos_navbar/person_30px.png">Gestion
-                                    de Tipo Usuario</a>
-                            </li>
                         </ul>
                     </div>
                 </div>
@@ -129,13 +104,14 @@
         <!-- Searchbar -->
         <div class="container-fluid" id="busqueda">
             <form class="d-flex" method="post" id="search-bar">
-                <input class="form-control me-2" name="search" placeholder="Búsqueda de Datos" aria-label="Search"
+                <input class="form-control me-2" name="search" placeholder="Buscar por Nombre" aria-label="Search"
                     required>
                 <button class="btn" type="submit"><img src="../../resources/img/iconos_navbar/search_24px.png"></button>
             </form>
         </div>
         <!-- Botones de SCRUD, actualizar y agregar -->
-        <div class="container-fluid" id="opciones">
+        <div class="container-fluid  d-flex justify-content-between" id="opciones">
+            <a class="btn" id="button_ver_mas" href="gestion_tipo_propietario.html">Tipo Propietario</a>
             <div class="btn-group" role="group">
                 <button type="button" class="btn btn-primary" id="btnmenu" data-bs-toggle="modal"
                     data-bs-target="#agregar"><a class="nav-link" href="#"><img
@@ -181,20 +157,20 @@
                                 <div class="col">
                                     <label for="nombre" class="form-label">Nombre de Propietario</label>
                                     <input type="text" class="form-control" id="nombre" name="nombre"
-                                        placeholder="Escriba el nombre del Propietario" required>
+                                        placeholder="Escriba el nombre del Propietario" required maxlength="50">
 
                                     <label for="apellido" class="form-label">Apellido</label>
                                     <input type="text" class="form-control" id="apellido" name="apellido"
-                                        placeholder="Escriba el apellido del propietario" required>
+                                        placeholder="Escriba el apellido del propietario" required maxlength="50">
 
                                     <label for="telefono" class="form-label">Teléfono</label>
                                     <input type="tel" class="form-control" id="telefono" name="telefono"
-                                        placeholder="Escriba el numero de Telefono del propietario" required>
+                                        placeholder="Escriba el numero de Telefono del propietario" required maxlength="8">
 
                                     <label for="correo_electronico" class="form-label">Correo Electrónico</label>
                                     <input type="email" class="form-control" id="correo_electronico"
                                         name="correo_electronico" placeholder="Escriba el correo del propietario"
-                                        required>
+                                        required maxlength="75">
 
                                     <label for="fecha_nacimiento" class="form-label">Fecha de Nacimiento</label>
                                     <input type="date" class="form-control" id="fecha_nacimiento"
@@ -209,7 +185,7 @@
 
                                     <label for="DUI" class="form-label">DUI</label>
                                     <input type="text" class="form-control" id="DUI" name="DUI"
-                                        placeholder="Escriba el DUI" required>
+                                        placeholder="Escriba el DUI" required maxlength="10">
 
                                     <label for="id_inquilino" class="form-label">Tipo de Propietario</label>
                                     <select onchange="seleccionarTipoPropietario()" id="id_tipo_propietario"
@@ -218,9 +194,9 @@
                                 </div>
                                 <div class="col">
                                     <label for="formGroupExampleInput" class="form-label">Imagen</label>
-                                    <a class="btn" id="upload_image" required>
-                                        <input type="file" class="form-control form-control-sm form-Input-Style"
-                                            name="archivo" id="archivo">
+                                    <a class="btn" id="upload_image">
+                                        <input accept="image/jpeg" type="file" class="form-control form-control-sm form-Input-Style"
+                                            name="archivo" id="archivo" required>
                                         <img src="../../resources/img/iconos_formularios/download_100px.png">
                                     </a>
                                 </div>
@@ -253,20 +229,20 @@
                                 <div class="col">
                                     <label for="nombre" class="form-label">Nombre de Propietario</label>
                                     <input type="text" class="form-control" id="nombre_update" name="nombre_update"
-                                        placeholder="Escriba el nombre del Propietario" required>
+                                        placeholder="Escriba el nombre del Propietario" required maxlength="50">
 
                                     <label for="apellido" class="form-label">Apellido</label>
                                     <input type="text" class="form-control" id="apellido_update" name="apellido_update"
-                                        placeholder="Escriba el apellido del propietario" required>
+                                        placeholder="Escriba el apellido del propietario" required maxlength="50">
 
                                     <label for="telefono" class="form-label">Teléfono</label>
                                     <input type="tel" class="form-control" id="telefono_update" name="telefono_update"
-                                        placeholder="Escriba el numero de Telefono del propietario" required>
+                                        placeholder="Escriba el numero de Telefono del propietario" required maxlength="13">
 
                                     <label for="correo_electronico" class="form-label">Correo Electrónico</label>
                                     <input type="email" class="form-control" id="correo_electronico_update"
                                         name="correo_electronico_update" placeholder="Escriba el correo del propietario"
-                                        required>
+                                        required maxlength="75">
 
                                     <label for="fecha_nacimiento" class="form-label">Fecha de Nacimiento</label>
                                     <input type="date" class="form-control" id="fecha_nacimiento_update"
@@ -281,7 +257,7 @@
 
                                     <label for="DUI" class="form-label">DUI</label>
                                     <input type="text" class="form-control" id="DUI_update" name="DUI_update"
-                                        placeholder="Escriba el DUI" required>
+                                        placeholder="Escriba el DUI" required maxlength="10">
 
                                     <label for="id_inquilino" class="form-label">Tipo de Propietario</label>
                                     <select onchange="seleccionarTipoPropietario()" id="id_tipo_propietario_update"
@@ -291,8 +267,8 @@
                                 <div class="col">
                                     <label for="formGroupExampleInput" class="form-label">Imagen</label>
                                     <a class="btn" id="upload_image" required>
-                                        <input type="file" class="form-control form-control-sm form-Input-Style"
-                                            name="archivo" id="archivo">
+                                        <input accept="image/jpeg" type="file" class="form-control form-control-sm form-Input-Style"
+                                            name="archivo" id="archivo" required>
                                         <img src="../../resources/img/iconos_formularios/download_100px.png">
                                     </a>
                                 </div>
@@ -384,7 +360,7 @@
         integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13"
         crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script type="module" src="../../controller/privado/propietario.js"></script>
+    <script type="module" src="../../controller/privada/propietario.js"></script>
 
 </body>
 

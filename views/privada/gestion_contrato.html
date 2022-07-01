@@ -90,31 +90,6 @@
                                         src="../../resources/img/iconos_navbar/modern_art_30px.png">Gestion
                                     de Tipo Acabado</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="gestion_tipo_empleado.html"><img
-                                        src="../../resources/img/iconos_navbar/person_30px.png">Gestion
-                                    de Tipo Empleado</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="gestion_tipo_inquilino.html"><img
-                                        src="../../resources/img/iconos_navbar/person_30px.png">Gestion
-                                    de Tipo Inquilino</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="gestion_tipo_propiedad.html"><img
-                                        src="../../resources/img/iconos_navbar/rent_30px.png">Gestion
-                                    de Tipo Propiedad</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="gestion_tipo_propietario.html"><img
-                                        src="../../resources/img/iconos_navbar/person_30px.png">Gestion
-                                    de Tipo Propietario</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="gestion_tipo_usuario.html"><img
-                                        src="../../resources/img/iconos_navbar/person_30px.png">Gestion
-                                    de Tipo Usuario</a>
-                            </li>
                         </ul>
                     </div>
                 </div>
@@ -128,7 +103,7 @@
         <!-- Searchbar -->
         <div class="container-fluid" id="busqueda">
             <form class="d-flex" method="post" id="search-bar">
-                <input class="form-control me-2" name="search" placeholder="Búsqueda de Datos" aria-label="Search"
+                <input class="form-control me-2" name="search" placeholder="Buscar por Descripción" aria-label="Search"
                     required>
                 <button class="btn" type="submit"><img src="../../resources/img/iconos_navbar/search_24px.png"></button>
             </form>
@@ -148,10 +123,6 @@
                         <th>Imagen</th>
                         <th>Descripción</th>
                         <th>Fecha Firma</th>
-                        <th>Propietario</th>
-                        <th>Propiedad</th>
-                        <th>Empleado</th>
-                        <th>Inquino</th>
                         <th>Gestionar</th>
                     </tr>
                 </thead>
@@ -204,9 +175,9 @@
                                         placeholder="Ingrese una descripción del Contrato" required></textarea>
 
                                     <label for="formGroupExampleInput" class="form-label">Imagen</label><br>
-                                    <a class="btn" id="upload_image" required>
-                                        <input type="file" class="form-control form-control-sm form-Input-Style"
-                                            name="archivo" id="archivo">
+                                    <a class="btn" id="upload_image">
+                                        <input accept="image/jpeg" type="file" class="form-control form-control-sm form-Input-Style"
+                                            name="archivo" id="archivo" required>
                                         <img src="../../resources/img/iconos_formularios/download_100px.png">
                                     </a>
                                 </div>
@@ -269,9 +240,9 @@
                                         required></textarea>
 
                                     <label for="formGroupExampleInput" class="form-label">Imagen</label><br>
-                                    <a class="btn" id="upload_image" required>
-                                        <input type="file" class="form-control form-control-sm form-Input-Style"
-                                            name="archivo" id="archivo">
+                                    <a class="btn" id="upload_image">
+                                        <input accept="image/jpeg" type="file" class="form-control form-control-sm form-Input-Style"
+                                            name="archivo" id="archivo" required>
                                         <img src="../../resources/img/iconos_formularios/download_100px.png">
                                     </a>
                                 </div>
@@ -354,11 +325,7 @@
         </div>
     </footer>
 
-
-
-
     <!-- Activando Bootstrap desde JS -->
-
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
         integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB"
         crossorigin="anonymous"></script>
@@ -366,7 +333,7 @@
         integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13"
         crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script type="module" src="../../controller/privado/contrato.js"></script>
+    <script type="module" src="../../controller/privada/contrato.js"></script>
 
 </body>
 

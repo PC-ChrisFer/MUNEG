@@ -185,7 +185,7 @@ class contrato extends validator
     public function readAll()
     {
         $sql = 'SELECT id_contrato, descripcion, fecha_firma, imagen, id_propietario, id_propiedad, id_empleado, id_inquilino
-        FROM contrato';
+        FROM public.contrato';
         $params = null;
         return Database::getRows($sql, $params);
     }

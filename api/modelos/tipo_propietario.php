@@ -85,14 +85,22 @@ class tipo_propietario extends validator
     public function readAll()
     {
         $sql = 'SELECT id_tipo_propietario, nombre_tipo, visibilidad
-        FROM public.tipo_propietario';
+        FROM public.tipo_propietario
+        WHERE visibilidad = true;';
         $params = null;
         return Database::getRows($sql, $params);
     }
 
+    public function readAllDeleted()
+    {
+        $sql = 'SELECT id_tipo_propietario, nombre_tipo , visibilidad
+                FROM public.tipo_propietario
+                WHERE visibilidad = false';
+        $params = null;
+        return Database::getRows($sql, $params);
+    }
 
     //Metodo para la insercción INSERT
-    //(tipo_propietario, visibilidad)
     public function createRow(){
         $sql = 'INSERT INTO public.tipo_propietario(
         nombre_tipo, visibilidad)
@@ -102,7 +110,6 @@ class tipo_propietario extends validator
     }
 
     //Metodo para la actualización UPDATE
-    //(tipo_propietario, visibilidad, id_tipo_propietario)
     public function updateRow(){
         $sql = 'UPDATE public.tipo_propietario
         SET nombre_tipo=?, visibilidad=?
@@ -112,7 +119,6 @@ class tipo_propietario extends validator
     }
 
     //Metodo para la eliminación DELETE
-    //(visibilidad, id_tipo_propietario)
     public function deleteRow(){
         $sql = 'UPDATE public.tipo_propietario
         SET visibilidad=?

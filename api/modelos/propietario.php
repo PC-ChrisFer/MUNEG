@@ -159,8 +159,8 @@ class propietario extends validator
     public function searchRows($value)
     {
         $sql = 'SELECT id_propietario, nombre, apellido, numero_telefono, correo_electronico, fecha_nacimiento, genero, "DUI", imagen, id_tipo_propietario
-        FROM public.propietario;
-        WHERE nombre = ? ';
+        FROM public.propietario
+        WHERE propietario.nombre ILIKE ? ';
         $params = array("%$value%");
         return Database::getRows($sql, $params);
     }

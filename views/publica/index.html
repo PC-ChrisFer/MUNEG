@@ -28,64 +28,39 @@
               src="../../resources/img/iconos_navbar/phone_30px.png" id="celimg">
             2278-9879</a>
         </div>
-        <ul class="nav" id="menu1">
-          <li class="nav-item dropdown  ">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
-              aria-expanded="false">
-              TIPO DE PROPIEDAD
-            </a>
-            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <li><a class="dropdown-item" href="#">Apartamento</a></li>
-              <li>
-                <hr class="dropdown-divider">
-              </li>
-              <li><a class="dropdown-item" href="#">Casa</a></li>
-              <li>
-                <hr class="dropdown-divider">
-              </li>
-              <li><a class="dropdown-item" href="#">Something else here</a></li>
-            </ul>
-          </li>
+        <ul class="nav" id="menu_parametro">
+          <h6 id="parametro_title">
+            DEPARTAMENTO
+          </h6>
+          <form method="post" id="search_bar">
+            <select onchange="guardarDepartamento()" id="departamento" name="departamento">
 
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
-              aria-expanded="false">
-              ZONA
-            </a>
-            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <li><a class="dropdown-item" href="#">San Salvador</a></li>
-              <li>
-                <hr class="dropdown-divider">
-              </li>
-              <li><a class="dropdown-item" href="#">La Union</a></li>
-              <li>
-                <hr class="dropdown-divider">
-              </li>
-              <li><a class="dropdown-item" href="#">Something else here</a></li>
-            </ul>
-          </li>
+            </select>
+          </form>
+          <h6 id="parametro_title">
+            MUNICIPIO
+          </h6>
+          <form method="post" id="search_bar">
+            <select onchange="guardarMunicipio()" id="municipio" name="municipio">
 
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
-              aria-expanded="false">
-              PRECIO
-            </a>
-            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <li><a class="dropdown-item" href="#">5000.000 USD</a></li>
-              <li>
-                <hr class="dropdown-divider">
-              </li>
-              <li><a class="dropdown-item" href="#">5000.000 USD</a></li>
-              <li>
-                <hr class="dropdown-divider">
-              </li>
-              <li><a class="dropdown-item" href="#">Something else here</a></li>
-            </ul>
-          </li>
+            </select>
+          </form>
+          <h6 id="parametro_title">
+            TIPO DE PROPIEDAD
+          </h6>
+          <form method="post" id="search_bar">
+            <select onchange="guardarTipoPropiedad()" id="tipo_propiedad" name="tipo_propiedad">
 
-          <li>
-            <a href=""><img src="../../resources/img/iconos_navbar/search_24px.png"></a>
-          </li>
+            </select>
+          </form>
+          <h6 id="parametro_title">
+            CATEGORIA
+          </h6>
+          <form method="post" id="search_bar">
+            <select onchange="guardarCategoria()" id="categoria" name="categoria">
+
+            </select>
+          </form>
         </ul>
 
 
@@ -178,71 +153,7 @@
       </div>
 
       <!--div padre-->
-      <div class="row">
-
-        <div class="col-md-3">
-          <div class="card6 text-center">
-            <img src="../../resources/img/pagina_principal/casa1.jpg" class="card-img-top">
-            <div class="card-body">
-              <h5 class="card-title">PLANES DE RENDEROS</h5>
-              <p>3 habitaciones</p>
-              <p>3 baños</p>
-              <h5 class="card-title">PRECIO: 35500.00 USD$</h5>
-
-            </div>
-            <div id="color">
-              <a href="detalle_inmueble.html">VER DETALLES</a>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-md-3">
-          <div class="card6 text-center">
-            <img src="../../resources/img/ventas/casa3.png" class="card-img-top">
-            <div class="card-body">
-              <h5 class="card-title">PLANES DE RENDEROS</h5>
-              <p>3 habitaciones</p>
-              <p>3 baños</p>
-              <h5 class="card-title">PRECIO: 35500.00 USD$</h5>
-
-            </div>
-            <div id="color">
-              <a href="detalle_inmueble.html">VER DETALLES</a>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-md-3">
-          <div class="card6 text-center">
-            <img src="../../resources/img/ventas/casa4.png" class="card-img-top">
-            <div class="card-body">
-              <h5 class="card-title">PLANES DE RENDEROS</h5>
-              <p>3 habitaciones</p>
-              <p>3 baños</p>
-              <h5 class="card-title">PRECIO: 35500.00 USD$</h5>
-
-            </div>
-            <div id="color">
-              <a href="detalle_inmueble.html">VER DETALLES</a>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-md-3">
-          <div class="card6 text-center">
-            <img src="../../resources/img/ventas/casa8.png" class="card-img-top">
-            <div class="card-body">
-              <h5 class="card-title">PLANES DE RENDEROS</h5>
-              <p>3 habitaciones</p>
-              <p>3 baños</p>
-              <h5 class="card-title">PRECIO: 35500.00 USD$</h5>
-
-            </div>
-            <div id="color">
-              <a href="detalle_inmueble.html">VER DETALLES</a>
-            </div>
-          </div>
-        </div>
+      <div class="row" id="cards_propiedades">
 
       </div>
 
@@ -257,71 +168,7 @@
         <h1>CASAS EN ALQUILER MAS RECIENTES</h1>
       </div>
       <!--apartados de cartas-->
-      <div class="row">
-        <div class="col-md-3">
-          <div class="card6 text-center">
-            <img src="../../resources/img/ventas/casa1.png" class="card-img-top">
-            <div class="card-body">
-              <h5 class="card-title">PLANES DE RENDEROS</h5>
-              <p>3 habitaciones</p>
-              <p>3 baños</p>
-              <h5 class="card-title">PRECIO: 35500.00 USD$</h5>
-
-            </div>
-            <div id="color">
-              <a href="detalle_inmueble.html">VER DETALLES</a>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-md-3">
-          <div class="card6 text-center">
-            <img src="../../resources/img/ventas/casa7.png" class="card-img-top">
-            <div class="card-body">
-              <h5 class="card-title">PLANES DE RENDEROS</h5>
-              <p>3 habitaciones</p>
-              <p>3 baños</p>
-              <h5 class="card-title">PRECIO: 35500.00 USD$</h5>
-
-            </div>
-            <div id="color">
-              <a href="detalle_inmueble.html">VER DETALLES</a>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-md-3">
-          <div class="card6 text-center">
-            <img src="../../resources/img/ventas/casa5.png" class="card-img-top">
-            <div class="card-body">
-              <h5 class="card-title">PLANES DE RENDEROS</h5>
-              <p>3 habitaciones</p>
-              <p>3 baños</p>
-              <h5 class="card-title">PRECIO: 35500.00 USD$</h5>
-
-            </div>
-            <div id="color">
-              <a href="detalle_inmueble.html">VER DETALLES</a>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-md-3">
-          <div class="card6 text-center">
-            <img src="../../resources/img/ventas/casa6.png" class="card-img-top">
-            <div class="card-body">
-              <h5 class="card-title">PLANES DE RENDEROS</h5>
-              <p>3 habitaciones</p>
-              <p>3 baños</p>
-              <h5 class="card-title">PRECIO: 35500.00 USD$</h5>
-
-            </div>
-            <div id="color">
-              <a href="detalle_inmueble.html">VER DETALLES</a>
-            </div>
-          </div>
-        </div>
-
+      <div class="row" id="cards_propiedades_alquiler">
       </div>
 
       <div class="container" id="boton">
@@ -330,8 +177,8 @@
 
     </div>
 
-     <!--Primer footer Footer-->
-     <div class="text-white pt-5 pb-4" id="Primerfooter">
+    <!--Primer footer Footer-->
+    <div class="text-white pt-5 pb-4" id="Primerfooter">
       <div class="container-fluid">
         <!--primer apatado de footer-->
         <div class="row">
@@ -340,7 +187,8 @@
           </div>
           <div class="col-lg-4 col-md-12">
             <div class="col-12">
-              <a class="navbar-brand" id="contactenos_footer" href="#">CONTACTENOS: <img src="../../resources/img/iconos_navbar/phone_30px.png">
+              <a class="navbar-brand" id="contactenos_footer" href="#">CONTACTENOS: <img
+                  src="../../resources/img/iconos_navbar/phone_30px.png">
                 2278-9879</a>
             </div>
             <div class="col-12">
@@ -392,18 +240,18 @@
               <img src="../../resources/img/iconos_navbar/gmail.png">
             </div>
             <div class="col-10">
-              <p>Ingrese su nombre:</p>
-              <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                placeholder="Ingrese su nombre">
+              <form method="post" id="insert-modal">
+                <p>Ingrese su nombre:</p>
+                <input type="text" class="form-control" name="nombre_cliente" placeholder="Ingrese su nombre">
             </div>
             <div class="col-12">
               <p>Ingrese su correo electronico:</p>
-              <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                placeholder="Ingrese el correo">
+              <input type="email" class="form-control" name="correo" placeholder="Ingrese el correo">
             </div>
             <div class="col-12 d-flex justify-content-center">
-              <a class="btn">Enviar</a>
+              <button type="submit" class="btn">Enviar</button>
             </div>
+            </form>
           </div>
         </div>
       </div>
@@ -428,6 +276,9 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
     integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
     crossorigin="anonymous"></script>
+  <script type="module" src="../../controller/publica/navbar.js"></script>
+  <script type="module" src="../../controller/publica/index.js"></script>
+  <script type="module" src="../../controller/publica/footer.js"></script>
 
 </body>
 

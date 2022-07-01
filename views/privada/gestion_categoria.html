@@ -90,31 +90,6 @@
                                         src="../../resources/img/iconos_navbar/modern_art_30px.png">Gestion
                                     de Tipo Acabado</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="gestion_tipo_empleado.html"><img
-                                        src="../../resources/img/iconos_navbar/person_30px.png">Gestion
-                                    de Tipo Empleado</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="gestion_tipo_inquilino.html"><img
-                                        src="../../resources/img/iconos_navbar/person_30px.png">Gestion
-                                    de Tipo Inquilino</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="gestion_tipo_propiedad.html"><img
-                                        src="../../resources/img/iconos_navbar/rent_30px.png">Gestion
-                                    de Tipo Propiedad</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="gestion_tipo_propietario.html"><img
-                                        src="../../resources/img/iconos_navbar/person_30px.png">Gestion
-                                    de Tipo Propietario</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="gestion_tipo_usuario.html"><img
-                                        src="../../resources/img/iconos_navbar/person_30px.png">Gestion
-                                    de Tipo Usuario</a>
-                            </li>
                         </ul>
                     </div>
                 </div>
@@ -133,12 +108,18 @@
                 <button class="btn" type="submit"><img src="../../resources/img/iconos_navbar/search_24px.png"></button>
             </form>
         </div>
+        <!-- Botones de SCRUD, actualizar y agregar -->
         <div class="container-fluid" id="opciones">
             <div class="btn-group" role="group">
                 <button type="button" class="btn btn-primary" id="btnmenu" data-bs-toggle="modal"
                     data-bs-target="#agregar"><a class="nav-link"><img
                             src="../../resources/img/iconos_formularios/agregar_26px.png"></a></button>
             </div>
+        </div>
+        <div class="form-check form-switch">
+            <input onclick="leerDatosEliminados()" class="form-check-input" type="checkbox" role="switch"
+                id="verDatosliminados">
+            <label class="form-check-label" for="flexSwitchCheckDefault">Ver datos eliminados</label>
         </div>
         <!-- Tabla de Datos -->
         <div class="container-fluid" id="tabla_datos">
@@ -211,8 +192,13 @@
                                     <div class="col">
                                         <label for="" class="form-label">Visibilidad</label><br>
                                         <label class="switch">
-                                            <input type="checkbox" id="visibilidad_update" name="visibilidad_update">
-                                            <span class="slider round"></span>
+                                            <div class="form-check form-switch">
+                                                <label class="form-check-label" for="flexSwitchCheckDefault">Hacer
+                                                    visible</label>
+                                                <input onclick="cambiarVisibilidadDeResgistro()"
+                                                    class="form-check-input" type="checkbox" role="switch"
+                                                    id="checkBocVisibilidad">
+                                            </div>
                                         </label>
                                     </div>
                                 </div>
@@ -289,13 +275,11 @@
             </div>
         </div>
     </main>
-    <footer class="text-white  pt-5 pb-4" id="Segundofooter">
+    <footer class="text-white  pt-5 pb-4 fixed-bottom" id="Segundofooter">
         <div class="container-fluid">
 
         </div>
     </footer>
-
-
 
 
     <!-- Activando Bootstrap desde JS -->
@@ -307,16 +291,7 @@
         integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13"
         crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script type="module" src="../../controller/privado/categoria.js"></script>
+    <script type="module" src="../../controller/privada/categoria.js"></script>
 </body>
 
 </html>
-
-<!-- 
-<div class="col">
-                                    <label for="" class="form-label">Visibilidad</label><br>
-                                    <label class="form-control">
-                                        <input type="checkbox" id="visibilidad_update" name="visibilidad_update">
-                                    </label>
-                                </div>
--->

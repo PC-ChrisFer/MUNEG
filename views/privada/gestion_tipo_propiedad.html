@@ -13,8 +13,6 @@
     <title>MUNEG S.A C.V</title>
 </head>
 
-
-
 <body>
     <!-- Header Privado -->
     <header>
@@ -90,49 +88,25 @@
                                         src="../../resources/img/iconos_navbar/modern_art_30px.png">Gestion
                                     de Tipo Acabado</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="gestion_tipo_empleado.html"><img
-                                        src="../../resources/img/iconos_navbar/person_30px.png">Gestion
-                                    de Tipo Empleado</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="gestion_tipo_inquilino.html"><img
-                                        src="../../resources/img/iconos_navbar/person_30px.png">Gestion
-                                    de Tipo Inquilino</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="gestion_tipo_propiedad.html"><img
-                                        src="../../resources/img/iconos_navbar/rent_30px.png">Gestion
-                                    de Tipo Propiedad</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="gestion_tipo_propietario.html"><img
-                                        src="../../resources/img/iconos_navbar/person_30px.png">Gestion
-                                    de Tipo Propietario</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="gestion_tipo_usuario.html"><img
-                                        src="../../resources/img/iconos_navbar/person_30px.png">Gestion
-                                    de Tipo Usuario</a>
-                            </li>
                         </ul>
                     </div>
                 </div>
             </div>
         </nav>
         <div class="container-fluid" id="encabezado">
-            <h1>GESTIÓN DE TIPO EMPLEADO</h1>
+            <h1>GESTIÓN DE EMPLEADO</h1>
         </div>
     </header>
     <main>
         <!-- Searchbar -->
         <div class="container-fluid" id="busqueda">
-            <form class="d-flex">
-                <input class="form-control me-2" type="search" placeholder="Búsqueda de Datos" aria-label="Search">
-                <a class="nav-link" href="#"><img src="../../resources/img/iconos_navbar/search_24px.png"></a>
+            <form class="d-flex" method="post" id="search-bar">
+                <input class="form-control me-2" name="search" placeholder="Búsqueda de Datos" aria-label="Search" required>
+                <button class="btn" type="submit"><img src="../../resources/img/iconos_navbar/search_24px.png"></button>
             </form>
         </div>
-        <div class="container-fluid" id="opciones">
+        <div class="container-fluid  d-flex justify-content-between" id="opciones">
+            <a class="btn" id="button_ver_mas" href="gestion_categoria.html">Categoria</a>
             <div class="btn-group" role="group">
                 <button type="button" class="btn btn-primary" id="btnmenu" data-bs-toggle="modal"
                     data-bs-target="#agregar"><a class="nav-link"><img
@@ -151,18 +125,6 @@
                 </thead>
                 <tbody id="tbody-tipo-propiedad">
                     <!-- Linea de Informacion -->
-                    <tr>
-                        <td>Rogelio Gadabriel Cardonado Mandanghi</td>
-                        <td>Cristian Fernando Parada Mira</td>
-                        <td class="d-flex justify-content-center">
-                            <a class="btn" href="#" id="button_ver_mas" data-bs-toggle="modal"
-                                data-bs-target="#actualizar"><img
-                                    src="../../resources/img/iconos_formularios/edit_35px.png"></a>
-                            <a class="btn" href="#" id="button_ver_mas" data-bs-toggle="modal"
-                                data-bs-target="#eliminar"><img
-                                    src="../../resources/img/iconos_formularios/trash_can_35px.png"></a>
-                        </td>
-                    </tr>
                 </tbody>
             </table>
         </div>
@@ -184,17 +146,20 @@
                                     <label for="tipo_propiedad" class="form-label">Nombre de Tipo Propiedad.</label>
                                     <input type="text" class="form-control" id="tipo_propiedad" name="tipo_propiedad"
                                         placeholder="Escriba un nombre a la Tipo Propiedad" required>
+                                    <select onchange="selectIdCategoria('listado_categorias_id')"
+                                        id="listado_categorias_id" name="proveedores_select" class="form-control">
+                                    </select>
                                 </div>
                             </div>
                         </div>
                         <div class="modal-footer">
                             <div class="btn-group" role="group" id="opcionesModal">
-                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" id="btnmenu"><a
+                                <button type="submit" class="btn btn-primary" data-bs-toggle="modal" id="btnmenu"><a
                                         class="nav-link"><img
                                             src="../../resources/img/iconos_formularios/agregar_26px.png"></a></button>
                                 <button type="button" class="btn btn-primary" id="btnmenu" data-bs-dismiss="modal"><a
                                         class="nav-link"><img
-                                            src="../../resources/iconos_formularios/cerrar_26px.png"></a></button>
+                                            src="../../resources/img/iconos_formularios/cerrar_26px.png"></a></button>
                             </div>
                         </div>
                     </form>
@@ -210,7 +175,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <!-- Formulario de Update-->
-                    <form method="post" id="update_form">
+                    <form id="update_form">
                         <div class="modal-body" id="formModal">
                             <div class="row">
                                 <div class="col">
@@ -218,21 +183,20 @@
                                         Propiedad.</label>
                                     <input type="text" class="form-control" id="tipo_propiedad_update"
                                         name="tipo_propiedad_update" required>
-                                    <p></p>
-                                    <div class="custom-control custom-switch">
-                                        <input type="checkbox" class="custom-control-input" id="visibilidad" name="visibilidad">
-                                        <label class="custom-control-label" for="visibilidad">Visible?</label>
-                                    </div>
+                                        <select onchange="selectIdCategoria('listado_categorias_id_u')"
+                                        id="listado_categorias_id_u" name="proveedores_select" class="form-control">
+                                    </select>
+                                        <input id="switchButton" type="button" onclick="cambiarEstadoTipoPropiedad()">
                                 </div>
                             </div>
                         </div>
                         <div class="modal-footer">
                             <div class="btn-group" role="group" id="opcionesModal">
-                                <button type="button" class="btn btn-primary" id="btnmenu"><a class="nav-link"><img
+                                <button type="submit" class="btn btn-primary" id="btnmenu"><a class="nav-link"><img
                                             src="../../resources/img/iconos_formularios/editar_26px.png"></a></button>
                                 <button type="button" class="btn btn-primary" id="btnmenu" data-bs-dismiss="modal"><a
                                         class="nav-link"><img
-                                            src="../../resources/iconos_formularios/cerrar_26px.png"></a></button>
+                                            src="../../resources/img/iconos_formularios/cerrar_26px.png"></a></button>
                             </div>
                         </div>
                     </form>
@@ -253,9 +217,9 @@
                     <!-- Formulario de Update -->
                     <form method="post" id="delete_form">
                         <div class="modal-footer">
-                            <button class="btn btn-primary" id="btnmenu">Volver</button>
+                            <button type="submit" class="btn btn-primary" id="btnmenu">Volver</button>
                             <button class="btn btn-primary" id="btnmenu">Confirmar</button>
-                        </div>
+                         </div>
                     </form>
                 </div>
             </div>
@@ -308,6 +272,9 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"
         integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13"
         crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script type="module" src="../../controller/privada/tipo_propiedad.js"></script>
+    
 
 </body>
 

@@ -137,7 +137,7 @@ class factura extends validator
     {
         $sql = 'SELECT id_factura, codigo_factura, descripcion, direccion, subtotal, "IVA", venta_gravada, fecha, id_inquilino
         FROM public.factura
-        WHERE codigo_factura = ? ';
+        WHERE codigo_factura ILIKE ? ';
         $params = array("%$value%");
         return Database::getRows($sql, $params);
     }

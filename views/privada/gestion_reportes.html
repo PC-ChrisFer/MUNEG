@@ -2,379 +2,316 @@
 <html lang="en">
 
 <head>
-  <!-- Required meta tags -->
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <!-- Bootstrap CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-  <link rel="stylesheet" href="../../resources/css/estilo_privado.css">
-  <title>MUNEG S.A C.V</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" href="../../resources/css/estilo_privado.css">
+    <title>MUNEG S.A C.V</title>
 </head>
 
 
 
 <body>
-  <!-- Header Privado -->
-  <header>
-    <nav class="navbar fixed-top navbar-light " id="navcolor">
-      <div class="container-fluid">
-        <div id="con">
-          <a class="navbar-brand" href="#"><img src="../../resources/img/iconos_navbar/logo.png" id="imgnav"
-              usemap="#home"></a>
-          <!-- Mapeando la imagen -->
-          <map name="home">
-            <area shape="rect" coords="0,0,311,98" href="pagina_principal.html">
-          </map>
-        </div>
-        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
-          aria-controls="offcanvasNavbar">
-          <span><img src="../../resources/img/iconos_navbar/menu_30px.png"></span>
-        </button>
-
-        <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
-          <div class="offcanvas-header">
-            <h5 class="offcanvas-title" id="offcanvasNavbarLabel">MENU</h5>
-            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-          </div>
-          <!-- Opciones del menu, privada -->
-          <div class="offcanvas-body" id="fondo">
-            <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-              <li class="nav-item">
-                <a class="nav-link" href="gestion_categoria.html"><img
-                    src="../../resources/img/iconos_navbar/category_30px.png">Gestion
-                  Categoria</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="gestion_propiedad.html"><img
-                    src="../../resources/img/iconos_navbar/rent_30px.png">Gestion Propiedad</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="gestion_propietario.html"><img
-                    src="../../resources/img/iconos_navbar/person_30px.png">Gestion
-                  Propietario</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="gestion_inquilino.html"><img
-                    src="../../resources/img/iconos_navbar/person_30px.png">Gestion
-                  Inquilino</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="gestion_empleado.html"><img
-                    src="../../resources/img/iconos_navbar/person_30px.png">Gestion Empleado</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="gestion_usuario.html"><img
-                    src="../../resources/img/iconos_navbar/person_30px.png">Gestion Usuario</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="gestion_contrato.html"><img
-                    src="../../resources/img/iconos_navbar/contract_30px.png">Gestion
-                  Contrato</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="gestion_factura.html"><img
-                    src="../../resources/img/iconos_navbar/bill_30px.png">Gestion
-                  Factura</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="gestion_reportes.html"><img
-                    src="../../resources/img/iconos_navbar/system_report_30px.png">Gestion
-                  Reportes</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="gestion_tipo_acabado.html"><img
-                    src="../../resources/img/iconos_navbar/modern_art_30px.png">Gestion
-                  de Tipo Acabado</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="gestion_tipo_empleado.html"><img
-                    src="../../resources/img/iconos_navbar/person_30px.png">Gestion
-                  de Tipo Empleado</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="gestion_tipo_inquilino.html"><img
-                    src="../../resources/img/iconos_navbar/person_30px.png">Gestion
-                  de Tipo Inquilino</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="gestion_tipo_propiedad.html"><img
-                    src="../../resources/img/iconos_navbar/rent_30px.png">Gestion
-                  de Tipo Propiedad</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="gestion_tipo_propietario.html"><img
-                    src="../../resources/img/iconos_navbar/person_30px.png">Gestion
-                  de Tipo Propietario</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="gestion_tipo_usuario.html"><img
-                    src="../../resources/img/iconos_navbar/person_30px.png">Gestion
-                  de Tipo Usuario</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </nav>
-    <div class="container-fluid" id="encabezado">
-      <h1>GESTIÓN DE CONTRATO</h1>
-    </div>
-  </header>
-
-  <main>
-    <!-- Searchbar -->
-    <div class="container-fluid" id="busqueda">
-      <form class="d-flex">
-        <input class="form-control me-2" type="search" placeholder="Búsqueda de Datos" aria-label="Search">
-        <a class="nav-link" href="#"><img src="../../resources/img/iconos_navbar/search_24px.png"></a>
-      </form>
-    </div>
-
-    <!-- Botones de SCRUD, actualizar y agregar -->
-    <div class="container-fluid" id="opciones">
-      <div class="btn-group" role="group">
-        <button type="button" class="btn btn-primary" id="btnmenu" data-bs-toggle="modal" data-bs-target="#agregar"><a
-            class="nav-link" href="#"><img src="../../resources/img/iconos_formularios/agregar_26px.png"></a></button>
-      </div>
-    </div>
-
-    <!-- Tabla de Datos -->
-    <div class="container-fluid" id="tabla_datos">
-      <table class="table table-responsive table-bordered">
-        <thead>
-          <tr>
-            <th>Código</th>
-            <th>Asunto</th>
-            <th>Descripción</th>
-            <th>Imagen</th>
-            <th>Gestionar</th>
-          </tr>
-        </thead>
-        <tbody id="tbody-reportes">
-          <!-- Linea de Informacion -->
-          <tr>
-            <td>000001</td>
-            <td>La cañeria se averió, se esta saliendo el agua</td>
-            <td>Buenas Tardes, solicito ayuda, debido a que hoy en la mañana estabamos notando unas goteras en los baños
-              y descubrimos que las tuberia se han averiado.</td>
-            <td><img src="../img/home_100px.png"></td>
-            <td class="d-flex justify-content-center">
-              <a class="btn" href="#" id="button_ver_mas" data-bs-toggle="modal" data-bs-target="#actualizar"><img
-                  src="../../resources/img/iconos_formularios/edit_35px.png"></a>
-              <a class="btn" href="#" id="button_ver_mas" data-bs-toggle="modal" data-bs-target="#eliminar"><img
-                  src="../../resources/img/iconos_formularios/trash_can_35px.png"></a>
-            </td>
-          </tr>
-          <tr>
-            <td>000001</td>
-            <td>La cañeria se averió, se esta saliendo el agua</td>
-            <td>Buenas Tardes, solicito ayuda, debido a que hoy en la mañana estabamos notando unas goteras en los baños
-              y descubrimos que las tuberia se han averiado.</td>
-            <td><img src="../img/home_100px.png"></td>
-            <td class="d-flex justify-content-center">
-              <a class="btn" href="#" id="button_ver_mas" data-bs-toggle="modal" data-bs-target="#actualizar"><img
-                  src="../../resources/img/iconos_formularios/edit_35px.png"></a>
-              <a class="btn" href="#" id="button_ver_mas" data-bs-toggle="modal" data-bs-target="#eliminar"><img
-                  src="../../resources/img/iconos_formularios/trash_can_35px.png"></a>
-            </td>
-          </tr>
-          <tr>
-            <td>000001</td>
-            <td>La cañeria se averió, se esta saliendo el agua</td>
-            <td>Buenas Tardes, solicito ayuda, debido a que hoy en la mañana estabamos notando unas goteras en los baños
-              y descubrimos que las tuberia se han averiado.</td>
-            <td><img src="../img/home_100px.png"></td>
-            <td class="d-flex justify-content-center">
-              <a class="btn" href="#" id="button_ver_mas" data-bs-toggle="modal" data-bs-target="#actualizar"><img
-                  src="../../resources/img/iconos_formularios/edit_35px.png"></a>
-              <a class="btn" href="#" id="button_ver_mas" data-bs-toggle="modal" data-bs-target="#eliminar"><img
-                  src="../../resources/img/iconos_formularios/trash_can_35px.png"></a>
-            </td>
-          </tr>
-          <tr>
-            <td>000001</td>
-            <td>La cañeria se averió, se esta saliendo el agua</td>
-            <td>Buenas Tardes, solicito ayuda, debido a que hoy en la mañana estabamos notando unas goteras en los baños
-              y descubrimos que las tuberia se han averiado.</td>
-            <td><img src="../img/home_100px.png"></td>
-            <td class="d-flex justify-content-center">
-              <a class="btn" href="#" id="button_ver_mas" data-bs-toggle="modal" data-bs-target="#actualizar"><img
-                  src="../../resources/img/iconos_formularios/edit_35px.png"></a>
-              <a class="btn" href="#" id="button_ver_mas" data-bs-toggle="modal" data-bs-target="#eliminar"><img
-                  src="../../resources/img/iconos_formularios/trash_can_35px.png"></a>
-            </td>
-          </tr>
-
-        </tbody>
-      </table>
-    </div>
-
-    <!-- Modal de AGREGAR REGISTRO-->
-    <div class="modal fade" id="agregar" tabindex="-1">
-      <div class="modal-dialog modal-xl modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-header" id="formHeader">
-            <h5 class="modal-title">Agregar Reportes</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <!--Formulario de Insert-->
-          <form method="post" id="insert_form">
-            <div class="modal-body" id="formModal">
-              <div class="row">
-                <div class="col">
-                  <label for="asunto" class="form-label">Asunto</label>
-                  <textarea name="asunto" id="asunto" rows="4" class="form-control"
-                    placeholder="Ingrese el Asunto"></textarea>
-
-                  <label for="descripcion" class="form-label">Descripción</label>
-                  <textarea name="descripcion" id="descripcion" rows="4" class="form-control"
-                    placeholder="Ingrese la Descripción"></textarea>
-
-                  <label for="inquilino" class="form-label">Inquilino</label>
-                  <select name="inquilino" id="inquilino" class="form-control">
-
-                  </select>
+    <!-- Header Privado -->
+    <header>
+        <nav class="navbar fixed-top navbar-light " id="navcolor">
+            <div class="container-fluid">
+                <div id="con">
+                    <a class="navbar-brand" href="#"><img src="../../resources/img/iconos_navbar/logo.png" id="imgnav"
+                            usemap="#home"></a>
+                    <!-- Mapeando la imagen -->
+                    <map name="home">
+                        <area shape="rect" coords="0,0,311,98" href="pagina_principal.html">
+                    </map>
                 </div>
-                <div class="col">
-                  <label for="upload_image" class="form-label">Imagen</label>
-                  <p></p>
-                  <a class="btn" name="archivo" id="upload_image">
-                    <input type="file" class="form-control form-control-sm form-Input-Style">
-                    <img src="../../resources/img/iconos_formularios/download_100px.png">
-                  </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
+                    data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+                    <span><img src="../../resources/img/iconos_navbar/menu_30px.png"></span>
+                </button>
+
+                <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar"
+                    aria-labelledby="offcanvasNavbarLabel">
+                    <div class="offcanvas-header">
+                        <h5 class="offcanvas-title" id="offcanvasNavbarLabel">MENU</h5>
+                        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
+                            aria-label="Close"></button>
+                    </div>
+                    <!-- Opciones del menu, privada -->
+                    <div class="offcanvas-body" id="fondo">
+                        <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                            <li class="nav-item">
+                                <a class="nav-link" href="gestion_categoria.html"><img
+                                        src="../../resources/img/iconos_navbar/category_30px.png">Gestion
+                                    Categoria</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="gestion_propiedad.html"><img
+                                        src="../../resources/img/iconos_navbar/rent_30px.png">Gestion Propiedad</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="gestion_propietario.html"><img
+                                        src="../../resources/img/iconos_navbar/person_30px.png">Gestion
+                                    Propietario</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="gestion_inquilino.html"><img
+                                        src="../../resources/img/iconos_navbar/person_30px.png">Gestion
+                                    Inquilino</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="gestion_empleado.html"><img
+                                        src="../../resources/img/iconos_navbar/person_30px.png">Gestion Empleado</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="gestion_usuario.html"><img
+                                        src="../../resources/img/iconos_navbar/person_30px.png">Gestion Usuario</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="gestion_contrato.html"><img
+                                        src="../../resources/img/iconos_navbar/contract_30px.png">Gestion
+                                    Contrato</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="gestion_factura.html"><img
+                                        src="../../resources/img/iconos_navbar/bill_30px.png">Gestion
+                                    Factura</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="gestion_reportes.html"><img
+                                        src="../../resources/img/iconos_navbar/system_report_30px.png">Gestion
+                                    Reportes</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="gestion_tipo_acabado.html"><img
+                                        src="../../resources/img/iconos_navbar/modern_art_30px.png">Gestion
+                                    de Tipo Acabado</a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
-              </div>
             </div>
-            <div class="modal-footer">
-              <div class="btn-group" role="group" id="opcionesModal">
-                <button type="button" class="btn btn-primary" id="btnmenu"><a class="nav-link"><img
-                      src="../img/iconos_formularios/agregar_26px.png"></a></button>
-                <button type="button" class="btn btn-primary" id="btnmenu" data-bs-dismiss="modal"><a
-                    class="nav-link"><img src="../img/iconos_formularios/cerrar_26px.png"></a></button>
-              </div>
-            </div>
-          </form>
+        </nav>
+        <div class="container-fluid" id="encabezado">
+            <h1>GESTIÓN DE REPORTES</h1>
         </div>
-      </div>
-    </div>
-    <!-- Modal de ACTUALIZAR REGISTRO -->
-    <div class="modal fade" id="actualizar" tabindex="-1">
-      <div class="modal-dialog modal-xl modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-header" id="formHeader">
-            <h5 class="modal-title">Actualizar Reportes</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <!-- Formulario de Update-->
-          <form method="post" id="id_update">
-            <div class="modal-body" id="formModal">
-              <div class="row">
-                <div class="col">
-                  <label for="asunto_update" class="form-label">Asunto</label>
-                  <textarea name="asunto_update" id="asunto_update" rows="4" class="form-control"></textarea>
+    </header>
 
-                  <label for="descripcion_update" class="form-label">Descripción</label>
-                  <textarea name="descripcion_update" id="descripcion_update" rows="4" class="form-control"></textarea>
+    <main>
+        <!-- Searchbar -->
+        <div class="container-fluid" id="busqueda">
+            <form class="d-flex" method="post" id="search-bar">
+                <input class="form-control me-2" name="search" placeholder="Buscar por Nombre" aria-label="Search"
+                    required>
+                <button class="btn" type="submit"><img src="../../resources/img/iconos_navbar/search_24px.png"></button>
+            </form>
+        </div>
+        <!-- Botones de SCRUD, actualizar y agregar -->
+        <div class="container-fluid" id="opciones">
+            <div class="btn-group" role="group">
+                <button type="button" class="btn btn-primary" id="btnmenu" data-bs-toggle="modal"
+                    data-bs-target="#agregar"><a class="nav-link" href="#"><img
+                            src="../../resources/img/iconos_formularios/agregar_26px.png"></a></button>
+            </div>
+        </div>
 
-                  <label for="inquilino_update" class="form-label">Inquilino</label>
-                  <select name="inquilino_update" id="inquilino_update" class="form-control">
+        <!-- Tabla de Datos -->
+        <div class="container-fluid" id="tabla_datos">
+            <table class="table table-responsive table-bordered">
+                <thead>
+                    <tr>
+                        <th>Código</th>
+                        <th>Asunto</th>
+                        <th>Descripción</th>
+                        <th>Imagen</th>
+                        <th>Gestionar</th>
+                    </tr>
+                </thead>
+                <tbody id="tbody-reportes">
+                </tbody>
+            </table>
+        </div>
 
-                  </select>
+        <!-- Modal de AGREGAR REGISTRO-->
+        <div class="modal fade" id="agregar" tabindex="-1">
+            <div class="modal-dialog modal-xl modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header" id="formHeader">
+                        <h5 class="modal-title">Agregar Reportes</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <!--Formulario de Insert-->
+                    <form method="post" id="insert_form">
+                        <div class="modal-body" id="formModal">
+                            <div class="row">
+                                <div class="col">
+                                    <label for="asunto" class="form-label">Asunto</label>
+                                    <input type="text" name="asunto" id="asunto" rows="4" class="form-control"
+                                        placeholder="Ingrese el Asunto" required maxlength="100"></input>
+
+                                    <label for="descripcion" class="form-label">Descripción</label>
+                                    <input type="text" name="descripcion" id="descripcion" rows="4" class="form-control"
+                                        placeholder="Ingrese la Descripción" required maxlength="300"></input>
+
+                                    <label for="inquilino" class="form-label">Inquilino</label>
+                                    <select onchange="seleccionarInquilino()" id="inquilinos" name="tipo_empleado"
+                                        class="form-control" required>
+                                    </select>
+
+                                </div>
+                                <div class="col">
+                                    <label for="upload_image" class="form-label">Imagen</label><br>
+                                    <a class="btn" name="archivo" id="upload_image">
+                                        <input accept="image/jpeg" type="file"
+                                            class="form-control form-control-sm form-Input-Style" name="archivo"
+                                            required>
+                                        <img src="../../resources/img/iconos_formularios/download_100px.png">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <div class="btn-group" role="group" id="opcionesModal">
+                                <button type="submit" class="btn btn-primary" id="btnmenu"><a class="nav-link"><img
+                                            src="../../resources/img/iconos_formularios/agregar_26px.png"></a></button>
+                                <button type="button" class="btn btn-primary" id="btnmenu" data-bs-dismiss="modal"><a
+                                        class="nav-link"><img
+                                            src="../../resources/img/iconos_formularios/cerrar_26px.png"></a></button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
-                <div class="col">
-                  <label for="upload_image" class="form-label">Imagen</label>
-                  <p></p>
-                  <a class="btn" name="archivo" id="upload_image">
-                    <input type="file" class="form-control form-control-sm form-Input-Style">
-                    <img src="../../resources/img/iconos_formularios/download_100px.png">
-                  </a>
+            </div>
+        </div>
+        <!-- Modal de ACTUALIZAR REGISTRO -->
+        <div class="modal fade" id="actualizar" tabindex="-1">
+            <div class="modal-dialog modal-xl modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header" id="formHeader">
+                        <h5 class="modal-title">Actualizar Reportes</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <!-- Formulario de Update-->
+                    <form method="post" id="form_update">
+                        <div class="modal-body" id="formModal">
+                            <div class="row">
+                                <div class="col">
+                                    <label for="asunto_update" class="form-label">Asunto</label>
+                                    <input type="text" name="asunto_update" id="asunto_update" rows="4" class="form-control"
+                                        placeholder="Ingrese el Asunto" required maxlength="100"></input>
+
+                                        <label for="descripcion_update" class="form-label">Descripción</label>
+                                        <input type="text" name="descripcion_update" id="descripcion_update" rows="4" class="form-control"
+                                            placeholder="Ingrese la Descripción" required maxlength="300"></input>
+
+                                    <label for="inquilino_update" class="form-label">Inquilino</label>
+                                    <select onchange="seleccionarInquilino()" id="inquilinos_u" name="tipo_empleado">
+                                    </select>
+
+                                    <input id="switchButton" type="button" onclick="cambiarEstadoReporte()">
+                                    </select>
+                                </div>
+                                <div class="col">
+                                    <label for="upload_image" class="form-label">Imagen</label>
+                                    <a class="btn" name="archivo" id="upload_image">
+                                        <input accept="image/jpeg" name="archivo" type="file"
+                                            class="form-control form-control-sm form-Input-Style" required>
+                                        <img src="../../resources/img/iconos_formularios/download_100px.png">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <div class="btn-group" role="group" id="opcionesModal">
+                                <button type="submit" class="btn btn-primary" id="btnmenu"><a class="nav-link"><img
+                                            src="../img/iconos_formularios/agregar_26px.png"></a></button>
+                                <button type="button" class="btn btn-primary" id="btnmenu" data-bs-dismiss="modal"><a
+                                        class="nav-link"><img
+                                            src="../img/iconos_formularios/cerrar_26px.png"></a></button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
-              </div>
             </div>
-            <div class="modal-footer">
-              <div class="btn-group" role="group" id="opcionesModal">
-                <button type="button" class="btn btn-primary" id="btnmenu"><a class="nav-link"><img
-                      src="../img/iconos_formularios/agregar_26px.png"></a></button>
-                <button type="button" class="btn btn-primary" id="btnmenu" data-bs-dismiss="modal"><a
-                    class="nav-link"><img src="../img/iconos_formularios/cerrar_26px.png"></a></button>
-              </div>
+        </div>
+        <!-- Modal de ELIMINAR -->
+        <div class="modal fade" id="eliminar" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header" id="formHeader">
+                        <h5 class="modal-title" id="exampleModalToggleLabe3">Confirmar</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        Desea Eliminar la información de este registro?
+                    </div>
+                    <!-- Formulario de eliminar -->
+                    <form method="post" id="delete_form">
+                        <div class="modal-footer">
+                            <button class="btn btn-primary" id="btnmenu">Volver</button>
+                            <button type="submit" class="btn btn-primary" id="btnmenu">Confirmar</button>
+                        </div>
+                    </form>
+                </div>
             </div>
-          </form>
         </div>
-      </div>
-    </div>
-    <!-- Modal de ELIMINAR -->
-    <div class="modal fade" id="eliminar" tabindex="-1">
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-header" id="formHeader">
-            <h5 class="modal-title" id="exampleModalToggleLabe3">Confirmar</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            Desea Eliminar la información de este registro?
-          </div>
-          <!-- Formulario de Update -->
-          <form method="post" id="delete_form">
-            <div class="modal-footer">
-              <button class="btn btn-primary" id="btnmenu">Volver</button>
-              <button class="btn btn-primary" id="btnmenu">Confirmar</button>
+        <!-- Modal de ELIMINAR REALIZADO -->
+        <div class="modal fade" id="eliminado" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header" id="formHeader">
+                        <h5 class="modal-title" id="exampleModalToggleLabel4">Eliminado con éxito</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        El registro se ha eliminado con éxito.
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary" data-bs-dismiss="modal" id="btnmenu">Aceptar</button>
+                    </div>
+                </div>
             </div>
-          </form>
         </div>
-      </div>
-    </div>
-    <!-- Modal de ELIMINAR REALIZADO -->
-    <div class="modal fade" id="eliminado" tabindex="-1">
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-header" id="formHeader">
-            <h5 class="modal-title" id="exampleModalToggleLabel4">Eliminado con éxito</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            El registro se ha eliminado con éxito.
-          </div>
-          <div class="modal-footer">
-            <button class="btn btn-primary" data-bs-dismiss="modal" id="btnmenu">Aceptar</button>
-          </div>
+        <!-- Modal de PROCESO REALIZADO -->
+        <div class="modal fade" id="proceso_exito" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header" id="formHeader">
+                        <h5 class="modal-title" id="exampleModalToggleLabel4">Proceso exitoso</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        Se han guardado los datos existosamente.
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary" data-bs-dismiss="modal" id="btnmenu">Aceptar</button>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-    <!-- Modal de PROCESO REALIZADO -->
-    <div class="modal fade" id="proceso_exito" tabindex="-1">
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-header" id="formHeader">
-            <h5 class="modal-title" id="exampleModalToggleLabel4">Proceso exitoso</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            Se han guardado los datos existosamente.
-          </div>
-          <div class="modal-footer">
-            <button class="btn btn-primary" data-bs-dismiss="modal" id="btnmenu">Aceptar</button>
-          </div>
+    </main>
+
+    <footer class="text-white  pt-5 pb-4" id="Segundofooter">
+        <div class="container-fluid">
+
         </div>
-      </div>
-    </div>
-  </main>
+    </footer>
 
-  <footer class="text-white  pt-5 pb-4" id="Segundofooter">
-    <div class="container-fluid">
+    <!-- Activando Bootstrap desde JS -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
+        integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"
+        integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13"
+        crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="module" src="../../controller/privada/reportes.js"></script>
 
-    </div>
-  </footer>
 
-  <!-- Activando Bootstrap desde JS -->
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
-    integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB"
-    crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"
-    integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13"
-    crossorigin="anonymous"></script>
+
 </body>
 
 </html>

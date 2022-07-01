@@ -88,31 +88,6 @@
                                         src="../../resources/img/iconos_navbar/modern_art_30px.png">Gestion
                                     de Tipo Acabado</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="gestion_tipo_empleado.html"><img
-                                        src="../../resources/img/iconos_navbar/person_30px.png">Gestion
-                                    de Tipo Empleado</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="gestion_tipo_inquilino.html"><img
-                                        src="../../resources/img/iconos_navbar/person_30px.png">Gestion
-                                    de Tipo Inquilino</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="gestion_tipo_propiedad.html"><img
-                                        src="../../resources/img/iconos_navbar/rent_30px.png">Gestion
-                                    de Tipo Propiedad</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="gestion_tipo_propietario.html"><img
-                                        src="../../resources/img/iconos_navbar/person_30px.png">Gestion
-                                    de Tipo Propietario</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="gestion_tipo_usuario.html"><img
-                                        src="../../resources/img/iconos_navbar/person_30px.png">Gestion
-                                    de Tipo Usuario</a>
-                            </li>
                         </ul>
                     </div>
                 </div>
@@ -126,7 +101,7 @@
         <!-- Searchbar -->
         <div class="container-fluid" id="busqueda">
             <form class="d-flex" method="post" id="search-bar">
-                <input class="form-control me-2" name="search" placeholder="Búsqueda de Datos" aria-label="Search"
+                <input class="form-control me-2" name="search" placeholder="Buscar por Nombre" aria-label="Search"
                     required>
                 <button class="btn" type="submit"><img src="../../resources/img/iconos_navbar/search_24px.png"></button>
             </form>
@@ -138,6 +113,11 @@
                     data-bs-target="#agregar"><a class="nav-link"><img
                             src="../../resources/img/iconos_formularios/agregar_26px.png"></a></button>
             </div>
+        </div>
+        <div class="form-check form-switch">
+            <input onclick="leerDatosEliminados()" class="form-check-input" type="checkbox" role="switch"
+                id="verDatosliminados">
+            <label class="form-check-label" for="flexSwitchCheckDefault">Ver datos eliminados</label>
         </div>
         <!-- Tabla de Datos -->
         <div class="container-fluid" id="tabla_datos">
@@ -301,7 +281,7 @@
         integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13"
         crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script type="module" src="../../controller/privado/tipo_propietario.js"></script>
+    <script type="module" src="../../controller/privada/tipo_propietario.js"></script>
 </body>
 
 </html>

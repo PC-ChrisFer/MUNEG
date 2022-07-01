@@ -7,7 +7,7 @@ class categoria extends validator
     //Declaración de atributos (propiedades)
     private $id_categoria = null;
     private $nombre_categoria = null;
-    private $visibilidad = null;
+    private $visibilidad = true;
 
     //Variables true -- false
     private $true = true;
@@ -23,7 +23,6 @@ class categoria extends validator
         } else {
             return false;
         }
-
     }
 
     //Nombre de Categoria
@@ -35,7 +34,6 @@ class categoria extends validator
         } else {
             return false;
         }
-        
     }
 
     //Visibilidad de Categoria
@@ -48,29 +46,26 @@ class categoria extends validator
             return false;
         }
     }
-    
+
 
     //Metodos para obtener los valores de los campos
-    
+
     //Id de Categoria
     public function getId($value)
     {
         return $this->id_categoria;
-        
     }
 
     //Nombre de Categoria
     public function getNombre($value)
     {
         return $this->nombre_categoria;
-        
     }
 
     //Visibilidad de Categoria
     public function getVisiblidad($value)
     {
         return $this->visibilidad;
-        
     }
 
     //Metodos para realizar las operaciones SCRUD(Search, Create, Read, Update, Delete)
@@ -104,19 +99,30 @@ class categoria extends validator
         return Database::executeRow($sql, $params);
     }
     //Metodo para la eliminación DELETE
-    public function deleteRow(){
+    public function deleteRow()
+    {
         $sql = 'UPDATE public.categoria
         SET visibilidad=?
         WHERE id_categoria=?';
         $params = array($this->false, $this->id_categoria);
-        return Database::executeRow($sql,$params);
+        return Database::executeRow($sql, $params);
     }
     //Metodo para leer READ
     //Leer todas las filas de la Tabla
     public function readAll()
     {
-        $sql = 'SELECT id_categoria, nombre_categoria, visibilidad
-        FROM categoria';
+        $sql = 'SELECT id_categoria, nombre_categoria , visibilidad
+                FROM categoria
+                WHERE visibilidad = true;';
+        $params = null;
+        return Database::getRows($sql, $params);
+    }
+
+    public function readAllDeleted()
+    {
+        $sql = 'SELECT id_categoria, nombre_categoria , visibilidad
+                FROM categoria
+                WHERE visibilidad = false;';
         $params = null;
         return Database::getRows($sql, $params);
     }
@@ -129,4 +135,4 @@ class categoria extends validator
         $params = ($this->id_categoria);
         return Database::getRow($sql, $params);
     }
-}   
+}

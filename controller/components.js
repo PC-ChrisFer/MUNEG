@@ -10,12 +10,26 @@ import {
   API_DELETE,
   API_READONE,
   API_UNDELETE,
+  API_READALL_DELETED
 } from "./constants/api_constant.js";
 import { getElementById } from "./constants/functions.js";
 
 // LEER REGISTROS
 export async function readRows(ENDPOINT, fillrows) {
   let APIEndpoint = ENDPOINT + API_READALL;
+  //Llamar a la función de conexión api para realizar fetch y then
+  let APIResponse = await APIConnection(APIEndpoint, GET_METHOD, null);
+  console.log(APIResponse.dataset)
+  if (APIResponse.status == API_SUCESS_REQUEST) {
+    fillrows(APIResponse.dataset)
+    return
+  }
+  // dado caso este if se ejecute con "return" hara que hasta este punto llegue el codigo
+}
+
+// LEER REGISTROS ELIMINADOS
+export async function readDeletedRowns(ENDPOINT, fillrows) {
+  let APIEndpoint = ENDPOINT + API_READALL_DELETED;
   //Llamar a la función de conexión api para realizar fetch y then
   let APIResponse = await APIConnection(APIEndpoint, GET_METHOD, null);
   console.log(APIResponse.dataset)

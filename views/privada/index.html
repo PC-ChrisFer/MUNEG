@@ -21,9 +21,6 @@
                 <div id="con">
                     <a class="navbar-brand" href="#"><img src="../../resources/img/iconos_navbar/logo.png" id="imgnav" usemap="#home"></a>
                     <!-- Mapeando la imagen -->
-                    <map name="home">
-                        <area shape="rect" coords="0,0,311,98" href="pagina_principal.html">
-                    </map>
                 </div>
             </div>
         </nav>
@@ -41,12 +38,12 @@
                             <div class="col-12">
                             </div>
                             <div class="col-12">
-                                <form>
+                                <form id="logInForm" method="post">
                                     <div id="Form_login">
                                         <label for="exampleInputEmail1" class="form-label">
                                             <h2>Usuario</h2>
                                         </label>
-                                        <input type="email" class="form-control" id="exampleInputEmail1"
+                                        <input type="text" class="form-control" id="exampleInputEmail1" name="nombre_usuario"
                                             aria-describedby="emailHelp" size="40">
                                     </div>
                                     <div id="Form_login">
@@ -54,13 +51,13 @@
                                             <h2>Contraseña</h2>
                                         </label>
                                         <input type="password" class="form-control" id="exampleInputPassword1"
-                                            size="40">
+                                            size="40" name="password">
+                                    </div>
+                                    <div class="col-12 d-flex justify-content-center">
+                                        <button type="submit" class="btn btn-dark logIndButton" id="btnmenu"><a type="submit">Iniciar
+                                            sesión</a></button>
                                     </div>
                                 </form>
-                            </div>
-                            <div class="col-12 d-flex justify-content-center">
-                                <a type="submit" class="btn btn-dark logIndButton" href="pagina_principal.html">Iniciar
-                                    sesión</a>
                             </div>
                         </div>
                     </div>
@@ -75,10 +72,6 @@
 
         </div>
     </footer>
-
+    <script type="module" src="../../controller/privada/login.js"></script>
 </body>
-
-<footer>
-</footer>
-
 </html>

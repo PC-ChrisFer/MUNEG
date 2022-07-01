@@ -58,11 +58,6 @@
                                     Propietario</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="gestion_cliente.html"><img
-                                        src="../../resources/img/iconos_navbar/person_30px.png">Gestion
-                                    de Cliente</a>
-                            </li>
-                            <li class="nav-item">
                                 <a class="nav-link" href="gestion_inquilino.html"><img
                                         src="../../resources/img/iconos_navbar/person_30px.png">Gestion
                                     Inquilino</a>
@@ -74,6 +69,10 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="gestion_usuario.html"><img
                                         src="../../resources/img/iconos_navbar/person_30px.png">Gestion Usuario</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="gestion_cliente.html"><img
+                                        src="../../resources/img/iconos_navbar/person_30px.png">Gestion Cliente</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="gestion_contrato.html"><img
@@ -95,53 +94,30 @@
                                         src="../../resources/img/iconos_navbar/modern_art_30px.png">Gestion
                                     de Tipo Acabado</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="gestion_tipo_empleado.html"><img
-                                        src="../../resources/img/iconos_navbar/person_30px.png">Gestion
-                                    de Tipo Empleado</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="gestion_tipo_inquilino.html"><img
-                                        src="../../resources/img/iconos_navbar/person_30px.png">Gestion
-                                    de Tipo Inquilino</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="gestion_tipo_propiedad.html"><img
-                                        src="../../resources/img/iconos_navbar/rent_30px.png">Gestion
-                                    de Tipo Propiedad</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="gestion_tipo_propietario.html"><img
-                                        src="../../resources/img/iconos_navbar/person_30px.png">Gestion
-                                    de Tipo Propietario</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="gestion_tipo_usuario.html"><img
-                                        src="../../resources/img/iconos_navbar/person_30px.png">Gestion
-                                    de Tipo Usuario</a>
-                            </li>
                         </ul>
                     </div>
                 </div>
             </div>
         </nav>
         <div class="container-fluid" id="encabezado">
-            <h1>GESTIÓN DE INQUILINO</h1>
+            <h1>GESTIÓN INQUILINO</h1>
         </div>
     </header>
     <main>
         <!-- Searchbar -->
         <div class="container-fluid" id="busqueda">
-            <form class="d-flex">
-                <input class="form-control me-2" type="search" placeholder="Búsqueda de Datos" aria-label="Search">
-                <a class="nav-link" href="#"><img src="../../resources/img/iconos_navbar/search_24px.png"></a>
+            <form class="d-flex" method="post" id="search-bar">
+                <input class="form-control me-2" name="search" placeholder="Búsqueda de datos por apellido"
+                    aria-label="Search" required minlength="2" maxlength="20">
+                <button class="btn" type="submit"><img src="../../resources/img/iconos_navbar/search_24px.png"></button>
             </form>
         </div>
         <!-- Botones de SCRUD, actualizar y agregar -->
-        <div class="container-fluid" id="opciones">
+        <div class="container-fluid d-flex justify-content-between" id="opciones">
+            <a class="btn" id="button_ver_mas" href="gestion_tipo_inquilino.html">Tipo Inquilino</a>
             <div class="btn-group" role="group">
                 <button type="button" class="btn btn-primary" id="btnmenu" data-bs-toggle="modal"
-                    data-bs-target="#agregarform"><a class="nav-link" href="#"><img
+                    data-bs-target="#agregar"><a class="nav-link" href="#"><img
                             src="../../resources/img/iconos_formularios/agregar_26px.png"></a></button>
             </div>
         </div>
@@ -152,179 +128,89 @@
                 <thead>
                     <tr>
                         <th>Imagen</th>
-                        <th>Nombre Completo</th>
+                        <th>Nombres</th>
+                        <th>Apellidos</th>
                         <th>Número Telefono</th>
                         <th>Correo Electrónico</th>
                         <th>Fecha Nacimiento</th>
                         <th>Genero</th>
                         <th>DUI</th>
                         <th>NIT</th>
+                        <th>NRC</th>
                         <th>Gestionar</th>
                     </tr>
                 </thead>
-                <tbody id="tbody-inquilino">
-                    <!-- Linea de Informacion -->
-                    <tr>
-                        <td><img src="../img/user_100px.png"></td>
-                        <td>Rodrigo Almendares Bonilla Bonifacio</td>
-                        <td>+503 75258524</td>
-                        <td>yo.serinqul.h3h3@gmail.com</td>
-                        <td>24-12-1998</td>
-                        <td>Masculino</td>
-                        <td>92381920-2</td>
-                        <td>4351-109313-529-1</td>
-                        <td class="d-flex justify-content-center">
-                            <a class="btn" href="#" id="button_ver_mas" data-bs-toggle="modal"
-                                data-bs-target="#actualizar"><img
-                                    src="../../resources/img/iconos_formularios/edit_35px.png"></a>
-                            <a class="btn" href="#" id="button_ver_mas" data-bs-toggle="modal"
-                                data-bs-target="#eliminar"><img
-                                    src="../../resources/img/iconos_formularios/trash_can_35px.png"></a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><img src="../img/user_100px.png"></td>
-                        <td>Rodrigo Almendares Bonilla Bonifacio</td>
-                        <td>+503 75258524</td>
-                        <td>yo.serinqul.h3h3@gmail.com</td>
-                        <td>24-12-1998</td>
-                        <td>Masculino</td>
-                        <td>92381920-2</td>
-                        <td>4351-109313-529-1</td>
-                        <td class="d-flex justify-content-center">
-                            <a class="btn" href="#" id="button_ver_mas" data-bs-toggle="modal"
-                                data-bs-target="#actualizar"><img
-                                    src="../../resources/img/iconos_formularios/edit_35px.png"></a>
-                            <a class="btn" href="#" id="button_ver_mas" data-bs-toggle="modal"
-                                data-bs-target="#eliminar"><img
-                                    src="../../resources/img/iconos_formularios/trash_can_35px.png"></a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><img src="../img/user_100px.png"></td>
-                        <td>Rodrigo Almendares Bonilla Bonifacio</td>
-                        <td>+503 75258524</td>
-                        <td>yo.serinqul.h3h3@gmail.com</td>
-                        <td>24-12-1998</td>
-                        <td>Masculino</td>
-                        <td>92381920-2</td>
-                        <td>4351-109313-529-1</td>
-                        <td class="d-flex justify-content-center">
-                            <a class="btn" href="#" id="button_ver_mas" data-bs-toggle="modal"
-                                data-bs-target="#actualizar"><img
-                                    src="../../resources/img/iconos_formularios/edit_35px.png"></a>
-                            <a class="btn" href="#" id="button_ver_mas" data-bs-toggle="modal"
-                                data-bs-target="#eliminar"><img
-                                    src="../../resources/img/iconos_formularios/trash_can_35px.png"></a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><img src="../img/user_100px.png"></td>
-                        <td>Rodrigo Almendares Bonilla Bonifacio</td>
-                        <td>+503 75258524</td>
-                        <td>yo.serinqul.h3h3@gmail.com</td>
-                        <td>24-12-1998</td>
-                        <td>Masculino</td>
-                        <td>92381920-2</td>
-                        <td>4351-109313-529-1</td>
-                        <td class="d-flex justify-content-center">
-                            <a class="btn" href="#" id="button_ver_mas" data-bs-toggle="modal"
-                                data-bs-target="#actualizar"><img
-                                    src="../../resources/img/iconos_formularios/edit_35px.png"></a>
-                            <a class="btn" href="#" id="button_ver_mas" data-bs-toggle="modal"
-                                data-bs-target="#eliminar"><img
-                                    src="../../resources/img/iconos_formularios/trash_can_35px.png"></a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><img src="../img/user_100px.png"></td>
-                        <td>Rodrigo Almendares Bonilla Bonifacio</td>
-                        <td>+503 75258524</td>
-                        <td>yo.serinqul.h3h3@gmail.com</td>
-                        <td>24-12-1998</td>
-                        <td>Masculino</td>
-                        <td>92381920-2</td>
-                        <td>4351-109313-529-1</td>
-                        <td class="d-flex justify-content-center">
-                            <a class="btn" href="#" id="button_ver_mas" data-bs-toggle="modal"
-                                data-bs-target="#actualizar"><img
-                                    src="../../resources/img/iconos_formularios/edit_35px.png"></a>
-                            <a class="btn" href="#" id="button_ver_mas" data-bs-toggle="modal"
-                                data-bs-target="#eliminar"><img
-                                    src="../../resources/img/iconos_formularios/trash_can_35px.png"></a>
-                        </td>
-                    </tr>
+                <tbody id="tbody-tipoInquilino">
+
                 </tbody>
             </table>
         </div>
-        <!-- Modal de AGREGAR REGISTRO-->
-        <div class="modal fade" id="agregar" tabindex="-1">
+        <!-- Modal de ACTUALIZAR REGISTRO-->
+        <div class="modal fade" id="actualizar" tabindex="-1">
             <div class="modal-dialog modal-xl modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header" id="formHeader">
                         <h5 class="modal-title" id="actualizarformLabel">Agregar Inquilino</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                     </div>
-                    <!-- Formulario de Insert -->
-                    <form method="post" id="insert_form">
+                    <!-- Formulario de UPDATE -->
+                    <form method="post" id="update_form">
                         <div class="modal-body" id="formModal">
                             <div class="row">
                                 <div class="col">
-                                    <label for="nombre_inquilino" class="form-label">Nombre</label>
-                                    <input type="text" class="form-control" id="nombre_inquilino"
-                                        name="nombre_inquilino" placeholder="Escriba el nombre del inquilino" required>
+                                    <label for="nombre_inquilino_update" class="form-label">Nombre</label>
+                                    <input type="text" class="form-control" id="nombre_inquilino_update"
+                                        name="nombre_inquilino" required minlength="2" maxlength="50">
 
-                                    <label for="apellido_inquilino" class="form-label">Apellido</label>
-                                    <input type="text" class="form-control" id="apellido_inquilino"
-                                        placeholder="Escriba el apellido del inquilino" name="apellido_inquilino"
-                                        required>
+                                    <label for="apellido_inquilino_update" class="form-label">Apellido</label>
+                                    <input type="text" class="form-control" id="apellido_inquilino_update"
+                                        name="apellido_inquilino" required minlength="3" maxlength="50">
 
-                                    <label for="telefono" class="form-label">Teléfono</label>
-                                    <input type="tel" class="form-control" id="telefono" name="telefono"
-                                        placeholder="Escriba el telefono del inquilino" required>
+                                    <label for="telefono_update" class="form-label">Teléfono</label>
+                                    <input type="tel" class="form-control" id="telefono_update" name="telefono" required
+                                        minlength="8" maxlength="13">
 
-                                    <label for="correo_electronico" class="form-label">Correo Electrónico</label>
-                                    <input type="email" class="form-control" id="correo_electronico"
-                                        placeholder="Escriba el correo electrónico del inquilino"
-                                        name="correo_electronico" required>
+                                    <label for="correo_electronico_update" class="form-label">Correo Electrónico</label>
+                                    <input type="email" class="form-control" id="correo_electronico_update"
+                                        name="correo" required minlength="7" maxlength="75">
 
-                                    <label for="fecha_nacimiento" class="form-label">Fecha de Nacimiento</label>
-                                    <input type="date" class="form-control" id="fecha_nacimiento"
-                                        name="fecha_nacimiento">
+                                    <label for="fecha_nacimiento_update" class="form-label">Fecha de Nacimiento</label>
+                                    <input type="date" class="form-control" id="fecha_nacimiento_update"
+                                        name="fecha_nacimiento" required>
                                 </div>
                                 <div class="col">
-                                    <label for="genero" class="form-label">Género</label>
-                                    <select id="genero" name="genero" class="form-control">
+                                    <label for="genero_update" class="form-label">Género</label>
+                                    <select id="genero_update" name="genero_update" class="form-control" required>
                                         <option value="value1">Masculino</option>
                                         <option value="value2" selected>Femenino</option>
                                     </select>
 
-                                    <label for="dui" class="form-label">DUI</label>
-                                    <input type="text" class="form-control" id="dui" name="dui"
-                                        placeholder="Escriba el DUI del inquilino">
+                                    <label for="dui_update" class="form-label">DUI</label>
+                                    <input type="text" class="form-control" id="dui_update" name="dui" required minlength="10"
+                                    maxlength="10">
 
-                                    <label for="nit" class="form-label">NIT</label>
-                                    <input type="text" class="form-control" id="nit" name="nit"
-                                        placeholder="Escriba el NIT del inquilino">
+                                    <label for="nit_update" class="form-label">NIT</label>
+                                    <input type="text" class="form-control" id="nit_update" name="nit" required maxlength="17" minlength="15">
 
-                                    <label for="nrc" class="form-label">NRC</label>
-                                    <input type="text" class="form-control" id="nrc" name="nrc"
-                                        placeholder="Escriba el NRC del inquilino">
+                                    <label for="nrc_update" class="form-label">NRC</label>
+                                    <input type="text" class="form-control" id="nrc_update" name="nrc" minlength="8" maxlength="8">
 
-                                    <label for="tipo_inquilino" class="form-label">Tipo de Inquilino</label>
-                                    <select id="tipo_inquilino" name="tipo_inquilino" class="form-control">
+                                    <label for="tipo_inquilino_i" class="form-label">Tipo de Inquilino</label>
+                                    <select id="tipo_inquilino_i" name="tipo_inquilino" class="form-control">
 
                                     </select>
+
                                 </div>
                                 <div class="col">
-                                    <label for="estado_inquilino" class="form-label">Estado del Inquilino</label>
-                                    <select id="estado_inquilino" name="estado_inquilino" class="form-control">
+                                    <label for="estado_inquilino_update" class="form-label">Estado del Inquilino</label>
+                                    <select id="estado_inquilino_i" name="estado_inquilino_update" class="form-control">
 
                                     </select>
 
                                     <label for="upload_image" class="form-label">Imagen</label>
                                     <a class="btn" name="archivo" id="upload_image">
-                                        <input type="file" class="form-control form-control-sm form-Input-Style">
+                                        <input name="archivo" type="file"
+                                            class="form-control form-control-sm form-Input-Style">
                                         <img src="../../resources/img/iconos_formularios/download_100px.png">
                                     </a>
                                 </div>
@@ -332,7 +218,7 @@
                         </div>
                         <div class="modal-footer">
                             <div class="btn-group" role="group" id="opcionesModal">
-                                <button type="button" class="btn btn-primary" id="btnmenu"><a class="nav-link"><img
+                                <button type="submit" class="btn btn-primary" id="btnmenu"><a class="nav-link"><img
                                             src="../../resources/img/iconos_formularios/agregar_26px.png"></a></button>
                                 <button type="button" class="btn btn-primary" id="btnmenu" data-bs-dismiss="modal"><a
                                         class="nav-link"><img
@@ -343,70 +229,71 @@
                 </div>
             </div>
         </div>
-        <!-- Modal de ACTUALIZAR REGISTRO -->
-        <div class="modal fade" id="actualizar" tabindex="-1">
+        <!-- Modal de AGREGAR REGISTRO -->
+        <div class="modal fade" id="agregar" tabindex="-1">
             <div class="modal-dialog modal-xl modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header" id="formHeader">
                         <h5 class="modal-title">Actualizar Inquilino</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                     </div>
-                    <!-- Formulario de Update -->
-                    <form method="post" id="update_form">
+                    <!-- Formulario de INSERT -->
+                    <form method="post" id="insert_form">
                         <div class="modal-body" id="formModal">
                             <div class="row">
                                 <div class="col">
                                     <label for="nombre_inquilino_update" class="form-label">Nombre</label>
                                     <input type="text" class="form-control" id="nombre_inquilino_update"
-                                        name="nombre_inquilino_update">
+                                        name="nombre_inquilino" required minlength="2" maxlength="50">
 
                                     <label for="apellido_inquilino_update" class="form-label">Apellido</label>
                                     <input type="text" class="form-control" id="apellido_inquilino_update"
-                                        name="apellido_inquilino_update">
+                                        name="apellido_inquilino" required minlength="3" maxlength="50">
 
                                     <label for="telefono_update" class="form-label">Teléfono</label>
-                                    <input type="tel" class="form-control" id="telefono_update" name="telefono_update">
+                                    <input type="tel" class="form-control" id="telefono_update" name="telefono" required
+                                        minlength="8" maxlength="13">
 
                                     <label for="correo_electronico_update" class="form-label">Correo Electrónico</label>
                                     <input type="email" class="form-control" id="correo_electronico_update"
-                                        name="correo_electronico_update">
+                                        name="correo" required minlength="7" maxlength="75">
 
                                     <label for="fecha_nacimiento_update" class="form-label">Fecha de Nacimiento</label>
                                     <input type="date" class="form-control" id="fecha_nacimiento_update"
-                                        name="fecha_nacimiento_update">
+                                        name="fecha_nacimiento" required>
                                 </div>
                                 <div class="col">
                                     <label for="genero_update" class="form-label">Género</label>
-                                    <select id="genero_update" name="genero_update" class="form-control">
+                                    <select id="genero_update" name="genero_update" class="form-control" required>
                                         <option value="value1">Masculino</option>
-                                        <option value="value2" selected>Femenino</option>
+                                        <option value="value2">Femenino</option>
                                     </select>
 
                                     <label for="dui_update" class="form-label">DUI</label>
-                                    <input type="text" class="form-control" id="dui_update" name="dui_update">
+                                    <input type="text" class="form-control" id="dui_update" name="dui" required minlength="10"
+                                    maxlength="10">
 
                                     <label for="nit_update" class="form-label">NIT</label>
-                                    <input type="text" class="form-control" id="nit_update" name="nit_update">
+                                    <input type="text" class="form-control" id="nit_update" name="nit" required maxlength="17" minlength="15">
 
                                     <label for="nrc_update" class="form-label">NRC</label>
-                                    <input type="text" class="form-control" id="nrc_update" name="nrc_update">
+                                    <input type="text" class="form-control" id="nrc_update" name="nrc" minlength="8" maxlength="8">
 
-                                    <label for="tipo_inquilino_update" class="form-label">Tipo de Inquilino</label>
-                                    <select id="tipo_inquilino_update" name="tipo_inquilino_update"
-                                        class="form-control">
+                                    <label for="tipo_inquilino_u" class="form-label">Tipo de Inquilino</label>
+                                    <select id="tipo_inquilino_u" name="tipo_inquilino" class="form-control">
 
                                     </select>
                                 </div>
                                 <div class="col">
                                     <label for="estado_inquilino_update" class="form-label">Estado del Inquilino</label>
-                                    <select id="estado_inquilino_update" name="estado_inquilino_update"
-                                        class="form-control">
+                                    <select id="estado_inquilino_u" name="estado_inquilino_update" class="form-control">
 
                                     </select>
 
                                     <label for="upload_image" class="form-label">Imagen</label>
                                     <a class="btn" name="archivo" id="upload_image">
-                                        <input type="file" class="form-control form-control-sm form-Input-Style">
+                                        <input name="archivo" type="file"
+                                            class="form-control form-control-sm form-Input-Style">
                                         <img src="../../resources/img/iconos_formularios/download_100px.png">
                                     </a>
                                 </div>
@@ -414,7 +301,7 @@
                         </div>
                         <div class="modal-footer">
                             <div class="btn-group" role="group" id="opcionesModal">
-                                <button type="button" class="btn btn-primary" id="btnmenu"><a class="nav-link"><img
+                                <button type="submit" class="btn btn-primary" id="btnmenu"><a class="nav-link"><img
                                             src="../img/iconos_formularios/editar_26px.png"></a></button>
                                 <button type="button" class="btn btn-primary" id="btnmenu"><a class="nav-link"><img
                                             src="../img/iconos_formularios/cerrar_26px.png"></a></button>
@@ -439,7 +326,7 @@
                     <form method="post" id="delete_form">
                         <div class="modal-footer">
                             <button class="btn btn-primary" id="btnmenu">Volver</button>
-                            <button class="btn btn-primary" id="btnmenu">Confirmar</button>
+                            <button type="submit" class="btn btn-primary" id="btnmenu">Confirmar</button>
                         </div>
                     </form>
                 </div>
@@ -494,6 +381,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"
         integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13"
         crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="module" src="../../controller/privada/inquilino.js"></script>
 </body>
 
 <footer>

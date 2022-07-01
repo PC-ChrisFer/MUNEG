@@ -24,6 +24,7 @@ class propiedad extends validator
     private $id_tipo_acabado = null;
     private $id_departamento = null;
     private $categoria = null;
+    private $imagen = null;
 
     //Metodos para setear los valores de los campos
     //Id
@@ -95,7 +96,7 @@ class propiedad extends validator
     //Descripción
     public function setDescripcion($value)
     {
-        $this->id_propiedad = $value;
+        $this->descripcion = $value;
         return true;
     }
     //Id de Municipio
@@ -119,7 +120,7 @@ class propiedad extends validator
     //Id de Inquilino
     public function setIdInquilino($value)
     {
-        $this->id_propiedad = $value;
+        $this->id_inquilino = $value;
         return true;
     }
     //Id Tipo Acabado
@@ -143,7 +144,27 @@ class propiedad extends validator
         return true;
     }
 
+        //Imagen del empleado - varying char
+        public function setImage($file)
+        {
+            if ($this->validateImageFile($file, 50000, 50000)) {
+                $this->imagen = $this->getFileName();
+                return true;
+            } else {
+                return false;
+            }
+        }
+
     //Metodos para obtener los valores de los campos
+
+    public function getRutaImagenes() {
+        return '../imagenes/propiedad/';
+    }
+
+    public function getImagen()
+    {
+        return $this->imagen;
+    }
 
     //Id
     public function getId($value)
@@ -233,7 +254,6 @@ class propiedad extends validator
 
     //Metodos para realizar las operaciones SCRUD(Search, Create, Read, Update, Delete)
 
-    //Metodo para la busqueda SEARCH
     //Utilizaremos los campos o (NOMBRE_TIPO)
     public function searchRows($value)
     {
@@ -292,24 +312,25 @@ class propiedad extends validator
     //Metodo para la inserción INSERT
     public function createRow()
     {
-        $sql = 'INSERT INTO public.propiedad  (direccion, area_propiedad, area_contruccion, codigo, precio, alquiler, habitaciones, plantas, sanitario, espacio_parqueo, descripcion, id_municipio, id_tipo_propiedad, id_empleado, id_inquilino,  id_tipo_acabado) 
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
-        $params = array($this->direccion, $this->area_propiedad, $this->area_contruccion, $this->codigo, $this->precio, $this->alquiler, $this->habitaciones, $this->plantas, $this->sanitario, $this->espacio_parqueo, $this->descripcion, $this->id_municipio, $this->it_tipo_propiedad, $this->id_empleado, $this->id_inquilino, $this->id_tipo_acabado);
+        $sql = 'INSERT INTO public.propiedad  (direccion, area_propiedad, area_contruccion, codigo, precio, alquiler, habitaciones, plantas, sanitario, espacio_parqueo, descripcion, id_municipio, id_tipo_propiedad, id_empleado, id_inquilino,  id_tipo_acabado, imagen) 
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+        $params = array($this->direccion, $this->area_propiedad, $this->area_contruccion, $this->codigo, $this->precio, $this->alquiler, $this->habitaciones, $this->plantas, $this->sanitario, $this->espacio_parqueo, $this->descripcion, $this->id_municipio, $this->id_tipo_propiedad, $this->id_empleado, $this->id_inquilino, $this->id_tipo_acabado, $this->imagen);
         return Database::executeRow($sql, $params);
     }
     //Metodo para la actualización UPDATE
     public function updateRow()
     {
-        $sql = 'UPDATE public.propiedad  (direccion, area_propiedad, area_contruccion, codigo, precio, alquiler, habitaciones, plantas, sanitario, espacio_parqueo, descripcion, id_municipio, id_tipo_propiedad, id_empleado, id_inquilino,  id_tipo_acabado) 
-        SET direccion = ?, area_propiedad = ?, area_contruccion = ?, codigo = ?, precio = ?, alquiler = ?, habitaciones = ?, plantas = ?, sanitario = ?, espacio_parqueo = ?, descripcion = ?, id_municipio = ?, id_tipo_propiedad = ?, id_empleado = ?, id_inquilino = ?,  id_tipo_acabado = ?
+        $sql = 'UPDATE public.propiedad  
+        SET direccion = ?, area_propiedad = ?, area_contruccion = ?, codigo = ?, precio = ?, alquiler = ?, habitaciones = ?, plantas = ?, sanitario = ?, espacio_parqueo = ?, descripcion = ?, id_municipio = ?, id_tipo_propiedad = ?, id_empleado = ?, id_inquilino = ?,  id_tipo_acabado = ?, imagen = ?
         WHERE id_propiedad =?';
-        $params = array($this->direccion, $this->area_propiedad, $this->area_contruccion, $this->codigo, $this->precio, $this->alquiler, $this->habitaciones, $this->plantas, $this->sanitario, $this->espacio_parqueo, $this->descripcion, $this->id_municipio, $this->it_tipo_propiedad, $this->id_empleado, $this->id_inquilino, $this->id_tipo_acabado);
+        $params = array($this->direccion, $this->area_propiedad, $this->area_contruccion, $this->codigo, $this->precio, $this->alquiler, $this->habitaciones, $this->plantas, $this->sanitario, $this->espacio_parqueo, $this->descripcion, $this->id_municipio, $this->id_tipo_propiedad, $this->id_empleado, $this->id_inquilino, $this->id_tipo_acabado, $this->imagen, $this->id_propiedad);
         return Database::executeRow($sql, $params);
     }
     //Metodo para la eliminación DELETE 
     public function deleteRow()
     {
-        $sql = 'DELETE FROM public.propiedad 
+        $sql = 'UPDATE public.propiedad 
+        SET visibilidad = false
         WHERE id_propiedad = ?';
         $params = array($this->id_propiedad);
         return Database::executeRow($sql, $params);
@@ -321,7 +342,8 @@ class propiedad extends validator
         $sql = 'SELECT id_propiedad, direccion, area_propiedad, area_contruccion, codigo, precio, alquiler, habitaciones, plantas, sanitario, 
         espacio_parqueo, descripcion, departamento.id_departamento, departamento, municipio.id_municipio, municipio, categoria.id_categoria, 
         nombre_categoria, propiedad.id_tipo_propiedad, tipo_propiedad.nombre_tipo, propiedad.id_empleado, empleado.nombre, empleado.apellido, 
-        empleado.imagen, propiedad.id_inquilino, inquilino.nombre, inquilino.apellido, inquilino.imagen, propiedad.id_tipo_acabado, tipo_acabado.nombre_tipo 
+        empleado.imagen, propiedad.id_inquilino, inquilino.nombre, inquilino.apellido, inquilino.imagen, propiedad.id_tipo_acabado, 
+        tipo_acabado.nombre_tipo, propiedad.imagen 
         FROM public.propiedad
         INNER JOIN public.municipio
         ON propiedad.id_municipio = municipio.id_municipio
@@ -336,7 +358,8 @@ class propiedad extends validator
         INNER JOIN public.inquilino
         ON propiedad.id_inquilino = inquilino.id_inquilino
         INNER JOIN public.tipo_acabado
-        ON propiedad.id_tipo_acabado = tipo_acabado.id_tipo_acabado';
+        ON propiedad.id_tipo_acabado = tipo_acabado.id_tipo_acabado
+        WHERE propiedad.visibilidad = true' ;
         $params = null;
         return Database::getRows($sql, $params);
     }

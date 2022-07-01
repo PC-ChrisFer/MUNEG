@@ -9,7 +9,7 @@ import {
 } from "../constants/api_constant.js";
 import {
   getElementById,
-  validateExistenceOfUser,
+ validateExistenceOfUser,
 } from "../constants/functions.js";
 import { API_CREATE, API_UPDATE, GET_METHOD } from "../constants/api_constant.js";
 import { APIConnection } from "../APIConnection.js";
@@ -39,6 +39,7 @@ let datos_inquilino = {
 // Método manejador de eventos que se ejecuta cuando el documento ha cargado.
 document.addEventListener("DOMContentLoaded", async () => {
     //Valida que el usuario este logeado
+    await validateExistenceOfUser();
     // Se llama a la función que obtiene los registros para llenar la tabla. Se encuentra en el archivo components.js
     await readRows(API_FACTURA, fillTableFactura);
     //Cargar combo box de Factura
@@ -128,12 +129,12 @@ window.guardarDatosFacturaDelete = (id_factura) => {
     };
 
 // Método que se ejecuta al enviar un formulario de busqueda
-getElementById("busqueda").addEventListener("submit", async (event) => {
+getElementById("search-bar").addEventListener("submit", async (event) => {
     // Se evita recargar la página web después de enviar el formulario.
     event.preventDefault();
     // Se llama a la función que realiza la búsqueda. Se encuentra en el archivo components.js
-    await searchRows(API_FACTURA, "busqueda", fillTableFactura);
-});
+    await searchRows(API_FACTURA, "search-bar", fillTableFactura);
+});  
 
 // EVENTO PARA INSERT
 // Método manejador de eventos que se ejecuta cuando se envía el formulario de guardar.

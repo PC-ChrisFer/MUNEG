@@ -9,7 +9,7 @@ import {
 } from "../constants/api_constant.js";
 import {
     getElementById,
-    validateExistenceOfUser,
+     validateExistenceOfUser,
 } from "../constants/functions.js";
 import { API_CREATE, API_UPDATE, GET_METHOD } from "../constants/api_constant.js";
 import { APIConnection } from "../APIConnection.js";
@@ -28,7 +28,7 @@ let datos_tipo_propietario = {
 // Método manejador de eventos que se ejecuta cuando el documento ha cargado.
 document.addEventListener("DOMContentLoaded", async () => {
     //Valida que el usuario este logeado
-    validateExistenceOfUser();
+    await validateExistenceOfUser();
     // Se llama a la función que obtiene los registros para llenar la tabla. Se encuentra en el archivo components.js
     await readRows(API_TIPO_PROPIETARIO, fillTableTipoPropietario);
 });
@@ -38,6 +38,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   let content = "";
   // Se recorre el conjunto de registros (dataset) fila por fila a través del objeto row.
   dataset.map((row) => {
+    console.log(row)
     // Se crean y concatenan las filas de la tabla con los datos de cada registro.
     content += ` 
             <tr>  
@@ -71,8 +72,8 @@ window.guardarDatosTipoPropietarioUpdate = (id_tipo_propietario, nombre_tipo, vi
     // SE ACTUALIZA EL VALOR DEL INPUT CON EL ID ESPECIFICADO AL VALOR INGRESADO AL PARAMETRO, ASEGURENSE DE QUE EL INPUT TENGA
     //EL ATRIBUTO "value="""
     //@ts-ignore
-    getElementById("tipo_propietario").value = String(nombre_tipo);
-    getElementById("visibilidad").value = String(visibilidad);
+    getElementById("tipo_propietario_update").value = String(nombre_tipo);
+    getElementById("visibilidad_update").value = String(visibilidad);
 };
   
 // FUNCION PARA GUARDAR LOS DATOS DEL TIPO DE PROPIETARIO
@@ -81,6 +82,7 @@ window.guardarDatosTipoPropietarioDelete = (id_tipo_propietario) => {
 datos_tipo_propietario.id = id_tipo_propietario;
 $("#eliminarForm").modal("show");
 };
+
 // Método que se ejecuta al enviar un formulario de busqueda
 getElementById("search-bar").addEventListener("submit", async (event) => {
     // Se evita recargar la página web después de enviar el formulario.
@@ -116,6 +118,8 @@ getElementById("update-form").addEventListener("submit", async (event) => {
     let parameters = new FormData(getElementById("update-form"));
     //@ts-ignore
     parameters.append("id_tipo_propietario", datos_tipo_propietario.id);
+    parameters.append("visibilidad_update", getElementById("visibilidad_update").checked == true ? '1' : '0');
+
   
     // API REQUEST
     await saveRow(API_TIPO_PROPIETARIO, API_UPDATE, parameters, fillTableTipoPropietario);
@@ -125,7 +129,7 @@ getElementById("update-form").addEventListener("submit", async (event) => {
 getElementById("delete-form").addEventListener("submit", async (event) => {
     event.preventDefault();
     // Se cierra el formulario de registro
-    $("#eliminar").modal("hide");
+    console.log('prueba')
     // CONVIRTIENDO EL JSON A FORMDATA
     let parameters = new FormData();
     //@ts-ignore
@@ -133,4 +137,6 @@ getElementById("delete-form").addEventListener("submit", async (event) => {
   
     //API REQUEST
     await deleteRow(API_TIPO_PROPIETARIO, parameters, fillTableTipoPropietario);
+    $("#eliminar").modal("hide");
+
 });

@@ -69,7 +69,8 @@ if (isset($_GET[ACTION])) {
         case UPDATE:
             $_POST = $tipo_propietario->validateSpace($_POST);
             $result[EXCEPTION] = $tipo_propietario->setNombre($_POST['tipo_propietario_update']) ? null : 'Nombre incorrecto';
-            $result[EXCEPTION] = $tipo_propietario->setVisibilidad($_POST['visibilidad']) ? null : 'Visibilidad no encontrada';
+            $_POST['visibilidad_update'] = $_POST['visibilidad_update'] == '1' ? 1 : 0;
+            $result[EXCEPTION] = $tipo_propietario->setVisibilidad($_POST['visibilidad_update']) ? null : 'Visibilidad no encontrada';
             $result[EXCEPTION] = $tipo_propietario->setId($_POST['id_tipo_propietario']) ? null : 'Id incorrecto';
 
             if ($tipo_propietario->updateRow()) {
@@ -80,7 +81,7 @@ if (isset($_GET[ACTION])) {
                 $result[EXCEPTION] = Database::getException();
             }
             break;
-        case DELETE:
+        case 'delete':
             $result[EXCEPTION] = $tipo_propietario->setId($_POST['id_tipo_propietario']) ? null : 'Id incorrecto';
 
             if ($tipo_propietario->deleteRow()) {

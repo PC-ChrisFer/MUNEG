@@ -9,7 +9,7 @@ import {
   API_SUCESS_REQUEST,
   GET_METHOD,
 } from "../constants/api_constant.js";
-import { getElementById } from "../constants/functions.js";
+import { getElementById,  validateExistenceOfUser } from "../constants/functions.js";
 
 const API_GESTION_TIPO_PROPIEDAD =
   SERVER + "privada/tipo_propiedad.php?action=";
@@ -18,36 +18,33 @@ let datos_tipoPropiedad = {
   id_tipo_propiedad: "",
   nombre_tipo_propiedad: "",
   visibilidad: true,
-  id_categoria:""
+  id_categoria: "",
 };
 
 // Método manejador de eventos que se ejecuta cuando el documento ha cargado.
 document.addEventListener("DOMContentLoaded", async () => {
-  //validateExistenceOfUser();
+  //Valida que el usuario este logeado
+  await validateExistenceOfUser();
   // Se llama a la función que obtiene los registros para llenar la tabla. Se encuentra en el archivo components.js
   await readRows(API_GESTION_TIPO_PROPIEDAD, fillTableTipoPropiedad);
   await fillCategoriaCombobox("listado_categorias_id");
   await fillCategoriaCombobox("listado_categorias_id_u");
-
 });
-
-
 
 async function fillCategoriaCombobox(fieldID) {
   let APIEndpoint = API_GESTION_TIPO_PROPIEDAD + "readAllCategorias";
   let APIResponse = await APIConnection(APIEndpoint, GET_METHOD, null);
   if (APIResponse.status == API_SUCESS_REQUEST) {
     APIResponse.dataset.map((element) => {
-        //@ts-ignore
-      getElementById(fieldID).innerHTML += `<option value="${element.id_categoria}" > ${element.nombre_categoria} </option>`;
+      //@ts-ignore
+      getElementById(
+        fieldID
+      ).innerHTML += `<option value="${element.id_categoria}" > ${element.nombre_categoria} </option>`;
     });
     return;
   }
   console.log("all bad");
 }
-
-
-
 
 function fillTableTipoPropiedad(dataset) {
   let content = "";
@@ -60,7 +57,7 @@ function fillTableTipoPropiedad(dataset) {
              <td>${row.nombre_tipo}</td>
              <td>${row.visibilidad}</td>
              <td class="d-flex justify-content-center">
-             <a onclick="guardarDatosUpdate(${row.id_tipo_propiedad},${row.visibilidad})" class="btn" id="button_ver_mas">
+             <a onclick="guardarDatosUpdate(${row.id_tipo_propiedad},${row.visibilidad},'${row.nombre_tipo}')" class="btn" id="button_ver_mas">
                <img  src="../../resources/img/iconos_formularios/edit_35px.png"></a>
              <a onclick="guardarDatosDelete(${row.id_tipo_propiedad})" class="btn" id="button_ver_mas">
                <img src="../../resources/img/iconos_formularios/trash_can_35px.png"></a>
@@ -77,12 +74,19 @@ function fillTableTipoPropiedad(dataset) {
 window.selectIdCategoria = (idCategoriaCmb) => {
   //@ts-ignore
   datos_tipoPropiedad.id_categoria = getElementById(idCategoriaCmb).value;
-}
+};
 
 //@ts-ignore
-window.guardarDatosUpdate = async (id_tipoPropiedad, visibilidad) => {
+window.guardarDatosUpdate = async (
+  id_tipoPropiedad,
+  visibilidad,
+  nombre_tipo_propiedad
+) => {
   datos_tipoPropiedad.id_tipo_propiedad = id_tipoPropiedad;
   datos_tipoPropiedad.visibilidad = visibilidad;
+
+  //@ts-ignore
+  getElementById("tipo_propiedad_update").value = String(nombre_tipo_propiedad);
 
   //@ts-ignore
   getElementById("switchButton").value = datos_tipoPropiedad.visibilidad
@@ -114,7 +118,7 @@ getElementById("insert_form")?.addEventListener("submit", async (event) => {
 
   //@ts-ignore
   let parameters = new FormData(getElementById("insert_form"));
-  parameters.append("categoria",datos_tipoPropiedad.id_categoria)
+  parameters.append("categoria", datos_tipoPropiedad.id_categoria);
 
   await saveRow(
     API_GESTION_TIPO_PROPIEDAD,
@@ -136,7 +140,6 @@ getElementById("update_form")?.addEventListener("submit", async (event) => {
   parameters.append("visibilidad", datos_tipoPropiedad.visibilidad);
   parameters.append("id_tipo_propiedad", datos_tipoPropiedad.id_tipo_propiedad);
   parameters.append("categoria", datos_tipoPropiedad.id_categoria);
-
 
   await saveRow(
     API_GESTION_TIPO_PROPIEDAD,

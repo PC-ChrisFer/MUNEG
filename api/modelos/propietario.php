@@ -15,7 +15,7 @@ class propietario extends validator
     private $DUI = null;
     private $imagen = null;
     private $id_tipo_propietario = null;
-    private $ruta = 
+    private $ruta;
     
     //Metodos para setear los valores de los campos
     //Id
@@ -68,10 +68,14 @@ class propietario extends validator
         return true;
     }
     //imagen
-    public function setImagen($value)
+    public function setImage($file)
     {
-        $this->imagen = $value;
-        return true;
+        if ($this->validateImageFile($file, 5000, 5000)) {
+            $this->imagen = $this->getFileName();
+            return true;
+        } else {
+            return false;
+        }
     }
     //Id Tipo Propietario
     public function setIdTipoPropietario($value)
@@ -81,6 +85,11 @@ class propietario extends validator
     }
 
     //Métodos para obtener los valores de los cambios
+
+    //ruta img
+    public function getRutaImagenes() {
+        return '../imagenes/propietario/';
+    }
 
     //Id Propietario
     public function getId($value)
@@ -119,19 +128,19 @@ class propietario extends validator
         
     }
     //Genero
-    public function getId($value)
+    public function getGenero($value)
     {
         return $this->genero;
         
     }
     //DUI
-    public function getId($value)
+    public function getDUI($value)
     {
-        return $this->id_propietario;
+        return $this->DUI;
         
     }
     //imagen
-    public function getImagen($value)
+    public function getImagen()
     {
         return $this->imagen;
         
@@ -150,8 +159,8 @@ class propietario extends validator
     public function searchRows($value)
     {
         $sql = 'SELECT id_propietario, nombre, apellido, numero_telefono, correo_electronico, fecha_nacimiento, genero, "DUI", imagen, id_tipo_propietario
-        FROM public.propietario;
-        WHERE nombre = ? ';
+        FROM public.propietario
+        WHERE propietario.nombre = ? ';
         $params = array("%$value%");
         return Database::getRows($sql, $params);
     }
@@ -172,7 +181,7 @@ class propietario extends validator
         $sql = 'UPDATE public.propietario
         SET nombre=?, apellido=?, numero_telefono=?, correo_electronico=?, fecha_nacimiento=?, genero=?, "DUI"=?, imagen=?, id_tipo_propietario=?
         WHERE id_propietario = ?';
-        $params = array($this->nombre, $this->apellido, $this->numero_telefono, $this->correo_electronico, $this->fecha_nacimiento, $this->genero, $this->DUI, $this->imagen, $this->id_tipo_propietario);
+        $params = array($this->nombre, $this->apellido, $this->numero_telefono, $this->correo_electronico, $this->fecha_nacimiento, $this->genero, $this->DUI, $this->imagen, $this->id_tipo_propietario, $this->id_propietario);
         return Database::executeRow($sql, $params);
     }
 
@@ -180,7 +189,7 @@ class propietario extends validator
     public function deleteRow()
     {
         $sql = 'DELETE FROM public.propietario
-	WHERE id_propietario';
+	    WHERE id_propietario = ?';
         $params = array($this->id_propietario);
         return Database::executeRow($sql, $params);
     }
@@ -205,6 +214,13 @@ class propietario extends validator
         return Database::getRow($sql, $params);
     }
 
-    
-
+    //Llenar combobox
+    //Combobox del Tipo Propietario
+    public function readTipoPropietario()
+    {
+        $sql = 'SELECT  id_tipo_propietario, nombre_tipo
+        FROM tipo_propietario';
+        $params = null;
+        return Database::getRows($sql, $params);
+    }
 }

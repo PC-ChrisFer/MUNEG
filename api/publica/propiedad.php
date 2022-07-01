@@ -16,10 +16,11 @@ const READ_ONE = 'readOne';
 const CREATE = 'create';
 const UPDATE = 'update';
 const DELETE = 'delete';
-const READ_DEPARTAMENTO = 'readDepartamento';
-const READ_MUNICIPIO = 'readMunicipio';
-const READ_TIPO_PROPIEDAD = 'readTipoPropiedad';
-const READ_CATEGORIA = 'readCategoria';
+const READ_DEPARTAMENTO ='readDepartamento';
+const READ_MUNICIPIO ='readMunicipio';
+const READ_TIPO_PROPIEDAD ='readTipoPropiedad';
+const READ_CATEGORIA ='readCategoria';
+
 const SUCESS_RESPONSE = 1;
 
 //NOMBRES DE PARAMETROS, DEBEN DE SER IGUALES AL ID Y NAME DEL INPUT DE EL FORMULARIO

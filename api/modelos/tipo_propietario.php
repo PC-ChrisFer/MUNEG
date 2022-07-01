@@ -84,7 +84,7 @@ class tipo_propietario extends validator
     //(sin parametros)
     public function readAll()
     {
-        $sql = 'SELECT id_tipo_propietario, nombre_tipo
+        $sql = 'SELECT id_tipo_propietario, nombre_tipo, visibilidad
         FROM public.tipo_propietario';
         $params = null;
         return Database::getRows($sql, $params);
@@ -114,7 +114,8 @@ class tipo_propietario extends validator
     //Metodo para la eliminación DELETE
     //(visibilidad, id_tipo_propietario)
     public function deleteRow(){
-        $sql = 'DELETE FROM public.tipo_propietario
+        $sql = 'UPDATE public.tipo_propietario
+        SET visibilidad=?
         WHERE id_tipo_propietario=?';
         $params = array($this->false, $this->id_tipo_propietario);
         return Database::executeRow($sql,$params);

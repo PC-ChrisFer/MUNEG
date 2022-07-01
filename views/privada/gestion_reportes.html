@@ -16,126 +16,98 @@
 
 
 <body>
-  <!-- Header Privado -->
-  <header>
-    <nav class="navbar fixed-top navbar-light " id="navcolor">
-      <div class="container-fluid">
-        <div id="con">
-          <a class="navbar-brand" href="#"><img src="../../resources/img/iconos_navbar/logo.png" id="imgnav"
-              usemap="#home"></a>
-          <!-- Mapeando la imagen -->
-          <map name="home">
-            <area shape="rect" coords="0,0,311,98" href="pagina_principal.html">
-          </map>
-        </div>
-        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
-          aria-controls="offcanvasNavbar">
-          <span><img src="../../resources/img/iconos_navbar/menu_30px.png"></span>
-        </button>
+    <!-- Header Privado -->
+    <header>
+      <nav class="navbar fixed-top navbar-light " id="navcolor">
+          <div class="container-fluid">
+              <div id="con">
+                  <a class="navbar-brand" href="#"><img src="../../resources/img/iconos_navbar/logo.png" id="imgnav"
+                          usemap="#home"></a>
+                  <!-- Mapeando la imagen -->
+                  <map name="home">
+                      <area shape="rect" coords="0,0,311,98" href="pagina_principal.html">
+                  </map>
+              </div>
+              <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
+                  data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+                  <span><img src="../../resources/img/iconos_navbar/menu_30px.png"></span>
+              </button>
 
-        <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
-          <div class="offcanvas-header">
-            <h5 class="offcanvas-title" id="offcanvasNavbarLabel">MENU</h5>
-            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+              <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar"
+                  aria-labelledby="offcanvasNavbarLabel">
+                  <div class="offcanvas-header">
+                      <h5 class="offcanvas-title" id="offcanvasNavbarLabel">MENU</h5>
+                      <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
+                          aria-label="Close"></button>
+                  </div>
+                  <!-- Opciones del menu, privada -->
+                  <div class="offcanvas-body" id="fondo">
+                      <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                          <li class="nav-item">
+                              <a class="nav-link" href="gestion_categoria.html"><img
+                                      src="../../resources/img/iconos_navbar/category_30px.png">Gestion
+                                  Categoria</a>
+                          </li>
+                          <li class="nav-item">
+                              <a class="nav-link" href="gestion_propiedad.html"><img
+                                      src="../../resources/img/iconos_navbar/rent_30px.png">Gestion Propiedad</a>
+                          </li>
+                          <li class="nav-item">
+                              <a class="nav-link" href="gestion_propietario.html"><img
+                                      src="../../resources/img/iconos_navbar/person_30px.png">Gestion
+                                  Propietario</a>
+                          </li>
+                          <li class="nav-item">
+                              <a class="nav-link" href="gestion_inquilino.html"><img
+                                      src="../../resources/img/iconos_navbar/person_30px.png">Gestion
+                                  Inquilino</a>
+                          </li>
+                          <li class="nav-item">
+                              <a class="nav-link" href="gestion_empleado.html"><img
+                                      src="../../resources/img/iconos_navbar/person_30px.png">Gestion Empleado</a>
+                          </li>
+                          <li class="nav-item">
+                              <a class="nav-link" href="gestion_usuario.html"><img
+                                      src="../../resources/img/iconos_navbar/person_30px.png">Gestion Usuario</a>
+                          </li>
+                          <li class="nav-item">
+                              <a class="nav-link" href="gestion_contrato.html"><img
+                                      src="../../resources/img/iconos_navbar/contract_30px.png">Gestion
+                                  Contrato</a>
+                          </li>
+                          <li class="nav-item">
+                              <a class="nav-link" href="gestion_factura.html"><img
+                                      src="../../resources/img/iconos_navbar/bill_30px.png">Gestion
+                                  Factura</a>
+                          </li>
+                          <li class="nav-item">
+                              <a class="nav-link" href="gestion_reportes.html"><img
+                                      src="../../resources/img/iconos_navbar/system_report_30px.png">Gestion
+                                  Reportes</a>
+                          </li>
+                          <li class="nav-item">
+                              <a class="nav-link" href="gestion_tipo_acabado.html"><img
+                                      src="../../resources/img/iconos_navbar/modern_art_30px.png">Gestion
+                                  de Tipo Acabado</a>
+                          </li>
+                      </ul>
+                  </div>
+              </div>
           </div>
-          <!-- Opciones del menu, privada -->
-          <div class="offcanvas-body" id="fondo">
-            <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-              <li class="nav-item">
-                <a class="nav-link" href="gestion_categoria.html"><img
-                    src="../../resources/img/iconos_navbar/category_30px.png">Gestion
-                  Categoria</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="gestion_propiedad.html"><img
-                    src="../../resources/img/iconos_navbar/rent_30px.png">Gestion Propiedad</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="gestion_propietario.html"><img
-                    src="../../resources/img/iconos_navbar/person_30px.png">Gestion
-                  Propietario</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="gestion_cliente.html"><img
-                    src="../../resources/img/iconos_navbar/person_30px.png">Gestion
-                  de Cliente</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="gestion_inquilino.html"><img
-                    src="../../resources/img/iconos_navbar/person_30px.png">Gestion
-                  Inquilino</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="gestion_empleado.html"><img
-                    src="../../resources/img/iconos_navbar/person_30px.png">Gestion Empleado</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="gestion_usuario.html"><img
-                    src="../../resources/img/iconos_navbar/person_30px.png">Gestion Usuario</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="gestion_contrato.html"><img
-                    src="../../resources/img/iconos_navbar/contract_30px.png">Gestion
-                  Contrato</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="gestion_factura.html"><img
-                    src="../../resources/img/iconos_navbar/bill_30px.png">Gestion
-                  Factura</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="gestion_reportes.html"><img
-                    src="../../resources/img/iconos_navbar/system_report_30px.png">Gestion
-                  Reportes</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="gestion_tipo_acabado.html"><img
-                    src="../../resources/img/iconos_navbar/modern_art_30px.png">Gestion
-                  de Tipo Acabado</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="gestion_tipo_empleado.html"><img
-                    src="../../resources/img/iconos_navbar/person_30px.png">Gestion
-                  de Tipo Empleado</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="gestion_tipo_inquilino.html"><img
-                    src="../../resources/img/iconos_navbar/person_30px.png">Gestion
-                  de Tipo Inquilino</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="gestion_tipo_propiedad.html"><img
-                    src="../../resources/img/iconos_navbar/rent_30px.png">Gestion
-                  de Tipo Propiedad</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="gestion_tipo_propietario.html"><img
-                    src="../../resources/img/iconos_navbar/person_30px.png">Gestion
-                  de Tipo Propietario</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="gestion_tipo_usuario.html"><img
-                    src="../../resources/img/iconos_navbar/person_30px.png">Gestion
-                  de Tipo Usuario</a>
-              </li>
-            </ul>
-          </div>
-        </div>
+      </nav>
+      <div class="container-fluid" id="encabezado">
+          <h1>GESTIÓN DE EMPLEADO</h1>
       </div>
-    </nav>
-    <div class="container-fluid" id="encabezado">
-      <h1>GESTIÓN DE CONTRATO</h1>
-    </div>
   </header>
 
   <main>
-    <!-- Searchbar -->
-    <div class="container-fluid" id="busqueda">
-      <form class="d-flex">
-        <input class="form-control me-2" type="search" placeholder="Búsqueda de Datos" aria-label="Search">
-        <a class="nav-link" href="#"><img src="../../resources/img/iconos_navbar/search_24px.png"></a>
-      </form>
-    </div>
+        <!-- Searchbar -->
+        <div class="container-fluid" id="busqueda">
+          <form class="d-flex" method="post" id="search-bar">
+              <input class="form-control me-2" name="search" placeholder="Búsqueda de Datos" aria-label="Search" required>
+              <button class="btn" type="submit"><img src="../../resources/img/iconos_navbar/search_24px.png"></button>
+          </form>
+      </div>
 
     <!-- Botones de SCRUD, actualizar y agregar -->
     <div class="container-fluid" id="opciones">
@@ -190,9 +162,8 @@
                 </div>
                 <div class="col">
                   <label for="upload_image" class="form-label">Imagen</label>
-                  <p></p>
                   <a class="btn" name="archivo" id="upload_image">
-                    <input type="file" class="form-control form-control-sm form-Input-Style">
+                    <input type="file" class="form-control form-control-sm form-Input-Style" name="archivo">
                     <img src="../../resources/img/iconos_formularios/download_100px.png">
                   </a>
                 </div>
@@ -231,7 +202,7 @@
                     class="form-control"></input>
 
                   <label for="inquilino_update" class="form-label">Inquilino</label>
-                  <select onchange="seleccionarInquilino()" id="inquilinos" name="tipo_empleado">
+                  <select onchange="seleccionarInquilino()" id="inquilinos_u" name="tipo_empleado">
                   </select>
 
                   <input id="switchButton" type="button" onclick="cambiarEstadoReporte()">
@@ -239,9 +210,8 @@
                 </div>
                 <div class="col">
                   <label for="upload_image" class="form-label">Imagen</label>
-                  <p></p>
                   <a class="btn" name="archivo" id="upload_image">
-                    <input type="file" class="form-control form-control-sm form-Input-Style">
+                    <input name="archivo" type="file" class="form-control form-control-sm form-Input-Style">
                     <img src="../../resources/img/iconos_formularios/download_100px.png">
                   </a>
                 </div>
@@ -331,6 +301,7 @@
     crossorigin="anonymous"></script>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script type="module" src="../../controller/privada/reportes.js"></script>
+
 
 
 </body>

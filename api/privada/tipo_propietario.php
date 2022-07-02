@@ -42,6 +42,15 @@ if (isset($_GET[ACTION])) {
                 $result[EXCEPTION] = 'No hay datos registrados';
             }
             break;
+            case "readAllDeleted":
+                if ($result[DATA_SET] = $tipo_propietario->readAllDeleted()) {
+                    $result[STATUS] = SUCESS_RESPONSE;
+                } elseif (Database::getException()) {
+                    $result[EXCEPTION] = Database::getException();
+                } else {
+                    $result[EXCEPTION] = 'No hay datos registrados';
+                }
+                break;
         case SEARCH:
             $_POST = $tipo_propietario->validateSpace($_POST);
             if ($_POST[SEARCH] == '') {
@@ -69,7 +78,8 @@ if (isset($_GET[ACTION])) {
         case UPDATE:
             $_POST = $tipo_propietario->validateSpace($_POST);
             $result[EXCEPTION] = $tipo_propietario->setNombre($_POST['tipo_propietario_update']) ? null : 'Nombre incorrecto';
-            $result[EXCEPTION] = $tipo_propietario->setVisibilidad($_POST['visibilidad']) ? null : 'Visibilidad no encontrada';
+            $_POST['visibilidad_update'] = $_POST['visibilidad_update'] == '1' ? 1 : 0;
+            $result[EXCEPTION] = $tipo_propietario->setVisibilidad($_POST['visibilidad_update']) ? null : 'Visibilidad no encontrada';
             $result[EXCEPTION] = $tipo_propietario->setId($_POST['id_tipo_propietario']) ? null : 'Id incorrecto';
 
             if ($tipo_propietario->updateRow()) {
@@ -80,7 +90,7 @@ if (isset($_GET[ACTION])) {
                 $result[EXCEPTION] = Database::getException();
             }
             break;
-        case DELETE:
+        case 'delete':
             $result[EXCEPTION] = $tipo_propietario->setId($_POST['id_tipo_propietario']) ? null : 'Id incorrecto';
 
             if ($tipo_propietario->deleteRow()) {

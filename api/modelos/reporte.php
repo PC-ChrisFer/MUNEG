@@ -10,6 +10,7 @@ class reporte extends validator
     private $descripcion = null;
     private $inquilino_id = null;
     private $estado = null;
+    private $imagen = null;
 
     //Variables true -- false
     private $true = true;
@@ -30,23 +31,28 @@ class reporte extends validator
     //Asunto - Varchar
     public function setAsunto($value)
     {
-        if ($this->validateAlphabetic($value, 1, 100)) {
-            $this->asunto = $value;
-            return true;
-        } else {
-            return false;
-        }
+        // FIX
+        // ARREGLAR VALIDACION
+        $this->asunto = $value;
+        return true;
     }
 
     //Descripcion - varchar
     public function setDescripcion($value)
     {
-        if ($this->validateAlphabetic($value, 6, 300)) {
-            $this->descripcion = $value;
-            return true;
-        } else {
-            return false;
-        }
+        // FIX
+        // ARREGLAR VALIDACION
+        $this->descripcion = $value;
+        return true;
+    }
+
+    public function getRutaImagenes() {
+        return '../imagenes/reporte/';
+    }
+
+    public function getImagen()
+    {
+        return $this->imagen;
     }
 
     //Id Inquilino - Integer
@@ -60,17 +66,27 @@ class reporte extends validator
         }
     }
 
-    //Id Inquilino - Integer
+    //Estado - Boolean
     public function setEstado($value)
     {
         if ($this->validateBoolean($value)) {
-            $this->inquilino_id = $value;
+            $this->estado = $value;
             return true;
         } else {
             return false;
         }
     }
 
+    //Imagen del empleado - varying char
+    public function setImage($file)
+    {
+        if ($this->validateImageFile($file, 50000, 50000)) {
+            $this->imagen = $this->getFileName();
+            return true;
+        } else {
+            return false;
+        }
+    }
 
     //Metodos para obtener los valores de los campos
 
@@ -123,7 +139,7 @@ class reporte extends validator
     //(sin parametros)
     public function readAll()
     {
-        $sql = 'SELECT id_reporte, asunto, descripcion, estado,reporte.id_inquilino, nombre
+        $sql = 'SELECT id_reporte, asunto, descripcion, estado,reporte.id_inquilino, nombre, reporte.imagen
         FROM public.reporte
         INNER JOIN public.inquilino
         ON inquilino.id_inquilino = reporte.id_inquilino';
@@ -137,9 +153,9 @@ class reporte extends validator
     public function createRow()
     {
         $sql = 'INSERT INTO public.reporte(
-            asunto, descripcion, id_inquilino, estado)
-            VALUES (?, ?, ?, ?)';
-        $params = array($this->asunto, $this->descripcion, $this->inquilino_id, $this->true);
+            asunto, descripcion, id_inquilino, imagen,estado)
+            VALUES (?, ?, ?, ?, ?)';
+        $params = array($this->asunto, $this->descripcion, $this->inquilino_id, $this->imagen ,$this->true);
         return Database::executeRow($sql, $params);
     }
 
@@ -149,9 +165,9 @@ class reporte extends validator
     public function updateRow()
     {
         $sql = 'UPDATE public.reporte
-        SET asunto=?, descripcion=?, id_inquilino=?, estado=?
+        SET asunto=?, descripcion=?, id_inquilino=?, estado=?, imagen=?
         WHERE id_reporte=?';
-        $params = array($this->asunto, $this->descripcion, $this->inquilino_id, $this->estado, $this->id_reporte);
+        $params = array($this->asunto, $this->descripcion, $this->inquilino_id, $this->estado, $this->imagen, $this->id_reporte);
         return Database::executeRow($sql, $params);
     }
 

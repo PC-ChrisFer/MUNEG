@@ -82,7 +82,7 @@ if (isset($_GET[ACTION])) {
                 $result[EXCEPTION] = 'DUI no valido';
             } else if (!$empleado->setNIT($_POST[EMPLEADO_NIT])) {
                 $result[EXCEPTION] = 'NIT no valido';
-            } else if (!$empleado->setFechaNacmiento($_POST['fecha_nacimiento'])) {
+            } else if (!$empleado->setFechaNacmiento($_POST[EMPLEADO_FECHA_NACIMIENTO])) {
                 $result[EXCEPTION] = 'Número de telefono no valido';
             } else if (!$empleado->setTelefono($_POST[EMPLEADO_TELEFONO])) {
                 $result[EXCEPTION] = 'Número de telefono no valido';

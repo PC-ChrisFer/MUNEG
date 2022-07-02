@@ -13,7 +13,7 @@ class Database
     {
         // Declarando las credenciales para conectar con la BD.
         $server = 'localhost';
-        $database = 'MUNEG_Database';
+        $database = 'muneg1';
         $username = 'postgres';
         $password = 'focaloca12';
 

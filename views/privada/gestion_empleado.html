@@ -90,31 +90,6 @@
                                         src="../../resources/img/iconos_navbar/modern_art_30px.png">Gestion
                                     de Tipo Acabado</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="gestion_tipo_empleado.html"><img
-                                        src="../../resources/img/iconos_navbar/person_30px.png">Gestion
-                                    de Tipo Empleado</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="gestion_tipo_inquilino.html"><img
-                                        src="../../resources/img/iconos_navbar/person_30px.png">Gestion
-                                    de Tipo Inquilino</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="gestion_tipo_propiedad.html"><img
-                                        src="../../resources/img/iconos_navbar/rent_30px.png">Gestion
-                                    de Tipo Propiedad</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="gestion_tipo_propietario.html"><img
-                                        src="../../resources/img/iconos_navbar/person_30px.png">Gestion
-                                    de Tipo Propietario</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="gestion_tipo_usuario.html"><img
-                                        src="../../resources/img/iconos_navbar/person_30px.png">Gestion
-                                    de Tipo Usuario</a>
-                            </li>
                         </ul>
                     </div>
                 </div>
@@ -134,7 +109,8 @@
         </div>
 
         <!-- Botones de SCRUD, actualizar y agregar -->
-        <div class="container-fluid" id="opciones">
+        <div class="container-fluid  d-flex justify-content-between" id="opciones">
+            <a class="btn" id="button_ver_mas" href="gestion_tipo_empleado.html">Tipo Empleado</a>
             <div class="btn-group" role="group">
                 <button type="button" class="btn btn-primary" id="btnmenu" data-bs-toggle="modal"
                     data-bs-target="#agregar"><a class="nav-link" href="#"><img
@@ -161,7 +137,7 @@
                 </thead>
                 <tbody id="tbody_empleado">
                     <!-- Linea de Informacion -->
-               
+
                 </tbody>
             </table>
         </div>
@@ -190,7 +166,7 @@
                                         required>
 
                                     <label for="telefono" class="form-label">Teléfono</label>
-                                    <input type="tel" class="form-control" id="telefono" name="telefono"
+                                    <input type="tel" class="form-control" id="telefono" name="numero_telefono"
                                         placeholder="Ingrese el telefono del empleado" required>
 
                                     <label for="correo_electronico" class="form-label">Correo Electrónico</label>
@@ -217,20 +193,18 @@
                                         placeholder="Ingrese NIT del empleado" required>
 
                                     <label for="tipo_empleado" class="form-label">Tipo de Empleado</label>
-                                    <select name="select" class="form-control" id="tipo_empleado" name="tipo_empleado"
-                                        required>
+                                    <select class="form-control" id="tipo_empleado" name="tipo_empleado" required>
                                     </select>
 
                                     <label for="estado_empleado" class="form-label">Estado de Empleado</label>
-                                    <select name="select" class="form-control" id="estado_empleado"
+                                    <select name="estado_empleado" class="form-control" id="estado_empleado"
                                         name="estado_empleado" required>
                                     </select>
                                 </div>
                                 <div class="col">
                                     <label for="upload_image" class="form-label">Imagen</label>
                                     <a class="btn" id="upload_image" name="archivo">
-                                        <input type="file" class="form-control form-control-sm form-Input-Style"
-                                            required>
+                                        <input type="file" class="form-control form-control-sm form-Input-Style">
                                         <img src="../../resources/img/iconos_formularios/download_100px.png">
                                     </a>
                                 </div>
@@ -285,7 +259,8 @@
                                 <div class="col">
                                     <label for="genero_update" class="form-label">Género</label>
                                     <select id="genero_update" name="genero_update" class="form-control">
-
+                                        <option value="value1">Masculino</option>
+                                        <option value="value2" selected>Femenino</option>
                                     </select>
 
                                     <label for="dui_update" class="form-label">DUI</label>
@@ -328,8 +303,8 @@
                 </div>
             </div>
         </div>
-        <!-- Modal de ELIMINAR -->
-        <div class="modal fade" id="eliminar" tabindex="-1">
+         <!-- Modal de ELIMINAR -->
+         <div class="modal fade" id="eliminar" tabindex="-1">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header" id="formHeader">
@@ -342,8 +317,9 @@
                     <!-- Formulario de Update -->
                     <form method="post" id="delete_form">
                         <div class="modal-footer">
-                            <button class="btn btn-primary" id="btnmenu">Volver</button>
-                            <button class="btn btn-primary" id="btnmenu">Confirmar</button>
+                            <button type="button" class="btn btn-primary" id="btnmenu"
+                                data-bs-dismiss="modal">Volver</button>
+                            <button type="submit" class="btn btn-primary" id="btnmenu">Confirmar</button>
                         </div>
                     </form>
                 </div>
@@ -399,7 +375,7 @@
         integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13"
         crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script type="module" src="../../controller/privado/empleado.js"></script>
+    <script type="module" src="../../controller/privada/empleado.js"></script>
 </body>
 
 </html>

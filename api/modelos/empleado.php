@@ -276,8 +276,8 @@ class empleado extends validator
     {   
         $sql = 'INSERT INTO public.empleado(
             nombre, apellido, numero_telefono, correo_electronico, fecha_nacimiento, genero, "DUI", "NIT", imagen, id_tipo_empleado, id_estado_empleado)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);';
-        $params = array($this->nombre, $this->apellido, $this->numero_telefono, $this->correo_electronico,  $this->fecha_nacimiento, $this->genero , $this->DUI,$this->NIT , $this->imagen, $this->id_tipo_empleado, $this->id_estado_empleado);
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+        $params = array($this->nombre, $this->apellido, $this->numero_telefono, $this->correo_electronico,  $this->fecha_nacimiento, $this->genero, $this->dui, $this->nit, $this->imagen, $this->id_tipo_empleado, $this->id_estado_empleado);
         return Database::executeRow($sql, $params);
     }
 
@@ -296,8 +296,8 @@ class empleado extends validator
     public function deleteRow()
     {
         $sql = 'DELETE FROM public.empleado
-        WHERE id_empleado=?';
-        $params = array($this->false,$this->id_empleado);
+        WHERE id_empleado';
+        $params = array($this->id_empleado);
         return Database::executeRow($sql, $params);
     }
 

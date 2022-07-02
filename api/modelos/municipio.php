@@ -105,7 +105,7 @@ class municipio extends validator
     //(sin parametros)
     public function readAll()
     {
-        $sql = 'SELECT id_municipio, municipio, municipio.id_departamento, departamento
+        $sql = 'SELECT id_municipio, municipio, municipio.id_departamento, departamento, municipio.estado
         FROM public.municipio
         INNER JOIN public.departamento
         ON public.municipio.id_departamento = public.departamento.id_departamento';

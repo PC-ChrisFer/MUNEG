@@ -8,9 +8,9 @@ import {
   GET_METHOD,
   POST_METHOD,
   API_DELETE,
-  SERVER,
   API_READONE,
   API_UNDELETE,
+  API_READALL_DELETED
 } from "./constants/api_constant.js";
 import { getElementById } from "./constants/functions.js";
 
@@ -19,6 +19,20 @@ export async function readRows(ENDPOINT, fillrows) {
   let APIEndpoint = ENDPOINT + API_READALL;
   //Llamar a la función de conexión api para realizar fetch y then
   let APIResponse = await APIConnection(APIEndpoint, GET_METHOD, null);
+  console.log(APIResponse.dataset)
+  if (APIResponse.status == API_SUCESS_REQUEST) {
+    fillrows(APIResponse.dataset)
+    return
+  }
+  // dado caso este if se ejecute con "return" hara que hasta este punto llegue el codigo
+}
+
+// LEER REGISTROS ELIMINADOS
+export async function readDeletedRowns(ENDPOINT, fillrows) {
+  let APIEndpoint = ENDPOINT + API_READALL_DELETED;
+  //Llamar a la función de conexión api para realizar fetch y then
+  let APIResponse = await APIConnection(APIEndpoint, GET_METHOD, null);
+  console.log(APIResponse.dataset)
   if (APIResponse.status == API_SUCESS_REQUEST) {
     fillrows(APIResponse.dataset)
     return
@@ -46,24 +60,25 @@ export async function searchRows(ENDPOINT, formID, fillrows, parametersJson) {
   }
 }
 
-
-
-
 // GUARDAR REGISTROS
 export async function saveRow(ENDPOINT, ACTION, parameters, fillrows) {
   // ingresando valores a variables
   let APIEndpoint = ENDPOINT + ACTION;
+  console.log(APIEndpoint)
+
 
   // ejecutando request hacia la API
   let APIResponse = await APIConnection(APIEndpoint, POST_METHOD, parameters);
   // validando respuesta 
   if (APIResponse.status == API_SUCESS_REQUEST) {
     fillrows(APIResponse.dataset)
-    //$('#guardado').modal('show');
+    //@ts-ignore
+    $('#guardado').modal('show');
     return;
   }
   //En caso de fracaso se abrira un modal de error
-  //$('#error_proceso').modal('show');
+  //@ts-ignore
+  $('#error_proceso').modal('show');
 
 }
 
@@ -75,11 +90,13 @@ export async function deleteRow(ENDPOINT, parameters, fillrows) {
 
   if (APIResponse.status == API_SUCESS_REQUEST) {
     fillrows(APIResponse.dataset)
-    //$('#eliminado').modal('show');
+    //@ts-ignore
+    $('#eliminado').modal('show');
     return;
   }
   //En caso de fracaso se abrira un modal de error
-  //$('#error_proceso').modal('show');
+  //@ts-ignore
+  $('#error_proceso').modal('show');
 }
 
 // Hacer un readOne
@@ -106,5 +123,6 @@ export async function unDeleteRow(ENDPOINT, parameters, fillrows) {
     return;
   }
   //En caso de fracaso se abrira un modal de error
-  //$('#error_proceso').modal('show');
+  //@ts-ignore
+  $('#error_proceso').modal('show');
 }

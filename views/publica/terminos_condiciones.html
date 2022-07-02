@@ -28,64 +28,39 @@
                             src="../../resources/img/iconos_navbar/phone_30px.png" id="celimg">
                         2278-9879</a>
                 </div>
-                <ul class="nav" id="menu1">
-                    <li class="nav-item dropdown  ">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            TIPO DE PROPIEDAD
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="#">Apartamento</a></li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li><a class="dropdown-item" href="#">Casa</a></li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li><a class="dropdown-item" href="#">Something else here</a></li>
-                        </ul>
-                    </li>
+                <ul class="nav" id="menu_parametro">
+                    <h6 id="parametro_title">
+                        DEPARTAMENTO
+                    </h6>
+                    <form method="post" id="search_bar">
+                        <select onchange="guardarDepartamento()" id="departamento" name="departamento">
 
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            ZONA
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="#">San Salvador</a></li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li><a class="dropdown-item" href="#">La Union</a></li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li><a class="dropdown-item" href="#">Something else here</a></li>
-                        </ul>
-                    </li>
+                        </select>
+                    </form>
+                    <h6 id="parametro_title">
+                        MUNICIPIO
+                    </h6>
+                    <form method="post" id="search_bar">
+                        <select onchange="guardarMunicipio()" id="municipio" name="municipio">
 
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            PRECIO
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="#">5000.000 USD</a></li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li><a class="dropdown-item" href="#">5000.000 USD</a></li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li><a class="dropdown-item" href="#">Something else here</a></li>
-                        </ul>
-                    </li>
+                        </select>
+                    </form>
+                    <h6 id="parametro_title">
+                        TIPO DE PROPIEDAD
+                    </h6>
+                    <form method="post" id="search_bar">
+                        <select onchange="guardarTipoPropiedad()" id="tipo_propiedad" name="tipo_propiedad">
 
-                    <li>
-                        <a href=""><img src="../../resources/img/iconos_navbar/search_24px.png"></a>
-                    </li>
+                        </select>
+                    </form>
+                    <h6 id="parametro_title">
+                        CATEGORIA
+                    </h6>
+                    <form method="post" id="search_bar">
+                        <select onchange="guardarCategoria()" id="categoria" name="categoria">
+
+                        </select>
+                    </form>
                 </ul>
 
 
@@ -420,11 +395,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
+    <script type="module" src="../../controller/publica/navbar.js"></script>
+    <script type="module" src="../../controller/publica/footer.js"></script>
 </body>
-
-<footer>
-
-
-</footer>
 
 </html>

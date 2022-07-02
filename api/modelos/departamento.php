@@ -84,7 +84,7 @@ class departamento extends validator
     //(sin parametros)
     public function readAll()
     {
-        $sql = 'SELECT id_departamento, departamento
+        $sql = 'SELECT id_departamento, departamento, estado
         FROM public.departamento';
         $params = null;
         return Database::getRows($sql, $params);

@@ -225,11 +225,11 @@ window.guardarDatosinquilinoEliminar = (id_inquilino) => {
 // Método que se ejecuta al enviar un formulario de busqueda
   //@ts-ignore
 
-getElementById("busqueda").addEventListener("submit", async (event) => {
+getElementById("search-bar").addEventListener("submit", async (event) => {
     // Se evita recargar la página web después de enviar el formulario.
     event.preventDefault();
     // Se llama a la función que realiza la búsqueda. Se encuentra en el archivo components.js
-    await searchRows(API_INQUILINO, "busqueda", fillTableInquilino);
+    await searchRows(API_INQUILINO, "search-bar", fillTableInquilino);
   });  
 
 // EVENTO PARA INSERT
@@ -283,7 +283,7 @@ getElementById("delete_form")?.addEventListener("submit", async (event) => {
   event.preventDefault();
 
   let parameters = new FormData();
-  parameters.append("id", datos_inquilino.id_inquilino);
+  parameters.append("id", String(datos_inquilino.id));
 
   await deleteRow(API_INQUILINO, parameters, fillTableInquilino);
 

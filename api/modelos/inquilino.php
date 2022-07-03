@@ -280,13 +280,14 @@ class inquilino extends validator
     //Utilizaremos los campos o (NOMBRE, APELLIDO, TIPO, ESTADO, TELEFONO, DUI, NIT)
     public function searchRows($value)
     {
-        $sql = 'SELECT id_inquilino, nombre, apellido, "DUI","NRC",  "NIT", telefono, correo, genero, fecha_nacimiento, imagen, estado_inquilino.id_estado_inquilino, nombre_estado , nombre_tipo
-        FROM inquilino 
-        INNER JOIN tipo_inquilino
-        ON inquilino.id_tipo_inquilino = tipo_inquilino.id_tipo_inquilino
+
+        $sql = 'SELECT id_inquilino, nombre, apellido, "DUI", "NRC","NIT", numero_telefono, correo_electronico, genero, fecha_nacimiento, imagen, inquilino.id_estado_inquilino, nombre_estado, inquilino.id_estado_inquilino, inquilino.id_tipo_inquilino, nombre_tipo
+        FROM inquilino
+        INNER JOIN tipo_inquilino 
+        ON tipo_inquilino.id_tipo_inquilino = inquilino.id_tipo_inquilino
         INNER JOIN estado_inquilino
-        ON inquilino.id_estado_inquilino = estado_inquilino.id_estado_inquilino
-        WHERE nombre ILIKE ? OR apellido ILIKE ? OR "DUI" ILIKE ? OR "NIT" ILIKE ? OR telefono ILIKE ? OR correo ILIKE ? OR nombre_estado ILIKE ? OR nombre_tipo ILIKE ?
+        ON estado_inquilino.id_estado_inquilino = inquilino.id_estado_inquilino
+        WHERE nombre ILIKE ? OR apellido ILIKE ? OR "DUI" ILIKE ? OR "NIT" ILIKE ? OR numero_telefono ILIKE ? OR correo_electronico ILIKE ? OR nombre_estado ILIKE ? OR nombre_tipo ILIKE ?
         ORDER BY apellido ';
         $params = array("%$value%", "%$value%", "%$value%", "%$value%", "%$value%", "%$value%", "%$value%", "%$value%");
         return Database::getRows($sql, $params);

@@ -100,14 +100,14 @@ getElementById("search-bar").addEventListener("submit", async (event) => {
 
 // EVENTO PARA INSERT
 // Método manejador de eventos que se ejecuta cuando se envía el formulario de guardar.
-getElementById("insert-form").addEventListener("submit", async (event) => {
+getElementById("insert_form").addEventListener("submit", async (event) => {
     // Se evita recargar la página web después de enviar el formulario.
     event.preventDefault();
     // Se cierra el formulario de registro
     $("#agregar").modal("hide");
     //@ts-ignore
     //OBTIENE LOS DATOS DEL FORMULARIO QUE TENGA COMO ID "'insert-modal'"
-    let parameters = new FormData(getElementById("insert-form"));
+    let parameters = new FormData(getElementById("insert_form"));
   
     // PETICION A LA API POR MEDIO DEL ENPOINT, Y LOS PARAMETROS NECESARIOS PARA LA INSERSION DE DATOS
     await saveRow(API_TIPO_EMPLEADO, API_CREATE, parameters, fillTableTipoEmpleado);

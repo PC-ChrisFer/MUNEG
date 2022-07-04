@@ -21,9 +21,9 @@ class inquilino extends validator
     private $id_estado_inquilino = null;
 
 
-    private $true = 1;
+    private $true = true;
     private $still_true = 2;
-    private $false = '0';
+    private $false = 0;
     //Metodos para setear los valores de los campos
     //Id - integer
     public function setId($value)
@@ -140,7 +140,7 @@ class inquilino extends validator
 
 
     //Fecha nacimiento del empleado - Date
-    public function setFechaNacmiento($value)
+    public function setFechaNacimiento($value)
     {
         if ($this->validateDate($value)) {
             $this->fecha_nacimiento = $value;
@@ -280,13 +280,13 @@ class inquilino extends validator
     //Utilizaremos los campos o (NOMBRE, APELLIDO, TIPO, ESTADO, TELEFONO, DUI, NIT)
     public function searchRows($value)
     {
-        $sql = 'SELECT id_inquilino, nombre, apellido, "DUI","NRC",  "NIT", telefono, correo, genero, fecha_nacimiento, imagen, estado_inquilino.id_estado_inquilino, nombre_estado , nombre_tipo
-        FROM inquilino 
-        INNER JOIN tipo_inquilino
+        $sql = 'SELECT id_inquilino, nombre, apellido, "DUI","NRC",  "NIT", numero_telefono, correo_electronico, genero, fecha_nacimiento, imagen, estado_inquilino.id_estado_inquilino, nombre_estado , nombre_tipo
+        FROM public.inquilino 
+        INNER JOIN public.tipo_inquilino
         ON inquilino.id_tipo_inquilino = tipo_inquilino.id_tipo_inquilino
-        INNER JOIN estado_inquilino
+        INNER JOIN public.estado_inquilino
         ON inquilino.id_estado_inquilino = estado_inquilino.id_estado_inquilino
-        WHERE nombre ILIKE ? OR apellido ILIKE ? OR "DUI" ILIKE ? OR "NIT" ILIKE ? OR telefono ILIKE ? OR correo ILIKE ? OR nombre_estado ILIKE ? OR nombre_tipo ILIKE ?
+        WHERE nombre ILIKE ? OR apellido ILIKE ? OR "DUI" ILIKE ? OR "NIT" ILIKE ? OR numero_telefono ILIKE ? OR correo_electronico ILIKE ? OR nombre_estado ILIKE ? OR nombre_tipo ILIKE ?
         ORDER BY apellido ';
         $params = array("%$value%", "%$value%", "%$value%", "%$value%", "%$value%", "%$value%", "%$value%", "%$value%");
         return Database::getRows($sql, $params);
@@ -296,9 +296,9 @@ class inquilino extends validator
     public function createRow()
     {
         $sql = 'INSERT INTO public.inquilino(
-            nombre, apellido, numero_telefono, correo_electronico, fecha_nacimiento, genero, "DUI", "NRC", "NIT", id_tipo_inquilino, id_estado_inquilino, imagen)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
-        $params = array($this->nombre, $this->apellido,$this->numero_telefono,$this->correo_electronico,  $this->fecha_nacimiento,  $this->genero, $this->dui, $this->nrc, $this->nit,  $this->id_estado_inquilino, $this->id_tipo_inquilino, $this->imagen);
+            nombre, apellido, numero_telefono, correo_electronico, fecha_nacimiento, genero, "DUI", "NRC", "NIT", id_tipo_inquilino, id_estado_inquilino, imagen, visibilidad)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+        $params = array($this->nombre, $this->apellido,$this->numero_telefono,$this->correo_electronico,  $this->fecha_nacimiento,  $this->genero, $this->dui, $this->nrc, $this->nit,  $this->id_estado_inquilino, $this->id_tipo_inquilino, $this->imagen, $this->true);
         return Database::executeRow($sql, $params);
     }
 
@@ -328,13 +328,13 @@ class inquilino extends validator
     public function readAll()
     {
         $sql = 'SELECT id_inquilino, nombre, apellido, "DUI", "NRC","NIT", numero_telefono, correo_electronico, genero, fecha_nacimiento, imagen, inquilino.id_estado_inquilino, nombre_estado, inquilino.id_estado_inquilino, inquilino.id_tipo_inquilino, nombre_tipo
-        FROM inquilino
-        INNER JOIN tipo_inquilino 
+        FROM public.inquilino
+        INNER JOIN public.tipo_inquilino 
         ON tipo_inquilino.id_tipo_inquilino = inquilino.id_tipo_inquilino
-        INNER JOIN estado_inquilino
+        INNER JOIN public.estado_inquilino
         ON estado_inquilino.id_estado_inquilino = inquilino.id_estado_inquilino
-        WHERE inquilino.visibilidad = true  AND inquilino.id_estado_inquilino = ? OR inquilino.id_estado_inquilino = ?';
-        $params = array($this->true, $this->still_true);
+        WHERE inquilino.visibilidad = true';
+        $params = null;
         return Database::getRows($sql, $params);
     }
 
@@ -342,11 +342,11 @@ class inquilino extends validator
     public function readOne()
     {
         $sql = 'SELECT id_inquilino, nombre, apellido, "DUI", "NRC", "NIT", telefono, correo, genero, fecha_nacimiento, imagen, inquilino.id_estado_inquilino, nombre_estado, inquilino.id_tipo_inquilino, nombre_tipo
-        FROM inquilino
-        INNER JOIN tipo_inquilino 
+        FROM public.inquilino
+        INNER JOIN public.tipo_inquilino 
         ON tipo_inquilino.id_tipo_inquilino = inquilino.id_tipo_inquilino
-        INNER JOIN estado_inquilino
-        ON estado_inquilino.id_estado_inquilino = inquilino.id_estado_inquilino
+        INNER JOIN public.estado_inquilino
+        ON estado_inquilino.id_estado_inquilino = inquilino.id_estado_inquilino 
         WHERE id_inquilino = ?';
         $params = ($this->id_inquilino);
         return Database::getRow($sql, $params);

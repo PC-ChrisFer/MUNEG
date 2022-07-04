@@ -90,13 +90,17 @@
                                         src="../../resources/img/iconos_navbar/modern_art_30px.png">Gestion
                                     de Tipo Acabado</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="editar_perfil.html"><img
+                                        src="../../resources/img/iconos_navbar/settings_30px.png">Editar Usuario</a>
+                            </li>
                         </ul>
                     </div>
                 </div>
             </div>
         </nav>
         <div class="container-fluid" id="encabezado">
-            <h1>GESTIÓN DE EMPLEADO</h1>
+            <h1>GESTIÓN DE TIPO CATEGORIA</h1>
         </div>
     </header>
     <main>
@@ -274,8 +278,25 @@
                 </div>
             </div>
         </div>
+        <!-- Modal de PROCESO FALLIDO -->
+        <div class="modal fade" id="error_proceso" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header" id="formHeader">
+                        <h5 class="modal-title">Error en el proceso</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        No se pudo realizar el proceso debido a que hubo un error.
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary" data-bs-dismiss="modal" id="btnmenu">Aceptar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </main>
-    <footer class="text-white  pt-5 pb-4 fixed-bottom" id="Segundofooter">
+    <footer class="text-white  pt-5 pb-4" id="Segundofooter">
         <div class="container-fluid">
 
         </div>

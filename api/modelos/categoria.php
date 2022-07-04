@@ -75,7 +75,7 @@ class categoria extends validator
     public function searchRows($value)
     {
         $sql = 'SELECT id_categoria, nombre_categoria, visibilidad 
-        FROM categoria 
+        FROM public.categoria 
         WHERE nombre_categoria ILIKE ? ';
         $params = array("%$value%");
         return Database::getRows($sql, $params);
@@ -83,7 +83,7 @@ class categoria extends validator
     //Metodo para la inserción INSERT
     public function createRow()
     {
-        $sql = 'INSERT INTO categoria(
+        $sql = 'INSERT INTO public.categoria(
             nombre_categoria, visibilidad)
             VALUES (?, ?)';
         $params = array($this->nombre_categoria, $this->visibilidad);
@@ -92,7 +92,7 @@ class categoria extends validator
     //Metodo para la actualización UPDATE
     public function updateRow()
     {
-        $sql = 'UPDATE categoria
+        $sql = 'UPDATE public.categoria
         SET nombre_categoria=?, visibilidad=?
         WHERE id_categoria =?';
         $params = array($this->nombre_categoria, $this->visibilidad, $this->id_categoria);
@@ -112,8 +112,8 @@ class categoria extends validator
     public function readAll()
     {
         $sql = 'SELECT id_categoria, nombre_categoria , visibilidad
-                FROM categoria
-                WHERE visibilidad = true;';
+            FROM public.categoria
+            WHERE visibilidad = true;';
         $params = null;
         return Database::getRows($sql, $params);
     }
@@ -121,7 +121,7 @@ class categoria extends validator
     public function readAllDeleted()
     {
         $sql = 'SELECT id_categoria, nombre_categoria , visibilidad
-                FROM categoria
+                FROM public.categoria
                 WHERE visibilidad = false;';
         $params = null;
         return Database::getRows($sql, $params);
@@ -130,7 +130,7 @@ class categoria extends validator
     public function readOne()
     {
         $sql = 'SELECT id_categoria, nombre_categoria, visibilidad
-        FROM categoria
+        FROM public.categoria
         WHERE id_categoria = ?';
         $params = ($this->id_categoria);
         return Database::getRow($sql, $params);

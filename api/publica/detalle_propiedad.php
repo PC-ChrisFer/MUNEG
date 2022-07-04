@@ -35,7 +35,6 @@ if (isset($_GET[ACTION])) {
     $result = array(STATUS => 0, MESSAGE => null, EXCEPTION => null);
     // Se verifica si existe una sesión iniciada como administrador, de lo contrario se finaliza el script con un mensaje de error.
     // Se compara la acción a realizar cuando un administrador ha iniciado sesión.
-
     switch ($_GET[ACTION]) {
         case SEARCH:
             $result[EXCEPTION] = $propiedad->setId($_POST['id_propiedad']) ? null : 'Nombre incorrecto';

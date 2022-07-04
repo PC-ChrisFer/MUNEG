@@ -91,13 +91,17 @@
                                         src="../../resources/img/iconos_navbar/modern_art_30px.png">Gestion
                                     de Tipo Acabado</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="editar_perfil.html"><img
+                                        src="../../resources/img/iconos_navbar/settings_30px.png">Editar Usuario</a>
+                            </li>
                         </ul>
                     </div>
                 </div>
             </div>
         </nav>
         <div class="container-fluid" id="encabezado">
-            <h1>GESTIÓN DE EMPLEADO</h1>
+            <h1>GESTIÓN DE Factura</h1>
         </div>
     </header>
 
@@ -110,12 +114,11 @@
                 <button class="btn" type="submit"><img src="../../resources/img/iconos_navbar/search_24px.png"></button>
             </form>
         </div>
-
         <!-- Botones de SCRUD, actualizar y agregar -->
         <div class="container-fluid" id="opciones">
             <div class="btn-group" role="group">
                 <button type="button" class="btn btn-primary" id="btnmenu" data-bs-toggle="modal"
-                    data-bs-target="#agregar"><a class="nav-link" href="#"><img
+                    data-bs-target="#agregar"><a class="nav-link"><img
                             src="../../resources/img/iconos_formularios/agregar_26px.png"></a></button>
             </div>
         </div>
@@ -170,15 +173,15 @@
                                 <div class="col">
                                     <label for="subtotal" class="form-label">Subtotal</label>
                                     <input type="number" class="form-control" id="subtotal" name="subtotal"
-                                        placeholder="Escriba de SubTotal" required>
+                                        placeholder="Escriba de SubTotal" required min="1" max="1000000">
 
                                     <label for="iva" class="form-label">IVA</label>
                                     <input type="number" class="form-control" id="IVA" name="IVA" placeholder="IVA"
-                                        required>
+                                        required min="0">
 
                                     <label for="venta_gravada" class="form-label">Venta grabada</label>
-                                    <input type="text" class="form-control" id="venta_gravada" name="venta_gravada"
-                                        placeholder="Escriba la venta grabada" required>
+                                    <input type="number" class="form-control" id="venta_gravada" name="venta_gravada"
+                                        placeholder="Escriba la venta grabada" required min="1">
 
                                     <label for="fecha_emision" class="form-label">Fecha de emisión</label>
                                     <input type="date" class="form-control" id="fecha_emision" name="fecha_emision"
@@ -232,15 +235,15 @@
                                 <div class="col">
                                     <label for="subtotal_update" class="form-label">Subtotal</label>
                                     <input type="number" class="form-control" id="subtotal_update"
-                                        name="subtotal_update" required>
+                                        name="subtotal_update" required min="1" max="1000000">
 
                                     <label for="iva_update" class="form-label">IVA</label>
-                                    <input type="number" class="form-control" id="IVA_update" name="IVA_update"
-                                        required>
+                                    <input type="number" class="form-control" id="IVA_update" name="IVA_update" required
+                                        min="1" max="1000000">
 
                                     <label for="venta_grabada_update" class="form-label">Venta grabada</label>
-                                    <input type="text" class="form-control" id="venta_gravada_update"
-                                        name="venta_gravada_update" required>
+                                    <input type="number" class="form-control" id="venta_gravada_update"
+                                        name="venta_gravada_update" required min="1" max="1000000">
 
                                     <label for="fecha_emision_update" class="form-label">Fecha de emisión</label>
                                     <input type="date" class="form-control" id="fecha_emision_update"
@@ -322,6 +325,40 @@
                 </div>
             </div>
         </div>
+        <!-- Modal de PROCESO FALLIDO -->
+        <div class="modal fade" id="error_proceso" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header" id="formHeader">
+                        <h5 class="modal-title">Error en el proceso</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        No se pudo realizar el proceso debido a que hubo un error.
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary" data-bs-dismiss="modal" id="btnmenu">Aceptar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Modal de NO ENCONTRO DATA -->
+        <div class="modal fade" id="no_data" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header" id="formHeader">
+                        <h5 class="modal-title">No se han encontrado datos</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        No se han podido encontrar datos con estos parametros.
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary" data-bs-dismiss="modal" id="btnmenu">Aceptar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </main>
 
     <footer class="text-white  pt-5 pb-4" id="Segundofooter">
@@ -342,10 +379,5 @@
 
 
 </body>
-
-<footer>
-
-
-</footer>
 
 </html>

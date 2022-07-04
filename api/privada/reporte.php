@@ -42,6 +42,15 @@ if (isset($_GET[ACTION])) {
                 $result[EXCEPTION] = 'No hay datos registrados';
             }
             break;
+            case "readAllDeleted":
+                if ($result[DATA_SET] = $reporte->readAllDeleted()) {
+                    $result[STATUS] = SUCESS_RESPONSE;
+                } elseif (Database::getException()) {
+                    $result[EXCEPTION] = Database::getException();
+                } else {
+                    $result[EXCEPTION] = 'No hay datos registrados';
+                }
+                break;
         case SEARCH:
             $_POST = $reporte->validateSpace($_POST);
             if ($_POST[SEARCH] == '') {
@@ -82,8 +91,12 @@ if (isset($_GET[ACTION])) {
             $result[EXCEPTION] = $reporte->setInquilino($_POST['inquilino_update']) ? null : 'Inquilino incorrecto';
             $result[EXCEPTION] = $reporte->setEstado($_POST['estado_update']) ? null : 'Estado incorrecto';
             $result[EXCEPTION] = $reporte->setId($_POST['reporte_id']) ? null : 'Reporte incorrecto';
-            $result[EXCEPTION] = is_uploaded_file($_FILES['archivo']['tmp_name']) ? null : "ARCHIVO INCORRECTO";
-            $result[EXCEPTION] = $reporte->setImage($_FILES['archivo']) ? null : $reporte->getFileError();
+
+            if(is_uploaded_file($_FILES['archivo']['tmp_name'])) {
+                $result[EXCEPTION] = $reporte->setImage($_FILES['archivo']) ? null : $reporte->getFileError();
+            } else {
+                $result[EXCEPTION] = $reporte->setNoUpdatedImage($_POST['NoUpdatedImage']) ? null : "IMAGEN INCORRECTA";
+            }
 
             if ($reporte->updateRow()) {
                 $result[MESSAGE] = 'Registro modificado correctamente';

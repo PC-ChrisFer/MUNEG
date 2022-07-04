@@ -90,6 +90,10 @@
                                         src="../../resources/img/iconos_navbar/modern_art_30px.png">Gestion
                                     de Tipo Acabado</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="editar_perfil.html"><img
+                                        src="../../resources/img/iconos_navbar/settings_30px.png">Editar Usuario</a>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -102,9 +106,10 @@
     <main>
         <!-- Searchbar -->
         <div class="container-fluid" id="busqueda">
-            <form class="d-flex">
-                <input class="form-control me-2" type="search" placeholder="Búsqueda de Datos" aria-label="Search">
-                <a class="nav-link" href="#"><img src="../../resources/img/iconos_navbar/search_24px.png"></a>
+            <form class="d-flex" method="post" id="search-bar">
+                <input class="form-control me-2" name="search" placeholder="Búsqueda de Datos" aria-label="Search"
+                    required>
+                <button class="btn" type="submit"><img src="../../resources/img/iconos_navbar/search_24px.png"></button>
             </form>
         </div>
 
@@ -179,9 +184,9 @@
                                 </div>
                                 <div class="col">
                                     <label for="genero" class="form-label">Género</label>
-                                    <select id="genero" name="genero" class="form-control" required>
-                                        <option value="value1">Masculino</option>
-                                        <option value="value2" selected>Femenino</option>
+                                    <select id="genero" name="genero" class="form-control">
+                                        <option value="M" selected>Masculino</option>
+                                        <option value="F">Femenino</option>
                                     </select>
 
                                     <label for="dui" class="form-label">DUI</label>
@@ -204,7 +209,8 @@
                                 <div class="col">
                                     <label for="upload_image" class="form-label">Imagen</label>
                                     <a class="btn" id="upload_image" name="archivo">
-                                        <input type="file" class="form-control form-control-sm form-Input-Style">
+                                        <input name="archivo" type="file"
+                                            class="form-control form-control-sm form-Input-Style">
                                         <img src="../../resources/img/iconos_formularios/download_100px.png">
                                     </a>
                                 </div>
@@ -214,10 +220,9 @@
                         <div class="modal-footer">
                             <div class="btn-group" role="group" id="opcionesModal">
                                 <button type="submit" class="btn btn-primary" id="btnmenu"><a class="nav-link"><img
-                                            src="../../resources/img/iconos_formularios/agregar_26px.png"></a></button>
-                                <button type="submit" class="btn btn-primary" id="btnmenu" data-bs-dismiss="modal"><a
-                                        class="nav-link"><img
-                                            src="../../resources/iconos_formularios/cerrar_26px.png"></a></button>
+                                            src="../../resources/img/iconos_formularios/editar_26px.png"></a></button>
+                                <button type="button" class="btn btn-primary" id="btnmenu"><a class="nav-link"><img
+                                            src="../../resources/img/iconos_formularios/cerrar_26px.png"></a></button>
                             </div>
                         </div>
                     </form>
@@ -259,10 +264,9 @@
                                 <div class="col">
                                     <label for="genero_update" class="form-label">Género</label>
                                     <select id="genero_update" name="genero_update" class="form-control">
-                                        <option value="value1">Masculino</option>
-                                        <option value="value2" selected>Femenino</option>
+                                        <option value="M" selected>Masculino</option>
+                                        <option value="F">Femenino</option>
                                     </select>
-
                                     <label for="dui_update" class="form-label">DUI</label>
                                     <input type="text" class="form-control" id="dui_update" name="dui_update">
 
@@ -270,13 +274,13 @@
                                     <input type="text" class="form-control" id="nit_update" name="nit_update">
 
                                     <label for="tipo_empleado_update" class="form-label">Tipo de Empleado</label>
-                                    <select name="select" class="form-control" id="tipo_empleado_update"
+                                    <select  class="form-control" id="tipo_empleado_update"
                                         name="tipo_empleado_update">
 
                                     </select>
 
                                     <label for="estado_empleado_update" class="form-label">Estado de Empleado</label>
-                                    <select name="select" class="form-control" id="estado_empleado_update"
+                                    <select  class="form-control" id="estado_empleado_update"
                                         name="estado_empleado_update">
 
                                     </select>
@@ -284,7 +288,7 @@
                                 <div class="col">
                                     <label for="upload_image" class="form-label">Imagen</label>
                                     <a class="btn" id="upload_image" name="archivo">
-                                        <input type="file" class="form-control form-control-sm form-Input-Style">
+                                        <input name="archivo_update" type="file" class="form-control form-control-sm form-Input-Style">
                                         <img src="../../resources/img/iconos_formularios/download_100px.png">
                                     </a>
                                 </div>
@@ -293,7 +297,7 @@
                         <!-- Fotter del modal -->
                         <div class="modal-footer">
                             <div class="btn-group" role="group" id="opcionesModal">
-                                <button type="button" class="btn btn-primary" id="btnmenu"><a class="nav-link"><img
+                                <button type="submit" class="btn btn-primary" id="btnmenu"><a class="nav-link"><img
                                             src="../../resources/img/iconos_formularios/editar_26px.png"></a></button>
                                 <button type="button" class="btn btn-primary" id="btnmenu"><a class="nav-link"><img
                                             src="../../resources/img/iconos_formularios/cerrar_26px.png"></a></button>
@@ -303,8 +307,8 @@
                 </div>
             </div>
         </div>
-         <!-- Modal de ELIMINAR -->
-         <div class="modal fade" id="eliminar" tabindex="-1">
+        <!-- Modal de ELIMINAR -->
+        <div class="modal fade" id="eliminar" tabindex="-1">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header" id="formHeader">
@@ -317,8 +321,7 @@
                     <!-- Formulario de Update -->
                     <form method="post" id="delete_form">
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-primary" id="btnmenu"
-                                data-bs-dismiss="modal">Volver</button>
+                            <button class="btn btn-primary" id="btnmenu">Volver</button>
                             <button type="submit" class="btn btn-primary" id="btnmenu">Confirmar</button>
                         </div>
                     </form>

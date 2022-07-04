@@ -85,7 +85,17 @@ class tipo_acabado extends validator
     public function readAll()
     {
         $sql = 'SELECT id_tipo_acabado, nombre_tipo, visibilidad
-        FROM public.tipo_acabado';
+        FROM public.tipo_acabado
+		WHERE visibilidad = true';
+        $params = null;
+        return Database::getRows($sql, $params);
+    }
+
+    public function readAllDeleted() 
+    {
+        $sql = 'SELECT id_tipo_acabado, nombre_tipo, visibilidad
+        FROM public.tipo_acabado
+		WHERE visibilidad = false';
         $params = null;
         return Database::getRows($sql, $params);
     }

@@ -25,6 +25,7 @@ class propiedad extends validator
     private $id_departamento = null;
     private $categoria = null;
     private $imagen = null;
+    private $visibilidad = null;
 
     //Metodos para setear los valores de los campos
     //Id
@@ -144,6 +145,13 @@ class propiedad extends validator
         return true;
     }
 
+    //Id de Categoria
+    public function setVisibilidad($value)
+    {
+        $this->visibilidad = $value;
+        return true;
+    }
+
         //Imagen del empleado - varying char
         public function setImage($file)
         {
@@ -251,6 +259,11 @@ class propiedad extends validator
     {
         return $this->id_tipo_acabado;
     }
+    //Id Tipo Acabado
+    public function getVisibilidad($value)
+    {
+        return $this->visibilidad;
+    }
 
     //Metodos para realizar las operaciones SCRUD(Search, Create, Read, Update, Delete)
 
@@ -260,7 +273,8 @@ class propiedad extends validator
         $sql = 'SELECT id_propiedad, direccion, area_propiedad, area_contruccion, codigo, precio, alquiler, habitaciones, plantas, sanitario, 
         espacio_parqueo, descripcion, departamento.id_departamento, departamento, municipio.id_municipio, municipio, categoria.id_categoria, 
         nombre_categoria, propiedad.id_tipo_propiedad, tipo_propiedad.nombre_tipo, propiedad.id_empleado, empleado.nombre, empleado.apellido, 
-        empleado.imagen, propiedad.id_inquilino, inquilino.nombre, inquilino.apellido, inquilino.imagen, propiedad.id_tipo_acabado, tipo_acabado.nombre_tipo 
+        empleado.imagen, propiedad.id_inquilino, inquilino.nombre, inquilino.apellido, inquilino.imagen, propiedad.id_tipo_acabado, 
+        tipo_acabado.nombre_tipo, propiedad.imagen, propiedad.visibilidad 
         FROM public.propiedad
         INNER JOIN public.municipio
         ON propiedad.id_municipio = municipio.id_municipio
@@ -321,9 +335,9 @@ class propiedad extends validator
     public function updateRow()
     {
         $sql = 'UPDATE public.propiedad  
-        SET direccion = ?, area_propiedad = ?, area_contruccion = ?, codigo = ?, precio = ?, alquiler = ?, habitaciones = ?, plantas = ?, sanitario = ?, espacio_parqueo = ?, descripcion = ?, id_municipio = ?, id_tipo_propiedad = ?, id_empleado = ?, id_inquilino = ?,  id_tipo_acabado = ?, imagen = ?
+        SET direccion = ?, area_propiedad = ?, area_contruccion = ?, codigo = ?, precio = ?, alquiler = ?, habitaciones = ?, plantas = ?, sanitario = ?, espacio_parqueo = ?, descripcion = ?, id_municipio = ?, id_tipo_propiedad = ?, id_empleado = ?, id_inquilino = ?,  id_tipo_acabado = ?, imagen = ?, visibilidad = ?
         WHERE id_propiedad =?';
-        $params = array($this->direccion, $this->area_propiedad, $this->area_contruccion, $this->codigo, $this->precio, $this->alquiler, $this->habitaciones, $this->plantas, $this->sanitario, $this->espacio_parqueo, $this->descripcion, $this->id_municipio, $this->id_tipo_propiedad, $this->id_empleado, $this->id_inquilino, $this->id_tipo_acabado, $this->imagen, $this->id_propiedad);
+        $params = array($this->direccion, $this->area_propiedad, $this->area_contruccion, $this->codigo, $this->precio, $this->alquiler, $this->habitaciones, $this->plantas, $this->sanitario, $this->espacio_parqueo, $this->descripcion, $this->id_municipio, $this->id_tipo_propiedad, $this->id_empleado, $this->id_inquilino, $this->id_tipo_acabado, $this->imagen, $this->visibilidad, $this->id_propiedad);
         return Database::executeRow($sql, $params);
     }
     //Metodo para la eliminación DELETE 
@@ -340,10 +354,10 @@ class propiedad extends validator
     public function readAll()
     {
         $sql = 'SELECT id_propiedad, direccion, area_propiedad, area_contruccion, codigo, precio, alquiler, habitaciones, plantas, sanitario, 
-        espacio_parqueo, descripcion, departamento.id_departamento, departamento, municipio.id_municipio, municipio, categoria.id_categoria, 
+        espacio_parqueo, descripcion, departamento.id_departamento, departamento, propiedad.id_municipio, municipio, categoria.id_categoria, 
         nombre_categoria, propiedad.id_tipo_propiedad, tipo_propiedad.nombre_tipo, propiedad.id_empleado, empleado.nombre, empleado.apellido, 
         empleado.imagen, propiedad.id_inquilino, inquilino.nombre, inquilino.apellido, inquilino.imagen, propiedad.id_tipo_acabado, 
-        tipo_acabado.nombre_tipo, propiedad.imagen 
+        tipo_acabado.nombre_tipo, propiedad.imagen,  propiedad.visibilidad
         FROM public.propiedad
         INNER JOIN public.municipio
         ON propiedad.id_municipio = municipio.id_municipio
@@ -366,12 +380,42 @@ class propiedad extends validator
 
     //Metodo para leer READ
     //Leer todas las filas de la Tabla
+    public function readAllDeleted()
+    {
+        $sql = 'SELECT id_propiedad, direccion, area_propiedad, area_contruccion, codigo, precio, alquiler, habitaciones, plantas, sanitario, 
+        espacio_parqueo, descripcion, departamento.id_departamento, departamento, municipio.id_municipio, municipio, categoria.id_categoria, 
+        nombre_categoria, propiedad.id_tipo_propiedad, tipo_propiedad.nombre_tipo, propiedad.id_empleado, empleado.nombre, empleado.apellido, 
+        empleado.imagen, propiedad.id_inquilino, inquilino.nombre, inquilino.apellido, inquilino.imagen, propiedad.id_tipo_acabado, 
+        tipo_acabado.nombre_tipo, propiedad.imagen, propiedad.visibilidad
+        FROM public.propiedad
+        INNER JOIN public.municipio
+        ON propiedad.id_municipio = municipio.id_municipio
+        INNER JOIN public.departamento 
+        ON municipio.id_departamento = departamento.id_departamento
+        INNER JOIN public.tipo_propiedad
+        ON propiedad.id_tipo_propiedad = tipo_propiedad.id_tipo_propiedad
+        INNER JOIN public.categoria 
+        ON tipo_propiedad.id_categoria = categoria.id_categoria
+        INNER JOIN public.empleado
+        ON propiedad.id_empleado = empleado.id_empleado
+        INNER JOIN public.inquilino
+        ON propiedad.id_inquilino = inquilino.id_inquilino
+        INNER JOIN public.tipo_acabado
+        ON propiedad.id_tipo_acabado = tipo_acabado.id_tipo_acabado
+        WHERE propiedad.visibilidad = false' ;
+        $params = null;
+        return Database::getRows($sql, $params);
+    }
+
+    //Metodo para leer READ
+    //Leer todas las filas de la Tabla
     public function readAllIndex()
     {
         $sql = 'SELECT id_propiedad, direccion, area_propiedad, area_contruccion, codigo, precio, alquiler, habitaciones, plantas, sanitario, 
         espacio_parqueo, descripcion, departamento.id_departamento, departamento, municipio.id_municipio, municipio, categoria.id_categoria, 
         nombre_categoria, propiedad.id_tipo_propiedad, tipo_propiedad.nombre_tipo, propiedad.id_empleado, empleado.nombre, empleado.apellido, 
-        empleado.imagen, propiedad.id_inquilino, inquilino.nombre, inquilino.apellido, inquilino.imagen, propiedad.id_tipo_acabado, tipo_acabado.nombre_tipo 
+        empleado.imagen, propiedad.id_inquilino, inquilino.nombre, inquilino.apellido, inquilino.imagen, propiedad.id_tipo_acabado, 
+        tipo_acabado.nombre_tipo, propiedad.imagen, propiedad.visibilidad  
         FROM public.propiedad
         INNER JOIN public.municipio
         ON propiedad.id_municipio = municipio.id_municipio
@@ -400,7 +444,8 @@ class propiedad extends validator
         $sql = 'SELECT id_propiedad, direccion, area_propiedad, area_contruccion, codigo, precio, alquiler, habitaciones, plantas, sanitario, 
         espacio_parqueo, descripcion, departamento.id_departamento, departamento, municipio.id_municipio, municipio, categoria.id_categoria, 
         nombre_categoria, propiedad.id_tipo_propiedad, tipo_propiedad.nombre_tipo, propiedad.id_empleado, empleado.nombre, empleado.apellido, 
-        empleado.imagen, propiedad.id_inquilino, inquilino.nombre, inquilino.apellido, inquilino.imagen, propiedad.id_tipo_acabado, tipo_acabado.nombre_tipo 
+        empleado.imagen, propiedad.id_inquilino, inquilino.nombre, inquilino.apellido, inquilino.imagen, propiedad.id_tipo_acabado, 
+        tipo_acabado.nombre_tipo, propiedad.imagen 
         FROM public.propiedad
         INNER JOIN public.municipio
         ON propiedad.id_municipio = municipio.id_municipio

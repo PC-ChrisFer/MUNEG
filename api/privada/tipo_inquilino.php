@@ -1,5 +1,4 @@
 <?php
-
 //Llama a otros documentos de php respectivo, el database, el validador, y el respectivo modelo
 require_once('../helpers/database.php');
 require_once('../helpers/validator.php');
@@ -19,11 +18,7 @@ const UPDATE = 'update';
 const DELETE = 'delete';
 const SUCESS_RESPONSE = 1;
 
-// NOMBRES DE PARAMETROS, DEBEN DE SER IGUALES AL ID Y NAME DEL INPUT DE EL FORMULARI
-const TIPO_INQUILINO_ID = 'id';
-const NOMBRE_TIPO_INQUILINO = 'nombre_tipo';
-const TIPO_INQUILINO = 'tipo_inquilino';
-const TIPO_ID = 'id_tipo_inquilino';
+// NOMBRES DE PARAMETROS, DEBEN DE SER IGUALES AL ID Y NAME DEL INPUT DE EL FORMULARIO
 
 
 // Se comprueba si existe una acción a realizar, de lo contrario se finaliza el script con un mensaje de error.
@@ -41,13 +36,21 @@ if (isset($_GET[ACTION])) {
         case READ_ALL:
             if ($result[DATA_SET] = $tipo_inquilino->readAll()) {
                 $result[STATUS] = SUCESS_RESPONSE;
-
             } elseif (Database::getException()) {
                 $result[EXCEPTION] = Database::getException();
             } else {
                 $result[EXCEPTION] = 'No hay datos registrados';
             }
             break;
+            case "readAllDeleted":
+                if ($result[DATA_SET] = $tipo_inquilino->readAllDeleted()) {
+                    $result[STATUS] = SUCESS_RESPONSE;
+                } elseif (Database::getException()) {
+                    $result[EXCEPTION] = Database::getException();
+                } else {
+                    $result[EXCEPTION] = 'No hay datos registrados';
+                }
+                break;
         case SEARCH:
             $_POST = $tipo_inquilino->validateSpace($_POST);
             if ($_POST[SEARCH] == '') {
@@ -63,13 +66,7 @@ if (isset($_GET[ACTION])) {
             break;
         case CREATE:
             $_POST = $tipo_inquilino->validateSpace($_POST);
-            
             $result[EXCEPTION] = $tipo_inquilino->setNombre($_POST['tipo_inquilino']) ? null : 'Nombre incorrecto';
-           
-            $_POST['visibilidad'] = $_POST['visibilidad'] == '1' ? 1 : 0;
-
-            $result[EXCEPTION] = $tipo_inquilino->setVisibilidad($_POST['visibilidad']) ? null : 'Fecha de firma incorrecta';
-            
             if ($tipo_inquilino->createRow()) {
                 $result[MESSAGE] = 'Registro creado correctamente';
                 $result[DATA_SET] = $tipo_inquilino->readAll();
@@ -78,48 +75,28 @@ if (isset($_GET[ACTION])) {
                 $result[EXCEPTION] = Database::getException();
             }
             break;
-        case READ_ONE:
-            if (!$tipo_inquilino->setId($_POST)) {
-                $result[EXCEPTION] = 'Tipo de inquilino incorrecto';
-            } elseif ($result[DATA_SET] = $tipo_inquilino->readOne()) {
-                $result[STATUS] = SUCESS_RESPONSE;
-            } elseif (Database::getException()) {
-                $result[EXCEPTION] = Database::getException();
-            } else {
-                $result[EXCEPTION] = 'Tipo de inquilino inexistente';
-            }
-            break;
         case UPDATE:
             $_POST = $tipo_inquilino->validateSpace($_POST);
-            if (!$tipo_inquilino->setId($_POST[TIPO_INQUILINO])) {
-                $result[EXCEPTION] = 'Tipo inquilino incorrecta';
-            } elseif (!$tipo_inquilino->setNombre($_POST[TIPO_ID])) {
-                $result[EXCEPTION] = 'Nombre incorrecto';
-                $_POST['visibilidad'] = $_POST['visibilidad'] == '1' ? 1 : 0;   
-            } elseif ($tipo_inquilino->updateRow()) {
-                $result[STATUS] = SUCESS_RESPONSE;
-                $result[MESSAGE] = 'Cantidad modificada correctamente';
-                if ($result[DATA_SET] = $tipo_inquilino->readAll()) {
-                    $result[STATUS] = SUCESS_RESPONSE;
-                } else {
-                    $result[EXCEPTION] = 'No hay datos registrados';
-                }
+            $result[EXCEPTION] = $tipo_inquilino->setNombre($_POST['tipo_inquilino_update']) ? null : 'Nombre incorrecto';
+            $_POST['visibilidad_update'] = $_POST['visibilidad_update'] == '1' ? 1 : 0;
+            $result[EXCEPTION] = $tipo_inquilino->setVisibilidad($_POST['visibilidad_update']) ? null : 'Visibilidad no encontrada';
+            $result[EXCEPTION] = $tipo_inquilino->setId($_POST['id_tipo_inquilino']) ? null : 'Id incorrecto';
+
+            if ($tipo_inquilino->updateRow()) {
+                $result[MESSAGE] = 'Registro modificado correctamente';
+                $result[DATA_SET] = $tipo_inquilino->readAll();
+                $result[STATUS] =  $result[DATA_SET] ? SUCESS_RESPONSE : 'No hay datos registrados';
             } else {
                 $result[EXCEPTION] = Database::getException();
             }
             break;
-        case DELETE:
-            if (!$tipo_inquilino->setId($_POST[TIPO_INQUILINO_ID])) {
-                $result[EXCEPTION] = 'Tipo de inquilino incorrecto';
-            } elseif ($tipo_inquilino->deleteRow()) {
-                $result[STATUS] = SUCESS_RESPONSE;
-                $result[MESSAGE] = 'Tipo de inquilino removido correctamente';
-                if ($result[DATA_SET] = $tipo_inquilino->readAll()) {
-                    $result[STATUS] = SUCESS_RESPONSE;
-                    
-                } else {
-                    $result[EXCEPTION] = 'No hay datos registrados';
-                }
+        case 'delete':
+            $result[EXCEPTION] = $tipo_inquilino->setId($_POST['id_tipo_inquilino']) ? null : 'Id incorrecto';
+
+            if ($tipo_inquilino->deleteRow()) {
+                $result[MESSAGE] = 'Registro eliminado correctamente';
+                $result[DATA_SET] = $tipo_inquilino->readAll();
+                $result[STATUS] =  $result[DATA_SET] ? SUCESS_RESPONSE : 'No hay datos registrados';
             } else {
                 $result[EXCEPTION] = Database::getException();
             }

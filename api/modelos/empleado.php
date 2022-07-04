@@ -259,13 +259,13 @@ class empleado extends validator
     //Utilizaremos los campos o (NOMBRE, APELLIDO, TIPO, ESTADO, TELEFONO, DUI, NIT)
     public function searchRows($value)
     {
-        $sql = 'SELECT id_empleado, nombre, apellido, "DUI", "NIT", telefono, correo, genero, fecha_nacimiento, imagen, estado_empleado.id_estado_empleado, nombre_estado , nombre_tipo
+        $sql = 'SELECT id_empleado, nombre, apellido, "DUI", "NIT", numero_telefono, correo_electronico, genero, fecha_nacimiento, imagen, estado_empleado.id_estado_empleado, nombre_estado , nombre_tipo
         FROM empleado 
         INNER JOIN tipo_empleado
         ON empleado.id_tipo_empleado = tipo_empleado.id_tipo_empleado
         INNER JOIN estado_empleado
         ON empleado.id_estado_empleado = estado_empleado.id_estado_empleado
-        WHERE nombre ILIKE ? OR apellido ILIKE ? OR "DUI" ILIKE ? OR "NIT" ILIKE ? OR telefono ILIKE ? OR correo ILIKE ? OR nombre_estado ILIKE ? OR nombre_tipo ILIKE ?
+        WHERE nombre ILIKE ? OR apellido ILIKE ? OR "DUI" ILIKE ? OR "NIT" ILIKE ? OR numero_telefono ILIKE ? OR correo_electronico ILIKE ? OR nombre_estado ILIKE ? OR nombre_tipo ILIKE ?
         ORDER BY apellido ';
         $params = array("%$value%", "%$value%", "%$value%", "%$value%", "%$value%", "%$value%", "%$value%", "%$value%");
         return Database::getRows($sql, $params);
@@ -285,18 +285,17 @@ class empleado extends validator
     public function updateRow()
     {
         $sql = 'UPDATE public.empleado
-        SET id_empleado=?, nombre=?, apellido=?, numero_telefono=?, correo_electronico=?, fecha_nacimiento=?, genero=?, "DUI"=?, "NIT"=?, imagen=?, id_tipo_empleado=?, id_estado_empleado=?
+        SET nombre=?, apellido=?, numero_telefono=?, correo_electronico=?, fecha_nacimiento=?, genero=?, "DUI"=?, "NIT"=?, imagen=?, id_tipo_empleado=?, id_estado_empleado=?
         WHERE id_empleado=?';
-        $params = array($this->nombre_empleado, $this->apellido_empleado, $this->dui, $this->nit, $this->telefono, $this->correo, $this->genero, $this->fecha_nacimiento, $this->estado_empleado, $this->tipo_empleado,$this->imagen, $this->id_empleado);
+        $params = array($this->nombre, $this->apellido, $this->numero_telefono, $this->correo_electronico, $this->fecha_nacimiento, $this->genero, $this->dui, $this->nit, $this->imagen, $this->id_tipo_empleado,$this->id_estado_empleado, $this->id_empleado);
         return Database::executeRow($sql, $params);
     }
 
 
-    //Metodo para la eliminación
     public function deleteRow()
     {
         $sql = 'DELETE FROM public.empleado
-        WHERE id_empleado';
+	    WHERE id_empleado = ?';
         $params = array($this->id_empleado);
         return Database::executeRow($sql, $params);
     }

@@ -1,28 +1,10 @@
-//@ts-check
-
 //Importar las constantes y metodos de components.js y api_constant.js
-import {
-  readRows,
-  saveRow,
-  searchRows,
-  deleteRow,
-  unDeleteRow,
-} from "../components.js";
-import {
-  getElementById,
-   validateExistenceOfUser,
-} from "../constants/functions.js";
-import {
-  API_CREATE,
-  POST_METHOD,
-  API_UPDATE,
-  API_SUCESS_REQUEST,
-  GET_METHOD,
-  SERVER,
-  DOM_CONTENT_LOADED,
-} from "../constants/api_constant.js";
-import { APIConnection } from "../APIConnection.js";
+import { readRows, saveRow, searchRows, deleteRow } from "../components.js";
+import { getElementById } from "../constants/functions.js";
+import { validateExistenceOfUser } from "../constants/validationUser.js";
+import { API_UPDATE, SERVER } from "../constants/api_constant.js";
 
+//Constantes que establece la comunicación entre la API y el controller utilizando parametros y rutas
 const API_CLIENTE = SERVER + "privada/cliente.php?action=";
 
 // JSON EN EN CUAL SE GUARDA INFORMACION DE EL CLIENTE, ESTA INFORMACION
@@ -35,13 +17,14 @@ let datos_cliente = {
 
 // Método manejador de eventos que se ejecuta cuando el documento ha cargado.
 document.addEventListener("DOMContentLoaded", async () => {
+  //Función Para validar que exista un usuario en sesión
   await validateExistenceOfUser();
-  // Se llama a la función que obtiene los registros para llenar la tabla. Se encuentra en el archivo components.js
+  //Endpoint para la lectura de todas las tablas de infromación
   await readRows(API_CLIENTE, fillTableCliente);
 });
 
+// EVENTO PARA READ
 // Método que se ejecuta al enviar un formulario de busqueda
-//@ts-ignore
 getElementById("search-bar").addEventListener("submit", async (event) => {
   // Se evita recargar la página web después de enviar el formulario.
   event.preventDefault();
@@ -49,11 +32,13 @@ getElementById("search-bar").addEventListener("submit", async (event) => {
   await searchRows(API_CLIENTE, "search-bar", fillTableCliente);
 });
 
+//Función (ReadAll) llenar las tablas de información
 export function fillTableCliente(dataset) {
+  //Se define el contenido html
   let content = "";
-  // Se recorre el conjunto de registros (dataset) fila por fila a través del objeto row.
+  //Se llenan los elementos con la información proporcionada por la base de datos
   dataset.map((row) => {
-    // Se crean y concatenan las filas de la tabla con los datos de cada registro.
+    //El cuerpo del elemento html
     content += ` 
         <tr>
             <td>${row.nombre_cliente}</td>
@@ -67,62 +52,55 @@ export function fillTableCliente(dataset) {
          </tr>
         `;
   });
-  //Se inserta las información de la tabla a un elemento html
-  //@ts-ignore
+  //Se escribe el id del contendor que se quiere llenar con el elemento html
   getElementById("tbody-cliente").innerHTML = content;
 }
 
-// FUNCION PARA GUARDAR LOS DATOS DEL TIPO DE EMPLEADO
-// @ts-ignore
+//Función para cargar los datos del update
 window.guardarDatosUpdate = (id_cliente, nombre_cliente, correo) => {
+  //Se transfieren los datos del boton al json global  
   datos_cliente.id_cliente = id_cliente;
-  // @ts-ignore
+  //Se llama el modal de actualizar
   $("#actualizar").modal("show");
-  // SE ACTUALIZA EL VALOR DEL INPUT CON EL ID ESPECIFICADO AL VALOR INGRESADO AL PARAMETRO, ASEGURENSE DE QUE ELINPUT TENGA
-  //EL ATRIBUTO "value="""
-  //@ts-ignore
-  document.getElementById("nombre_cliente_update").value =
-    String(nombre_cliente);
-  //@ts-ignore
+  //Se imprime la información en el modal
+  document.getElementById("nombre_cliente_update").value = String(nombre_cliente);
   document.getElementById("correo_update").value = String(correo);
 };
 
-// FUNCION PARA GUARDAR LOS DATOS DEL TIPO DE EMPLEADO
-// @ts-ignore
+//Función para cargar el id para el delete
 window.guardarDatosDelete = (id_cliente) => {
+  //Se transfieren los datos del boton al json global
   datos_cliente.id_cliente = id_cliente;
-  // @ts-ignore
+  //Se llama el modal de borrar
   $("#eliminar").modal("show");
 };
 
-// EVENTO PARA UPDATE
-// SE EJECUTARA CUANDO EL BOTON DE TIPO "submit" DEL FORMULARIO CON EL ID 'actualizarConfirmar_buttons' SE CLICKEE
-//@ts-ignore
+//EVENTO PARA UPDATE
+// Método manejador de eventos que se ejecuta cuando se envía el formulario de guardar.
 getElementById("update_form").addEventListener("submit", async (event) => {
   // Se evita recargar la página web después de enviar el formulario.
   event.preventDefault();
-  // @ts-ignore
+  // Se cierra el formulario de actualizar
   $("#actualizar").modal("hide");
-  //@ts-ignore
+  // Se toman los datos del modal y los convierte a formData
   let parameters = new FormData(getElementById("update_form"));
-  //@ts-ignore
+  // Se adhieren datos al arreglo que se envia al update
   parameters.append("id_cliente", datos_cliente["id_cliente"]);
-  // API REQUEST
+  // Se llama a la función que realiza la actualización. Se encuentra en el archivo components.js
   await saveRow(API_CLIENTE, API_UPDATE, parameters, fillTableCliente);
 });
 
 //EVENTO PARA DELETE
-//@ts-ignore
+// Método manejador de eventos que se ejecuta cuando se envía el formulario de guardar.
 getElementById("delete_form").addEventListener("submit", async (event) => {
   // Se evita recargar la página web después de enviar el formulario.
   event.preventDefault();
-  // @ts-ignore
+  // Se cierra el formulario de registro
   $("#eliminar").modal("hide");
   // CONVIRTIENDO EL JSON A FORMDATA
   let parameters = new FormData();
-  //@ts-ignore
+  // Se adhieren datos al arreglo que se envia al update
   parameters.append("id_cliente", datos_cliente["id_cliente"]);
-
-  //API REQUEST
+  // Se llama a la función que realiza la borrar. Se encuentra en el archivo components.js
   await deleteRow(API_CLIENTE, parameters, fillTableCliente);
 });

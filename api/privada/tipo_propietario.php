@@ -42,6 +42,15 @@ if (isset($_GET[ACTION])) {
                 $result[EXCEPTION] = 'No hay datos registrados';
             }
             break;
+            case "readAllDeleted":
+                if ($result[DATA_SET] = $tipo_propietario->readAllDeleted()) {
+                    $result[STATUS] = SUCESS_RESPONSE;
+                } elseif (Database::getException()) {
+                    $result[EXCEPTION] = Database::getException();
+                } else {
+                    $result[EXCEPTION] = 'No hay datos registrados';
+                }
+                break;
         case SEARCH:
             $_POST = $tipo_propietario->validateSpace($_POST);
             if ($_POST[SEARCH] == '') {
@@ -102,3 +111,4 @@ if (isset($_GET[ACTION])) {
 } else {
     print(json_encode('Recurso no disponible'));
 }
+ 

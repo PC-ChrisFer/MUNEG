@@ -42,6 +42,15 @@ if (isset($_GET[ACTION])) {
             $result[EXCEPTION] = 'No hay datos registrados';
         }
         break;
+        case "readAllDeleted":
+            if ($result[DATA_SET] = $factura->readAllDeleted()) {
+                $result[STATUS] = SUCESS_RESPONSE;
+            } elseif (Database::getException()) {
+                $result[EXCEPTION] = Database::getException();
+            } else {
+                $result[EXCEPTION] = 'No hay datos registrados';
+            }
+            break;
     case SEARCH:
         $_POST = $factura->validateSpace($_POST);
         if ($_POST[SEARCH] == '') {

@@ -190,6 +190,20 @@ class usuario extends validator
         return Database::executeRow($sql, $params);
     }
 
+
+    //Metodo para la inserción de Adminitrador
+    public function readOne()
+    {
+        $sql = 'SELECT id_usuario, nombre_usuario, password, usuario.id_tipo_usuario, nombre_tipo, usuario.id_propietario, nombre, apellido  
+        FROM public.usuario
+	    INNER JOIN public.propietario
+	    ON propietario.id_propietario = usuario.id_propietario
+	    INNER JOIN public.tipo_usuario
+	    ON tipo_usuario.id_tipo_usuario = usuario.id_tipo_usuario';
+        $params = array($_SESSION['id_cliente']);
+        return Database::executeRow($sql, $params);
+    }    
+
     //Metodo para la insercción INSERT (propietario)
     //(nombre_usuario, password, tipo_usuario, propietario)
     public function createRowPropietario()

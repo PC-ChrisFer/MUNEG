@@ -85,12 +85,12 @@ if (isset($_GET[ACTION])) {
                 } else {
                     $result[EXCEPTION] = 'No hay coincidencias';
                 }
-                break;
+                break; 
             case "update":
                 $usuario->setId($_POST['id']) ? null : "id incorrecto";
                 $usuario->setNombre($_POST['nombre_usuario']) ? null : "nombre incorrecto";
-                $usuario->setTipoUsuario($_POST['tipo_usuario']) ? null : "tipo usuario incorrecto";
-                $usuario->setEmpleado($_POST['empleado']) ? null : "empleado ID incorrecto";
+                $usuario->setTipoUsuario($_POST['tipo_usuario_update']) ? null : "tipo usuario incorrecto";
+                $usuario->setEmpleado($_POST['empleado_update']) ? null : "empleado ID incorrecto";
 
                 if ($usuario->updateRowEmpleado()) {
                     $result[STATUS] = SUCESS_RESPONSE;
@@ -195,7 +195,7 @@ if (isset($_GET[ACTION])) {
                 if ($usuario->searchPassword($_POST['password'])) {
                     $result[STATUS] = 1;
                     $result[MESSAGE] = 'Autenticación correcta';
-                    $_SESSION[ID_USUARIO] = 11; 
+                    $_SESSION[ID_USUARIO] =  $usuario->getId();; 
                     $_SESSION[ALIAS_USUARIO] = $usuario->getNombre();
                 } else {
                     $result[EXCEPTION] = 'Clave incorrecta';

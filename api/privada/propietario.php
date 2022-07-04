@@ -67,17 +67,13 @@ if (isset($_GET[ACTION])) {
                 $result[EXCEPTION] = $propietario->setCorreo($_POST['correo_electronico']) ? null : 'Correo Electrónico incorrecto';
                 $result[EXCEPTION] = $propietario->setFechaNacimiento($_POST['fecha_nacimiento']) ? null : 'Fecha de nacimiento incorrecto';
                 $result[EXCEPTION] = $propietario->setGenero($_POST['genero']) ? null : 'Género incorrecto';
-                $result[EXCEPTION] = $propietario->setDUI($_POST['DUI']) ? null : 'DUI incorrecto';
-                if (!is_uploaded_file($_FILES[PROPIETARIO_ARCHIVO][TMP_NAME])) {
-                    $result[EXCEPTION] = 'Seleccione una imagen';
-                    } elseif (!$propietario->setImage($_FILES[PROPIETARIO_ARCHIVO])){
-                    $result[EXCEPTION] = $propietario->getFileError();
-                    }
                 $result[EXCEPTION] = $propietario->setIdTipoPropietario($_POST['id_tipo_propietario']) ? null : 'Tipo de propietario incorrecto';
-
+                $result[EXCEPTION] = $propietario->setDUI($_POST['DUI']) ? null : 'DUI incorrecto';
+                $result[EXCEPTION] = is_uploaded_file($_FILES['archivo']['tmp_name']) ? null : "ARCHIVO INCORRECTO";
+                $result[EXCEPTION] = $propietario->setImage($_FILES['archivo']) ? null : $propiedad->getFileError();
                 if ($propietario->createRow()) {
                     $result[MESSAGE] = 'Registro creado correctamente';
-                    if ($propietario->saveFile($_FILES[PROPIETARIO_ARCHIVO], $propietario->getRutaImagenes(), $propietario->getImagen())) {
+                    if ($propietario->saveFile($_FILES['archivo'], $propietario->getRutaImagenes(), $propietario->getImagen())) {
                         $result[MESSAGE] = 'Imagen ingresada correctanente';
                         if ($result[DATA_SET] = $propietario->readAll()) {
                             $result[STATUS] = SUCESS_RESPONSE;
@@ -105,13 +101,14 @@ if (isset($_GET[ACTION])) {
             $result[EXCEPTION] = $propietario->setFechaNacimiento($_POST['fecha_nacimiento_update']) ? null : 'Fecha de nacimiento incorrecto';
             $result[EXCEPTION] = $propietario->setGenero($_POST['genero_update']) ? null : 'Género incorrecto';
             $result[EXCEPTION] = $propietario->setDUI($_POST['DUI_update']) ? null : 'DUI incorrecto';
-            $result[EXCEPTION] = $propietario->setImagen($_POST['imagen_update']) ? null : 'Imagen incorrecto';
+            $result[EXCEPTION] = is_uploaded_file($_FILES['archivo_update']['tmp_name']) ? null : "ARCHIVO INCORRECTO";
+            $result[EXCEPTION] = $propietario->setImage($_FILES['archivo_update']) ? null : $propiedad->getFileError();
             $result[EXCEPTION] = $propietario->setIdTipoPropietario($_POST['id_tipo_propietario_update']) ? null : 'Tipo de propietario incorrecto';
             $result[EXCEPTION] = $propietario->setId($_POST['id']) ? null : 'Id incorrecto';
         
         if ($propietario->updateRow()) {
             $result[MESSAGE] = 'Registro modificado correctamente';
-            if ($propietario->saveFile($_FILES[PROPIETARIO_ARCHIVO], $propietario->getRutaImagenes(), $propietario->getImagen())) {
+            if ($propietario->saveFile($_FILES['archivo_update'], $propietario->getRutaImagenes(), $propietario->getImagen())) {
                 $result[MESSAGE] = 'Imagen ingresada correctanente';
                 if ($result[DATA_SET] = $propietario->readAll()) {
                     $result[STATUS] = SUCESS_RESPONSE;

@@ -90,29 +90,40 @@
                                         src="../../resources/img/iconos_navbar/modern_art_30px.png">Gestion
                                     de Tipo Acabado</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="editar_perfil.html"><img
+                                        src="../../resources/img/iconos_navbar/settings_30px.png">Editar Usuario</a>
+                            </li>
                         </ul>
                     </div>
                 </div>
             </div>
         </nav>
         <div class="container-fluid" id="encabezado">
-            <h1>GESTIÓN DE EMPLEADO</h1>
+            <h1>GESTIÓN DE TIPO CATEGORIA</h1>
         </div>
     </header>
     <main>
         <!-- Searchbar -->
         <div class="container-fluid" id="busqueda">
-            <form class="d-flex">
-                <input class="form-control me-2" type="search" placeholder="Búsqueda de Datos" aria-label="Search">
-                <a class="nav-link" href="#"><img src="../../resources/img/iconos_navbar/search_24px.png"></a>
+            <form class="d-flex" method="post" id="search-bar">
+                <input class="form-control me-2" name="search" placeholder="Buscar por Nombre" aria-label="Search"
+                    required>
+                <button class="btn" type="submit"><img src="../../resources/img/iconos_navbar/search_24px.png"></button>
             </form>
         </div>
+        <!--Botón para agregar un nuevo tipo de inquilino-->
         <div class="container-fluid" id="opciones">
             <div class="btn-group" role="group">
                 <button type="button" class="btn btn-primary" id="btnmenu" data-bs-toggle="modal"
                     data-bs-target="#agregar"><a class="nav-link"><img
                             src="../../resources/img/iconos_formularios/agregar_26px.png"></a></button>
             </div>
+        </div>
+        <div class="form-check form-switch">
+            <input onclick="leerDatosEliminados()" class="form-check-input" type="checkbox" role="switch"
+                id="verDatosliminados">
+            <label class="form-check-label" for="flexSwitchCheckDefault">Ver datos eliminados</label>
         </div>
         <!-- Tabla de Datos -->
         <div class="container-fluid" id="tabla_datos">
@@ -124,8 +135,7 @@
                         <th>Gestionar</th>
                     </tr>
                 </thead>
-                <tbody id="tbody-tipo-inquilino">
-                    <!-- Linea de Informacion -->
+                <tbody id="tbody-TipoInquilino">
 
                 </tbody>
             </table>
@@ -137,21 +147,18 @@
             <div class="modal-dialog modal-lg modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header" id="formHeader">
-                        <h5 class="modal-title" id="actualizarformLabel">Agregar Tipo Inquilino</h5>
+                        <h5 class="modal-title" id="actualizarformLabel">Agregar Inquilino</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <!-- Formulario de Insert-->
-                    <form method="post" id="insert_form">
+                    <form method="post" id="insert-form">
                         <div class="modal-body" id="formModal">
                             <div class="row">
                                 <div class="col">
-                                    <label for="tipo_inquilino" class="form-label">Nombre de Tipo Inquilino.</label>
-                                    <input type="text" class="form-control" id="tipo_inquilino" name="tipo_inquilino"
-                                        placeholder="Escriba un nombre a la Tipo Inquilino" required>
-                                    <div class="custom-control custom-switch">
-                                        <input type="checkbox" class="custom-control-input" id="visibilidad">
-                                        <label class="custom-control-label" for="visibilidad">Visible?</label>
-                                    </div>
+                                    <label for="Inquilino" class="form-label">Nombre del tipo Inquilino</label>
+                                    <input type="text" class="form-control" id="tipo_inquilino"
+                                        name="tipo_inquilino" placeholder="Escriba un nombre a la inquilino"
+                                        required>
                                 </div>
                             </div>
                         </div>
@@ -159,9 +166,9 @@
                             <div class="btn-group" role="group" id="opcionesModal">
                                 <button type="submit" class="btn btn-primary" id="btnmenu"><a class="nav-link"><img
                                             src="../../resources/img/iconos_formularios/agregar_26px.png"></a></button>
-                                <button type="submit" class="btn btn-primary" id="btnmenu" data-bs-dismiss="modal"><a
+                                <button type="button" class="btn btn-primary" id="btnmenu" data-bs-dismiss="modal"><a
                                         class="nav-link"><img
-                                            src="../../resources/iconos_formularios/cerrar_26px.png"></a></button>
+                                            src="../../resources/img/iconos_formularios/cerrar_26px.png"></a></button>
                             </div>
                         </div>
                     </form>
@@ -170,36 +177,38 @@
         </div>
         <!-- Modal de ACTUALIZAR REGISTRO -->
         <div class="modal fade" id="actualizar" tabindex="-1">
-            <div class="modal-dialog modal-xl modal-dialog-centered">
+            <div class="modal-dialog modal-lg modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header" id="formHeader">
-                        <h5 class="modal-title">Actualizar Tipo Inquilino</h5>
+                        <h5 class="modal-title" id="actualizarformLabel">Actualizar Inquilino</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <!-- Formulario de Update-->
-                    <form method="post" id="update_form">
+                    <!-- Formulario de Insert-->
+                    <form method="post" id="update-form">
                         <div class="modal-body" id="formModal">
                             <div class="row">
                                 <div class="col">
-                                    <label for="tipo_inquilino_update" class="form-label">Nombre de Tipo
-                                        Inquilino.</label>
+                                    <label for="inquilino" class="form-label">Nombre del tipo Inquilino</label>
                                     <input type="text" class="form-control" id="tipo_inquilino_update"
-                                        name="tipo_inquilino_update" required>
-                                    <p></p>
-                                    <div class="custom-control custom-switch">
-                                        <input type="checkbox" class="custom-control-input" id="visibilidad">
-                                        <label class="custom-control-label" for="visibilidad">Visible?</label>
-                                    </div>
+                                        name="tipo_inquilino_update" placeholder="Escriba el nombre del tipo inquilino"
+                                        required>
+                                </div>
+                                <div class="col">
+                                    <label for="" class="form-label">Visibilidad</label><br>
+                                    <label class="switch">
+                                        <input type="checkbox" id="visibilidad_update" name="visibilidad_update">
+                                        <span class="slider round"></span>
+                                    </label>
                                 </div>
                             </div>
                         </div>
                         <div class="modal-footer">
                             <div class="btn-group" role="group" id="opcionesModal">
-                                <button type="button" class="btn btn-primary" id="btnmenu"><a class="nav-link"><img
-                                            src="../../resources/img/iconos_formularios/editar_26px.png"></a></button>
+                                <button type="submit" class="btn btn-primary" id="btnmenu"><a class="nav-link"><img
+                                            src="../../resources/img/iconos_formularios/agregar_26px.png"></a></button>
                                 <button type="button" class="btn btn-primary" id="btnmenu" data-bs-dismiss="modal"><a
                                         class="nav-link"><img
-                                            src="../../resources/iconos_formularios/cerrar_26px.png"></a></button>
+                                            src="../../resources/img/iconos_formularios/cerrar_26px.png"></a></button>
                             </div>
                         </div>
                     </form>
@@ -218,7 +227,7 @@
                         Desea Eliminar la información de este registro?
                     </div>
                     <!-- Formulario de Update -->
-                    <form method="post" id="delete_form">
+                    <form method="post" id="delete-form">
                         <div class="modal-footer">
                             <button type="button" class="btn btn-primary" id="btnmenu"
                                 data-bs-dismiss="modal">Volver</button>
@@ -245,8 +254,8 @@
                 </div>
             </div>
         </div>
-        <!-- Modal de ELIMINAR REALIZADO -->
-        <div class="modal fade" id="proceso_exito" aria-hidden="true" tabindex="-1">
+        <!-- Modal de PROCESO REALIZADO -->
+        <div class="modal fade" id="proceso_exito" tabindex="-1">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header" id="formHeader">
@@ -277,7 +286,7 @@
         integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13"
         crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script type="module" src="../../controller/privado/tipo_inquilino.js"></script>
+    <script type="module" src="../../controller/privada/tipo_inquilino.js"></script>
 
 </body>
 

@@ -314,19 +314,21 @@
                             <div class="col-2">
                                 <img src="../../resources/img/iconos_navbar/gmail.png">
                             </div>
-                            <div class="col-10">
-                                <p>Ingrese su nombre:</p>
-                                <input type="email" class="form-control" id="exampleInputEmail1"
-                                    aria-describedby="emailHelp" placeholder="Ingrese su nombre">
-                            </div>
-                            <div class="col-12">
-                                <p>Ingrese su correo electronico:</p>
-                                <input type="email" class="form-control" id="exampleInputEmail1"
-                                    aria-describedby="emailHelp" placeholder="Ingrese el correo">
-                            </div>
-                            <div class="col-12 d-flex justify-content-center">
-                                <a class="btn">Enviar</a>
-                            </div>
+                            <form method="post" id="insert-modal">
+                                <div class="col-10">
+                                    <p>Ingrese su nombre:</p>
+                                    <input type="text" class="form-control" name="nombre_cliente"
+                                        placeholder="Ingrese su nombre">
+                                </div>
+                                <div class="col-12">
+                                    <p>Ingrese su correo electronico:</p>
+                                    <input type="email" class="form-control" name="correo"
+                                        placeholder="Ingrese el correo">
+                                </div>
+                                <div class="col-12 d-flex justify-content-center">
+                                    <button type="submit" class="btn">Enviar</button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>

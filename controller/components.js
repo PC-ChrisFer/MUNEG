@@ -34,7 +34,13 @@ export async function readDeletedRowns(ENDPOINT, fillrows) {
   let APIResponse = await APIConnection(APIEndpoint, GET_METHOD, null);
   console.log(APIResponse.dataset)
   if (APIResponse.status == API_SUCESS_REQUEST) {
-    fillrows(APIResponse.dataset)
+    // valida si el array tiene longitud
+    if(APIResponse.dataset.length == 0){
+      //@ts-ignore
+      $('#no_data').modal('show');
+    }else {
+      fillrows(APIResponse.dataset)
+    }
     return
   }
   // dado caso este if se ejecute con "return" hara que hasta este punto llegue el codigo

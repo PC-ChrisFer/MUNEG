@@ -114,26 +114,23 @@
                             <div class="col-12">
                             </div>
                             <div class="col-12">
-                                <form id="logInForm" method="post">
+                                <form id="update_form" method="post">
                                     <div id="Form_login">
-                                        <label for="exampleInputEmail1" class="form-label">
+                                        <label for="nombre_usuario" class="form-label">
                                             <h2>Usuario</h2>
                                         </label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1"
+                                        <input type="text" class="form-control" id="nombre_usuario"
                                             name="nombre_usuario" aria-describedby="emailHelp" size="40" maxlength="50"
                                             required>
-                                    </div>
-                                    <div id="Form_login">
-                                        <label for="exampleInputPassword1" class="form-label">
+                                        <label for="password_user" class="form-label">
                                             <h2>Contraseña</h2>
                                         </label>
-                                        <input type="password" class="form-control" id="exampleInputPassword1" size="40"
-                                            name="password" maxlength="150" required>
+                                        <input type="text" class="form-control" id="password_user" size="40"
+                                            name="password_user" maxlength="150" required>
                                     </div>
                                     <div class="col-12 d-flex justify-content-center">
                                         <button type="submit" class="btn btn-dark logIndButton" id="btnmenu"><a
-                                                type="submit">Iniciar
-                                                sesión</a></button>
+                                                type="submit">Editar Usuario </a></button>
                                     </div>
                                 </form>
                             </div>
@@ -174,6 +171,7 @@
         integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13"
         crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="module" src="../../controller/privada/editar_usuario.js"></script>
 </body>
 
 </html>

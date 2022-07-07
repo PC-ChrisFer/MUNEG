@@ -89,6 +89,11 @@ class reporte extends validator
         }
     }
 
+    public function setNoUpdatedImage($image) {
+        $this->imagen = $image;
+        return true;
+    }
+
     //Metodos para obtener los valores de los campos
 
     //Id - Serial
@@ -144,6 +149,19 @@ class reporte extends validator
         FROM public.reporte
         INNER JOIN public.inquilino
         ON inquilino.id_inquilino = reporte.id_inquilino AND estado = true';
+        $params = null;
+        return Database::getRows($sql, $params);
+    }
+
+
+    //Metodo para la busqueda READALL
+    //(sin parametros)
+    public function readAllDeleted()
+    {
+        $sql = 'SELECT id_reporte, asunto, descripcion, estado,reporte.id_inquilino, nombre, reporte.imagen
+        FROM public.reporte
+        INNER JOIN public.inquilino
+        ON inquilino.id_inquilino = reporte.id_inquilino AND estado = false';
         $params = null;
         return Database::getRows($sql, $params);
     }

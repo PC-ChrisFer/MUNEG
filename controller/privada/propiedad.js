@@ -19,6 +19,12 @@ const API_USUARIO = SERVER + "privada/usuario.php?action=";
 const API_MUNICIPIO = SERVER + "privada/municipios.php?action=";
 const API_EMPLEADO = SERVER + "privada/empleado.php?action=";
 const API_INQUILINOS = SERVER + "privada/inquilino.php?action=";
+<<<<<<< Updated upstream
+=======
+const API_REPORTES = SERVER + "privada/pdf.php?action=";
+const API_USUARIO = SERVER + 'privada/usuario.php?action=';
+
+>>>>>>> Stashed changes
 
 let datosPropiedad = {
   id_propiedad: "",
@@ -104,12 +110,174 @@ async function fillTipoAcabado() {
   console.log("all bad");
 }
 
+<<<<<<< Updated upstream
+=======
+window.abrirModalReportes = () => {
+  $("#reportes").modal("show");
+};
+
+window.generarReporteCasasMasVendidas_Alquiladas = async () => {
+  //contenido de la tabla 
+  let tableContent = ""
+  // enpoints que vas a utilizar
+  let APIEndpointObtenerUsuarioActual = API_USUARIO + 'getUser';
+  let enpointReporte = API_REPORTES + "propiedad_vendida_alquilada"
+  // instancia para ingresar parametros
+  let parameters = new FormData()
+  parameters.append("fecha_firma", getElementById("meses_año").value)
+
+  //Consultas que vas a hacer
+  let obtenerDatosParaReporte = await APIConnection(enpointReporte, POST_METHOD, parameters)
+  let ObtenerUsuarioActualResponse = await APIConnection(APIEndpointObtenerUsuarioActual, GET_METHOD, null);
+
+
+  obtenerDatosParaReporte.dataset.forEach(element => {
+    tableContent += `
+      <tr>
+      <td>${element.codigo}</td>
+      <td>${element.departamento}</td>
+      <td>${element.municipio}</td>
+      <td>${element.direccion}</td>
+      <td>${element.apellido}</td>
+      <td>${element.nombre}</td>
+      <td>${element.precio}</td>
+      </tr>
+    `
+  })
+
+  let generatedHTML = `<!doctype html>
+  <html lang="es">
+  
+  <head>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+      <style>
+          body {
+              display: flex;
+              justify-content: center;
+              text-align: center;
+  
+          }
+  
+          #tabla-header {
+              background-color: #007D84;
+              color: aliceblue;
+              padding: 10px;
+              font-size: 40px;
+              padding-bottom: 20px;
+              margin-bottom: 10px;
+  
+          }
+  
+          #tabla-footer {
+              background-color: #007D84;
+              color: aliceblue;
+              padding: 10px;
+              text-align: right;
+          }
+  
+          #tabla-header img {
+              max-width: 65px;
+          }
+  
+          /*Tabla de datos*/
+          #tabla_datos {
+              margin-top: 3%;
+              margin-bottom: 3%;
+              font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  
+          }
+  
+          /*Colores al encabezado*/
+          #tabla_datos th {
+              color: white;
+              background-color: #018080;
+          }
+  
+          /*Colores al cuerpo*/
+          #tabla_datos tr {
+              border: solid black 1px;
+              background-color: #A1A39F;
+          }
+  
+          #tabla_reporte {
+              width: 100%;
+              height: 60%;
+              margin-top: 20px;
+  
+          }
+  
+          #tabla_reporte th,
+          td {
+              text-align: left;
+              padding-left: 5px;
+          }
+  
+          .text-footer {
+              font-size: 10px;
+              margin-top: 10px;
+          }
+      </style>
+      <title>MUNEG S.A C.V</title>
+  
+  </head>
+  
+  <body>
+      <!-- Tabla de Datos -->
+      <div class="container-fluid" id="tabla_datos" style="width: 100%">
+          <div class="container-fluid" id="tabla-header">
+              <a>MUNEG</a>
+          </div>
+          <div class="container-fluid" id="tabla-header">
+              <a>PROPIEDADES  CON LOS PRECIOS MÁS BAJOS</a>
+          </div>
+          <table class="table table-responsive table-bordered" id="tabla_reporte">
+              <thead>
+                  <tr>
+                      <th>Creado por:</th>
+                       <td>${ObtenerUsuarioActualResponse.username}</td>
+                  </tr>
+                  <tr>
+                      <th>Fecha:</th>
+                      <td>${obtenerFechaActual()}</td>
+                  </tr>
+                  <tr>
+                      <th>Codigo</th>
+                      <th>Departamento</th>
+                      <th>Municipio</th>
+                      <th>Direccion</th>
+                      <th>Apellido</th>
+                       <th>Nombre</th>
+                       <th>Precio</th>
+
+                  </tr>
+              </thead>
+              <tbody>
+                  ${tableContent}
+              </tbody>
+          </table>
+          <div class="container-fluid" id="tabla-footer">
+              <a class="text-footer">MUNEG S.A C.V</a>
+          </div>
+      </div>
+      </main>
+  
+  </body>
+  
+  </html>`;
+
+
+  await generatePDF(generatedHTML, getElementById("meses_año").value + "mes" + ".pdf")
+}
+
+//Obtener los datos de combobox tipo municipio
+>>>>>>> Stashed changes
 async function fillMunicipio() {
   let APIEndpoint = API_MUNICIPIO + "readAll";
   console.log(APIEndpoint);
   let APIResponse = await APIConnection(APIEndpoint, GET_METHOD, null);
   if (APIResponse.status == API_SUCESS_REQUEST) {
     APIResponse.dataset.map((element) => {
+<<<<<<< Updated upstream
       //@ts-ignore
       getElementById(
         "cmb_municipio_update"
@@ -119,6 +287,11 @@ async function fillMunicipio() {
       getElementById(
         "cmb_municipio"
       ).innerHTML += `<option value="${element.id_municipio}" > ${element.municipio} </option>`;
+=======
+      getElementById("cmb_municipio_update").innerHTML += `<option value="${element.id_municipio}" > ${element.municipio} </option>`;
+      getElementById("reporte_municipio_combobox").innerHTML += `<option value="${element.id_municipio}" > ${element.municipio} </option>`;
+      getElementById("cmb_municipio").innerHTML += `<option value="${element.id_municipio}" > ${element.municipio} </option>`;
+>>>>>>> Stashed changes
     });
     return;
   }
@@ -271,10 +444,16 @@ window.guardarDatosDelete = (id_propiedad) => {
   $("#eliminar").modal("show");
 };
 
+<<<<<<< Updated upstream
 
 // Método que se ejecuta al enviar un formulario de busqueda
 //@ts-ignore
 getElementById("search-bar").addEventListener("submit", async (event) => {
+=======
+// EVENTO PARA READ
+// Método que se ejecuta al enviar un formulario de busquedagetElementById("search-bar")
+addEventListener("submit", async (event) => {
+>>>>>>> Stashed changes
   // Se evita recargar la página web después de enviar el formulario.
   event.preventDefault();
   // Se llama a la función que realiza la búsqueda. Se encuentra en el archivo components.js
@@ -335,3 +514,151 @@ getElementById("delete_form")?.addEventListener("submit", async (event) => {
   // @ts-ignore
   $("#agregar").modal("hide");
 });
+
+//Función para cargar el id para el delete
+window.generarReporteCasasMunicipios = async (id_propiedad) => {
+  let tableContenido = ""
+  // enpoints que vas a utilizar
+  let APIEndpointObtenerUsuarioActual = API_USUARIO + 'getUser';
+  let enpointReporte = API_REPORTES + "propiedad_municipio"
+  let parameters = new FormData()
+  parameters.append("id_municipio", getElementById("reporte_municipio_combobox").value)
+
+  //Consultas que vas a hacer
+  let obtenerDatosParaReporte = await APIConnection(enpointReporte, POST_METHOD, parameters)
+  let ObtenerUsuarioActualResponse = await APIConnection(APIEndpointObtenerUsuarioActual, GET_METHOD, null);
+
+  console.log(obtenerDatosParaReporte)
+
+  obtenerDatosParaReporte.dataset
+    tableContenido += `
+      <tr>
+      <td>${ obtenerDatosParaReporte.dataset.codigo}</td>
+      <td>${element.municipio}</td>
+      <td>${element.direccion}</td>
+      <td>${element.apellido}</td>
+      <td>${element.nombre}</td>
+      <td>${element.precio}</td>
+      </tr>
+    `
+
+  let generatedHTML = `<!doctype html>
+  <html lang="es">
+  
+  <head>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+      <style>
+          body {
+              display: flex;
+              justify-content: center;
+              text-align: center;
+  
+          }
+  
+          #tabla-header {
+              background-color: #007D84;
+              color: aliceblue;
+              padding: 10px;
+              font-size: 40px;
+              padding-bottom: 20px;
+              margin-bottom: 10px;
+  
+          }
+  
+          #tabla-footer {
+              background-color: #007D84;
+              color: aliceblue;
+              padding: 10px;
+              text-align: right;
+          }
+  
+          #tabla-header img {
+              max-width: 65px;
+          }
+  
+          /*Tabla de datos*/
+          #tabla_datos {
+              margin-top: 3%;
+              margin-bottom: 3%;
+              font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  
+          }
+  
+          /*Colores al encabezado*/
+          #tabla_datos th {
+              color: white;
+              background-color: #018080;
+          }
+  
+          /*Colores al cuerpo*/
+          #tabla_datos tr {
+              border: solid black 1px;
+              background-color: #A1A39F;
+          }
+  
+          #tabla_reporte {
+              width: 100%;
+              height: 60%;
+              margin-top: 20px;
+  
+          }
+  
+          #tabla_reporte th,
+          td {
+              text-align: left;
+              padding-left: 5px;
+          }
+  
+          .text-footer {
+              font-size: 10px;
+              margin-top: 10px;
+          }
+      </style>
+      <title>MUNEG S.A C.V</title>
+  
+  </head>
+  
+  <body>
+      <!-- Tabla de Datos -->
+      <div class="container-fluid" id="tabla_datos" style="width: 100%">
+          <div class="container-fluid" id="tabla-header">
+              <a>MUNEG</a>
+          </div>
+          <div class="container-fluid" id="tabla-header">
+              <a>PROPIEDADES  CON LOS PRECIOS MÁS BAJOS</a>
+          </div>
+          <table class="table table-responsive table-bordered" id="tabla_reporte">
+              <thead>
+                  <tr>
+                      <th>Creado por:</th>
+                       <td>${ObtenerUsuarioActualResponse.username}</td>
+                  </tr>
+                  <tr>
+                      <th>Fecha:</th>
+                      <td>${obtenerFechaActual()}</td>
+                  </tr>
+                  <tr>
+                      <th>Codigo</th>
+                      <th>Departamento</th>
+                      <th>Municipio</th>
+                      <th>Direccion</th>
+                      <th>Apellido</th>
+                       <th>Nombre</th>
+                       <th>Precio</th>
+
+                  </tr>
+              </thead>
+              <tbody>
+                  ${tableContenido}
+              </tbody>
+          </table>
+          <div class="container-fluid" id="tabla-footer">
+              <a class="text-footer">MUNEG S.A C.V</a>
+          </div>
+      </div>
+      </main>
+  
+  </body>
+  
+  </html>`;
+};

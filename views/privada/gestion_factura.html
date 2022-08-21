@@ -110,7 +110,11 @@
                 <button class="btn" type="submit"><img src="../../resources/img/iconos_navbar/search_24px.png"></button>
             </form>
         </div>
+<<<<<<< Updated upstream
 
+=======
+        <button onclick="abrirModalReportes()" class="btn" id="button_reportes">Gestion de reportes</button>
+>>>>>>> Stashed changes
         <!-- Botones de SCRUD, actualizar y agregar -->
         <div class="container-fluid" id="opciones">
             <div class="btn-group" role="group">
@@ -322,6 +326,78 @@
                 </div>
             </div>
         </div>
+<<<<<<< Updated upstream
+=======
+        <!-- Modal de PROCESO FALLIDO -->
+        <div class="modal fade" id="error_proceso" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header" id="formHeader">
+                        <h5 class="modal-title">Error en el proceso</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        No se pudo realizar el proceso debido a que hubo un error.
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary" data-bs-dismiss="modal" id="btnmenu">Aceptar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Modal de NO ENCONTRO DATA -->
+        <div class="modal fade" id="no_data" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header" id="formHeader">
+                        <h5 class="modal-title">No se han encontrado datos</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        No se han podido encontrar datos con estos parametros.
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary" data-bs-dismiss="modal" id="btnmenu">Aceptar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+         <!-- Modal de REPORTES -->
+         <div class="modal fade" id="reportes" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header" id="formHeader">
+                        <h5 class="modal-title" id="exampleModalToggleLabe3">Confirmar</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="reporte_casas_mas_vendidas_alquiladas">
+                        <p>
+                            Generar reporte de casa mas alquiladas y vendidas durante el mes
+                        </p>
+                        <select name="select" id="meses_año">
+                            <option value="01">Enero</option>
+                            <option value="02">Febrero</option>
+                            <option value="3">Marzo</option>
+                            <option value="04">Abril</option>
+                            <option value="05">Mayo</option>
+                            <option value="06">Junio</option>
+                            <option value="07">Julio</option>
+                            <option value="08">Agosto</option>
+                            <option value="09">Septiembre</option>
+                            <option value="10">Octubre</option>
+                            <option value="11">Noviembre</option>
+                            <option value="12">Diciembre</option>
+                            <option value="13">Diciembre</option>
+                            <option value="12">Diciembre</option>
+                        </select>
+                        <button onclick="generarReporteCasasMasVendidas_Alquiladas()">
+                            Generar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+>>>>>>> Stashed changes
     </main>
 
     <footer class="text-white  pt-5 pb-4" id="Segundofooter">

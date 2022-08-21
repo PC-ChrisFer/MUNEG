@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 // @ts-ignore
 //Importar las constantes y metodos de components.js y api_constant.js
 import { readRows, saveRow, searchRows, deleteRow } from "../components.js";
@@ -11,11 +12,21 @@ import {
   getElementById,
  validateExistenceOfUser,
 } from "../constants/functions.js";
+=======
+//@ts-check
+//Importar las constantes y metodos de components.js y api_constant.js
+import { readRows, saveRow, searchRows, deleteRow, obtenerFechaActual, generatePDF } from "../components.js";
+import { POST_METHOD, SERVER } from "../constants/api_constant.js";
+import { getElementById } from "../constants/functions.js";
+import { validateExistenceOfUser } from "../constants/validationUser.js";
+>>>>>>> Stashed changes
 import { API_CREATE, API_UPDATE, GET_METHOD } from "../constants/api_constant.js";
 import { APIConnection } from "../APIConnection.js";
 
 //Constantes que establece la comunicación entre la API y el controller utilizando parametros y rutas
 const API_FACTURA = SERVER + "privada/factura.php?action=";
+const API_REPORTES = SERVER + "privada/pdf.php?action=";
+const API_USUARIO = SERVER + 'privada/usuario.php?action=';
 
 // JSON EN EN CUAL SE GUARDA INFORMACION DE EL TIPO DE EMPLEADO, ESTA INFORMACION
 // SE ACTUALIZA CUANDO SE DA CLICK EN ELIMINAR O HACER UN UPDATE, CON LA FUNCION "guardarDatosTipoEmpleado"
@@ -92,6 +103,7 @@ export function fillTableFactura(dataset) {
                               <a  onclick="guardarDatosFacturaDelete(${row.id_factura})"  class="btn btn-primary"  
                               name="search">
                               <img src="../../resources/img/iconos_formularios/trash_can_35px.png"></a>
+                              <a onclick="generarReporteFactura(${row.id_factura})" class="btn" id="button_ver_mas">generar reporte</a>
                               </form>
                       </div>
                   </td>
@@ -119,6 +131,15 @@ window.guardarDatosFacturaUpdate = (id_factura, codigo_factura, descripcion, dir
     getElementById("venta_gravada_update").value = String(venta_gravada);
     getElementById("fecha_emision_update").value = String(fecha);
 
+<<<<<<< Updated upstream
+=======
+//Función para cargar el id para el delete
+window.guardarDatosDelete = (id_factura) => {
+  //Se transfieren los datos del boton al json global
+  datos_factura.id = id_factura;
+  //Se llama el modal de borra
+  $("#eliminar").modal("show");
+>>>>>>> Stashed changes
 };
 
 // FUNCION PARA GUARDAR LOS DATOS DEL TIPO DE PROPIETARIO
@@ -171,6 +192,7 @@ getElementById("update-form").addEventListener("submit", async (event) => {
 
 //EVENTO PARA DELETE
 getElementById("delete-form").addEventListener("submit", async (event) => {
+<<<<<<< Updated upstream
     event.preventDefault();
     // Se cierra el formulario de registro
     $("#eliminar").modal("hide");
@@ -183,3 +205,172 @@ getElementById("delete-form").addEventListener("submit", async (event) => {
     await deleteRow(API_FACTURA, parameters, fillTableFactura);
 });
   
+=======
+  // Se evita recargar la página web después de enviar el formulario.
+  event.preventDefault();
+  // Se cierra el formulario de registro
+  $("#eliminar").modal("hide");
+  // CONVIRTIENDO EL JSON A FORMDATA
+  let parameters = new FormData();
+  // Se adhieren datos al arreglo que se envia al update
+  parameters.append("id", datos_factura.id);
+  // Se llama a la función que realiza la borrar. Se encuentra en el archivo components.js
+  await deleteRow(API_FACTURA, parameters, fillTableFactura);
+});
+
+//CREACIÓN DEL PDF
+
+window.generarReporteFactura = async (id_factura) => {
+  console.log(id_factura)
+  let tableContent = ""
+  let apiEndpoint = API_REPORTES + "factura"
+  let APIEndpointObtenerUsuarioActual = API_USUARIO + 'getUser';
+
+  let parameters = new FormData()
+  parameters.append("id_factura", id_factura)
+  let obetenerFacturaRespuesta = await APIConnection(apiEndpoint, POST_METHOD, parameters)
+  console.log("AAAA")
+  console.log(obetenerFacturaRespuesta)
+  let ObtenerUsuarioActualResponse = await APIConnection(APIEndpointObtenerUsuarioActual, GET_METHOD, null);
+
+
+  obetenerFacturaRespuesta.dataset.forEach(element => {
+    tableContent += `
+          <tr>
+      <td>${element.codigo_factura}</td>
+       <td>${element.descripcion}</td>
+      <td>${element.subtotal}</td>
+      <td>${element.IVA}</td>
+      <td>${element.venta_gravada}</td>
+      <td>${element.fecha}</td>
+      <td>${element.nombre}</td>
+      <td>${element.apellido}</td>
+      </tr>
+    `
+  })
+
+  let generatedHTML = `<!doctype html>
+  <html lang="es">
+  
+  <head>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+      <style>
+          body {
+              display: flex;
+              justify-content: center;
+              text-align: center;
+  
+          }
+  
+          #tabla-header {
+              background-color: #007D84;
+              color: aliceblue;
+              padding: 10px;
+              font-size: 40px;
+              padding-bottom: 20px;
+              margin-bottom: 10px;
+  
+          }
+  
+          #tabla-footer {
+              background-color: #007D84;
+              color: aliceblue;
+              padding: 10px;
+              text-align: right;
+          }
+  
+          #tabla-header img {
+              max-width: 65px;
+          }
+  
+          /*Tabla de datos*/
+          #tabla_datos {
+              margin-top: 3%;
+              margin-bottom: 3%;
+              font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  
+          }
+  
+          /*Colores al encabezado*/
+          #tabla_datos th {
+              color: white;
+              background-color: #018080;
+          }
+  
+          /*Colores al cuerpo*/
+          #tabla_datos tr {
+              border: solid black 1px;
+              background-color: #A1A39F;
+          }
+  
+          #tabla_reporte {
+              width: 100%;
+              height: 60%;
+              margin-top: 20px;
+  
+          }
+  
+          #tabla_reporte th,
+          td {
+              text-align: left;
+              padding-left: 5px;
+          }
+  
+          .text-footer {
+              font-size: 10px;
+              margin-top: 10px;
+          }
+      </style>
+      <title>MUNEG S.A C.V</title>
+  
+  </head>
+  
+  <body>
+      <!-- Tabla de Datos -->
+      <div class="container-fluid" id="tabla_datos" style="width: 100%">
+          <div class="container-fluid" id="tabla-header">
+              <a>MUNEG</a>
+          </div>
+          <div class="container-fluid" id="tabla-header">
+              <a>FACTURA</a>
+          </div>
+          <table class="table table-responsive table-bordered" id="tabla_reporte">
+              <thead>
+                  <tr>
+                      <th>Creado por:</th>
+                       <td>${ObtenerUsuarioActualResponse.username}</td>
+                  </tr>
+                  <tr>
+                      <th>Fecha:</th>
+                      <td>${obtenerFechaActual()}</td>
+                  </tr>
+                  <tr>
+                  <th>Codigo</th>
+                    <th>Descripción</th>
+                    <th>SubTotal</th>
+                    <th>IVA</th>
+                    <th>Venta gravada</th>
+                    <th>Fecha</th>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  ${tableContent}
+              </tbody>
+          </table>
+          <div class="container-fluid" id="tabla-footer">
+              <a class="text-footer">MUNEG S.A C.V</a>
+          </div>
+      </div>
+      </main>
+  
+  </body>
+  
+  </html>`;
+  await generatePDF(generatedHTML, "factura_" + id_factura + ".pdf")
+
+  window.open("../../api/reporte/" + "factura_" + id_factura + ".pdf");
+
+}
+>>>>>>> Stashed changes

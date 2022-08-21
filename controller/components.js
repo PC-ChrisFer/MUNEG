@@ -126,3 +126,61 @@ export async function unDeleteRow(ENDPOINT, parameters, fillrows) {
   //@ts-ignore
   $('#error_proceso').modal('show');
 }
+<<<<<<< Updated upstream
+=======
+
+// SE TIENE QUE PASAR EL HTML QUE SE QUIERE IMPRIMIR A PDF
+export async function generatePDF(stingHTML, nombreReporte) {
+  let APIEndpointCreatePDF = SERVER + "privada/pdf.php?action=create_pdf";
+
+  // DOCUMENTACION DE OPCIONES: https://ekoopmans.github.io/html2pdf.js/
+  // OPCIONES PARA LA GENERACION DE EL PDF
+  var opt = {
+    //NOMBRE REPORTE
+    filename: "reporte",
+    //EXTENCION
+    image: { type: "jpeg", quality: 1 },
+    // CONFIGURACIONES VISUALES
+    jsPDF: { format: "letter", orientation: "portrait" },
+    margin:[0,10]
+  };
+
+  // OBTENIENDO BUFFER QUE RETORNA EL METODO
+  let buffer = await html2pdf()
+    .set(opt)
+    .from(stingHTML)
+    .toPdf()
+    .get("pdf")
+    .then(function (pdf) {
+      var totalPages = pdf.internal.getNumberOfPages();
+      for (var i = 1; i <= pdf.internal.getNumberOfPages(); i++) {
+        pdf.setPage(i);
+        pdf.setFontSize(10);
+        pdf.setTextColor(0);
+        pdf.text(
+          pdf.internal.pageSize.getWidth() - 120,
+          pdf.internal.pageSize.getHeight() - 5,
+          "Page number " + i
+        );
+      }
+    })
+    .outputPdf("arraybuffer");
+
+  // CONVIRTIENDO "BUFFER" A "BLOB"
+  const blob = new Blob([buffer]);
+  let parameters = new FormData();
+
+  parameters.append("pdf", blob);
+  parameters.append("nombreReporte", nombreReporte);
+
+  await APIConnection(APIEndpointCreatePDF, POST_METHOD, parameters);
+}
+
+// OBTIENE LA FECHA DE HOY
+export function obtenerFechaActual() {
+  const tiempoTranscurrido = Date.now();
+  const hoy = new Date(tiempoTranscurrido);
+
+  return hoy.toLocaleDateString();
+}
+>>>>>>> Stashed changes

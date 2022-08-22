@@ -164,37 +164,19 @@ class Reportes_PDF extends Validator
         return Database::getRows($sql, $params);
     }
 
-    //PROPIEDADES CLASIFICADAS POR SU TIPO DE PROPIEDAD (id_tipo_propiedad)
-    public function readPropiedadTipoPropiedad()
-    {
-        $sql = 'SELECT direccion, codigo, precio, municipio, departamento, inquilino.id_inquilino, tipo_propiedad.nombre_tipo, nombre, apellido FROM propiedad 
-        INNER JOIN inquilino
-        ON propiedad.id_inquilino = inquilino.id_inquilino
-        INNER JOIN municipio
-        ON propiedad.id_municipio = municipio.id_municipio
-        INNER JOIN departamento
-        ON municipio.id_departamento = departamento.id_departamento
-        INNER JOIN tipo_propiedad
-        ON propiedad.id_tipo_propiedad = tipo_propiedad.id_tipo_propiedad
-        WHERE tipo_propiedad.id_tipo_propiedad = ?';
-        $params = array($this->id_tipo_propiedad);
-        return Database::getRows($sql, $params);
-    }
 
     //PROPIEDADES CLASIFICADAS POR EL DEPARTAMENTO EN EL QUE SE ENCUENTRA (id_departamento)
-    public function readPropiedadMunicipio()
-    {
+        public function readPropiedadMunicipio()
+        {
         $sql = 'SELECT direccion, codigo, precio, municipio, inquilino.id_inquilino, nombre, apellido FROM propiedad 
         INNER JOIN inquilino
-        ON propiedad.id_inquilino = inquilino.id_inquilino
+             ON propiedad.id_inquilino = inquilino.id_inquilino
         INNER JOIN municipio
-        ON propiedad.id_municipio = municipio.id_municipio
-        INNER JOIN tipo_propiedad
-        ON propiedad.id_tipo_propiedad = tipo_propiedad.id_tipo_propiedad
-        WHERE tipo_propiedad.id_tipo_propiedad = ?';
+        ON propiedad.id_municipio = municipio.id_municipio 
+        WHERE municipio.id_municipio = ?';
         $params = array($this->id_municipio);
         return Database::getRows($sql, $params);
-    }
+        }
 
     //FACTURA RECIENTMENTE EFECTUADA
     public function readFactura()
@@ -206,8 +188,22 @@ class Reportes_PDF extends Validator
         ORDER BY id_factura DESC
         LIMIT 1';
         $params = array($this->id_factura);
-        return Database::getRows($sql, $params);
+            return Database::getRows($sql, $params);
     }
+
+    //FACTURAS EFECTUADAS DURANTE CIERTO MES (fecha_factura)
+    public function readFacturaMes()
+    {
+        $sql = 'SELECT codigo_factura, descripcion, subtotal, "IVA", venta_gravada, fecha, nombre, apellido FROM factura
+        INNER JOIN inquilino
+        ON inquilino.id_inquilino = factura.id_inquilino
+        WHERE EXTRACT(MONTH FROM fecha) = ?
+        ORDER BY id_factura DESC';
+        $params = array($this->fecha_factura);
+        return Database::getRow($sql, $params);
+    }
+
+
 
     //FACTURAS EFECTUADAS DURANTE CIERTO MES (fecha_factura)
     public function readFacturaMes()

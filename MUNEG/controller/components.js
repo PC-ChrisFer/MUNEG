@@ -10,7 +10,8 @@ import {
   API_DELETE,
   API_READONE,
   API_UNDELETE,
-  API_READALL_DELETED
+  API_READALL_DELETED,
+  SERVER
 } from "./constants/api_constant.js";
 import { getElementById } from "./constants/functions.js";
 
@@ -24,7 +25,8 @@ export async function readRows(ENDPOINT, fillrows) {
     fillrows(APIResponse.dataset)
     return
   }
-  // dado caso este if se ejecute con "return" hara que hasta este punto llegue el codigo
+  // dado caso este if se ejecute con "return" hara que hasta
+  // este punto llegue el codigo
 }
 
 // LEER REGISTROS ELIMINADOS
@@ -34,7 +36,13 @@ export async function readDeletedRowns(ENDPOINT, fillrows) {
   let APIResponse = await APIConnection(APIEndpoint, GET_METHOD, null);
   console.log(APIResponse.dataset)
   if (APIResponse.status == API_SUCESS_REQUEST) {
-    fillrows(APIResponse.dataset)
+    // valida si el array tiene longitud
+    if(APIResponse.dataset.length == 0){
+      //@ts-ignore
+      $('#no_data').modal('show');
+    }else {
+      fillrows(APIResponse.dataset)
+    }
     return
   }
   // dado caso este if se ejecute con "return" hara que hasta este punto llegue el codigo
@@ -125,4 +133,59 @@ export async function unDeleteRow(ENDPOINT, parameters, fillrows) {
   //En caso de fracaso se abrira un modal de error
   //@ts-ignore
   $('#error_proceso').modal('show');
+}
+
+// SE TIENE QUE PASAR EL HTML QUE SE QUIERE IMPRIMIR A PDF
+export async function generatePDF(stingHTML, nombreReporte) {
+  let APIEndpointCreatePDF = SERVER + "privada/pdf.php?action=create_pdf";
+
+  // DOCUMENTACION DE OPCIONES: https://ekoopmans.github.io/html2pdf.js/
+  // OPCIONES PARA LA GENERACION DE EL PDF
+  var opt = {
+    //NOMBRE REPORTE
+    filename: "reporte",
+    //EXTENCION
+    image: { type: "jpeg", quality: 1 },
+    // CONFIGURACIONES VISUALES
+    jsPDF: { format: "letter", orientation: "portrait" },
+    margin:[0,15 ]
+  };
+
+  // OBTENIENDO BUFFER QUE RETORNA EL METODO
+  let buffer = await html2pdf()
+    .set(opt)
+    .from(stingHTML)
+    .toPdf()
+    .get("pdf")
+    .then(function (pdf) {
+      var totalPages = pdf.internal.getNumberOfPages();
+      for (var i = 1; i <= pdf.internal.getNumberOfPages(); i++) {
+        pdf.setPage(i);
+        pdf.setFontSize(10);
+        pdf.setTextColor(0);
+        pdf.text(
+          pdf.internal.pageSize.getWidth() - 120,
+          pdf.internal.pageSize.getHeight() - 5,
+          "Page number " + i
+        );
+      }
+    })
+    .outputPdf("arraybuffer");
+
+  // CONVIRTIENDO "BUFFER" A "BLOB"
+  const blob = new Blob([buffer]);
+  let parameters = new FormData();
+
+  parameters.append("pdf", blob);
+  parameters.append("nombreReporte", nombreReporte);
+
+  await APIConnection(APIEndpointCreatePDF, POST_METHOD, parameters);
+}
+
+// OBTIENE LA FECHA DE HOY
+export function obtenerFechaActual() {
+  const tiempoTranscurrido = Date.now();
+  const hoy = new Date(tiempoTranscurrido);
+
+  return hoy.toLocaleDateString();
 }

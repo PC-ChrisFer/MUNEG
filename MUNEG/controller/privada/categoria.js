@@ -83,6 +83,7 @@ window.leerDatosEliminados = async () => {
     : await readRows(API_CATEGORIA, fillTableCategoria);
 };
 
+
 // Método que se ejecuta al enviar un formulario de busqueda
 getElementById("search-bar").addEventListener("submit", async (event) => {
   // Se evita recargar la página web después de enviar el formulario.

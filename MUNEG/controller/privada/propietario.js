@@ -1,8 +1,9 @@
 // @ts-ignore
 //Importar las constantes y metodos de components.js y api_constant.js
-import { readRows, saveRow, searchRows, deleteRow } from "../components.js";
+import { readRows, saveRow, searchRows, deleteRow, obtenerFechaActual, generatePDF } from "../components.js";
 import {
   INSERT_MODAL,
+  POST_METHOD,
   SEARCH_BAR,
   SERVER,
   SUBMIT,
@@ -16,6 +17,8 @@ import { APIConnection } from "../APIConnection.js";
 
 //Constantes que establece la comunicación entre la API y el controller utilizando parametros y rutas
 const API_PROPIETARIO = SERVER + "privada/propietario.php?action=";
+const API_REPORTES = SERVER + "privada/pdf.php?action=";
+const API_USUARIO = SERVER + 'privada/usuario.php?action=';
 
 // JSON EN EN CUAL SE GUARDA INFORMACION DE EL TIPO DE EMPLEADO, ESTA INFORMACION
 // SE ACTUALIZA CUANDO SE DA CLICK EN ELIMINAR O HACER UN UPDATE, CON LA FUNCION "guardarDatosTipoEmpleado"
@@ -185,3 +188,152 @@ getElementById("delete_form").addEventListener("submit", async (event) => {
   //API REQUEST
   await deleteRow(API_PROPIETARIO, parameters, fillTablePropietario);
 });
+
+
+window.abrirModalReportes = () => {
+  $("#reportes").modal("show");
+};
+
+//CREACIÓN DE PDF
+window.createPropietarioPDF = async () => {
+  let APIEnpointReadPropietario = API_REPORTES + "propietario_tipo_propietario";
+  let APIEndpointObtenerUsuarioActual = API_USUARIO + 'getUser';
+  let parameters = new FormData()
+  parameters.append("id_tipo_propietario", getElementById("id_tipo_propietario").value)
+
+  let readPropietarioResponse = await APIConnection(APIEnpointReadPropietario, POST_METHOD, parameters);
+  let ObtenerUsuarioActualResponse = await APIConnection(APIEndpointObtenerUsuarioActual, GET_METHOD, null);
+
+  let tableContent = ``;
+
+  readPropietarioResponse.dataset.forEach((element) => {
+      tableContent += `
+  <tr>
+  <td>${element.nombre_tipo}</td>
+  <td>${element.nombre} ${element.apellido}</td>
+  <td>${element.correo_electronico}</td>
+  <td>${element.fecha_nacimiento}</td>
+  <tr>
+  `;
+  });
+
+  let generatedHTML = `<!doctype html>
+  <html lang="es">
+  
+  <head>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+      <style>
+          body {
+              display: flex;
+              justify-content: center;
+              text-align: center;
+  
+          }
+  
+          #tabla-header {
+              background-color: #007D84;
+              color: aliceblue;
+              padding: 10px;
+              font-size: 40px;
+              padding-bottom: 20px;
+              margin-bottom: 10px;
+  
+          }
+  
+          #tabla-footer {
+              background-color: #007D84;
+              color: aliceblue;
+              padding: 10px;
+              text-align: right;
+          }
+  
+          #tabla-header img {
+              max-width: 65px;
+          }
+  
+          /*Tabla de datos*/
+          #tabla_datos {
+              margin-top: 3%;
+              margin-bottom: 3%;
+              font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  
+          }
+  
+          /*Colores al encabezado*/
+          #tabla_datos th {
+              color: white;
+              background-color: #018080;
+          }
+  
+          /*Colores al cuerpo*/
+          #tabla_datos tr {
+              border: solid black 1px;
+              background-color: #A1A39F;
+          }
+  
+          #tabla_reporte {
+              width: 100%;
+              height: 60%;
+              margin-top: 20px;
+              
+  
+          }
+  
+          #tabla_reporte th,
+          td {
+              text-align: left;
+              padding-left: 5px;
+          }
+  
+          .text-footer {
+              font-size: 10px;
+              margin-top: 10px;
+          }
+      </style>
+      <title>MUNEG S.A C.V</title>
+  
+  </head>
+  
+  <body>
+      <!-- Tabla de Datos -->
+      <div class="container-fluid" id="tabla_datos" style="width: 100%">
+          <div class="container-fluid" id="tabla-header">
+              <a>MUNEG</a>
+          </div>
+          <div class="container-fluid" id="tabla-header">
+              <a>PROPIETARIOS SEGÚN EL TIPO DE PROPIETARIO</a>
+          </div>
+          <table class="table table-responsive table-bordered" id="tabla_reporte">
+              <thead>
+                  <tr>
+                      <th>Creado por:</th>
+                      <td>${ObtenerUsuarioActualResponse.username}</td>
+                  </tr>
+                  <tr>
+                      <th>Fecha:</th>
+                      <td>${obtenerFechaActual()}</td>
+                  </tr>
+                  <tr>
+                      <th>Tipo de Propietario</th>
+                      <th>Nombre del Propietario</th>
+                      <th>Correo Electrónico</th>
+                      <th>Fecha de Nacimiento</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  ${tableContent}
+              </tbody>
+          </table>
+          <div class="container-fluid" id="tabla-footer">
+              <a class="text-footer">MUNEG S.A C.V</a>
+          </div>
+      </div>
+      </main>
+  
+  </body>
+  
+  </html>`;
+  let res = await generatePDF(generatedHTML, "propiedades_valiosas_" + ".pdf")
+
+  window.open("../../api/reporte/" + "propiedades_valiosas_" + ".pdf");
+}

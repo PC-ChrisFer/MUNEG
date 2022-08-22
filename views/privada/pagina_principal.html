@@ -9,15 +9,26 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <!-- Bootstrap CSS -->
+<<<<<<< Updated upstream
   <link rel="stylesheet" href="../css/bootstrap.min.css">
   <link rel="stylesheet" href="../../resources/css/estilo_privado.css">
   <title>MUNEG</title>
+=======
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous" />
+  <link rel="stylesheet" href="../../resources/css/estilo_privado.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
+  <title>MUNEG S.A C.V</title>
+>>>>>>> Stashed changes
 </head>
 
 <!-- empezando body -->
 
 <body>
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
   <!-- Header Privado -->
   <header>
     <nav class="navbar fixed-top navbar-light " id="navcolor">
@@ -29,6 +40,12 @@
           <map name="home">
             <area shape="rect" coords="0,0,311,98" href="pagina_principal.html">
           </map>
+<<<<<<< Updated upstream
+=======
+          <button onclick="logOut()" type="submit" id="cerrar_sesion" class="btn" aria-expanded="false">
+            <h4>CERRAR SESIÓN</h4>
+          </button>
+>>>>>>> Stashed changes
         </div>
         <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
           aria-controls="offcanvasNavbar">
@@ -39,6 +56,7 @@
           <div class="offcanvas-header">
             <h5 class="offcanvas-title" id="offcanvasNavbarLabel">MENU</h5>
             <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+<<<<<<< Updated upstream
           </div>
           <!-- Opciones del menu, privada -->
           <div class="offcanvas-body" id="fondo">
@@ -125,6 +143,71 @@
         </div>
       </div>
     </nav>
+=======
+          </div>
+          <!-- Opciones del menu, privada -->
+          <div class="offcanvas-body" id="fondo">
+            <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+              <li class="nav-item">
+                <a class="nav-link" href="gestion_categoria.html"><img
+                    src="../../resources/img/iconos_navbar/category_30px.png">Gestion
+                  Categoria</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="gestion_propiedad.html"><img
+                    src="../../resources/img/iconos_navbar/rent_30px.png">Gestion Propiedad</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="gestion_propietario.html"><img
+                    src="../../resources/img/iconos_navbar/person_30px.png">Gestion
+                  Propietario</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="gestion_inquilino.html"><img
+                    src="../../resources/img/iconos_navbar/person_30px.png">Gestion
+                  Inquilino</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="gestion_empleado.html"><img
+                    src="../../resources/img/iconos_navbar/person_30px.png">Gestion Empleado</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="gestion_usuario.html"><img
+                    src="../../resources/img/iconos_navbar/person_30px.png">Gestion Usuario</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="gestion_contrato.html"><img
+                    src="../../resources/img/iconos_navbar/contract_30px.png">Gestion
+                  Contrato</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="gestion_factura.html"><img
+                    src="../../resources/img/iconos_navbar/bill_30px.png">Gestion
+                  Factura</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="gestion_reportes.html"><img
+                    src="../../resources/img/iconos_navbar/system_report_30px.png">Gestion
+                  Reportes</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="gestion_tipo_acabado.html"><img
+                    src="../../resources/img/iconos_navbar/modern_art_30px.png">Gestion
+                  de Tipo Acabado</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="editar_perfil.html"><img
+                    src="../../resources/img/iconos_navbar/settings_30px.png">Editar Usuario</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </nav>
+    <div class="container-fluid" id="encabezado">
+      <h1>GESTIÓN DE TIPO CATEGORIA</h1>
+    </div>
+>>>>>>> Stashed changes
   </header>
 
   <!-- imagen de Bienvenida -->
@@ -136,6 +219,7 @@
     </div>
   </div>
 
+<<<<<<< Updated upstream
   <div class="principalContainer">
     <!-- ultimo reporte -->
     <div>
@@ -159,7 +243,109 @@
           <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sunt fuga quisquam ut, nesciunt amet praesentium
             sint commodi doloribus, molestias, distinctio unde deleniti vel porro numquam necessitatibus corporis
             deserunt voluptas quo.</p>
+=======
+    <div class="principalContainer">
+      <div class="container-fluid" id="encabezado">
+        <h1>GRAFICOS</h1>
+      </div>
+      <!-- cards graficos -->
+      <div class="container">
+        <div class="row row-cols-1 row-cols-md-2 g-4">
+          <div class="col">
+            <div class="card">
+              <div class="card-body">
+                <canvas id="chartInquilino" style="background-color: white; border-radius: 20px"></canvas>
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="card">
+              <div class="card-body">
+                <canvas id="chartPlantasPropiedad" style="background-color: white; border-radius: 20px"></canvas>
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="card">
+              <div class="card-body">
+                <canvas id="chartTopPropietario" style="background-color: white; border-radius: 20px"></canvas>
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="card">
+              <div class="card-body">
+                <canvas id="chartTopDepartamento" style="background-color: white; border-radius: 20px"></canvas>
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
+      <!-- cards graficos -->
+      <div class="container">
+        <div class="row row-cols-1 row-cols-md-2 g-4">
+          <div class="col">
+            <div class="card">
+              <div class="card-body">
+                <canvas id="chartPropiedadVenta" style="background-color: white; border-radius: 20px"></canvas>
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="card">
+              <div class="card-body">
+                <canvas id="chartContratosGenerados" style="background-color: white; border-radius: 20px"></canvas>
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="card">
+              <div class="card-body">
+                <canvas id="chartTopEmpleado" style="background-color: white; border-radius: 20px"></canvas>
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="card">
+              <div class="card-body">
+                <canvas id="chartTopEmpleadoEstado" style="background-color: white; border-radius: 20px"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- ultimo reporte -->
+      <div>
+        <h2 class="titleInformation">ULTIMO REPORTE</h2>
+
+        <!-- contenedor de reporte -->
+        <div class="row justify-content-center containerInformation" id="container_pag_principal" style="width: 75%">
+          <!-- contenedor de imagen -->
+          <div class="col-4 informationContainers image">
+            <img src="../../resources/img/pagina_principal/casaVendida.jpeg" alt="principal house image" width="150%"
+              height="150%" />
+          </div>
+          <!-- contenedor de informacion -->
+          <div class="col-4 informationContainers detailsContainer">
+            <h3>Parque Los Chorros, CA 1W, San Salvador</h3>
+            <h3>Hecho por</h3>
+            <p>JOSE ALBERTO ROSALES GOMEZ</p>
+            <h3>Motivo</h3>
+            <p>Daño de propiedad</p>
+            <h3>Descripcion</h3>
+            <p>
+              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sunt
+              fuga quisquam ut, nesciunt amet praesentium sint commodi
+              doloribus, molestias, distinctio unde deleniti vel porro numquam
+              necessitatibus corporis deserunt voluptas quo.
+            </p>
+          </div>
+>>>>>>> Stashed changes
+        </div>
+        <!-- Importación de librería para generar gráficos en tiempo real. Para más información https://www.chartjs.org/ -->
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js"></script>
       </div>
 
     </div>

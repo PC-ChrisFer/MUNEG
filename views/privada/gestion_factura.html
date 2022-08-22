@@ -141,8 +141,15 @@
         </div>
 
         <!-- Botones de SCRUD, actualizar y agregar -->
+<<<<<<< Updated upstream
         <div class="container-fluid" id="opciones">
             <div class="btn-group" role="group" >
+=======
+        <div class="container-fluid d-flex justify-content-between" id="opciones">
+            <button type="button" class="btn btn-primary" id="button_ver_mas" data-bs-toggle="modal"
+            data-bs-target="#generar_grafico">Generar Gráfico</button>
+            <div class="btn-group" role="group">
+>>>>>>> Stashed changes
                 <button type="button" class="btn btn-primary" id="btnmenu" data-bs-toggle="modal"
                     data-bs-target="#agregar"><a class="nav-link" href="#"><img
                             src="../../resources/img/iconos_formularios/agregar_26px.png"></a></button>
@@ -393,6 +400,38 @@
                 </div>
             </div>
         </div>
+        <!-- Modal de GENERAR GRAFICO -->
+        <div class="modal fade" id="generar_grafico" tabindex="-1">
+            <div class="modal-dialog modal-lg modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header" id="formHeader">
+                        <h5 class="modal-title">Generar Gráfico</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <p>Generar Grafico: "Cantidad de Facturas emitidas a un inquilino"</p>
+                            <div class="col-8">
+                                <label for="departamento" class="form-label">Nombre del Propietario:</label>
+                            </div>
+                            <div class="col-4">
+                                <select onchange="selectInquilino('cmb_inquilino')" id="cmb_inquilino"
+                                    name="id_inquilino" class="form-control">
+                                    <option value="0" selected>Ninguno</option>
+                                </select>
+
+                                <button onclick="generarGrafico()" class="btn btn-primary"
+                                    id="button_ver_mas">GENERAR</button>
+
+                            </div>
+                        </div>
+                        <!-- Grafico Dinamico -->
+                        <div id="graph_contrato">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <!-- Modal de ELIMINAR REALIZADO -->
         <div class="modal fade" id="eliminado" tabindex="-1">
             <div class="modal-dialog modal-dialog-centered">
@@ -427,6 +466,45 @@
                 </div>
             </div>
         </div>
+<<<<<<< Updated upstream
+=======
+        <!-- Modal de PROCESO FALLIDO -->
+        <div class="modal fade" id="error_proceso" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header" id="formHeader">
+                        <h5 class="modal-title">Error en el proceso</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        No se pudo realizar el proceso debido a que hubo un error.
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary" data-bs-dismiss="modal" id="btnmenu">Aceptar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Modal de NO ENCONTRO DATA -->
+        <div class="modal fade" id="no_data" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header" id="formHeader">
+                        <h5 class="modal-title">No se han encontrado datos</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        No se han podido encontrar datos con estos parametros.
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary" data-bs-dismiss="modal" id="btnmenu">Aceptar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Importación de librería para generar gráficos en tiempo real. Para más información https://www.chartjs.org/ -->
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js"></script>
+>>>>>>> Stashed changes
     </main>
 
     <footer class="text-white  pt-5 pb-4" id="Segundofooter">
@@ -442,7 +520,12 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"
         integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13"
         crossorigin="anonymous"></script>
+<<<<<<< Updated upstream
 
+=======
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="module" src="../../controller/privada/factura.js"></script>
+>>>>>>> Stashed changes
 </body>
 
 <footer>

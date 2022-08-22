@@ -24,6 +24,13 @@ class propiedad extends validator
     private $id_tipo_acabado = null;
     private $id_departamento = null;
     private $categoria = null;
+<<<<<<< Updated upstream
+=======
+    private $imagen = null;
+    private $id_estado_propiedad = null;
+    private $id_propietario = null;
+    private $visibilidad = null;
+>>>>>>> Stashed changes
 
     //Metodos para setear los valores de los campos
     //Id
@@ -136,6 +143,13 @@ class propiedad extends validator
         return true;
     }
 
+    //Id de Departamento
+    public function setEstadoPropiedad($value)
+    {
+        $this->id_estado_propiedad = $value;
+        return true;
+    }
+
     //Id de Categoria
     public function setCategoria($value)
     {
@@ -143,6 +157,35 @@ class propiedad extends validator
         return true;
     }
 
+<<<<<<< Updated upstream
+=======
+    //Visibilidad
+    public function setVisibilidad($value)
+    {
+        $this->visibilidad = $value;
+        return true;
+    }
+
+
+    //Id de Propietario
+    public function setPropietario($value)
+    {
+        $this->id_propietario = $value;
+        return true;
+    }
+
+    //Imagen del empleado - varying char
+    public function setImage($file)
+    {
+        if ($this->validateImageFile($file, 5000000, 5000000)) {
+            $this->imagen = $this->getFileName();
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+>>>>>>> Stashed changes
     //Metodos para obtener los valores de los campos
 
     //Id
@@ -230,6 +273,25 @@ class propiedad extends validator
     {
         return $this->id_tipo_acabado;
     }
+<<<<<<< Updated upstream
+=======
+    //Id Tipo Acabado
+    public function getEstadoPropiedad($value)
+    {
+        return $this->id_estado_propiedad;
+    }    
+    //Id Tipo Acabado
+    public function getVisibilidad($value)
+    {
+        return $this->visibilidad;
+    }
+    //Id Tipo Acabado
+    public function getPropietario($value)
+    {
+        return $this->id_propietario;
+    }
+
+>>>>>>> Stashed changes
 
     //Metodos para realizar las operaciones SCRUD(Search, Create, Read, Update, Delete)
 
@@ -291,9 +353,16 @@ class propiedad extends validator
     //Metodo para la inserción INSERT
     public function createRow()
     {
+<<<<<<< Updated upstream
         $sql = 'INSERT INTO public.propiedad  (direccion, area_propiedad, area_contruccion, codigo, precio, alquiler, habitaciones, plantas, sanitario, espacio_parqueo, descripcion, id_municipio, id_tipo_propiedad, id_empleado, id_inquilino,  id_tipo_acabado) 
         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
         $params = array($this->direccion, $this->area_propiedad, $this->area_contruccion, $this->codigo, $this->precio, $this->alquiler, $this->habitaciones, $this->plantas, $this->sanitario, $this->espacio_parqueo, $this->descripcion, $this->id_municipio, $this->it_tipo_propiedad, $this->id_empleado, $this->id_inquilino, $this->id_tipo_acabado);
+=======
+        $sql = 'INSERT INTO public.propiedad (direccion, area_propiedad, area_contruccion, codigo, precio, alquiler, habitaciones, plantas, sanitario, espacio_parqueo, descripcion, id_municipio, id_tipo_propiedad, id_empleado, id_inquilino, id_tipo_acabado, imagen, id_estado_propiedad, visibilidad) 
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+        $params = array($this->direccion, $this->area_propiedad, $this->area_contruccion, $this->codigo, $this->precio, $this->alquiler, $this->habitaciones, $this->plantas, $this->sanitario, $this->espacio_parqueo, $this->descripcion, $this->id_municipio, $this->id_tipo_propiedad, $this->id_empleado, $this->id_inquilino, $this->id_tipo_acabado, $this->imagen, $this->id_estado_propiedad, true);
+        print_r($params);
+>>>>>>> Stashed changes
         return Database::executeRow($sql, $params);
     }
     //Metodo para la actualización UPDATE
@@ -431,6 +500,78 @@ class propiedad extends validator
         $sql = 'SELECT id_categoria, nombre_categoria
             FROM public.categoria';
         $params = null;
+        return Database::getRows($sql, $params);
+    }
+
+
+
+    //Consultas de los graficos
+    //CANTIDAD DE CASAS QUE ESTÁN EN ALQUILER FRENTE A LAS QUE ESTÁN EN VENTA
+    public function readPropiedadVentaAlquiler()
+    {
+        $sql = 'SELECT count(id_propiedad), estado FROM propiedad
+        INNER JOIN estado_propiedad
+        ON propiedad.id_estado_propiedad = estado_propiedad.id_estado_propiedad
+        GROUP BY estado';
+        $params = null;
+        return Database::getRows($sql, $params);
+    }
+
+    //CANTIDAD DE CASA POR PLANTAS (cuantas casas tienen 1 planta o 2, 3)
+    public function readPropiedadPlantas()
+    {
+        $sql = 'SELECT count(id_propiedad), plantas FROM propiedad
+        GROUP BY plantas
+        ORDER BY plantas DESC';
+        $params = null;
+        return Database::getRows($sql, $params);
+    }
+
+    //TOP 5 DE LAS CASAS MÁS CARAS
+    public function readTopPropietario()
+    {
+        $sql = 'SELECT COUNT(propiedad.id_propiedad), concat(nombre, apellido) from propiedad
+        INNER JOIN propietario_propiedad
+        ON propiedad.id_propiedad = propietario_propiedad.id_propiedad
+        INNER JOIN propietario
+        ON propietario.id_propietario = propietario_propiedad.id_propietario
+        GROUP BY concat(nombre, apellido)
+        ORDER BY COUNT(propiedad.id_propiedad) DESC';
+        $params = null;
+        return Database::getRows($sql, $params);
+    }    
+
+    //Consultas para graficos  
+    public function readTopDepartamentos()
+    {
+        $sql= 'SELECT COUNT(id_propiedad), departamento  from propiedad
+        INNER JOIN municipio
+        ON propiedad.id_municipio = municipio.id_municipio
+        INNER JOIN departamento
+        ON municipio.id_departamento = departamento.id_departamento
+        GROUP BY departamento
+        ORDER BY COUNT(id_propiedad) DESC
+        LIMIT 5';
+        $params = null;
+        return Database::getRows($sql, $params);
+    }
+
+    //Consultas para graficos
+    //Las propiedades en diferentes departamentos segun el propietario    
+    public function readPropiedadesPropietarios()
+    {
+        $sql= 'SELECT COUNT(propiedad.id_propiedad), departamento FROM propiedad
+        INNER JOIN propietario_propiedad
+        ON propietario_propiedad.id_propiedad = propiedad.id_propiedad
+        INNER JOIN propietario
+        ON propietario_propiedad.id_propietario = propietario.id_propietario
+        INNER JOIN municipio
+        ON municipio.id_municipio = propiedad.id_municipio
+        INNER JOIN departamento
+        ON departamento.id_departamento = municipio.id_municipio
+        WHERE propietario.id_propietario = ?
+        GROUP BY departamento';
+        $params = array($this->id_propietario);
         return Database::getRows($sql, $params);
     }
 }

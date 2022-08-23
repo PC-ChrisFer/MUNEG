@@ -9,6 +9,8 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
+
     <link rel="stylesheet" href="../../resources/css/estilo_privado.css">
     <title>MUNEG S.A C.V</title>
 </head>
@@ -71,10 +73,6 @@
                                         src="../../resources/img/iconos_navbar/person_30px.png">Gestion Usuario</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="gestion_cliente.html"><img
-                                        src="../../resources/img/iconos_navbar/person_30px.png">Gestion Cliente</a>
-                            </li>
-                            <li class="nav-item">
                                 <a class="nav-link" href="gestion_contrato.html"><img
                                         src="../../resources/img/iconos_navbar/contract_30px.png">Gestion
                                     Contrato</a>
@@ -94,30 +92,41 @@
                                         src="../../resources/img/iconos_navbar/modern_art_30px.png">Gestion
                                     de Tipo Acabado</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="editar_perfil.html"><img
+                                        src="../../resources/img/iconos_navbar/settings_30px.png">Editar Usuario</a>
+                            </li>
                         </ul>
                     </div>
                 </div>
             </div>
         </nav>
         <div class="container-fluid" id="encabezado">
-            <h1>GESTIÓN TIPO ACABADO</h1>
+            <h1>GESTIÓN DE TIPO CATEGORIA</h1>
         </div>
     </header>
     <main>
         <!-- Searchbar -->
         <div class="container-fluid" id="busqueda">
             <form class="d-flex" method="post" id="search-bar">
-                <input class="form-control me-2" name="search" placeholder="Búsqueda de datos por nombre"
-                    aria-label="Search" required minlength="2">
+                <input class="form-control me-2" name="search" placeholder="Búsqueda de Datos" aria-label="Search"
+                    required>
                 <button class="btn" type="submit"><img src="../../resources/img/iconos_navbar/search_24px.png"></button>
             </form>
         </div>
+        <!-- Botones de SCRUD, actualizar y agregar -->
         <div class="container-fluid" id="opciones">
             <div class="btn-group" role="group">
                 <button type="button" class="btn btn-primary" id="btnmenu" data-bs-toggle="modal"
                     data-bs-target="#agregar"><a class="nav-link"><img
                             src="../../resources/img/iconos_formularios/agregar_26px.png"></a></button>
             </div>
+        </div>
+
+        <div class="form-check form-switch">
+            <input onclick="leerDatosEliminados()" class="form-check-input" type="checkbox" role="switch"
+                id="verDatosliminados">
+            <label class="form-check-label" for="flexSwitchCheckDefault">Ver datos eliminados</label>
         </div>
         <!-- Tabla de Datos -->
         <div class="container-fluid" id="tabla_datos">
@@ -150,10 +159,9 @@
                         <div class="modal-body" id="formModal">
                             <div class="row">
                                 <div class="col">
-                                    <label for="tipo_acabado" class="form-label">Nombre de Tipo Acabado</label>
+                                    <label for="tipo_acabado" class="form-label">Nombre de Tipo Acabado.</label>
                                     <input type="text" class="form-control" id="tipo_acabado" name="tipo_acabado"
-                                        placeholder="Escriba un nombre al tipo de acabado" required minlength="3"
-                                        maxlength="35">
+                                        placeholder="Escriba un nombre a la Tipo Acabado" required>
                                 </div>
                             </div>
                         </div>
@@ -185,11 +193,13 @@
                                 <div class="col">
                                     <label for="tipo_acabado_update" class="form-label">Nombre de Tipo Acabado.</label>
                                     <input type="text" class="form-control" id="tipo_acabado_update"
-                                        name="tipo_acabado_update" required minlength="3" maxlength="35">
-                                    <p></p>
-                                    <div class="custom-control custom-switch">
-                                        <input type="button" onclick="cambiarEstadoGestionAcabado()" id="visibilidad">
-                                    </div>
+                                        name="tipo_acabado_update" required>
+                                        <div class="form-check form-switch">
+                                            <input onclick="cambiarVisibilidadDeResgistro()" class="form-check-input" type="checkbox" role="switch"
+                                                id="eliminarElemento" >
+                                            <label class="form-check-label" for="flexSwitchCheckDefault" id="textoSwitch"></label>
+                                        </div>
+    
                                 </div>
                             </div>
                         </div>
@@ -254,6 +264,23 @@
                     </div>
                     <div class="modal-body">
                         Se han guardado los datos existosamente.
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary" data-bs-dismiss="modal" id="btnmenu">Aceptar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Modal de PROCESO FALLIDO -->
+        <div class="modal fade" id="error_proceso" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header" id="formHeader">
+                        <h5 class="modal-title">Error en el proceso</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        No se pudo realizar el proceso debido a que hubo un error.
                     </div>
                     <div class="modal-footer">
                         <button class="btn btn-primary" data-bs-dismiss="modal" id="btnmenu">Aceptar</button>

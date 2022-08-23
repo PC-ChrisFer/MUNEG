@@ -131,83 +131,62 @@
     </main>
 
     <!--Segundo footer Footer-->
-  <footer class="text-white  pt-5 pb-4" id="Segundofooter">
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-lg-4 text-justify" id="color4">
-          <h1 id="Encabezado_footer">MUNEG</h1>
-          <p>"HACEMOS DE LA VENTA O ALQUILER DE SU PROPIEDAD UN PROCESO FÁCIL Y RÁPIDO, GARANTIZANDO LA
-            SEGURIDAD PARA
-            USTED Y SU FAMILIA"</p>
-          <a href="sobre_nosotros.html" id="enlaces_footer">
-            <h4>Conozca sobre nosotros</h4>
-          </a>
-          <a href="terminos_condiciones.html" id="enlaces_footer">
-            <h4>Términos y condiciones</h4>
-          </a>
-        </div>
-        <div class="col-lg-4" id="color2">
-          <h1 id="Encabezado_footer">Encuentra Propiedades</h1>
-          <a href="propiedades_venta.html" id="enlaces_footer">
-            <h4>>Casas en Venta</h4>
-          </a>
-          <a href="propiedades_alquiler.html" id="enlaces_footer">
-            <h4>>Casas en Alquiler</h4>
-          </a>
-          <a href="propiedades_venta.html" id="enlaces_footer">
-            <h4>>Comercios en Venta</h4>
-          </a>
-          <a href="propiedades_alquiler.html" id="enlaces_footer">
-            <h4>>Comercios en Alquiler</h4>
-          </a>
-        </div>
-        <div class="col-lg-4 ">
-          <h1 id="Encabezado_footer">Recibe Ofertas por Correo:</h1>
-          <div class="row">
-            <div class="col-2">
-              <img src="../../resources/img/iconos_navbar/gmail.png">
+    <footer class="text-white  pt-5 pb-4" id="Segundofooter">
+        <div class="container-fluid">
+            <div class="row">
+                <!--div de informacion importante-->
+                <div class="col-lg-4 text-justify" id="color4">
+                    <h1 id="Encabezado_footer">MUNEG</h1>
+                    <p>"HACEMOS DE LA VENTA O ALQUILER DE SU PROPIEDAD UN PROCESO FÁCIL Y RÁPIDO, GARANTIZANDO LA
+                        SEGURIDAD PARA
+                        USTED Y SU FAMILIA"</p>
+                    <a href="sobre_nosotros.html" id="enlaces_footer">
+                        <h4>Conozca sobre nosotros</h4>
+                    </a>
+                    <a href="terminos_condiciones.html" id="enlaces_footer">
+                        <h4>Términos y condiciones</h4>
+                    </a>
+                </div>
+                <div class="col-lg-4" id="color2">
+                    <h1 id="Encabezado_footer">Encuentra Propiedades</h1>
+                    <a href="propiedades_venta.html" id="enlaces_footer">
+                        <h4>>Casas en Venta</h4>
+                    </a>
+                    <a href="propiedades_alquiler.html" id="enlaces_footer">
+                        <h4>>Casas en Alquiler</h4>
+                    </a>
+                    <a href="propiedades_venta.html" id="enlaces_footer">
+                        <h4>>Comercios en Venta</h4>
+                    </a>
+                    <a href="propiedades_alquiler.html" id="enlaces_footer">
+                        <h4>>Comercios en Alquiler</h4>
+                    </a>
+                </div>
+                <div class="col-lg-4 ">
+                    <h1 id="Encabezado_footer">Recibe Ofertas por Correo:</h1>
+                    <div class="row">
+                        <div class="col-2">
+                            <img src="../../resources/img/iconos_navbar/gmail.png">
+                        </div>
+                        <form method="post" id="insert-modal">
+                            <div class="col-10">
+                                <p>Ingrese su nombre:</p>
+                                <input type="text" class="form-control" name="nombre_cliente"
+                                    placeholder="Ingrese su nombre">
+                            </div>
+                            <div class="col-12">
+                                <p>Ingrese su correo electronico:</p>
+                                <input type="email" class="form-control" name="correo" placeholder="Ingrese el correo">
+                            </div>
+                            <div class="col-12 d-flex justify-content-center">
+                                <button type="submit" class="btn">Enviar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
-            <div class="col-10">
-              <form method="post" id="insert-modal">
-                <p>Ingrese su nombre:</p>
-                <input type="text" class="form-control" name="nombre_cliente" placeholder="Ingrese su nombre" required
-                  minlength="2" maxlength="50">
-            </div>
-            <div class="col-12">
-              <p>Ingrese su correo electronico:</p>
-              <input type="email" class="form-control" name="correo" placeholder="Ingrese el correo" required
-                minlength="7" maxlength="100">
-            </div>
-            <div class="col-12 d-flex justify-content-center">
-              <button type="submit" class="btn" data-bs-toggle="modal" data-bs-target="#agregado">Enviar</button>
-            </div>
-            </form>
-          </div>
         </div>
-      </div>
-    </div>
-  </footer>
-
-  <!--Modal de agregado-->
-  <div class="modal fade" id="agregado" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header" id="formHeader">
-          <h5 class="modal-title" id="exampleModalToggleLabe3">Agregado</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          Su información ha sido guardada con éxito
-        </div>
-        <!-- Footer del formulario -->
-        <form method="post" id="delete_form">
-          <div class="modal-footer">
-            <button type="" class="btn btn-primary" id="btnmenu">Aceptar</button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
+    </footer>
 
 
     <!-- JavaScript de Boostrap-->
@@ -227,7 +206,7 @@
     <script type="module" src="../../controller/publica/navbar.js"></script>
     <script type="module" src="../../controller/publica/detalle_propiedad.js"></script>
     <script type="module" src="../../controller/publica/footer.js"></script>
-    <script type="module" src="../../controller/publica/index.js"></script>
+
 </body>
 
 </html>

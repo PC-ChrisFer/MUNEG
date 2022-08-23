@@ -41,7 +41,7 @@ if (isset($_GET[ACTION])) {
     $usuario = new usuario;
 
     // Se declara e inicializa un arreglo para guardar el resultado que retorna la API.
-    $result = array(STATUS => 0, SESSION => 0, MESSAGE => null, EXCEPTION => null, DATASET => null, USERNAME => null);
+    $result = array($_SESSION[ID_USUARIO] , STATUS => 0, SESSION => 0, MESSAGE => null, EXCEPTION => null, DATASET => null, USERNAME => null);
 
     // Se verifica si existe una sesión iniciada como administrador, de lo contrario se ejecutara lo especificado  "else".
     if (isset($_SESSION[ID_USUARIO])) {
@@ -64,6 +64,15 @@ if (isset($_GET[ACTION])) {
                     $result[EXCEPTION] = 'Ocurrió un problema al cerrar la sesión';
                 }
                 break;
+            case 'readOne':
+                if ($result[DATASET] = $usuario->readOne($_SESSION['id_usuario'])) {
+                    $result[STATUS] = 1;
+                } elseif (Database::getException()) {
+                    $result[EXCEPTION] = Database::getException();
+                } else {
+                    $result[EXCEPTION] = 'No hay datos registrados';
+                }
+                break;     
             case READ_ALL:
                 if ($result[DATASET] = $usuario->readAllEmpleado()) {
                     $result[STATUS] = 1;
@@ -85,12 +94,12 @@ if (isset($_GET[ACTION])) {
                 } else {
                     $result[EXCEPTION] = 'No hay coincidencias';
                 }
-                break;
+                break; 
             case "update":
                 $usuario->setId($_POST['id']) ? null : "id incorrecto";
                 $usuario->setNombre($_POST['nombre_usuario']) ? null : "nombre incorrecto";
-                $usuario->setTipoUsuario($_POST['tipo_usuario']) ? null : "tipo usuario incorrecto";
-                $usuario->setEmpleado($_POST['empleado']) ? null : "empleado ID incorrecto";
+                $usuario->setTipoUsuario($_POST['tipo_usuario_update']) ? null : "tipo usuario incorrecto";
+                $usuario->setEmpleado($_POST['empleado_update']) ? null : "empleado ID incorrecto";
 
                 if ($usuario->updateRowEmpleado()) {
                     $result[STATUS] = SUCESS_RESPONSE;
@@ -195,12 +204,13 @@ if (isset($_GET[ACTION])) {
                 if ($usuario->searchPassword($_POST['password'])) {
                     $result[STATUS] = 1;
                     $result[MESSAGE] = 'Autenticación correcta';
-                    $_SESSION[ID_USUARIO] = 11; 
+                    $_SESSION[ID_USUARIO] = $usuario->getId();
                     $_SESSION[ALIAS_USUARIO] = $usuario->getNombre();
                 } else {
                     $result[EXCEPTION] = 'Clave incorrecta';
                 }
                 break;
+
             case 'checkSession':
                 if (isset($_SESSION[ID_USUARIO])) {
                     $result[STATUS] = 1;

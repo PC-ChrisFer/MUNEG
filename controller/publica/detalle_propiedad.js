@@ -52,7 +52,7 @@ export function fillDetallePropiedad(dataset) {
         <div class="card1 mb-6" id="card_detalle">
             <div class="row" id="contenero_cartas12">
                 <div class="col-md-5" id="separado123">
-                    <img src="../../api/imagenes/empleado/${row.imagen}"
+                    <img src="../../api/imagenes/propiedad/${row.imagen}"
                         class="img-fluid rounded-start" alt="...">
                 </div>
                 <div class="col-md-5 " id="completo12">
@@ -62,19 +62,19 @@ export function fillDetallePropiedad(dataset) {
                         <div class="gallery">
                             <div class="row gy-4 row-cols-1 row-cols-sm-2 row-cols-md-3">
                                 <div class="col">
-                                    <img src="../../api/imagenes/empleado/${row.imagen}"
+                                    <img src="../../api/imagenes/propiedad/${row.imagen}"
                                         class="gallery-item" alt="gallery">
                                 </div>
                                 <div class="col">
-                                    <img src="../../api/imagenes/empleado/${row.imagen}"
+                                    <img src="../../api/imagenes/propiedad/${row.imagen}"
                                         class="gallery-item" alt="gallery">
                                 </div>
                                 <div class="col">
-                                    <img src="../../api/imagenes/empleado/${row.imagen}"
+                                    <img src="../../api/imagenes/propiedad/${row.imagen}"
                                         class="gallery-item" alt="gallery">
                                 </div>
                                 <div class="col">
-                                    <img src="../../api/imagenes/empleado/${row.imagen}"
+                                    <img src="../../api/imagenes/propiedad/${row.imagen}"
                                         class="gallery-item" alt="gallery">
                                 </div>
                             </div>
@@ -96,7 +96,7 @@ export function fillDetallePropiedad(dataset) {
                                     </button>
                                 </div>
                                 <div class="modal-body">
-                                    <img src="../../api/imagenes/empleado/${row.imagen}"
+                                    <img src="../../api/imagenes/propiedad/${row.imagen}"
                                         class="modal-img" alt="modal img">
                                 </div>
                             </div>

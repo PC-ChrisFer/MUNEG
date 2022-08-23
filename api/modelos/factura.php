@@ -137,7 +137,7 @@ class factura extends validator
     {
         $sql = 'SELECT id_factura, codigo_factura, descripcion, direccion, subtotal, "IVA", venta_gravada, fecha, id_inquilino
         FROM public.factura
-        WHERE codigo_factura = ? ';
+        WHERE codigo_factura ILIKE ? ';
         $params = array("%$value%");
         return Database::getRows($sql, $params);
     }
@@ -196,7 +196,8 @@ class factura extends validator
     public function readInquilino()
     {
         $sql = 'SELECT  id_inquilino, nombre
-        FROM inquilino';
+        FROM inquilino
+        WHERE id_estado_inquilino = 1 OR id_estado_inquilino = 2';
         $params = null;
         return Database::getRows($sql, $params);
     }

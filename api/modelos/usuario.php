@@ -42,7 +42,7 @@ class usuario extends validator
     //Password - varchar
     public function setPassword($value)
     {
-        if ($this->validateAlphabetic($value, 6, 100)) {
+        if ($this->validateAlphanumeric($value, 6, 100)) {
             $this->password = $value;
             return true;
         } else {
@@ -180,6 +180,8 @@ class usuario extends validator
         return Database::getRows($sql, $params);
     }
 
+
+    
     //Metodo para la inserción de Adminitrador
     public function createRow()
     {
@@ -189,6 +191,17 @@ class usuario extends validator
         $params = array($this->nombre_usuario, $this->password, $this->tipo_administrador);
         return Database::executeRow($sql, $params);
     }
+
+
+    //Metodo para la inserción de Adminitrador
+    public function readOne($idUsuario)
+    {
+        $sql = 'SELECT id_usuario, nombre_usuario, password
+        FROM public.usuario   
+        WHERE id_usuario = ?';
+        $params = array($idUsuario);
+        return Database::getRow($sql, $params);
+    }    
 
     //Metodo para la insercción INSERT (propietario)
     //(nombre_usuario, password, tipo_usuario, propietario)
@@ -234,6 +247,17 @@ class usuario extends validator
         return Database::executeRow($sql, $params);
     }
 
+    //Metodo para la actualización UPDATE
+    //(nombre_usuario, password, tipo_usuario, propietario, usuario)
+    public function editUser()
+    {
+        $sql = 'UPDATE public.usuario
+        SET nombre_usuario=?, password=?
+        WHERE id_usuario=?';
+        $params = array($this->nombre_usuario, $this->password, $this->id_usuario);
+        return Database::executeRow($sql, $params);
+    }    
+
     //Metodo para la eliminación DELETE
     //(visibilidad, id_tipo_propietario)
     public function deleteRow()
@@ -259,16 +283,24 @@ class usuario extends validator
         } else {
             return false;
         }
-        return Database::getRow($sql, $param);
     }
 
     //Buscar el password
-    public function searchPassword()
+    public function searchPassword($insertedPassword)
     {
         $sql = 'SELECT password 
          FROM usuario 
          WHERE id_usuario = ? AND id_tipo_usuario != 4';
         $param = array($this->id_usuario);
-        return Database::getRow($sql, $param);
+        if($data = Database::getRow($sql, $param)){
+            if($data['password'] == $insertedPassword) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+        else{
+            return false;
+        }
     }
 }

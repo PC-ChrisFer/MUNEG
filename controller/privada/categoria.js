@@ -1,5 +1,3 @@
-//@ts-check
-
 //Importar las constantes y metodos de components.js y api_constant.js
 import {
   readRows,
@@ -24,14 +22,21 @@ let datos_categoria = {
   visibilidad: true,
 };
 
+// Método manejador de eventos que se ejecuta cuando el documento ha cargado.
 document.addEventListener("DOMContentLoaded", async () => {
-  await validateExistenceOfUser();
+  //Función Para validar que exista un usuario en sesión
+  await validateExistenceOfUser(); 
+  //Endpoint para la lectura de todas las tablas de infromación
   await readRows(API_CATEGORIA, fillTableCategoria);
 });
 
+//Función (ReadAll) llenar las tablas de información
 function fillTableCategoria(dataset) {
+  //Se define el contenido html
   let content = "";
+  //Se llenan los elementos con la información proporcionada por la base de datos
   dataset.map((row) => {
+    //El cuerpo del elemento html
     content += ` 
             <tr>
                 <td>${row.id_categoria}</td>  
@@ -41,9 +46,9 @@ function fillTableCategoria(dataset) {
                 <td class="d-flex justify-content-center">
                     <div class="btn-group" role="group">
                         <form method="post" id="read-one">
-                            <a onclick="guardarDatosCategoriaUpdate(${row.id_categoria},'${row.nombre_categoria}')" class="btn" id="button_ver_mas">
+                            <a onclick="guardarDatosUpdate(${row.id_categoria},'${row.nombre_categoria}')" class="btn" id="button_ver_mas">
                                 <img src="../../resources/img/iconos_formularios/edit_35px.png"></a>
-                            <a  onclick="guardarDatosCategoriaDelete(${row.id_categoria})"  class="btn" id="button_ver_mas"
+                            <a  onclick="guardarDatosDelete(${row.id_categoria})"  class="btn" id="button_ver_mas"
                             name="search">
                                 <img src="../../resources/img/iconos_formularios/trash_can_35px.png"></a>
                         </form>
@@ -52,37 +57,44 @@ function fillTableCategoria(dataset) {
             </tr>
         `;
   });
+  //Se escribe el id del contendor que se quiere llenar con el elemento html
   getElementById("tbody-Categoria").innerHTML = content ?? "";
 }
 
-// @ts-ignore
-window.guardarDatosCategoriaUpdate = (id_categoria, nombre_categoria) => {
+//Función para cargar los datos del update
+window.guardarDatosUpdate = (id_categoria, nombre_categoria) => {
+  //Se transfieren los datos del boton al json global
   datos_categoria.id = id_categoria;
   document.getElementById("checkBocVisibilidad").checked = false;
-
-  //@ts-ignore
+  //Se llama el modal de actualizar
   $("#actualizar").modal("show");
+  //Se imprime la información en el modal
   getElementById("nombre_categoria_update").value = String(nombre_categoria);
 };
 
-// @ts-ignore
-window.guardarDatosCategoriaDelete = (id_categoria) => {
+//Función para cargar el id para el delete
+window.guardarDatosDelete = (id_categoria) => {
+  //Se transfieren los datos del boton al json global
   datos_categoria.id = id_categoria;
+  //Se llama el modal de borrar
   $("#eliminar").modal("show");
 };
 
+//Función para cambiar la visibilidad con un checkbox
 window.cambiarVisibilidadDeResgistro = () => {
-  getElementById("verDatosliminados").checked === true ?  datos_categoria.visibilidad = true :  datos_categoria.visibilidad = false 
-
+  getElementById("verDatosliminados").checked === true
+    ? (datos_categoria.visibilidad = true)
+    : (datos_categoria.visibilidad = false);
 };
 
-// @ts-ignore
+//Función para mostrar datos invisibles
 window.leerDatosEliminados = async () => {
   getElementById("verDatosliminados").checked === true
     ? await readDeletedRowns(API_CATEGORIA, fillTableCategoria)
     : await readRows(API_CATEGORIA, fillTableCategoria);
 };
 
+// EVENTO PARA READ
 // Método que se ejecuta al enviar un formulario de busqueda
 getElementById("search-bar").addEventListener("submit", async (event) => {
   // Se evita recargar la página web después de enviar el formulario.
@@ -90,44 +102,51 @@ getElementById("search-bar").addEventListener("submit", async (event) => {
   // Se llama a la función que realiza la búsqueda. Se encuentra en el archivo components.js
   await searchRows(API_CATEGORIA, "search-bar", fillTableCategoria);
 });
+
 // EVENTO PARA INSERT
 // Método manejador de eventos que se ejecuta cuando se envía el formulario de guardar.
 getElementById("insert-form").addEventListener("submit", async (event) => {
   // Se evita recargar la página web después de enviar el formulario.
   event.preventDefault();
-  // Se cierra el formulario de registro
-  //@ts-ignore
+  // Se toman los datos del modal y los convierte a formData
   let parameters = new FormData(getElementById("insert-form"));
+  // Se llama a la función que realiza la inserción. Se encuentra en el archivo components.js
   await saveRow(API_CATEGORIA, API_CREATE, parameters, fillTableCategoria);
+  // Cerrar el modal de agregar
   $("#agregar").modal("hide");
-
 });
 
+//EVENTO PARA UPDATE
+// Método manejador de eventos que se ejecuta cuando se envía el formulario de guardar.
 getElementById("update-form").addEventListener("submit", async (event) => {
+  // Se evita recargar la página web después de enviar el formulario.
   event.preventDefault();
-  //@ts-ignore
+  // Se toman los datos del modal y los convierte a formData
   let parameters = new FormData(getElementById("update-form"));
-  //@ts-ignore
+  // Se adhieren datos al arreglo que se envia al update
   parameters.append("id", datos_categoria.id);
-  parameters.append("visibilidad_update", datos_categoria.visibilidad ? "1" : "0");
-
+  parameters.append(
+    "visibilidad_update",
+    datos_categoria.visibilidad ? "1" : "0"
+  );
   document.getElementById("verDatosliminados").checked = false;
-
-
-  $("#actualizar").modal("hide");
+  // Se llama a la función que realiza la actualización. Se encuentra en el archivo components.js
   await saveRow(API_CATEGORIA, API_UPDATE, parameters, fillTableCategoria);
+  // Cerrar el modal de actualizar
+  $("#actualizar").modal("hide");
 });
 
 //EVENTO PARA DELETE
+// Método manejador de eventos que se ejecuta cuando se envía el formulario de guardar.
 getElementById("delete-form").addEventListener("submit", async (event) => {
+  // Se evita recargar la página web después de enviar el formulario.
   event.preventDefault();
   // Se cierra el formulario de registro
   $("#eliminar").modal("hide");
   // CONVIRTIENDO EL JSON A FORMDATA
   let parameters = new FormData();
-  //@ts-ignore
+  // Se adhieren datos al arreglo que se envia al update
   parameters.append("id", datos_categoria["id"]);
-
-  //API REQUEST
+  // Se llama a la función que realiza la borrar. Se encuentra en el archivo components.js
   await deleteRow(API_CATEGORIA, parameters, fillTableCategoria);
 });

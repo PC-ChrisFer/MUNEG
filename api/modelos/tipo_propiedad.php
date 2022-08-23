@@ -109,7 +109,17 @@ class tipo_propiedad extends validator
         $sql = 'SELECT id_tipo_propiedad, tipo_propiedad.id_categoria, nombre_categoria, nombre_tipo, tipo_propiedad.visibilidad
         FROM public.tipo_propiedad
         INNER JOIN public.categoria
-        ON tipo_propiedad.id_categoria = categoria.id_categoria AND categoria.visibilidad = true';
+        ON tipo_propiedad.id_categoria = categoria.id_categoria AND categoria.visibilidad = true AND tipo_propiedad.visibilidad = true';
+        $params = null;
+        return Database::getRows($sql, $params);
+    }
+
+    public function readAllDeleted()
+    {
+        $sql = 'SELECT id_tipo_propiedad, tipo_propiedad.id_categoria, nombre_categoria, nombre_tipo, tipo_propiedad.visibilidad
+        FROM public.tipo_propiedad
+        INNER JOIN public.categoria
+        ON tipo_propiedad.id_categoria = categoria.id_categoria AND categoria.visibilidad = true AND tipo_propiedad.visibilidad = false';
         $params = null;
         return Database::getRows($sql, $params);
     }

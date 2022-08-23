@@ -145,7 +145,7 @@ class contrato extends validator
     public function searchRows($value)
     {
         $sql = 'SELECT id_contrato, descripcion, fecha_firma, imagen, id_propietario, id_propiedad, id_empleado, id_inquilino
-        FROM contrato
+        FROM public.contrato
         WHERE descripcion ILIKE ? ';
         $params = array("%$value%");
         return Database::getRows($sql, $params);
@@ -154,7 +154,7 @@ class contrato extends validator
     //Metodo para la inserción INSERT
     public function createRow()
     {
-        $sql = 'INSERT INTO contrato(
+        $sql = 'INSERT INTO public.contrato(
             descripcion, fecha_firma, imagen, id_propietario, id_propiedad, id_empleado, id_inquilino)
             VALUES (?, ?, ?, ?, ?, ?, ?)';
         $params = array($this->descripcion, $this->fecha_firma, $this->imagen, $this->id_propietario, $this->id_propiedad, $this->id_empleado, $this->id_inquilino);
@@ -164,7 +164,7 @@ class contrato extends validator
     //Metodo para la actualización UPDATE
     public function updateRow()
     {
-        $sql = 'UPDATE contrato
+        $sql = 'UPDATE public.contrato
         SET  descripcion = ?, fecha_firma = ?, imagen = ?, id_propietario = ?, id_propiedad = ?, id_empleado = ?, id_inquilino = ?
         WHERE id_contrato =?';
         $params = array($this->descripcion, $this->fecha_firma, $this->imagen, $this->id_propietario, $this->id_propiedad, $this->id_empleado, $this->id_inquilino, $this->id_contrato);
@@ -194,7 +194,7 @@ class contrato extends validator
     public function readOne()
     {
         $sql = 'SELECT id_contrato, descripcion, fecha_firma, imagen, id_propietario, id_propiedad, id_empleado, id_inquilino
-        FROM contrato
+        FROM public.contrato
         WHERE id_contrato = ?';
         $params = ($this->id_contrato);
         return Database::getRow($sql, $params);
@@ -205,7 +205,7 @@ class contrato extends validator
     public function readPropietario()
     {
         $sql = 'SELECT  id_propietario, nombre
-        FROM propietario';
+        FROM public.propietario';
         $params = null;
         return Database::getRows($sql, $params);
     }
@@ -214,7 +214,7 @@ class contrato extends validator
     public function readPropiedad()
     {
         $sql = 'SELECT  id_propiedad, codigo
-        FROM propiedad';
+        FROM public.propiedad';
         $params = null;
         return Database::getRows($sql, $params);
     }
@@ -223,7 +223,7 @@ class contrato extends validator
     public function readEmpleado()
     {
         $sql = 'SELECT  id_empleado, nombre
-        FROM empleado';
+        FROM public.empleado';
         $params = null;
         return Database::getRows($sql, $params);
     }
@@ -232,7 +232,7 @@ class contrato extends validator
     public function readInquilino()
     {
         $sql = 'SELECT  id_inquilino, nombre
-        FROM inquilino';
+        FROM public.inquilino';
         $params = null;
         return Database::getRows($sql, $params);
     }

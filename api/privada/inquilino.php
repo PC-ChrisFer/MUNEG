@@ -30,6 +30,7 @@ const INQUILINO_NIT = 'nit';
 const INQUILINO_TELEFONO = 'telefono';
 const INQUILINO_CORREO = 'correo';
 const INQUILINO_GENERO = 'genero';
+const INQUILINO_NCR = 'nrc';
 const INQUILINO_FECHA_NACIMIENTO = 'fecha_nacimiento';
 const INQUILINO_ESTADO = 'estado_inquilino';
 const INQUILINO_TIPO = 'tipo_inquilino';
@@ -84,15 +85,17 @@ if (isset($_GET[ACTION])) {
                 $result[EXCEPTION] = 'DUI no valido';
             } else if (!$inquilino->setNIT($_POST[INQUILINO_NIT])) {
                 $result[EXCEPTION] = 'NIT no valido';
-            } else if (!$inquilino->setFechaNacmiento($_POST['fecha_nacimiento'])) {
+            } else if (!$inquilino->setNRC($_POST[INQUILINO_NCR])) {
+                $result[EXCEPTION] = 'Genero no disponible';
+            } else if (!$inquilino->setFechaNacimiento($_POST['fecha_nacimiento'])) {
                 $result[EXCEPTION] = 'Número de telefono no valido';
             } else if (!$inquilino->setTelefono($_POST[INQUILINO_TELEFONO])) {
                 $result[EXCEPTION] = 'Número de telefono no valido';
             } else if (!$inquilino->setCorreo($_POST[INQUILINO_CORREO])) {
                 $result[EXCEPTION] = 'Correo electronico no valido';
-            } else if (!$inquilino->setGenero($_POST[INQUILINO_GENERO])) 
+            } else if (!$inquilino->setGenero($_POST[INQUILINO_GENERO])) {
                 $result[EXCEPTION] = 'Genero no disponible';
-             else if (!$inquilino->setEstadoInquilino($_POST[INQUILINO_ESTADO])) {
+            } else if (!$inquilino->setEstadoInquilino($_POST[INQUILINO_ESTADO])) {
                 $result[EXCEPTION] = 'Estado incorrecto';
             } else if (!$inquilino->setTipoInquilino($_POST[INQUILINO_TIPO])) {
                 $result[EXCEPTION] = 'Tipo incorrecto';
@@ -136,19 +139,19 @@ if (isset($_GET[ACTION])) {
                 $result[EXCEPTION] = 'Apellido incorrecto';
             } else if (!$inquilino->setDUI($_POST[INQUILINO_DUI])) {
                 $result[EXCEPTION] = 'DUI no valido';
-            } else if (!$inquilino->setFechaNacmiento($_POST['fecha_nacimiento'])) {
-                $result[EXCEPTION] = 'Número de telefono no valido';
+            } else if (!$inquilino->setFechaNacimiento($_POST[INQUILINO_FECHA_NACIMIENTO])) {
+                $result[EXCEPTION] = 'Fecha de nacimiento no valido';
             } else if (!$inquilino->setNIT($_POST[INQUILINO_NIT])) {
                 $result[EXCEPTION] = 'NIT no valido';
-            } else if (!$inquilino->setTelefono($_POST['telefono'])) {
+            } else if (!$inquilino->setTelefono($_POST[INQUILINO_TELEFONO])) {
                 $result[EXCEPTION] = 'Número de telefono no valido';
             } else if (!$inquilino->setCorreo($_POST[INQUILINO_CORREO])) {
                 $result[EXCEPTION] = 'Correo electronico no valido';
             } else if (!$inquilino->setGenero($_POST[INQUILINO_GENERO])) {
                 $result[EXCEPTION] = 'Genero no disponible';
-            } else if (!$inquilino->setTelefono($_POST[INQUILINO_FECHA_NACIMIENTO])) {
-                $result[EXCEPTION] = 'Fecha incorrecta';
-            } else if (!$inquilino->setEstadoInquilino($_POST[INQUILINO_ESTADO])) {
+            }  else if (!$inquilino->setNRC($_POST[INQUILINO_NCR])) {
+                $result[EXCEPTION] = 'Genero no disponible';
+            }  else if (!$inquilino->setEstadoInquilino($_POST[INQUILINO_ESTADO])) {
                 $result[EXCEPTION] = 'Estado incorrecto';
             } else if (!$inquilino->setTipoInquilino($_POST[INQUILINO_TIPO])) {
                 $result[EXCEPTION] = 'Tipo incorrecto';

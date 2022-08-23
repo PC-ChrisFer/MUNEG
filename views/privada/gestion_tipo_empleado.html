@@ -71,10 +71,6 @@
                                         src="../../resources/img/iconos_navbar/person_30px.png">Gestion Usuario</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="gestion_cliente.html"><img
-                                        src="../../resources/img/iconos_navbar/person_30px.png">Gestion Cliente</a>
-                            </li>
-                            <li class="nav-item">
                                 <a class="nav-link" href="gestion_contrato.html"><img
                                         src="../../resources/img/iconos_navbar/contract_30px.png">Gestion
                                     Contrato</a>
@@ -94,30 +90,40 @@
                                         src="../../resources/img/iconos_navbar/modern_art_30px.png">Gestion
                                     de Tipo Acabado</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="editar_perfil.html"><img
+                                        src="../../resources/img/iconos_navbar/settings_30px.png">Editar Usuario</a>
+                            </li>
                         </ul>
                     </div>
                 </div>
             </div>
         </nav>
         <div class="container-fluid" id="encabezado">
-            <h1>GESTIÓN TIPO EMPLEADO</h1>
+            <h1>GESTIÓN DE TIPO EMPLEADO</h1>
         </div>
     </header>
     <main>
         <!-- Searchbar -->
         <div class="container-fluid" id="busqueda">
             <form class="d-flex" method="post" id="search-bar">
-                <input class="form-control me-2" name="search" placeholder="Búsqueda de Datos" aria-label="Search"
-                    required minlength="2" maxlength="20">
+                <input class="form-control me-2" name="search" placeholder="Buscar por Nombre" aria-label="Search"
+                    required>
                 <button class="btn" type="submit"><img src="../../resources/img/iconos_navbar/search_24px.png"></button>
             </form>
         </div>
+        <!--Botón para agregar un nuevo tipo de empleado-->
         <div class="container-fluid" id="opciones">
             <div class="btn-group" role="group">
                 <button type="button" class="btn btn-primary" id="btnmenu" data-bs-toggle="modal"
                     data-bs-target="#agregar"><a class="nav-link"><img
                             src="../../resources/img/iconos_formularios/agregar_26px.png"></a></button>
             </div>
+        </div>
+        <div class="form-check form-switch">
+            <input onclick="leerDatosEliminados()" class="form-check-input" type="checkbox" role="switch"
+                id="verDatosliminados">
+            <label class="form-check-label" for="flexSwitchCheckDefault">Ver datos eliminados</label>
         </div>
         <!-- Tabla de Datos -->
         <div class="container-fluid" id="tabla_datos">
@@ -129,8 +135,7 @@
                         <th>Gestionar</th>
                     </tr>
                 </thead>
-                <tbody id="tbody-tipo-empleado">
-                    <!-- Linea de Informacion -->
+                <tbody id="tbody-TipoEmpleado">
 
                 </tbody>
             </table>
@@ -142,22 +147,18 @@
             <div class="modal-dialog modal-lg modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header" id="formHeader">
-                        <h5 class="modal-title" id="actualizarformLabel">Agregar Tipo Empleado</h5>
+                        <h5 class="modal-title" id="actualizarformLabel">Agregar Empleado</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <!-- Formulario de Insert-->
-                    <form method="post" id="insert_form">
+                    <form method="post" id="insert-form">
                         <div class="modal-body" id="formModal">
                             <div class="row">
                                 <div class="col">
-                                    <label for="tipo_empleado" class="form-label">Nombre de Tipo Empleado</label>
-                                    <input type="text" class="form-control" id="tipo_empleado" name="tipo_empleado"
-                                        placeholder="Escriba un nombre a la Tipo Empleado" required minlength="3"
-                                        maxlength="35">
-                                    <div class="custom-control custom-switch">
-                                        <input type="checkbox" class="custom-control-input" id="visibilidad">
-                                        <label class="custom-control-label" for="visibilidad">Visible?</label>
-                                    </div>
+                                    <label for="Empleado" class="form-label">Nombre del tipo Empleado</label>
+                                    <input type="text" class="form-control" id="tipo_empleado"
+                                        name="tipo_empleado" placeholder="Escriba un nombre a la empleado"
+                                        required>
                                 </div>
                             </div>
                         </div>
@@ -165,9 +166,9 @@
                             <div class="btn-group" role="group" id="opcionesModal">
                                 <button type="submit" class="btn btn-primary" id="btnmenu"><a class="nav-link"><img
                                             src="../../resources/img/iconos_formularios/agregar_26px.png"></a></button>
-                                <button type="submit" class="btn btn-primary" id="btnmenu" data-bs-dismiss="modal"><a
+                                <button type="button" class="btn btn-primary" id="btnmenu" data-bs-dismiss="modal"><a
                                         class="nav-link"><img
-                                            src="../../resources/iconos_formularios/cerrar_26px.png"></a></button>
+                                            src="../../resources/img/iconos_formularios/cerrar_26px.png"></a></button>
                             </div>
                         </div>
                     </form>
@@ -176,37 +177,38 @@
         </div>
         <!-- Modal de ACTUALIZAR REGISTRO -->
         <div class="modal fade" id="actualizar" tabindex="-1">
-            <div class="modal-dialog modal-xl modal-dialog-centered">
+            <div class="modal-dialog modal-lg modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header" id="formHeader">
-                        <h5 class="modal-title" id="actualizarformLabel">Actualizar Tipo Empleado</h5>
+                        <h5 class="modal-title" id="actualizarformLabel">Actualizar Empleado</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <!-- Formulario de Update-->
-                    <form method="post" id="update_form">
+                    <!-- Formulario de Insert-->
+                    <form method="post" id="update-form">
                         <div class="modal-body" id="formModal">
                             <div class="row">
                                 <div class="col">
-                                    <input type="hidden" class="form-control" id="id" name="id">
-                                    <label for="tipo_empleado_update" class="form-label">Nombre de Tipo Empleado</label>
+                                    <label for="enpleado" class="form-label">Nombre del tipo Empleado</label>
                                     <input type="text" class="form-control" id="tipo_empleado_update"
-                                        name="tipo_empleado_update" required minlength="3" maxlength="35">
-                                    <p></p>
-                                    <div class="custom-control custom-switch">
-                                        <input type="checkbox" class="custom-control-input" name="visibilidad_update"
-                                            id="visibilidad_update">
-                                        <label class="custom-control-label" for="visibilidad">Visible?</label>
-                                    </div>
+                                        name="tipo_empleado_update" placeholder="Escriba el nombre del tipo empleado"
+                                        required>
+                                </div>
+                                <div class="col">
+                                    <label for="" class="form-label">Visibilidad</label><br>
+                                    <label class="switch">
+                                        <input type="checkbox" id="visibilidad_update" name="visibilidad_update">
+                                        <span class="slider round"></span>
+                                    </label>
                                 </div>
                             </div>
                         </div>
                         <div class="modal-footer">
                             <div class="btn-group" role="group" id="opcionesModal">
                                 <button type="submit" class="btn btn-primary" id="btnmenu"><a class="nav-link"><img
-                                            src="../../resources/img/iconos_formularios/editar_26px.png"></a></button>
-                                <button type="submit" class="btn btn-primary" id="btnmenu" data-bs-dismiss="modal"
-                                    aria-label="Close"><a class="nav-link"><img
-                                            src="../../resources/iconos_formularios/cerrar_26px.png"></a></button>
+                                            src="../../resources/img/iconos_formularios/agregar_26px.png"></a></button>
+                                <button type="button" class="btn btn-primary" id="btnmenu" data-bs-dismiss="modal"><a
+                                        class="nav-link"><img
+                                            src="../../resources/img/iconos_formularios/cerrar_26px.png"></a></button>
                             </div>
                         </div>
                     </form>
@@ -225,7 +227,7 @@
                         Desea Eliminar la información de este registro?
                     </div>
                     <!-- Formulario de Update -->
-                    <form method="post" id="delete_form">
+                    <form method="post" id="delete-form">
                         <div class="modal-footer">
                             <button type="button" class="btn btn-primary" id="btnmenu"
                                 data-bs-dismiss="modal">Volver</button>
@@ -240,7 +242,7 @@
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header" id="formHeader">
-                        <h5 class="modal-title">Eliminado con éxito</h5>
+                        <h5 class="modal-title" id="exampleModalToggleLabel4">Eliminado con éxito</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
@@ -252,8 +254,8 @@
                 </div>
             </div>
         </div>
-        <!-- Modal de ELIMINAR REALIZADO -->
-        <div class="modal fade" id="proceso_exito" aria-hidden="true" tabindex="-1">
+        <!-- Modal de PROCESO REALIZADO -->
+        <div class="modal fade" id="proceso_exito" tabindex="-1">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header" id="formHeader">

@@ -39,11 +39,17 @@ class usuario extends validator
         }
     }
 
-    //Password - varchar
+ 
+
     public function setPassword($value)
     {
+<<<<<<< Updated upstream
         if ($this->validateAlphabetic($value, 6, 100)) {
             $this->password = $value;
+=======
+        if ($this->validatePassword($value)) {
+            $this->password = password_hash($value, PASSWORD_DEFAULT);
+>>>>>>> Stashed changes
             return true;
         } else {
             return false;
@@ -270,5 +276,18 @@ class usuario extends validator
          WHERE id_usuario = ? AND id_tipo_usuario != 4';
         $param = array($this->id_usuario);
         return Database::getRow($sql, $param);
+    }
+
+    public function checkPassword($password)
+    {
+        $sql = 'SELECT password FROM usuario WHERE id_usuario = ?';
+        $params = array($this->id);
+        $data = Database::getRow($sql, $params);
+        // Se verifica si la contraseña coincide con el hash almacenado en la base de datos.
+        if (password_verify($password, $data['password'])) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

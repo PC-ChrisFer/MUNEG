@@ -232,6 +232,20 @@ if (isset($_GET[ACTION])) {
                 $result[EXCEPTION] = 'No hay datos registrados';
             }
             break;
+        case 'graphTopEmpleado':
+            if ($result[DATA_SET] = $empleado->readTopEmpleados()) {
+                $result[STATUS] = SUCESS_RESPONSE;
+            } else {
+                $result[EXCEPTION] = 'No hay datos disponibles';
+            }
+            break;
+        case 'graphEmpleadoActivoInactivo':
+            if ($result[DATA_SET] = $empleado->readEmpleadoActivoInactivo()) {
+                $result[STATUS] = SUCESS_RESPONSE;
+            } else {
+                $result[EXCEPTION] = 'No hay datos disponibles';
+            }
+            break;
         default:
             $result[EXCEPTION] = 'Acción no disponible dentro de la sesión';
     }

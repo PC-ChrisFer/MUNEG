@@ -207,6 +207,13 @@ if (isset($_GET[ACTION])) {
                 $result[EXCEPTION] = 'No hay datos registrados';
             }
             break;
+        case 'graphInquilino':
+            if($result[DATA_SET] = $inquilino->readInqulinoActivoInactivo()) {
+                $result[STATUS] = SUCESS_RESPONSE;
+            }else {
+                $result[EXCEPTION] = 'No hay datos disponibles';
+            }
+            break;
         default:
             $result[EXCEPTION] = 'Acción no disponible dentro de la sesión';
     }

@@ -36,7 +36,7 @@ let datosPropiedad = {
   tipo_acabadoID: "",
   municipioID: 0,
   tipoPropiedadID: 0,
-  inquilinoID: 0,
+  inquilinoID: null,
   empleadoID: 0,
 };
 
@@ -226,7 +226,18 @@ window.guardarDatosUpdate = (
   plantas,
   sanitario,
   espacio_parqueo,
+<<<<<<< Updated upstream
   descripcion
+=======
+  descripcion,
+  visibilidad,
+  id_tipo_acabado,
+  id_municipio,
+  id_tipo_propiedad,
+  id_inquilino, 
+  id_empleado,
+  id_estado_propiedad
+>>>>>>> Stashed changes
 ) => {
   datosPropiedad.id_propiedad = id_propiedad;
 
@@ -283,8 +294,13 @@ getElementById("search-bar").addEventListener("submit", async (event) => {
 
 getElementById("insert_form")?.addEventListener("submit", async (event) => {
   event.preventDefault();
+<<<<<<< Updated upstream
 
   //@ts-ignore
+=======
+  // CONVIRTIENDO EL JSON A FORMDATA
+  console.log(datosPropiedad.inquilinoID)
+>>>>>>> Stashed changes
   let parameters = new FormData(getElementById("insert_form"));
   //@ts-ignore
   parameters.append("id_municipio_update", datosPropiedad.municipioID);
@@ -294,13 +310,21 @@ getElementById("insert_form")?.addEventListener("submit", async (event) => {
   parameters.append("id_empleado_update", datosPropiedad.empleadoID);
   //@ts-ignore
   parameters.append("id_inquilino_update", datosPropiedad.inquilinoID);
+<<<<<<< Updated upstream
   parameters.append("id_tipo_acabado_update", datosPropiedad.tipo_acabadoID);
 
+=======
+  parameters.append("id_tipo_acabado_update", datosPropiedad.tipo_acabadoID); 
+  parameters.append("id_estado_propiedad_update", datosPropiedad.inquilinoID == 0 ? 2 : 1)
+
+  // Se llama a la función que realiza la inserción. Se encuentra en el archivo components.js
+>>>>>>> Stashed changes
   await saveRow(API_PROPIEDAD, API_CREATE, parameters, fillTablePropiedad);
 
   // @ts-ignore
   $("#agregar").modal("hide");
-});
+
+  });
 
 getElementById("update_form")?.addEventListener("submit", async (event) => {
   event.preventDefault();

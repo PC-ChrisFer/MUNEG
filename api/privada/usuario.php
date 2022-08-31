@@ -191,8 +191,9 @@ if (isset($_GET[ACTION])) {
             case 'logIn':
                 $_POST = $usuario->validateForm($_POST);
                 $result[EXCEPTION] = $usuario->searchUser($_POST['nombre_usuario']) ? null : 'Alias incorrecto';
-            
-                if ($usuario->searchPassword($_POST['password'])) {
+                
+                
+                if ($usuario->checkPassword($_POST['password'])) {
                     $result[STATUS] = 1;
                     $result[MESSAGE] = 'Autenticación correcta';
                     $_SESSION[ID_USUARIO] = 11; 

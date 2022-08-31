@@ -1,6 +1,7 @@
 // @ts-ignore
 //Importar las constantes y metodos de components.js y api_constant.js
 import { readRows, saveRow, searchRows, deleteRow, readDeletedRowns } from "../components.js";
+<<<<<<< Updated upstream
 import {
     INSERT_MODAL,
     SEARCH_BAR,
@@ -13,6 +14,12 @@ import {
 } from "../constants/functions.js";
 import { API_CREATE, API_UPDATE, GET_METHOD } from "../constants/api_constant.js";
 import { APIConnection } from "../APIConnection.js";
+=======
+import { getElementById } from "../constants/functions.js";
+import { API_CREATE, API_UPDATE, GET_METHOD, SERVER } from "../constants/api_constant.js";
+import { validateExistenceOfUser } from "../constants/validationUser.js";
+
+>>>>>>> Stashed changes
 
 //Constantes que establece la comunicación entre la API y el controller utilizando parametros y rutas
 const API_TIPO_EMPLEADO = SERVER + "privada/tipo_empleado.php?action=";

@@ -237,4 +237,14 @@ class contrato extends validator
         return Database::getRows($sql, $params);
     }
 
+    //Consultas de graficos
+    //CONTRATOS GENERADOS POR MES
+    public function readContratosxMes()
+    {
+        $sql = 'SELECT count(id_contrato), EXTRACT(MONTH FROM fecha_firma) FROM contrato 
+        Group by EXTRACT(MONTH FROM fecha_firma)';
+        $params = null;
+        return Database::getRows($sql, $params);
+    }    
+
 }

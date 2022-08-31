@@ -23,7 +23,12 @@ class inquilino extends validator
 
     private $true = 1;
     private $still_true = 2;
+<<<<<<< Updated upstream
     private $false = '0';
+=======
+    private $false = 0;
+    private $desalojado =  'Desalojado';
+>>>>>>> Stashed changes
     //Metodos para setear los valores de los campos
     //Id - integer
     public function setId($value)
@@ -369,4 +374,21 @@ class inquilino extends validator
         $params = null;
         return Database::getRows($sql, $params);
     }
+<<<<<<< Updated upstream
 }
+=======
+
+    //Consultas para graficos
+    //INQUILINOS ACTIVOS E INACTIVOS
+    public function readInqulinoActivoInactivo()
+    {
+        $sql = 'SELECT count(id_inquilino), nombre_estado FROM inquilino
+        INNER JOIN estado_inquilino
+        ON inquilino.id_estado_inquilino = estado_inquilino.id_estado_inquilino
+        WHERE nombre_estado != ?
+        GROUP BY nombre_estado';
+        $params = array($this->desalojado);
+        return Database::getRows($sql, $params);
+    }
+}
+>>>>>>> Stashed changes

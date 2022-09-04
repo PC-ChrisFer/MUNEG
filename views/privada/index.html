@@ -53,8 +53,10 @@
                                             <h2>Contraseña</h2>
                                         </label>
                                         <input type="password" class="form-control" id="exampleInputPassword1" size="40"
-                                            name="password" maxlength="150" required>
+                                            name="password" maxlength="70" required pattern="(?=^.{8,70}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$"
+                                            title="Debe contener al menos una mayúscula, una minúscula, un número y un caracter especial (@$!%?&)">
                                     </div>
+                                    <a href="" id="recuperar">Recuperar contraseña</a>
                                     <div class="col-12 d-flex justify-content-center">
                                         <button type="submit" class="btn btn-dark logIndButton" id="btnmenu"><a
                                                 type="submit">Iniciar

@@ -143,4 +143,15 @@ class municipio extends validator
         $params = array($this->false, $this->id_municipio);
         return Database::executeRow($sql,$params);
     }
+
+    //Metodo para la busqueda READALL
+    //(sin parametros)
+    public function readDepartamento()
+    {
+        $sql = 'SELECT id_departamento, departamento, estado
+        FROM public.departamento';
+        $params = null;
+        return Database::getRows($sql, $params);
+    }
+
 }

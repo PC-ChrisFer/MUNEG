@@ -1,18 +1,14 @@
-//@ts-check
 //Importar las constantes y metodos de components.js y api_constant.js
-import { deleteRow, readRows, saveRow, readDeletedRowns, generatePDF, obtenerFechaActual } from "../components.js";
+import { APIConnection } from "../APIConnection.js";
+import { deleteRow, readRows, saveRow, readDeletedRowns, obtenerFechaActual, generatePDF } from "../components.js";
 import { SERVER, API_CREATE, API_UPDATE, POST_METHOD, GET_METHOD } from "../constants/api_constant.js";
 import { getElementById } from "../constants/functions.js";
 import { validateExistenceOfUser } from "../constants/validationUser.js";
-import { APIConnection } from "../APIConnection.js";
-
 
 //Constantes que establece la comunicación entre la API y el controller utilizando parametros y rutas
 const API_GESTION_ACABADO = SERVER + "privada/tipo_acabado.php?action=";
 const API_REPORTES = SERVER + "privada/pdf.php?action=";
-const API_USUARIO = SERVER + 'privada/usuario.php?action=';
-
-
+const API_USUARIO = SERVER + "privada/usuario.php?action=";
 
 // JSON EN EN CUAL SE GUARDA INFORMACION DE EL TIPO DE EMPLEADO, ESTA INFORMACION
 // SE ACTUALIZA CUANDO SE DA CLICK EN ELIMINAR O HACER UN UPDATE
@@ -21,6 +17,9 @@ let datos_gestion_acabado = {
   nombre_gestion_acabado: "",
   visibilidad: true,
 };
+
+
+let tiposAcabados = []
 
 let isWatchinDeletedData = false
 
@@ -49,10 +48,13 @@ function fillTableGestionAcabado(dataset) {
                <img  src="../../resources/img/iconos_formularios/edit_35px.png"></a>
              <a onclick="guardarDatosDelete(${row.id_tipo_acabado})" class="btn" id="button_ver_mas">
                <img src="../../resources/img/iconos_formularios/trash_can_35px.png"></a>
-             <a onclick="generarReporteTipoAcabado(${row.id_tipo_acabado},'${row.nombre_tipo}')" class="btn" id="button_ver_mas">generar reporte</a>
+             <a onclick="generarReporteTipoAcabado(${row.id_tipo_acabado})" class="btn" id="button_ver_mas">Generar Reporte</a>
          </td>
          </tr>
         `;
+
+        // cargando todos los ID tipo acabado en el array
+        tiposAcabados.push(row.id_tipo_acabado)
   });
   //Se inserta las información de la tabla a un elemento html
   getElementById("tbody-tipo-acabado").innerHTML = content;
@@ -109,21 +111,86 @@ window.guardarDatosDelete = (id_gestion_acabado) => {
   $("#eliminar").modal("show");
 };
 
-window.generarReporteTipoAcabado = async (tipo_acabado_ID, nombre_tipo_acabado) => { 
+
+
+// EVENTO PARA READ
+// Método que se ejecuta al enviar un formulario de busquedagetElementById("search-bar")
+getElementById("search-bar").addEventListener("submit", async (event) => {
+  // Se evita recargar la página web después de enviar el formulario.
+  event.preventDefault();
+  // Se llama a la función que realiza la búsqueda. Se encuentra en el archivo components.js
+  await searchRows(API_GESTION_ACABADO, "search-bar", fillTablePropietario);
+});  
+
+// EVENTO PARA INSERT
+// Método manejador de eventos que se ejecuta cuando se envía el formulario de guardar.
+getElementById("insert_form")?.addEventListener("submit", async (event) => {
+  // Se evita recargar la página web después de enviar el formulario.
+  event.preventDefault();
+  // CONVIRTIENDO EL JSON A FORMDATA
+  let parameters = new FormData(getElementById("insert_form"));
+  // Se llama a la función que realiza la inserción. Se encuentra en el archivo components.js
+  await saveRow( API_GESTION_ACABADO, API_CREATE, parameters, fillTableGestionAcabado );
+  // Se cierra el formulario de registro
+  $("#agregar").modal("hide");
+});
+
+//EVENTO PARA UPDATE
+// Método manejador de eventos que se ejecuta cuando se envía el formulario de guardar.
+getElementById("update_form")?.addEventListener("submit", async (event) => {
+  // Se evita recargar la página web después de enviar el formulario.
+  event.preventDefault();
+  // CONVIRTIENDO EL JSON A FORMDATA
+  let parameters = new FormData(getElementById("update_form"));
+  // Se adhieren datos al arreglo que se envia al update
+  parameters.append("visibilidad", datos_gestion_acabado.visibilidad);
+  parameters.append("id_tipo_acabado", datos_gestion_acabado.id_gestion_acabado);
+  // Se llama a la función que realiza la actualizacion. Se encuentra en el archivo components.js
+  await saveRow( API_GESTION_ACABADO, API_UPDATE, parameters, fillTableGestionAcabado );
+  // Se cierra el formulario de registro
+
+  // reinicia el crud
+  getElementById("verDatosliminados").checked = false
+  getElementById('textoSwitch').innerHTML = "Hacer invisible"
+  isWatchinDeletedData = false
+  $("#actualizar").modal("hide");
+});
+
+//EVENTO PARA DELETE
+// Método manejador de eventos que se ejecuta cuando se envía el formulario de guardar.
+getElementById("delete_form")?.addEventListener("submit", async (event) => {
+  // Se evita recargar la página web después de enviar el formulario.
+  event.preventDefault();
+  // CONVIRTIENDO EL JSON A FORMDATA
+  let parameters = new FormData();
+  // Se adhieren datos al arreglo que se envia al delete
+  parameters.append("id_tipo_acabado", datos_gestion_acabado.id_gestion_acabado);
+  // Se llama a la función que realiza la actualizacion. Se encuentra en el archivo components.js
+  await deleteRow( API_GESTION_ACABADO, parameters, fillTableGestionAcabado );
+  // Se cierra el formulario de registro
+  $("#eliminar").modal("hide");
+});
+//@ts-ignore
+window.cambiarEstadoGestionAcabado = () => {
+  datos_gestion_acabado.visibilidad = !datos_gestion_acabado.visibilidad;
+  // @ts-ignore
+  getElementById("visibilidad").value = datos_gestion_acabado.visibilidad
+    ? "visible"
+    : "invisible";
+};
+
+window.generarReporteTipoAcabado = async (tipo_acabado_ID, nombre_tipo_acabado) => {
   let tableContent = ""
   let apiEndpoint = API_REPORTES + "propiedad_tipo_acabado"
   let APIEndpointObtenerUsuarioActual = API_USUARIO + 'getUser';
-
   let parameters = new FormData()
   parameters.append("id_tipo_acabado", tipo_acabado_ID)
   let obetenerTipoAcabadoRespuesta = await APIConnection(apiEndpoint, POST_METHOD, parameters)
   let ObtenerUsuarioActualResponse = await APIConnection(APIEndpointObtenerUsuarioActual, GET_METHOD, null);
-
   
-  obetenerTipoAcabadoRespuesta.dataset.forEach(element => { 
+  obetenerTipoAcabadoRespuesta.dataset.forEach(element => {
     tableContent += `
           <tr>
-      <td>${element.codigo}</td>
        <td>${element.nombre_tipo}</td>
       <td>${element.departamento}</td>
       <td>${element.municipio}</td>
@@ -134,7 +201,6 @@ window.generarReporteTipoAcabado = async (tipo_acabado_ID, nombre_tipo_acabado) 
       </tr>
     `
   } )
-
   let generatedHTML = `<!doctype html>
   <html lang="es">
   
@@ -231,7 +297,6 @@ window.generarReporteTipoAcabado = async (tipo_acabado_ID, nombre_tipo_acabado) 
                       <td>${obtenerFechaActual()}</td>
                   </tr>
                   <tr>
-                  <th>Codigo</th>
                     <th>Material</th>
                     <th>Departamento</th>
                     <th>Municipio</th>
@@ -246,7 +311,7 @@ window.generarReporteTipoAcabado = async (tipo_acabado_ID, nombre_tipo_acabado) 
               </tbody>
           </table>
           <div class="container-fluid" id="tabla-footer">
-              <a class="text-footer">MUNEG S.A C.V</a>
+              <a>MUNEG S.A C.V</a>
           </div>
       </div>
       </main>
@@ -254,66 +319,7 @@ window.generarReporteTipoAcabado = async (tipo_acabado_ID, nombre_tipo_acabado) 
   </body>
   
   </html>`;
-  await generatePDF(generatedHTML, nombre_tipo_acabado + "_nombre_tipo_acabado" + ".pdf")
-
-
-
+  let res = await generatePDF(generatedHTML, nombre_tipo_acabado + "_nombre_tipo_acabado" + ".pdf")
+  
+  window.open("../../api/reporte/" +  nombre_tipo_acabado + "_nombre_tipo_acabado" + ".pdf");
 }
-
-// EVENTO PARA READ
-// Método que se ejecuta al enviar un formulario de busquedagetElementById("search-bar")
-getElementById("search-bar").addEventListener("submit", async (event) => {
-  // Se evita recargar la página web después de enviar el formulario.
-  event.preventDefault();
-  // Se llama a la función que realiza la búsqueda. Se encuentra en el archivo components.js
-  await searchRows(API_GESTION_ACABADO, "search-bar", fillTablePropietario);
-});  
-
-// EVENTO PARA INSERT
-// Método manejador de eventos que se ejecuta cuando se envía el formulario de guardar.
-getElementById("insert_form")?.addEventListener("submit", async (event) => {
-  // Se evita recargar la página web después de enviar el formulario.
-  event.preventDefault();
-  // CONVIRTIENDO EL JSON A FORMDATA
-  let parameters = new FormData(getElementById("insert_form"));
-  // Se llama a la función que realiza la inserción. Se encuentra en el archivo components.js
-  await saveRow( API_GESTION_ACABADO, API_CREATE, parameters, fillTableGestionAcabado );
-  // Se cierra el formulario de registro
-  $("#agregar").modal("hide");
-});
-
-//EVENTO PARA UPDATE
-// Método manejador de eventos que se ejecuta cuando se envía el formulario de guardar.
-getElementById("update_form")?.addEventListener("submit", async (event) => {
-  // Se evita recargar la página web después de enviar el formulario.
-  event.preventDefault();
-  // CONVIRTIENDO EL JSON A FORMDATA
-  let parameters = new FormData(getElementById("update_form"));
-  // Se adhieren datos al arreglo que se envia al update
-  parameters.append("visibilidad", datos_gestion_acabado.visibilidad);
-  parameters.append("id_tipo_acabado", datos_gestion_acabado.id_gestion_acabado);
-  // Se llama a la función que realiza la actualizacion. Se encuentra en el archivo components.js
-  await saveRow( API_GESTION_ACABADO, API_UPDATE, parameters, fillTableGestionAcabado );
-  // Se cierra el formulario de registro
-
-  // reinicia el crud
-  getElementById("verDatosliminados").checked = false
-  getElementById('textoSwitch').innerHTML = "Hacer invisible"
-  isWatchinDeletedData = false
-  $("#actualizar").modal("hide");
-});
-
-//EVENTO PARA DELETE
-// Método manejador de eventos que se ejecuta cuando se envía el formulario de guardar.
-getElementById("delete_form")?.addEventListener("submit", async (event) => {
-  // Se evita recargar la página web después de enviar el formulario.
-  event.preventDefault();
-  // CONVIRTIENDO EL JSON A FORMDATA
-  let parameters = new FormData();
-  // Se adhieren datos al arreglo que se envia al delete
-  parameters.append("id_tipo_acabado", datos_gestion_acabado.id_gestion_acabado);
-  // Se llama a la función que realiza la actualizacion. Se encuentra en el archivo components.js
-  await deleteRow( API_GESTION_ACABADO, parameters, fillTableGestionAcabado );
-  // Se cierra el formulario de registro
-  $("#eliminar").modal("hide");
-});

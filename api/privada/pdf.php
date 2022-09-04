@@ -64,7 +64,7 @@ if (isset($_GET[ACTION])) {
             }
             break;
         case 'propiedad_municipio':
-            if (!$reporte_pdf->setIdDepartamento($_POST['id_municipio'])) {
+            if (!$reporte_pdf->setIdMunicipio($_POST['id_municipio'])) {
                 $result[EXCEPTION] = 'Identificador de departamento incorrecto';
             } elseif ($result[DATA_SET] = $reporte_pdf->readPropiedadMunicipio()) {
                 $result[STATUS] = SUCESS_RESPONSE;
@@ -98,7 +98,7 @@ if (isset($_GET[ACTION])) {
             break;
         case 'propietario_tipo_propietario':
             if (!$reporte_pdf->setIdTipoPropietario($_POST['id_tipo_propietario'])) {
-                $result[EXCEPTION] = 'fecha de fecha invalida';
+                $result[EXCEPTION] = 'tipo propietario no válido';
             } elseif ($result[DATA_SET] = $reporte_pdf->readPropietarioTipoPropietario()) {
                 $result[STATUS] = SUCESS_RESPONSE;
             } elseif (Database::getException()) {
@@ -134,6 +134,24 @@ if (isset($_GET[ACTION])) {
                 $result[EXCEPTION] = 'No hay datos registrados';
             }
             break;
+            case 'reportes_orden':
+                if ($result[DATA_SET] = $reporte_pdf->readReportesOrden()) {
+                    $result[STATUS] = SUCESS_RESPONSE;
+                } elseif (Database::getException()) {
+                    $result[EXCEPTION] = Database::getException();
+                } else {
+                    $result[EXCEPTION] = 'No hay datos registrados';
+                }
+                break;
+            case 'contratos_orden':
+                if ($result[DATA_SET] = $reporte_pdf->readContratoFecha()) {
+                    $result[STATUS] = SUCESS_RESPONSE;
+                } elseif (Database::getException()) {
+                    $result[EXCEPTION] = Database::getException();
+                } else {
+                    $result[EXCEPTION] = 'No hay datos registrados';
+                }
+                break;
         case 'create_pdf':
             $_POST = $reporte_pdf->validateSpace($_POST);
             //FALTA GUARDAR NOMBRE EN DB

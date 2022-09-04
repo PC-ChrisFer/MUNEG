@@ -149,9 +149,9 @@ if (isset($_GET[ACTION])) {
                 $result[EXCEPTION] = 'Correo electronico no valido';
             } else if (!$inquilino->setGenero($_POST[INQUILINO_GENERO])) {
                 $result[EXCEPTION] = 'Genero no disponible';
-            }  else if (!$inquilino->setNRC($_POST[INQUILINO_NCR])) {
+            } else if (!$inquilino->setNRC($_POST[INQUILINO_NCR])) {
                 $result[EXCEPTION] = 'Genero no disponible';
-            }  else if (!$inquilino->setEstadoInquilino($_POST[INQUILINO_ESTADO])) {
+            } else if (!$inquilino->setEstadoInquilino($_POST[INQUILINO_ESTADO])) {
                 $result[EXCEPTION] = 'Estado incorrecto';
             } else if (!$inquilino->setTipoInquilino($_POST[INQUILINO_TIPO])) {
                 $result[EXCEPTION] = 'Tipo incorrecto';
@@ -203,6 +203,22 @@ if (isset($_GET[ACTION])) {
                 $result[EXCEPTION] = Database::getException();
             } else {
                 $result[EXCEPTION] = 'No hay datos registrados';
+            }
+            break;
+        case 'graphInquilino':
+            if ($result[DATA_SET] = $inquilino->readInqulinoActivoInactivo()) {
+                $result[STATUS] = SUCESS_RESPONSE;
+            } else {
+                $result[EXCEPTION] = 'No hay datos disponibles';
+            }
+            break;
+        case 'graphInquilino2':
+            if (!$inquilino->setDepartamento($_POST['id_departamento'])) {
+                $result[EXCEPTION] = 'Identificador del deparamento incorrecto';
+            } elseif ($result[DATA_SET] = $inquilino->readInquilinosDepartamento()) {
+                $result[STATUS] = SUCESS_RESPONSE;
+            } else {
+                $result[EXCEPTION] = 'No hay datos disponibles';
             }
             break;
         default:

@@ -188,10 +188,10 @@ class Validator
     public function validatePassword($value)
     {
         //Se verifica la longitud minima y maxima
-        if (strlen($value) >= 6 && strlen($value) <= 72) {
+        if (preg_match('(?=^.{8,70}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$', $value)) {
             return true;
         } else {
-            $this->passwordError = "Clave afuera de rango, menor a 6 o mayor a 72";
+            $this->passwordError = "Clave no cumple requisitos, menor a 8 o mayor a 70";
             return false;
         }
     }

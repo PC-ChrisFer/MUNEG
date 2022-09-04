@@ -1,7 +1,6 @@
-//@ts-check
 //Importar las constantes y metodos de components.js y api_constant.js
-import { readRows, saveRow, searchRows, deleteRow, obtenerFechaActual, generatePDF } from "../components.js";
-import { POST_METHOD, SERVER } from "../constants/api_constant.js";
+import { readRows, saveRow, searchRows, deleteRow, pieGraph, generatePDF, obtenerFechaActual } from "../components.js";
+import { API_SUCESS_REQUEST, POST_METHOD, SERVER, } from "../constants/api_constant.js";
 import { getElementById } from "../constants/functions.js";
 import { validateExistenceOfUser } from "../constants/validationUser.js";
 import { API_CREATE, API_UPDATE, GET_METHOD } from "../constants/api_constant.js";
@@ -56,12 +55,23 @@ async function fillComboBoxInquilino() {
     //Cargar los datos obtenidos de la consulta                
     getElementById("id_inquilino_update").innerHTML += `<option value="${element.id_inquilino}" > ${element.nombre} </option>`;
   });
+  APIResponse.dataset.map((element) => {
+    //Cargar los datos obtenidos de la consulta                
+    getElementById("cmb_inquilino").innerHTML += `<option value="${element.id_inquilino}" > ${element.nombre} </option>`;
+  });
 }
+
 
 //Función para cambiar la visibilidad con un checkbox
 window.seleccionarInquilino = () => {
   datos_inquilino.id_inquilino = document.getElementById("id_inquilino").value;
 };
+
+//Función para guardar los datos cambiados en el combobox
+window.selectInquilino = (id_inquilino) => {
+  datos_factura.id_inquilino = document.getElementById(id_inquilino).value;
+};
+
 
 //Metodo para llenar las tablas de datos, utiliza la función readRows()
 export function fillTableFactura(dataset) {
@@ -133,7 +143,7 @@ window.guardarDatosUpdate = (
 window.guardarDatosDelete = (id_factura) => {
   //Se transfieren los datos del boton al json global
   datos_factura.id = id_factura;
-  //Se llama el modal de borra
+   //Se llama el modal de borra
   $("#eliminar").modal("show");
 };
 
@@ -184,10 +194,54 @@ getElementById("delete-form").addEventListener("submit", async (event) => {
   // CONVIRTIENDO EL JSON A FORMDATA
   let parameters = new FormData();
   // Se adhieren datos al arreglo que se envia al update
-  parameters.append("id", datos_factura.id);
+  parameters.append("id", datos_factura["id"]);
   // Se llama a la función que realiza la borrar. Se encuentra en el archivo components.js
   await deleteRow(API_FACTURA, parameters, fillTableFactura);
 });
+
+// Función para crear el grafico que, "La cantidad  de inquilinos por municipio segun el departamento"
+export async function graphPieFacturaInquilino(id_inquilino) {
+  //Creo un formData para los parametros
+  let parameters = new FormData();
+  //Inserto el id_producto a los parametros
+  parameters.append("id_inquilino", id_inquilino);
+  //Obtener los datos del grafico
+  //Crear endpoint
+  let APIEndpoint = API_FACTURA + "graphFactura";
+  //Se realiza la consulta con el endpoint, el metodo "get" y no requiere parametros
+  let APIResponse = await APIConnection(APIEndpoint, POST_METHOD, parameters);
+  //Se verifica si la consulta retorna un valor positivo
+  if (APIResponse.status == API_SUCESS_REQUEST) {
+    // Se comprueba si la respuesta es satisfactoria, de lo contrario se remueve la etiqueta canvas.
+    if (APIResponse.status) {
+      // Se declaran los arreglos para guardar los datos a gráficar.
+      let nombre_estado  = [];
+      let num_factura = [];
+      // Se recorre el conjunto de registros devuelto por la API (dataset) fila por fila a través del objeto row.
+      APIResponse.dataset.map(function (row) {
+        // Se agregan los datos a los arreglos.
+        nombre_estado.push(row.nombre_estado);
+        num_factura.push(row.count);
+      });
+      getElementById('graph_contrato').innerHTML = '<canvas id="chartFactura" style="background-color: white; border-radius: 20px"></canvas>'
+      // Se llama a la función que genera y muestra un gráfico de pastel. Se encuentra en el archivo components.js
+      pieGraph(
+        "chartFactura",
+        nombre_estado,
+        num_factura,
+        "Cantidad de Facturas emitidas a un inquilino ."
+      );
+    } else {
+      console.log(response.exception);
+    }
+  }
+}
+
+//Funcion para generar grafico a traves del click de un boton
+window.generarGrafico = async () => {
+  console.log(datos_factura.id_inquilino);
+  await graphPieFacturaInquilino(datos_factura.id_inquilino);
+};
 
 //CREACIÓN DEL PDF
 
@@ -206,139 +260,137 @@ window.generarReporteFactura = async (id_factura) => {
 
 
   obetenerFacturaRespuesta.dataset.forEach(element => {
-    tableContent += `
-          <tr>
-      <td>${element.codigo_factura}</td>
-       <td>${element.descripcion}</td>
-      <td>${element.subtotal}</td>
-      <td>${element.IVA}</td>
-      <td>${element.venta_gravada}</td>
-      <td>${element.fecha}</td>
-      <td>${element.nombre}</td>
-      <td>${element.apellido}</td>
-      </tr>
-    `
+      tableContent += `
+        <tr>
+    <td>${element.codigo_factura}</td>
+     <td>${element.descripcion}</td>
+    <td>${element.subtotal}</td>
+    <td>${element.IVA}</td>
+    <td>${element.venta_gravada}</td>
+    <td>${element.fecha}</td>
+    <td>${element.nombre} ${element.apellido} </td>
+    </tr>
+  `
   })
 
   let generatedHTML = `<!doctype html>
-  <html lang="es">
-  
-  <head>
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-      <style>
-          body {
-              display: flex;
-              justify-content: center;
-              text-align: center;
-  
-          }
-  
-          #tabla-header {
-              background-color: #007D84;
-              color: aliceblue;
-              padding: 10px;
-              font-size: 40px;
-              padding-bottom: 20px;
-              margin-bottom: 10px;
-  
-          }
-  
-          #tabla-footer {
-              background-color: #007D84;
-              color: aliceblue;
-              padding: 10px;
-              text-align: right;
-          }
-  
-          #tabla-header img {
-              max-width: 65px;
-          }
-  
-          /*Tabla de datos*/
-          #tabla_datos {
-              margin-top: 3%;
-              margin-bottom: 3%;
-              font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-  
-          }
-  
-          /*Colores al encabezado*/
-          #tabla_datos th {
-              color: white;
-              background-color: #018080;
-          }
-  
-          /*Colores al cuerpo*/
-          #tabla_datos tr {
-              border: solid black 1px;
-              background-color: #A1A39F;
-          }
-  
-          #tabla_reporte {
-              width: 100%;
-              height: 60%;
-              margin-top: 20px;
-  
-          }
-  
-          #tabla_reporte th,
-          td {
-              text-align: left;
-              padding-left: 5px;
-          }
-  
-          .text-footer {
-              font-size: 10px;
-              margin-top: 10px;
-          }
-      </style>
-      <title>MUNEG S.A C.V</title>
-  
-  </head>
-  
-  <body>
-      <!-- Tabla de Datos -->
-      <div class="container-fluid" id="tabla_datos" style="width: 100%">
-          <div class="container-fluid" id="tabla-header">
-              <a>MUNEG</a>
-          </div>
-          <div class="container-fluid" id="tabla-header">
-              <a>FACTURA</a>
-          </div>
-          <table class="table table-responsive table-bordered" id="tabla_reporte">
-              <thead>
-                  <tr>
-                      <th>Creado por:</th>
-                       <td>${ObtenerUsuarioActualResponse.username}</td>
-                  </tr>
-                  <tr>
-                      <th>Fecha:</th>
-                      <td>${obtenerFechaActual()}</td>
-                  </tr>
-                  <tr>
-                  <th>Codigo</th>
-                    <th>Descripción</th>
-                    <th>SubTotal</th>
-                    <th>IVA</th>
-                    <th>Venta gravada</th>
-                    <th>Fecha</th>
-                    <th>Nombre</th>
-                    <th>Apellido</th>
-                  </tr>
-              </thead>
-              <tbody>
-                  ${tableContent}
-              </tbody>
-          </table>
-          <div class="container-fluid" id="tabla-footer">
-              <a class="text-footer">MUNEG S.A C.V</a>
-          </div>
-      </div>
-      </main>
-  
-  </body>
-  
-  </html>`;
+<html lang="es">
+
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            text-align: center;
+
+        }
+
+        #tabla-header {
+            background-color: #007D84;
+            color: aliceblue;
+            padding: 10px;
+            font-size: 40px;
+            padding-bottom: 20px;
+            margin-bottom: 10px;
+
+        }
+
+        #tabla-footer {
+            background-color: #007D84;
+            color: aliceblue;
+            padding: 10px;
+            text-align: right;
+        }
+
+        #tabla-header img {
+            max-width: 65px;
+        }
+
+        /*Tabla de datos*/
+        #tabla_datos {
+            margin-top: 3%;
+            margin-bottom: 3%;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+
+        }
+
+        /*Colores al encabezado*/
+        #tabla_datos th {
+            color: white;
+            background-color: #018080;
+        }
+
+        /*Colores al cuerpo*/
+        #tabla_datos tr {
+            border: solid black 1px;
+            background-color: #A1A39F;
+        }
+
+        #tabla_reporte {
+            width: 100%;
+            height: 60%;
+            margin-top: 20px;
+
+        }
+
+        #tabla_reporte th,
+        td {
+            text-align: left;
+            padding-left: 5px;
+        }
+
+        .text-footer {
+            font-size: 10px;
+            margin-top: 10px;
+        }
+    </style>
+    <title>MUNEG S.A C.V</title>
+
+</head>
+
+<body>
+    <!-- Tabla de Datos -->
+    <div class="container-fluid" id="tabla_datos" style="width: 100%">
+        <div class="container-fluid" id="tabla-header">
+            <a>MUNEG</a>
+        </div>
+        <div class="container-fluid" id="tabla-header">
+            <a>FACTURA</a>
+        </div>
+        <table class="table table-responsive table-bordered" id="tabla_reporte">
+            <thead>
+                <tr>
+                    <th>Creado por:</th>
+                     <td>${ObtenerUsuarioActualResponse.username}</td>
+                </tr>
+                <tr>
+                    <th>Fecha:</th>
+                    <td>${obtenerFechaActual()}</td>
+                </tr>
+                <tr>
+                <th>Codigo</th>
+                  <th>Descripción</th>
+                  <th>SubTotal</th>
+                  <th>IVA</th>
+                  <th>Venta gravada</th>
+                  <th>Fecha de Creación</th>
+                  <th>Nombre Completo</th>
+                </tr>
+            </thead>
+            <tbody>
+                ${tableContent}
+            </tbody>
+        </table>
+        <div class="container-fluid" id="tabla-footer">
+        <a>MUNEG S.A C.V</a>
+        </div>
+    </div>
+    </main>
+
+</body>
+
+</html>`;
   await generatePDF(generatedHTML, "factura_" + id_factura + ".pdf")
 
   window.open("../../api/reporte/" + "factura_" + id_factura + ".pdf");
@@ -350,7 +402,7 @@ window.abrirModalReportes = () => {
   $("#reportes").modal("show");
 };
 
-window.generarReporteFactura = async () => {
+window.generarReporteFacturaMes = async () => {
   //contenido de la tabla 
   let tableContent = ""
   // enpoints que vas a utilizar
@@ -358,150 +410,148 @@ window.generarReporteFactura = async () => {
   let enpointReporte = API_REPORTES + "factura_mes"
   // instancia para ingresar parametros
   let parameters = new FormData()
-  parameters.append("fecha", getElementById("meses_año").value)
+  parameters.append("fecha_factura", getElementById("meses_año").value)
 
   //Consultas que vas a hacer
-  let obtenerDatosParaReporteFactura = await APIConnection(enpointReporte, POST_METHOD, parameters)
+  let obtenerDatosParaReporteFacturaMes = await APIConnection(enpointReporte, POST_METHOD, parameters)
   let ObtenerUsuarioActualResponse = await APIConnection(APIEndpointObtenerUsuarioActual, GET_METHOD, null);
 
+  console.log(obtenerDatosParaReporteFacturaMes)
 
-  obtenerDatosParaReporteFactura.dataset
-    tableContent += `
-      <tr>
-      <td>${element.codigo_factura}</td>
-      <td>${element.descripcion}</td>
-     <td>${element.subtotal}</td>
-     <td>${element.IVA}</td>
-     <td>${element.venta_gravada}</td>
-     <td>${element.fecha}</td>
-     <td>${element.nombre}</td>
-     <td>${element.apellido}</td>
-     </tr>
-    `
+
+  tableContent = `
+    <tr>
+    <td>${obtenerDatosParaReporteFacturaMes.dataset.codigo_factura}</td>
+    <td>${obtenerDatosParaReporteFacturaMes.dataset.descripcion}</td>
+   <td>${obtenerDatosParaReporteFacturaMes.dataset.subtotal}</td>
+   <td>${obtenerDatosParaReporteFacturaMes.dataset.IVA}</td>
+   <td>${obtenerDatosParaReporteFacturaMes.dataset.venta_gravada}</td>
+   <td>${obtenerDatosParaReporteFacturaMes.dataset.fecha}</td>
+   <td>${obtenerDatosParaReporteFacturaMes.dataset.nombre} ${obtenerDatosParaReporteFacturaMes.dataset.apellido}</td>
+   </tr>
+  `
 
   let generatedHTML = `<!doctype html>
-  <html lang="es">
-  
-  <head>
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-      <style>
-          body {
-              display: flex;
-              justify-content: center;
-              text-align: center;
-  
-          }
-  
-          #tabla-header {
-              background-color: #007D84;
-              color: aliceblue;
-              padding: 10px;
-              font-size: 40px;
-              padding-bottom: 20px;
-              margin-bottom: 10px;
-  
-          }
-  
-          #tabla-footer {
-              background-color: #007D84;
-              color: aliceblue;
-              padding: 10px;
-              text-align: right;
-          }
-  
-          #tabla-header img {
-              max-width: 65px;
-          }
-  
-          /*Tabla de datos*/
-          #tabla_datos {
-              margin-top: 3%;
-              margin-bottom: 3%;
-              font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-  
-          }
-  
-          /*Colores al encabezado*/
-          #tabla_datos th {
-              color: white;
-              background-color: #018080;
-          }
-  
-          /*Colores al cuerpo*/
-          #tabla_datos tr {
-              border: solid black 1px;
-              background-color: #A1A39F;
-          }
-  
-          #tabla_reporte {
-              width: 100%;
-              height: 60%;
-              margin-top: 20px;
-  
-          }
-  
-          #tabla_reporte th,
-          td {
-              text-align: left;
-              padding-left: 5px;
-          }
-  
-          .text-footer {
-              font-size: 10px;
-              margin-top: 10px;
-          }
-      </style>
-      <title>MUNEG S.A C.V</title>
-  
-  </head>
-  
-  <body>
-      <!-- Tabla de Datos -->
-      <div class="container-fluid" id="tabla_datos" style="width: 100%">
-          <div class="container-fluid" id="tabla-header">
-              <a>MUNEG</a>
-          </div>
-          <div class="container-fluid" id="tabla-header">
-              <a>PROPIEDADES  CON LOS PRECIOS MÁS BAJOS</a>
-          </div>
-          <table class="table table-responsive table-bordered" id="tabla_reporte">
-              <thead>
-                  <tr>
-                      <th>Creado por:</th>
-                       <td>${ObtenerUsuarioActualResponse.username}</td>
-                  </tr>
-                  <tr>
-                      <th>Fecha:</th>
-                      <td>${obtenerFechaActual()}</td>
-                  </tr>
-                  <tr>
-                  <th>Codigo</th>
-                  <th>Descripción</th>
-                  <th>SubTotal</th>
-                  <th>IVA</th>
-                  <th>Venta gravada</th>
-                  <th>Fecha</th>
-                  <th>Nombre</th>
-                  <th>Apellido</th>
-                  </tr>
-              </thead>
-              <tbody>
-                  ${tableContent}
-              </tbody>
-          </table>
-          <div class="container-fluid" id="tabla-footer">
-              <a class="text-footer">MUNEG S.A C.V</a>
-          </div>
-      </div>
-      </main>
-  
-  </body>
-  
-  </html>`;
+<html lang="es">
+
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            text-align: center;
+
+        }
+
+        #tabla-header {
+            background-color: #007D84;
+            color: aliceblue;
+            padding: 10px;
+            font-size: 40px;
+            padding-bottom: 20px;
+            margin-bottom: 10px;
+
+        }
+
+        #tabla-footer {
+            background-color: #007D84;
+            color: aliceblue;
+            padding: 10px;
+            text-align: right;
+        }
+
+        #tabla-header img {
+            max-width: 65px;
+        }
+
+        /*Tabla de datos*/
+        #tabla_datos {
+            margin-top: 3%;
+            margin-bottom: 3%;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+
+        }
+
+        /*Colores al encabezado*/
+        #tabla_datos th {
+            color: white;
+            background-color: #018080;
+        }
+
+        /*Colores al cuerpo*/
+        #tabla_datos tr {
+            border: solid black 1px;
+            background-color: #A1A39F;
+        }
+
+        #tabla_reporte {
+            width: 100%;
+            height: 60%;
+            margin-top: 20px;
+
+        }
+
+        #tabla_reporte th,
+        td {
+            text-align: left;
+            padding-left: 5px;
+        }
+
+        .text-footer {
+            font-size: 10px;
+            margin-top: 10px;
+        }
+    </style>
+    <title>MUNEG S.A C.V</title>
+
+</head>
+
+<body>
+    <!-- Tabla de Datos -->
+    <div class="container-fluid" id="tabla_datos" style="width: 100%">
+        <div class="container-fluid" id="tabla-header">
+            <a>MUNEG</a>
+        </div>
+        <div class="container-fluid" id="tabla-header">
+            <a>FACTURAS EFECTUADAS EN EL MES</a>
+        </div>
+        <table class="table table-responsive table-bordered" id="tabla_reporte">
+            <thead>
+                <tr>
+                    <th>Creado por:</th>
+                     <td>${ObtenerUsuarioActualResponse.username}</td>
+                </tr>
+                <tr>
+                    <th>Fecha:</th>
+                    <td>${obtenerFechaActual()}</td>
+                </tr>
+                <tr>
+                <th>Codigo</th>
+                <th>Descripción</th>
+                <th>SubTotal</th>
+                <th>IVA</th>
+                <th>Venta gravada</th>
+                <th>Fecha de Creación</th>
+                <th>Nombre Completo</th>
+                </tr>
+            </thead>
+            <tbody>
+                ${tableContent}
+            </tbody>
+        </table>
+        <div class="container-fluid" id="tabla-footer">
+        <a>MUNEG S.A C.V</a>
+        </div>
+    </div>
+    </main>
+
+</body>
+
+</html>`;
 
 
   await generatePDF(generatedHTML, getElementById("meses_año").value + "facturas" + ".pdf")
+  window.open("../../api/reporte/" + getElementById("meses_año").value + "facturas" + ".pdf");
 
 }
-
-

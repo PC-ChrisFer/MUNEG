@@ -34,12 +34,8 @@ class Reportes_PDF extends Validator
     //fecha_firma - date
     public function setFechaFactura($value)
     {
-        if ($this->validateDate($value)) {
             $this->fecha_factura = $value;
             return true;
-        } else {
-            return false;
-        }
     }
 
     //Id - integer
@@ -126,7 +122,16 @@ class Reportes_PDF extends Validator
         return $this->id_cliente;
     }
 
-
+    //Id - integer
+    public function setIdMunicipio($value)
+    {
+        if ($this->validateNaturalNumber($value)) {
+            $this->id_municipio = $value;
+            return true;
+        } else {
+            return false;
+        }
+    }
     //Metodos para realizar las operaciones SCRUD(Search, Create, Read, Update, Delete)
 
     //Metodo para la busqueda
@@ -147,6 +152,8 @@ class Reportes_PDF extends Validator
         return Database::getRows($sql, $params);
     }
 
+
+
     //PROPIEDADES CLASIFICADAS POR SU TIPO DE ACABADO (id_tipo_acabado)
     public function readPropiedadTipoAcabado()
     {
@@ -164,34 +171,16 @@ class Reportes_PDF extends Validator
         return Database::getRows($sql, $params);
     }
 
-    //PROPIEDADES CLASIFICADAS POR SU TIPO DE PROPIEDAD (id_tipo_propiedad)
-    public function readPropiedadTipoPropiedad()
-    {
-        $sql = 'SELECT direccion, codigo, precio, municipio, departamento, inquilino.id_inquilino, tipo_propiedad.nombre_tipo, nombre, apellido FROM propiedad 
-        INNER JOIN inquilino
-        ON propiedad.id_inquilino = inquilino.id_inquilino
-        INNER JOIN municipio
-        ON propiedad.id_municipio = municipio.id_municipio
-        INNER JOIN departamento
-        ON municipio.id_departamento = departamento.id_departamento
-        INNER JOIN tipo_propiedad
-        ON propiedad.id_tipo_propiedad = tipo_propiedad.id_tipo_propiedad
-        WHERE tipo_propiedad.id_tipo_propiedad = ?';
-        $params = array($this->id_tipo_propiedad);
-        return Database::getRows($sql, $params);
-    }
 
-    //PROPIEDADES CLASIFICADAS POR EL DEPARTAMENTO EN EL QUE SE ENCUENTRA (id_departamento)
+//PROPIEDADES CLASIFICADAS POR EL DEPARTAMENTO EN EL QUE SE ENCUENTRA (id_departamento)
     public function readPropiedadMunicipio()
     {
         $sql = 'SELECT direccion, codigo, precio, municipio, inquilino.id_inquilino, nombre, apellido FROM propiedad 
         INNER JOIN inquilino
         ON propiedad.id_inquilino = inquilino.id_inquilino
         INNER JOIN municipio
-        ON propiedad.id_municipio = municipio.id_municipio
-        INNER JOIN tipo_propiedad
-        ON propiedad.id_tipo_propiedad = tipo_propiedad.id_tipo_propiedad
-        WHERE tipo_propiedad.id_tipo_propiedad = ?';
+        ON propiedad.id_municipio = municipio.id_municipio 
+        WHERE municipio.id_municipio = ?';
         $params = array($this->id_municipio);
         return Database::getRows($sql, $params);
     }
@@ -212,14 +201,15 @@ class Reportes_PDF extends Validator
     //FACTURAS EFECTUADAS DURANTE CIERTO MES (fecha_factura)
     public function readFacturaMes()
     {
-        $sql = 'SELECT codigo_factura, descripcion, subtotal, "IVA", venta_gravada, fecha, nombre, apellido FROM factura
+    $sql = 'SELECT codigo_factura, descripcion, subtotal, "IVA", venta_gravada, fecha, nombre, apellido FROM factura
         INNER JOIN inquilino
         ON inquilino.id_inquilino = factura.id_inquilino
-        ORDER BY id_factura DESC
-        WHERE EXTRACT(MONTH FROM fecha) = ?';
+        WHERE EXTRACT(MONTH FROM fecha) = ?
+        ORDER BY id_factura DESC';
         $params = array($this->fecha_factura);
-        return Database::getRows($sql, $params);
+        return Database::getRow($sql, $params);
     }
+
 
     // PROPIETARIOS SEGÚN TIPO PROPIETARIO (id_tipo_propietario)
     public function readPropietarioTipoPropietario()
@@ -230,6 +220,26 @@ class Reportes_PDF extends Validator
         WHERE propietario.id_tipo_propietario = ?';
         $params = array($this->id_tipo_propietario);
         return Database::getRows($sql, $params);
+    }
+
+    //PROPIEDADES CLASIFICADAS POR SU TIPO DE PROPIEDAD (id_tipo_propiedad)
+
+    public function readPropiedadTipoPropiedad()
+
+    {
+        $sql = 'SELECT direccion, codigo, precio, municipio, departamento, inquilino.id_inquilino, tipo_propiedad.nombre_tipo, nombre, apellido FROM propiedad
+        INNER JOIN inquilino
+        ON propiedad.id_inquilino = inquilino.id_inquilino
+        INNER JOIN municipio
+        ON propiedad.id_municipio = municipio.id_municipio
+        INNER JOIN departamento
+        ON municipio.id_departamento = departamento.id_departamento
+        INNER JOIN tipo_propiedad
+        ON propiedad.id_tipo_propiedad = tipo_propiedad.id_tipo_propiedad
+        WHERE tipo_propiedad.id_tipo_propiedad = ?';
+        $params = array($this->id_tipo_propiedad);
+        return Database::getRows($sql, $params);
+
     }
 
 
@@ -275,6 +285,24 @@ class Reportes_PDF extends Validator
         INNER JOIN tipo_acabado
         ON propiedad.id_tipo_acabado = tipo_acabado.id_tipo_acabado
         ORDER BY precio DESC';
+        $params = null;
+        return Database::getRows($sql, $params);
+    }
+    //REPORTES POR ORDEN DE CREACIÓN
+    public function readReportesOrden()
+    {
+        $sql = 'SELECT id_reporte, asunto, descripcion, estado, inquilino.id_inquilino, nombre FROM reporte
+        INNER JOIN inquilino
+        ON reporte.id_inquilino = inquilino.id_inquilino
+        ORDER BY id_reporte';
+        $params = null;
+        return Database::getRows($sql, $params);
+    }
+    //CONTRATOS POR FECHA DE FIRMA
+    public function readContratoFecha()
+    {
+        $sql = 'SELECT fecha_firma, id_contrato, descripcion FROM contrato
+        ORDER BY fecha_firma DESC';
         $params = null;
         return Database::getRows($sql, $params);
     }

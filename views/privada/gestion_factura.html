@@ -12,6 +12,7 @@
     <!-- libreria -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
     <link rel="stylesheet" href="../../resources/css/estilo_privado.css">
+
     <title>MUNEG S.A C.V</title>
 
 </head>
@@ -116,9 +117,14 @@
                 <button class="btn" type="submit"><img src="../../resources/img/iconos_navbar/search_24px.png"></button>
             </form>
         </div>
-        <button onclick="abrirModalReportes()" class="btn" id="button_reportes">Gestion de reportes</button>
         <!-- Botones de SCRUD, actualizar y agregar -->
-        <div class="container-fluid" id="opciones">
+        <div class="container-fluid d-flex justify-content-between" id="opciones">
+            <div class="btn-group" role="group">
+                <button type="button" class="btn btn-primary" id="button_ver_mas" data-bs-toggle="modal"
+                    data-bs-target="#generar_grafico">Generar Gráfico</button>
+                <button data-bs-toggle="modal" data-bs-target="#reportes" class="btn btn-primary" id="button_ver_mas">
+                    Gestion de reportes</button>
+            </div>
             <div class="btn-group" role="group">
                 <button type="button" class="btn btn-primary" id="btnmenu" data-bs-toggle="modal"
                     data-bs-target="#agregar"><a class="nav-link"><img
@@ -294,6 +300,38 @@
                 </div>
             </div>
         </div>
+        <!-- Modal de GENERAR GRAFICO -->
+        <div class="modal fade" id="generar_grafico" tabindex="-1">
+            <div class="modal-dialog modal-lg modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header" id="formHeader">
+                        <h5 class="modal-title">Generar Gráfico</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <p>Generar Grafico: "Cantidad de Facturas emitidas a un inquilino"</p>
+                            <div class="col-8">
+                                <label for="departamento" class="form-label">Nombre del Propietario:</label>
+                            </div>
+                            <div class="col-4">
+                                <select onchange="selectInquilino('cmb_inquilino')" id="cmb_inquilino"
+                                    name="id_inquilino" class="form-control">
+                                    <option value="0" selected>Ninguno</option>
+                                </select>
+
+                                <button onclick="generarGrafico()" class="btn btn-primary"
+                                    id="button_ver_mas">GENERAR</button>
+
+                            </div>
+                        </div>
+                        <!-- Grafico Dinamico -->
+                        <div id="graph_contrato">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <!-- Modal de ELIMINAR REALIZADO -->
         <div class="modal fade" id="eliminado" tabindex="-1">
             <div class="modal-dialog modal-dialog-centered">
@@ -345,6 +383,23 @@
                 </div>
             </div>
         </div>
+        <!-- Modal de reporte fallido -->
+        <div class="modal fade" id="errorReporte" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header" id="formHeader">
+                        <h5 class="modal-title">Error en el proceso</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        No se pudo generar el reporte, valide los datos ingreados
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary" data-bs-dismiss="modal" id="btnmenu">Aceptar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
         <!-- Modal de NO ENCONTRO DATA -->
         <div class="modal fade" id="no_data" tabindex="-1">
             <div class="modal-dialog modal-dialog-centered">
@@ -362,8 +417,8 @@
                 </div>
             </div>
         </div>
-         <!-- Modal de REPORTES -->
-         <div class="modal fade" id="reportes" tabindex="-1">
+        <!-- Modal de REPORTES -->
+        <div class="modal fade" id="reportes" tabindex="-1">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header" id="formHeader">
@@ -390,13 +445,29 @@
                             <option value="13">Diciembre</option>
                             <option value="12">Diciembre</option>
                         </select>
-                        <button onclick="generarReporteFactura()">
+                        <button onclick="generarReporteFacturaMes()">
                             Generar
                         </button>
                     </div>
                 </div>
             </div>
         </div>
+        <!-- Modal de NO SE PUDO ABRIR REPORTE -->
+        <div class="modal fade" id="reporteMal" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header" id="formHeader">
+                        <h5 class="modal-title" id="exampleModalToggleLabe3">Error</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        No se pudo abrir el reporte.
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Importación de librería para generar gráficos en tiempo real. Para más información https://www.chartjs.org/ -->
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js"></script>
     </main>
 
     <footer class="text-white  pt-5 pb-4" id="Segundofooter">
@@ -414,8 +485,6 @@
         crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script type="module" src="../../controller/privada/factura.js"></script>
-
-
 </body>
 
 </html>

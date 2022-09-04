@@ -12,6 +12,13 @@ height: 60px;
 
 }
 
+#recuperar{
+    text-align: center;
+    color: #0788b3;
+    align-items: center;
+    font-size: 16px;
+    padding-top: 5px;
+}
 
 #cotones{
    display: flex;

@@ -37,11 +37,12 @@ const CONFIRMAR = 'confirmar';
 if (isset($_GET[ACTION])) {
     // Se crea una sesión o se reanuda la actual para poder utilizar variables de sesión en el script.
     session_start();
+
     // Se instancia la clase correspondiente, esto para poder acceder a sus functiones como "readOne".
     $usuario = new usuario;
 
     // Se declara e inicializa un arreglo para guardar el resultado que retorna la API.
-    $result = array($_SESSION[ID_USUARIO] , STATUS => 0, SESSION => 0, MESSAGE => null, EXCEPTION => null, DATASET => null, USERNAME => null);
+    $result = array(STATUS => 0, SESSION => 0, MESSAGE => null, EXCEPTION => null, DATASET => null, USERNAME => null);
 
     // Se verifica si existe una sesión iniciada como administrador, de lo contrario se ejecutara lo especificado  "else".
     if (isset($_SESSION[ID_USUARIO])) {
@@ -72,7 +73,7 @@ if (isset($_GET[ACTION])) {
                 } else {
                     $result[EXCEPTION] = 'No hay datos registrados';
                 }
-                break;     
+                break;
             case READ_ALL:
                 if ($result[DATASET] = $usuario->readAllEmpleado()) {
                     $result[STATUS] = 1;
@@ -94,7 +95,7 @@ if (isset($_GET[ACTION])) {
                 } else {
                     $result[EXCEPTION] = 'No hay coincidencias';
                 }
-                break; 
+                break;
             case "update":
                 $usuario->setId($_POST['id']) ? null : "id incorrecto";
                 $usuario->setNombre($_POST['nombre_usuario']) ? null : "nombre incorrecto";
@@ -129,6 +130,18 @@ if (isset($_GET[ACTION])) {
                     break;
                 } else {
                     $result[EXCEPTION] = Database::getException();
+                }
+                break;
+            case 'readMail':
+                $usuario->setNombre($_POST['nombre_usuario']) ? null : "nombre incorrecto";
+                if ($usuario->readCorreo()) {
+                    $result[STATUS] = SUCESS_RESPONSE;
+                    $result[MESSAGE] = 'The name of the game is lightworks';
+                    $result[DATASET] = $usuario->readCorreo();
+                } elseif (Database::getException()) {
+                    $result[EXCEPTION] = Database::getException();
+                } else {
+                    $result[EXCEPTION] = 'No hay datos registrados';
                 }
                 break;
             default:
@@ -200,7 +213,7 @@ if (isset($_GET[ACTION])) {
             case 'logIn':
                 $_POST = $usuario->validateForm($_POST);
                 $result[EXCEPTION] = $usuario->searchUser($_POST['nombre_usuario']) ? null : 'Alias incorrecto';
-            
+
                 if ($usuario->searchPassword($_POST['password'])) {
                     $result[STATUS] = 1;
                     $result[MESSAGE] = 'Autenticación correcta';
@@ -210,12 +223,38 @@ if (isset($_GET[ACTION])) {
                     $result[EXCEPTION] = 'Clave incorrecta';
                 }
                 break;
-
+            case 'userExist':
+                $_POST = $usuario->validateForm($_POST);
+                if ($usuario->searchUser($_POST['nombre_usuario'])) {
+                    $result[STATUS] = 1;
+                    $result[MESSAGE] = 'Autenticación correcta';
+                } else {
+                    $result[EXCEPTION] = 'mUY Mal';
+                    $result[STATUS] = 0;
+                }
+                break;
             case 'checkSession':
                 if (isset($_SESSION[ID_USUARIO])) {
                     $result[STATUS] = 1;
-                }else{
+                } else {
                     $result[STATUS] = 0;
+                }
+                break;
+            case 'readEmpleado':
+                if ($usuario->readAllEmpleado()) {
+                    $result[STATUS] = 1;
+                    $result[MESSAGE] = 'Existe al menos un usuario registrado';
+                } else {
+                    $result[EXCEPTION] = 'No existen usuarios registrados';
+                }
+                break;
+            case 'blockUser':
+                $usuario->setNombre($_POST['nombre_usuario']) ? null : "nombre incorrecto";
+                if ($usuario->blockUser()) {
+                    $result[STATUS] = SUCESS_RESPONSE;
+                    $result[MESSAGE] = '¡Usuario bloqueado!';
+                } else {
+                    $result[EXCEPTION] = Database::getException();
                 }
                 break;
             default:

@@ -55,7 +55,7 @@ if (isset($_GET[ACTION])) {
                 } else {
                     $result[EXCEPTION] = 'Alias de usuario indefinido';
                 }
-                break;
+                break; 
             case "update":
                 $_POST = $usuario->validateSpace($_POST);
                 $usuario->setId($_POST['id']) ? null : "id incorrecto";

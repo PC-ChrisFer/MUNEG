@@ -19,11 +19,13 @@ class inquilino extends validator
     private $imagen = null;
     private $id_tipo_inquilino = null;
     private $id_estado_inquilino = null;
+    private $id_departamento = null;
 
 
     private $true = true;
     private $still_true = 2;
     private $false = 0;
+    private $desalojado =  'Desalojado';
     //Metodos para setear los valores de los campos
     //Id - integer
     public function setId($value)
@@ -62,8 +64,8 @@ class inquilino extends validator
     public function setDUI($value)
     {
         if ($this->validateDUI($value)) {
-        $this->dui = $value;
-        return true;
+            $this->dui = $value;
+            return true;
         } else {
             return false;
         }
@@ -175,6 +177,17 @@ class inquilino extends validator
 
 
     //Imagen representativa de la categoria
+    public function setDepartamento($value)
+    {
+        if ($this->validateNaturalNumber($value)) {
+            $this->id_departamento = $value;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    //Imagen representativa de la categoria
     public function setImagen($file)
     {
         if ($this->validateImageFile($file, 500, 500)) {
@@ -218,11 +231,11 @@ class inquilino extends validator
         return $this->dui;
     }
 
-     //NRC
-     public function getNRC()
-     {
-         return $this->nrc;
-     }
+    //NRC
+    public function getNRC()
+    {
+        return $this->nrc;
+    }
 
     //NIT
     public function getNIT()
@@ -272,6 +285,12 @@ class inquilino extends validator
         return $this->id_tipo_inquilino;
     }
 
+    //Id Departamento
+    public function getDepartamento()
+    {
+        return $this->id_departamento;
+    }
+
 
 
     //Metodos para realizar las operaciones SCRUD(Search, Create, Read, Update, Delete)
@@ -298,7 +317,7 @@ class inquilino extends validator
         $sql = 'INSERT INTO public.inquilino(
             nombre, apellido, numero_telefono, correo_electronico, fecha_nacimiento, genero, "DUI", "NRC", "NIT", id_tipo_inquilino, id_estado_inquilino, imagen, visibilidad)
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
-        $params = array($this->nombre, $this->apellido,$this->numero_telefono,$this->correo_electronico,  $this->fecha_nacimiento,  $this->genero, $this->dui, $this->nrc, $this->nit,  $this->id_estado_inquilino, $this->id_tipo_inquilino, $this->imagen, $this->true);
+        $params = array($this->nombre, $this->apellido, $this->numero_telefono, $this->correo_electronico,  $this->fecha_nacimiento,  $this->genero, $this->dui, $this->nrc, $this->nit,  $this->id_estado_inquilino, $this->id_tipo_inquilino, $this->imagen, $this->true);
         return Database::executeRow($sql, $params);
     }
 
@@ -308,7 +327,7 @@ class inquilino extends validator
         $sql = 'UPDATE public.inquilino
         SET nombre=?, apellido=?, numero_telefono=?, correo_electronico=?, fecha_nacimiento=?, genero=?, "DUI"=?, "NRC"=?, "NIT"=?, id_tipo_inquilino=?, id_estado_inquilino=? ,imagen=?
         WHERE id_inquilino=?';
-        $params = array($this->nombre, $this->apellido,$this->numero_telefono,$this->correo_electronico,$this->fecha_nacimiento,$this->genero,  $this->dui,$this->nrc, $this->nit, $this->id_tipo_inquilino,   $this->id_estado_inquilino,$this->imagen, $this->id_inquilino);
+        $params = array($this->nombre, $this->apellido, $this->numero_telefono, $this->correo_electronico, $this->fecha_nacimiento, $this->genero,  $this->dui, $this->nrc, $this->nit, $this->id_tipo_inquilino,   $this->id_estado_inquilino, $this->imagen, $this->id_inquilino);
         return Database::executeRow($sql, $params);
     }
 
@@ -368,6 +387,34 @@ class inquilino extends validator
         $sql = 'SELECT  id_tipo_inquilino, nombre_tipo
         FROM tipo_inquilino';
         $params = null;
+        return Database::getRows($sql, $params);
+    }
+
+    //Consultas para graficos
+    //INQUILINOS ACTIVOS E INACTIVOS
+    public function readInqulinoActivoInactivo()
+    {
+        $sql = 'SELECT count(id_inquilino), nombre_estado FROM inquilino
+        INNER JOIN estado_inquilino
+        ON inquilino.id_estado_inquilino = estado_inquilino.id_estado_inquilino
+        WHERE nombre_estado != ?
+        GROUP BY nombre_estado';
+        $params = array($this->desalojado);
+        return Database::getRows($sql, $params);
+    }
+
+    //Consultas para graficos
+    //La cantidad  de inquilinos por municipio segun el departamento (id_departamento)
+    public function readInquilinosDepartamento()
+    {
+        $sql = 'SELECT COUNT(inquilino.id_inquilino), municipio FROM inquilino
+        INNER JOIN propiedad
+        ON propiedad.id_inquilino = inquilino.id_inquilino
+        INNER JOIN municipio 
+        ON propiedad.id_municipio = municipio.id_municipio
+        WHERE id_departamento = ?
+        GROUP BY municipio';
+        $params = array($this->id_departamento);
         return Database::getRows($sql, $params);
     }
 }

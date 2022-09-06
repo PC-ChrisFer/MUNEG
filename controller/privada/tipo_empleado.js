@@ -2,7 +2,7 @@
 //Importar las constantes y metodos de components.js y api_constant.js
 import { readRows, saveRow, searchRows, deleteRow, readDeletedRowns } from "../components.js";
 import { getElementById } from "../constants/functions.js";
-import { API_CREATE, API_UPDATE, GET_METHOD } from "../constants/api_constant.js";
+import { API_CREATE, API_UPDATE, GET_METHOD, SERVER } from "../constants/api_constant.js";
 import { validateExistenceOfUser } from "../constants/validationUser.js";
 
 

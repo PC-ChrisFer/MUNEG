@@ -56,7 +56,7 @@ export function fillPropiedadAlquiler(dataset) {
   dataset.map((row) => {
     // Se crean y concatenan las filas de la tabla con los datos de cada registro.
     content += ` 
-    <div class="col-md-3">
+      <div class="col-md-3">
         <div class="card6 text-center">
         <img src="../../api/imagenes/propiedad/${row.imagen}" class="card-img-top">
           <div class="card-body">

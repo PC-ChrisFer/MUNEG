@@ -130,25 +130,26 @@
 
     <!--Primer footer Footer-->
     <div class="text-white pt-5 pb-4" id="Primerfooter">
-        <div class="container-fluid">
-          <!--primer apatado de footer-->
-          <div class="row">
-            <div class="col-lg-8 col-md-12">
-              <img src="../../resources/img/miscelaneos/vende_alquila_casa.png" id="vende">
+      <div class="container-fluid">
+        <!--primer apatado de footer-->
+        <div class="row">
+          <div class="col-lg-8 col-md-12">
+            <img src="../../resources/img/miscelaneos/vende_alquila_casa.png" id="vende">
+          </div>
+          <div class="col-lg-4 col-md-12">
+            <div class="col-12">
+              <a class="navbar-brand" id="contactenos_footer" href="#">CONTACTENOS: <img
+                  src="../../resources/img/iconos_navbar/phone_30px.png">
+                2278-9879</a>
             </div>
-            <div class="col-lg-4 col-md-12">
-              <div class="col-12">
-                <a class="navbar-brand" id="contactenos_footer" href="#">CONTACTENOS: <img src="../../resources/img/iconos_navbar/phone_30px.png">
-                  2278-9879</a>
-              </div>
-              <div class="col-12">
-                <img src="../../resources/img/iconos_navbar/Facebook_75px.png">
-                <img src="../../resources/img/iconos_navbar/instagram_circle_75px.png">
-              </div>
+            <div class="col-12">
+              <img src="../../resources/img/iconos_navbar/Facebook_75px.png">
+              <img src="../../resources/img/iconos_navbar/instagram_circle_75px.png">
             </div>
           </div>
         </div>
       </div>
+    </div>
 
   </main>
   <!--Segundo footer Footer-->
@@ -188,19 +189,19 @@
             <div class="col-2">
               <img src="../../resources/img/iconos_navbar/gmail.png">
             </div>
-            <div class="col-10">
-              <p>Ingrese su nombre:</p>
-              <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                placeholder="Ingrese su nombre">
-            </div>
-            <div class="col-12">
-              <p>Ingrese su correo electronico:</p>
-              <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                placeholder="Ingrese el correo">
-            </div>
-            <div class="col-12 d-flex justify-content-center">
-              <a class="btn">Enviar</a>
-            </div>
+            <form method="post" id="insert-modal">
+              <div class="col-10">
+                <p>Ingrese su nombre:</p>
+                <input type="text" class="form-control" name="nombre_cliente" placeholder="Ingrese su nombre">
+              </div>
+              <div class="col-12">
+                <p>Ingrese su correo electronico:</p>
+                <input type="email" class="form-control" name="correo" placeholder="Ingrese el correo">
+              </div>
+              <div class="col-12 d-flex justify-content-center">
+                <button type="submit" class="btn">Enviar</button>
+              </div>
+            </form>
           </div>
         </div>
       </div>

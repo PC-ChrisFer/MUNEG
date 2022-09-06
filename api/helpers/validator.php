@@ -323,4 +323,24 @@ class Validator
             return false;
         }
     }
+
+    public function validateInput($value)
+
+    {
+
+        //Se verifica la longitud minima y maxima
+
+        if (preg_match('(?=^.{8,70}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$', $value)) {
+
+            return true;
+
+        } else {
+
+            $this->inputError = "No es un dato correspondiente.";
+
+            return false;
+
+        }
+
+    }
 }

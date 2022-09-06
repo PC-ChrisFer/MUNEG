@@ -9,6 +9,8 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <!-- libreria -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
     <link rel="stylesheet" href="../../resources/css/estilo_privado.css">
 
     <title>MUNEG S.A C.V</title>
@@ -59,11 +61,6 @@
                                     Propietario</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="gestion_cliente.html"><img
-                                        src="../../resources/img/iconos_navbar/person_30px.png">Gestion
-                                    de Cliente</a>
-                            </li>
-                            <li class="nav-item">
                                 <a class="nav-link" href="gestion_inquilino.html"><img
                                         src="../../resources/img/iconos_navbar/person_30px.png">Gestion
                                     Inquilino</a>
@@ -97,29 +94,8 @@
                                     de Tipo Acabado</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="gestion_tipo_empleado.html"><img
-                                        src="../../resources/img/iconos_navbar/person_30px.png">Gestion
-                                    de Tipo Empleado</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="gestion_tipo_inquilino.html"><img
-                                        src="../../resources/img/iconos_navbar/person_30px.png">Gestion
-                                    de Tipo Inquilino</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="gestion_tipo_propiedad.html"><img
-                                        src="../../resources/img/iconos_navbar/rent_30px.png">Gestion
-                                    de Tipo Propiedad</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="gestion_tipo_propietario.html"><img
-                                        src="../../resources/img/iconos_navbar/person_30px.png">Gestion
-                                    de Tipo Propietario</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="gestion_tipo_usuario.html"><img
-                                        src="../../resources/img/iconos_navbar/person_30px.png">Gestion
-                                    de Tipo Usuario</a>
+                                <a class="nav-link" href="editar_perfil.html"><img
+                                        src="../../resources/img/iconos_navbar/settings_30px.png">Editar Usuario</a>
                             </li>
                         </ul>
                     </div>
@@ -130,20 +106,21 @@
             <h1>GESTIÓN DE PROPIETARIO</h1>
         </div>
     </header>
-    
     <main>
         <!-- Searchbar -->
         <div class="container-fluid" id="busqueda">
-            <form class="d-flex">
-                <input class="form-control me-2" type="search" placeholder="Búsqueda de Datos" aria-label="Search">
-                <a class="nav-link" href="#"><img src="../../resources/img/iconos_navbar/search_24px.png"></a>
+            <form class="d-flex" method="post" id="search-bar">
+                <input class="form-control me-2" name="search" placeholder="Búsqueda de Datos" aria-label="Search"
+                    required>
+                <button class="btn" type="submit"><img src="../../resources/img/iconos_navbar/search_24px.png"></button>
             </form>
         </div>
+        <button onclick="abrirModalReportes()" class="btn" id="button_reportes">Gestion de reportes</button>
         <!-- Botones de SCRUD, actualizar y agregar -->
         <div class="container-fluid" id="opciones">
             <div class="btn-group" role="group">
                 <button type="button" class="btn btn-primary" id="btnmenu" data-bs-toggle="modal"
-                    data-bs-target="#agregar"><a class="nav-link" href="#"><img
+                    data-bs-target="#agregar"><a class="nav-link"><img
                             src="../../resources/img/iconos_formularios/agregar_26px.png"></a></button>
             </div>
         </div>
@@ -158,92 +135,14 @@
                         <th>Número Teléfono</th>
                         <th>Correo Electrónico</th>
                         <th>Fecha Nacimeinto</th>
+                        <th>Género</th>
                         <th>DUI</th>
+                        <th>Tipo de Propietario</th>
                         <th>Gestionar</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <!-- Linea de Informacion -->
-                    <tr>
-                        <td><img src="../img/user_100px.png"></td>
-                        <td>Nelson Daniel Peña Pineda</td>
-                        <td>+503 76052934</td>
-                        <td>nelsonDaniel@gmail.com</td>
-                        <td>08-01-2004</td>
-                        <td>09201901-2</td>
-                        <td class="d-flex justify-content-center">
-                            <a class="btn" href="#" id="button_ver_mas" data-bs-toggle="modal"
-                                data-bs-target="#actualizar"><img
-                                    src="../../resources/img/iconos_formularios/edit_35px.png"></a>
-                            <a class="btn" href="#" id="button_ver_mas" data-bs-toggle="modal"
-                                data-bs-target="#eliminar"><img
-                                    src="../../resources/img/iconos_formularios/trash_can_35px.png"></a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><img src="../img/user_100px.png"></td>
-                        <td>Nelson Daniel Peña Pineda</td>
-                        <td>+503 76052934</td>
-                        <td>nelsonDaniel@gmail.com</td>
-                        <td>08-01-2004</td>
-                        <td>09201901-2</td>
-                        <td class="d-flex justify-content-center">
-                            <a class="btn" href="#" id="button_ver_mas" data-bs-toggle="modal"
-                                data-bs-target="#actualizar"><img
-                                    src="../../resources/img/iconos_formularios/edit_35px.png"></a>
-                            <a class="btn" href="#" id="button_ver_mas" data-bs-toggle="modal"
-                                data-bs-target="#eliminar"><img
-                                    src="../../resources/img/iconos_formularios/trash_can_35px.png"></a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><img src="../img/user_100px.png"></td>
-                        <td>Nelson Daniel Peña Pineda</td>
-                        <td>+503 76052934</td>
-                        <td>nelsonDaniel@gmail.com</td>
-                        <td>08-01-2004</td>
-                        <td>09201901-2</td>
-                        <td class="d-flex justify-content-center">
-                            <a class="btn" href="#" id="button_ver_mas" data-bs-toggle="modal"
-                                data-bs-target="#actualizar"><img
-                                    src="../../resources/img/iconos_formularios/edit_35px.png"></a>
-                            <a class="btn" href="#" id="button_ver_mas" data-bs-toggle="modal"
-                                data-bs-target="#eliminar"><img
-                                    src="../../resources/img/iconos_formularios/trash_can_35px.png"></a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><img src="../img/user_100px.png"></td>
-                        <td>Nelson Daniel Peña Pineda</td>
-                        <td>+503 76052934</td>
-                        <td>nelsonDaniel@gmail.com</td>
-                        <td>08-01-2004</td>
-                        <td>09201901-2</td>
-                        <td class="d-flex justify-content-center">
-                            <a class="btn" href="#" id="button_ver_mas" data-bs-toggle="modal"
-                                data-bs-target="#actualizar"><img
-                                    src="../../resources/img/iconos_formularios/edit_35px.png"></a>
-                            <a class="btn" href="#" id="button_ver_mas" data-bs-toggle="modal"
-                                data-bs-target="#eliminar"><img
-                                    src="../../resources/img/iconos_formularios/trash_can_35px.png"></a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><img src="../img/user_100px.png"></td>
-                        <td>Nelson Daniel Peña Pineda</td>
-                        <td>+503 76052934</td>
-                        <td>nelsonDaniel@gmail.com</td>
-                        <td>08-01-2004</td>
-                        <td>09201901-2</td>
-                        <td class="d-flex justify-content-center">
-                            <a class="btn" href="#" id="button_ver_mas" data-bs-toggle="modal"
-                                data-bs-target="#actualizar"><img
-                                    src="../../resources/img/iconos_formularios/edit_35px.png"></a>
-                            <a class="btn" href="#" id="button_ver_mas" data-bs-toggle="modal"
-                                data-bs-target="#eliminar"><img
-                                    src="../../resources/img/iconos_formularios/trash_can_35px.png"></a>
-                        </td>
-                    </tr>
+                <tbody id="tbody-Propietario">
+
                 </tbody>
             </table>
         </div>
@@ -262,46 +161,50 @@
                         <div class="modal-body" id="formModal">
                             <div class="row">
                                 <div class="col">
-                                    <label for="nombre_propietario" class="form-label">Nombre</label>
-                                    <input type="text" claspropietarios="form-control" id="nombre_propietario"
-                                        name="nombre_propietario" placeholder="Escriba el nombre del propietario">
+                                    <label for="nombre" class="form-label">Nombre de Propietario</label>
+                                    <input type="text" class="form-control" id="nombre" name="nombre"
+                                    autocomplete="off" placeholder="Escriba el nombre del Propietario" required maxlength="50" pattern="[a-zA-Z ]{1,50}">
 
-                                    <label for="apellido_propietario" class="form-label">Apellido</label>
-                                    <input type="text" class="form-control" id="apellido_propietario"
-                                        name="apellido_propietario" placeholder="Escriba el apellido del propietario">
+                                    <label for="apellido" class="form-label">Apellido</label>
+                                    <input type="text" class="form-control" id="apellido" name="apellido"
+                                    autocomplete="off" placeholder="Escriba el apellido del propietario" required maxlength="50" pattern="[a-zA-Z ]{1,50}">
 
                                     <label for="telefono" class="form-label">Teléfono</label>
                                     <input type="tel" class="form-control" id="telefono" name="telefono"
-                                        placeholder="Escriba el numero de Telefono del propietario">
+                                    autocomplete="off" placeholder="Escriba el numero de Telefono del propietario" required
+                                        maxlength="13" pattern="[0-9+ ]{1,13}">
 
                                     <label for="correo_electronico" class="form-label">Correo Electrónico</label>
                                     <input type="email" class="form-control" id="correo_electronico"
-                                        name="correo_electronico" placeholder="Escriba el correo del propietario">
+                                    autocomplete="off" name="correo_electronico" placeholder="Escriba el correo del propietario"
+                                        required maxlength="75">
 
                                     <label for="fecha_nacimiento" class="form-label">Fecha de Nacimiento</label>
                                     <input type="date" class="form-control" id="fecha_nacimiento"
-                                        name="fecha_nacimiento">
+                                    autocomplete="off" name="fecha_nacimiento" required >
                                 </div>
                                 <div class="col">
                                     <label for="genero" class="form-label">Género</label>
                                     <select id="genero" name="genero" class="form-control">
-                                        <option value="value1" selected>Masculino</option>
-                                        <option value="value2">Femenino</option>
+                                        <option value="M" selected>Masculino</option>
+                                        <option value="F">Femenino</option>
                                     </select>
 
-                                    <label for="dui" class="form-label">DUI</label>
-                                    <input type="text" class="form-control" id="dui" name="dui"
-                                        placeholder="Escriba el DUI">
+                                    <label for="DUI" class="form-label">DUI</label>
+                                    <input type="text" class="form-control" id="DUI" name="DUI"
+                                    autocomplete="off" placeholder="Escriba el DUI" required maxlength="10"  pattern="[0-9-]{1,10}">
 
-                                    <label for="tipo_propietario" class="form-label">Tipo de Propietario</label>
-                                    <select id="tipo_propietario" name="tipo_propietario" class="form-control">
-
+                                    <label for="id_inquilino" class="form-label">Tipo de Propietario</label>
+                                    <select onchange="seleccionarTipoPropietario()" id="id_tipo_propietario"
+                                        name="id_tipo_propietario" class="form-control">
                                     </select>
                                 </div>
                                 <div class="col">
-                                    <label for="upload_image" class="form-label">Imagen</label>
-                                    <a class="btn" name="archivo" id="upload_image">
-                                        <input type="file" class="form-control form-control-sm form-Input-Style">
+                                    <label for="formGroupExampleInput" class="form-label">Imagen</label>
+                                    <a class="btn" id="upload_image">
+                                        <input accept="image/jpeg" type="file"
+                                            class="form-control form-control-sm form-Input-Style" name="archivo"
+                                            id="archivo" required>
                                         <img src="../../resources/img/iconos_formularios/download_100px.png">
                                     </a>
                                 </div>
@@ -309,143 +212,224 @@
                         </div>
                         <div class="modal-footer">
                             <div class="btn-group" role="group" id="opcionesModal">
-                                <button type="button" class="btn btn-primary" id="btnmenu"><a class="nav-link"><img
+                                <button type="submit" class="btn btn-primary" id="btnmenu"><a class="nav-link"><img
                                             src="../../resources/img/iconos_formularios/agregar_26px.png"></a></button>
-                                <button type="button" class="btn btn-primary" id="btnmenu"><a class="nav-link"><img
+                                <button type="button" class="btn btn-primary" id="btnmenu" data-bs-dismiss="modal"><a
+                                        class="nav-link"><img
                                             src="../../resources/img/iconos_formularios/cerrar_26px.png"></a></button>
                             </div>
                         </div>
                     </form>
                 </div>
             </div>
-            <!-- Modal de UPDATE-->
-            <div class="modal fade" id="actualizar" tabindex="-1">
-                <div class="modal-dialog modal-xl modal-dialog-centered">
-                    <div class="modal-content">
-                        <div class="modal-header" id="formHeader">
-                            <h5 class="modal-title" id="actualizarformLabel">Actualizar Propietario</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <!-- Modal de UPDATE-->
+        <div class="modal fade" id="actualizar" tabindex="-1">
+            <div class="modal-dialog modal-xl modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header" id="formHeader">
+                        <h5 class="modal-title" id="actualizarformLabel">Actualizar Propietario</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form method="post" id="update_form">
+                        <div class="modal-body" id="formModal">
+                            <div class="row">
+                                <div class="col">
+                                    <label for="nombre" class="form-label">Nombre de Propietario</label>
+                                    <input type="text" class="form-control" id="nombre_update" name="nombre_update"
+                                    autocomplete="off" placeholder="Escriba el nombre del Propietario" required maxlength="50" pattern="[a-zA-Z ]{1,50}">
+
+                                    <label for="apellido" class="form-label">Apellido</label>
+                                    <input type="text" class="form-control" id="apellido_update" name="apellido_update"
+                                    autocomplete="off" placeholder="Escriba el apellido del propietario" required maxlength="50" pattern="[a-zA-Z ]{1,50}">
+
+                                    <label for="telefono" class="form-label">Teléfono</label>
+                                    <input type="tel" class="form-control" id="telefono_update" name="telefono_update"
+                                    autocomplete="off" placeholder="Escriba el numero de Telefono del propietario" required
+                                        maxlength="13" pattern="[0-9+ ]{1,13}">
+
+                                    <label for="correo_electronico" class="form-label">Correo Electrónico</label>
+                                    <input type="email" class="form-control" id="correo_electronico_update"
+                                    autocomplete="off" name="correo_electronico_update" placeholder="Escriba el correo del propietario"
+                                        required maxlength="75">
+
+                                    <label for="fecha_nacimiento" class="form-label">Fecha de Nacimiento</label>
+                                    <input type="date" class="form-control" id="fecha_nacimiento_update"
+                                    autocomplete="off" name="fecha_nacimiento_update" required>
+                                </div>
+                                <div class="col">
+                                    <label for="formGroupExampleInput" class="form-label">Género</label>
+                                    <select id="genero_update" name="genero_update" class="form-control">
+                                        <option value="M" selected>Masculino</option>
+                                        <option value="F">Femenino</option>
+                                    </select>
+
+                                    <label for="DUI" class="form-label">DUI</label>
+                                    <input type="text" class="form-control" id="DUI_update" name="DUI_update"
+                                    autocomplete="off" placeholder="Escriba el DUI" required maxlength="10" pattern="[0-9-]{1,10}">
+
+                                    <label for="id_inquilino" class="form-label">Tipo de Propietario</label>
+                                    <select onchange="seleccionarTipoPropietario()" id="id_tipo_propietario_update"
+                                        name="id_tipo_propietario_update" class="form-control">
+                                    </select>
+                                </div>
+                                <div class="col">
+                                    <label for="formGroupExampleInput" class="form-label">Imagen</label>
+                                    <a class="btn" id="upload_image" required>
+                                        <input accept="image/jpeg" type="file"
+                                            class="form-control form-control-sm form-Input-Style" name="archivo_update"
+                                            id="archivo_update" required>
+                                        <img src="../../resources/img/iconos_formularios/download_100px.png">
+                                    </a>
+                                </div>
+                            </div>
                         </div>
-                        <!-- Formulario de Update-->
-                        <form method="post" id="update_form">
-                            <div class="modal-body" id="formModal">
-                                <div class="row">
-                                    <div class="col">
-                                        <label for="nombre_propietario_update" class="form-label">Nombre</label>
-                                        <input type="text" claspropietarios="form-control"
-                                            id="nombre_propietario_update" name="nombre_propietario_update">
-
-                                        <label for="apellido_propietario_update" class="form-label">Apellido</label>
-                                        <input type="text" class="form-control" id="apellido_propietario_update"
-                                            name="apellido_propietario_update">
-
-                                        <label for="telefono_update" class="form-label">Teléfono</label>
-                                        <input type="tel" class="form-control" id="telefono_update"
-                                            name="telefono_update">
-
-                                        <label for="correo_electronico_update" class="form-label">Correo
-                                            Electrónico</label>
-                                        <input type="email" class="form-control" id="correo_electronico_update"
-                                            name="correo_electronico_update">
-
-                                        <label for="fecha_nacimiento_update" class="form-label">Fecha de
-                                            Nacimiento</label>
-                                        <input type="date" class="form-control" id="fecha_nacimiento_update"
-                                            name="fecha_nacimiento_update">
-                                    </div>
-                                    <div class="col">
-                                        <label for="genero_update" class="form-label">Género</label>
-                                        <select id="genero_update" name="genero_update" class="form-control">
-                                            <option value="value1" selected>Masculino</option>
-                                            <option value="value2">Femenino</option>
-                                        </select>
-
-                                        <label for="dui_update" class="form-label">DUI</label>
-                                        <input type="text" class="form-control" id="dui_update" name="dui_update">
-
-                                        <label for="tipo_propietario_update" class="form-label">Tipo de
-                                            Propietario</label>
-                                        <select id="tipo_propietario_update" name="tipo_propietario_update"
-                                            class="form-control">
-                                        </select>
-                                    </div>
-                                    <div class="col">
-                                        <label for="upload_image" class="form-label">Imagen</label>
-                                        <a class="btn" name="archivo" id="upload_image">
-                                            <input type="file" class="form-control form-control-sm form-Input-Style">
-                                            <img src="../../resources/img/iconos_formularios/download_100px.png">
-                                        </a>
+                        <div class="modal-footer">
+                            <div class="btn-group" role="group" id="opcionesModal">
+                                <button type="submit" class="btn btn-primary" id="btnmenu"><a class="nav-link"><img
+                                            src="../../resources/img/iconos_formularios/agregar_26px.png"></a></button>
+                                <button type="button" class="btn btn-primary" id="btnmenu" data-bs-dismiss="modal"><a
+                                        class="nav-link"><img
+                                            src="../../resources/img/iconos_formularios/cerrar_26px.png"></a></button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        </div>
+        <!-- Modal de ELIMINAR -->
+        <div class="modal fade" id="eliminar" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header" id="formHeader">
+                        <h5 class="modal-title" id="exampleModalToggleLabe3">Confirmar</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        Desea Eliminar la información de este registro?
+                    </div>
+                    <!-- Formulario de Update -->
+                    <form method="post" id="delete_form">
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" id="btnmenu"
+                                data-bs-dismiss="modal">Volver</button>
+                            <button type="submit" class="btn btn-primary" id="btnmenu">Confirmar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- Modal de ELIMINAR REALIZADO -->
+        <div class="modal fade" id="eliminado" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header" id="formHeader">
+                        <h5 class="modal-title" id="exampleModalToggleLabel4">Eliminado con éxito</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        El registro se ha eliminado con éxito.
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary" data-bs-dismiss="modal" id="btnmenu">Aceptar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Modal de PROCESO REALIZADO -->
+        <div class="modal fade" id="proceso_exito" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header" id="formHeader">
+                        <h5 class="modal-title" id="exampleModalToggleLabel4">Proceso exitoso</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        Se han guardado los datos existosamente.
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary" data-bs-dismiss="modal" id="btnmenu">Aceptar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Modal de PROCESO FALLIDO -->
+        <div class="modal fade" id="error_proceso" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header" id="formHeader">
+                        <h5 class="modal-title">Error en el proceso</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        No se pudo realizar el proceso debido a que hubo un error.
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary" data-bs-dismiss="modal" id="btnmenu">Aceptar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+                             <!-- Modal de reporte fallido -->
+                             <div class="modal fade" id="errorReporte" tabindex="-1">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <div class="modal-header" id="formHeader">
+                                            <h5 class="modal-title">Error en el proceso</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            No se pudo generar el reporte, valide los datos ingreados
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button class="btn btn-primary" data-bs-dismiss="modal" id="btnmenu">Aceptar</button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="modal-footer">
-                                <div class="btn-group" role="group" id="opcionesModal">
-                                    <button type="button" class="btn btn-primary" id="btnmenu"><a class="nav-link"><img
-                                                src="../../resources/img/iconos_formularios/editar_26px.png"></a></button>
-                                    <button type="button" class="btn btn-primary" id="btnmenu"
-                                        data-bs-dismiss="modal"><a class="nav-link"><img
-                                                src="../../resources/img/iconos_formularios/cerrar_26px.png"></a></button>
+        <!-- Modal de REPORTES -->
+        <div class="modal fade" id="reportes" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header" id="formHeader">
+                        <h5 class="modal-title" id="exampleModalToggleLabe3">Confirmar</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="reporte_casas_mas_vendidas_alquiladas">
+                        <p>
+                            Generar reporte de los propietarios según el tipo propietario
+                        </p>
+                        <select id="id_tipo_propietario"
+                            name="id_tipo_propietario" class="form-control">
+                        </select>
+                        <button onclick="createPropietarioPDF()">
+                            Generar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+                            <!-- MODAL DE ERROR GENERICO -->
+                            <div class="modal fade" id="modalErrorDeBaseDeDatos" tabindex="-1">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <div class="modal-header" id="formHeader">
+                                            <h5 class="modal-title">Error en el proceso</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p id="dataBaseErrorMessage">
+                                                ...
+                                            </p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button class="btn btn-primary" data-bs-dismiss="modal" id="btnmenu">Aceptar</button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-            <!-- Modal de ELIMINAR -->
-            <div class="modal fade" id="eliminar" tabindex="-1">
-                <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                        <div class="modal-header" id="formHeader">
-                            <h5 class="modal-title" id="exampleModalToggleLabe3">Confirmar</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            Desea Eliminar la información de este registro?
-                        </div>
-                        <!-- Formulario de Update -->
-                        <form method="post" id="delete_form">
-                            <div class="modal-footer">
-                                <button class="btn btn-primary" id="btnmenu">Volver</button>
-                                <button class="btn btn-primary" id="btnmenu">Confirmar</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-            <!-- Modal de ELIMINAR REALIZADO -->
-            <div class="modal fade" id="eliminado" tabindex="-1">
-                <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                        <div class="modal-header" id="formHeader">
-                            <h5 class="modal-title" id="exampleModalToggleLabel4">Eliminado con éxito</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            El registro se ha eliminado con éxito.
-                        </div>
-                        <div class="modal-footer">
-                            <button class="btn btn-primary" data-bs-dismiss="modal" id="btnmenu">Aceptar</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Modal de PROCESO REALIZADO -->
-            <div class="modal fade" id="proceso_exito" tabindex="-1">
-                <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                        <div class="modal-header" id="formHeader">
-                            <h5 class="modal-title" id="exampleModalToggleLabel4">Proceso exitoso</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            Se han guardado los datos existosamente.
-                        </div>
-                        <div class="modal-footer">
-                            <button class="btn btn-primary" data-bs-dismiss="modal" id="btnmenu">Aceptar</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
     </main>
 
     <footer class="text-white  pt-5 pb-4" id="Segundofooter">
@@ -461,6 +445,34 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"
         integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13"
         crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="module" src="../../controller/privada/propietario.js"></script>
+
+</body>
+
+</html>                 </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="text-white  pt-5 pb-4" id="Segundofooter">
+        <div class="container-fluid">
+
+        </div>
+    </footer>
+
+    <!-- Activando Bootstrap desde JS -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
+        integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"
+        integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13"
+        crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="module" src="../../controller/privada/propietario.js"></script>
+
 </body>
 
 </html>

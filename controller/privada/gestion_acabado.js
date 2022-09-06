@@ -10,8 +10,6 @@ let datos_gestion_acabado = {
   id_gestion_acabado: "",
   nombre_gestion_acabado: "",
   visibilidad: true,
-  test: 0,
-  test2:1
 };
 
 // Método manejador de eventos que se ejecuta cuando el documento ha cargado.

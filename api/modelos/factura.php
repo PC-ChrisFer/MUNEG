@@ -44,7 +44,7 @@ class factura extends validator
     //Subtotal
     public function setSubtotal($value)
     {
-        $this->id_factura = $value;
+        $this->subtotal = $value;
         return true;
     }
     //IVA
@@ -54,7 +54,7 @@ class factura extends validator
         return true;
     }
     //Venta Gravada
-    public function setId($value)
+    public function setVenta($value)
     {
         $this->venta_gravada = $value;
         return true;
@@ -95,7 +95,7 @@ class factura extends validator
     //Dirección
     public function getDireccion($value)
     {
-        return $this->id_factura;
+        return $this->direccion;
         
     }
     //Subtotal
@@ -128,5 +128,92 @@ class factura extends validator
         return $this->id_inquilino;
         
     }
+
+    //Metodos para realizar las operaciones SCRUD(Search, Create, Read, Update, Delete)
+
+    //Metodo para la busqueda SEARCH
+    //Utilizaremos los campos o (NOMBRE_TIPO)
+    public function searchRows($value)
+    {
+        $sql = 'SELECT id_factura, codigo_factura, descripcion, direccion, subtotal, "IVA", venta_gravada, fecha, id_inquilino
+        FROM public.factura
+        WHERE codigo_factura ILIKE ? ';
+        $params = array("%$value%");
+        return Database::getRows($sql, $params);
+    }
+
+    //Metodo para la inserción INSERT
+    public function createRow()
+    {
+        $sql = 'INSERT INTO public.factura(
+        codigo_factura, descripcion, direccion, subtotal, "IVA", venta_gravada, fecha, id_inquilino)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
+        $params = array($this->codigo_factura, $this->descripcion, $this->direccion, $this->subtotal, $this->IVA, $this->venta_gravada, $this->fecha, $this->id_inquilino);
+        return Database::executeRow($sql, $params);
+    }
     
+    //Metodo para la actualización UPDATE
+    public function updateRow()
+    {
+        $sql = 'UPDATE public.factura
+        SET codigo_factura=?, descripcion=?, direccion=?, subtotal=?, "IVA"=?, venta_gravada=?, fecha=?, id_inquilino=?
+        WHERE id_factura = ?';
+        $params = array($this->codigo_factura, $this->descripcion, $this->direccion, $this->subtotal, $this->IVA, $this->venta_gravada, $this->fecha, $this->id_inquilino, $this->id_factura);
+        return Database::executeRow($sql, $params);
+    }
+
+    //Metodo para la eliminación DELETE 
+    public function deleteRow()
+    {
+        $sql = 'DELETE FROM public.factura
+	    WHERE id_factura = ?';
+        $params = array($this->id_factura);
+        return Database::executeRow($sql, $params);
+    }
+
+    //Metodo para leer READ
+    //Leer todas las filas de la Tabla
+    public function readAll()
+    {
+        $sql = 'SELECT id_factura, codigo_factura, descripcion, direccion, subtotal, "IVA", venta_gravada, fecha, id_inquilino
+        FROM public.factura';
+        $params = null;
+        return Database::getRows($sql, $params);
+    }
+
+    //Leer solamente una fila de la Tabla
+    public function readOne()
+    {
+        $sql = 'SELECT id_factura, codigo_factura, descripcion, direccion, subtotal, "IVA", venta_gravada, fecha, id_inquilino
+        FROM public.factura
+        WHERE id_factura = ?';
+        $params = ($this->id_factura);
+        return Database::getRow($sql, $params);
+    }
+
+    //Llenar combobox
+    //Combobox del Inquilino
+    public function readInquilino()
+    {
+        $sql = 'SELECT  id_inquilino, nombre
+        FROM inquilino
+        WHERE id_estado_inquilino = 1 OR id_estado_inquilino = 2';
+        $params = null;
+        return Database::getRows($sql, $params);
+    }
+
+    //Consultas para graficos
+    //Cantidad de Facturas emitidas a un inquilino (id_inquilino)
+    public function readFacturaInquilino()
+    {
+        $sql = 'SELECT COUNT(factura.id_factura), nombre_estado FROM factura
+        INNER JOIN inquilino
+        ON factura.id_inquilino = inquilino.id_inquilino
+        INNER JOIN estado_factura
+        ON factura.id_estado_factura = estado_factura.id_estado_factura
+        WHERE inquilino.id_inquilino = ?
+        GROUP BY nombre_estado';
+        $params = array($this->id_inquilino);
+        return Database::getRows($sql, $params);
+    }
 }

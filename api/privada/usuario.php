@@ -37,6 +37,7 @@ const CONFIRMAR = 'confirmar';
 if (isset($_GET[ACTION])) {
     // Se crea una sesión o se reanuda la actual para poder utilizar variables de sesión en el script.
     session_start();
+    
     // Se instancia la clase correspondiente, esto para poder acceder a sus functiones como "readOne".
     $usuario = new usuario;
 
@@ -64,6 +65,15 @@ if (isset($_GET[ACTION])) {
                     $result[EXCEPTION] = 'Ocurrió un problema al cerrar la sesión';
                 }
                 break;
+            case 'readOne':
+                if ($result[DATASET] = $usuario->readOne($_SESSION['id_usuario'])) {
+                    $result[STATUS] = 1;
+                } elseif (Database::getException()) {
+                    $result[EXCEPTION] = Database::getException();
+                } else {
+                    $result[EXCEPTION] = 'No hay datos registrados';
+                }
+                break;     
             case READ_ALL:
                 if ($result[DATASET] = $usuario->readAllEmpleado()) {
                     $result[STATUS] = 1;
@@ -85,12 +95,12 @@ if (isset($_GET[ACTION])) {
                 } else {
                     $result[EXCEPTION] = 'No hay coincidencias';
                 }
-                break;
+                break; 
             case "update":
                 $usuario->setId($_POST['id']) ? null : "id incorrecto";
                 $usuario->setNombre($_POST['nombre_usuario']) ? null : "nombre incorrecto";
-                $usuario->setTipoUsuario($_POST['tipo_usuario']) ? null : "tipo usuario incorrecto";
-                $usuario->setEmpleado($_POST['empleado']) ? null : "empleado ID incorrecto";
+                $usuario->setTipoUsuario($_POST['tipo_usuario_update']) ? null : "tipo usuario incorrecto";
+                $usuario->setEmpleado($_POST['empleado_update']) ? null : "empleado ID incorrecto";
 
                 if ($usuario->updateRowEmpleado()) {
                     $result[STATUS] = SUCESS_RESPONSE;
@@ -202,8 +212,18 @@ if (isset($_GET[ACTION])) {
                 }
                 break;
             case 'checkSession':
-                if (isset($_SESSION['usuario'])) {
+                if (isset($_SESSION[ID_USUARIO])) {
                     $result[STATUS] = 1;
+                }else{
+                    $result[STATUS] = 0;
+                }
+                break;
+            case 'readEmpleado':
+                if ($usuario->readAllEmpleado()) {
+                    $result[STATUS] = 1;
+                    $result[MESSAGE] = 'Existe al menos un usuario registrado';
+                } else {
+                    $result[EXCEPTION] = 'No existen usuarios registrados';
                 }
                 break;
             default:

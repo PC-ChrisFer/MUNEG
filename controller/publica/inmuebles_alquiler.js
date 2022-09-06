@@ -38,7 +38,7 @@ export function fillPropiedad(dataset) {
             <h5 class="card-title">ALQUILER:${row.alquiler}</h5>
           </div>
           <div id="color">
-          <a href="detalle_inmueble.html?id=${row.id_propiedad}$">VER DETALLES</a>
+          <a href="detalle_inmueble.html?id=${row.id_propiedad}">VER DETALLES</a>
           </div>
         </div>
       </div>

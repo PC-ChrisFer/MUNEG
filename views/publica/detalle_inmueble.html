@@ -15,10 +15,8 @@
 
 <body>
     <header>
-        <!--nav estatico-->
-        <nav class="navbar fixed-top navbar-light" id="navcolor">
+        <nav class="navbar fixed-top  navbar-light" id="navcolor">
             <div class="container-fluid">
-
                 <div id="con">
                     <a class="navbar-brand" href="#"><img src="../../resources/img/iconos_navbar/logo.png" id="imgnav"
                             usemap="#home"></a>
@@ -30,73 +28,47 @@
                             src="../../resources/img/iconos_navbar/phone_30px.png" id="celimg">
                         2278-9879</a>
                 </div>
-                <!--menu general-->
-                <ul class="nav" id="menu1">
-                    <li class="nav-item dropdown  ">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            TIPO DE PROPIEDAD
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="#">Apartamento</a></li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li><a class="dropdown-item" href="#">Casa</a></li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li><a class="dropdown-item" href="#">Something else here</a></li>
-                        </ul>
-                    </li>
-                    <!--menu desplegable-->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            ZONA
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="#">San Salvador</a></li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li><a class="dropdown-item" href="#">La Union</a></li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li><a class="dropdown-item" href="#">Something else here</a></li>
-                        </ul>
-                    </li>
-                    <!--menu desplegable-->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            PRECIO
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="#">5000.000 USD</a></li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li><a class="dropdown-item" href="#">5000.000 USD</a></li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li><a class="dropdown-item" href="#">Something else here</a></li>
-                        </ul>
-                    </li>
+                <ul class="nav" id="menu_parametro">
+                    <h6 id="parametro_title">
+                        DEPARTAMENTO
+                    </h6>
+                    <form method="post" id="search_bar">
+                        <select onchange="guardarDepartamento()" id="departamento" name="departamento">
 
-                    <li>
-                        <a href=""><img src="../../resources/img/iconos_navbar/search_24px.png"></a>
-                    </li>
+                        </select>
+                    </form>
+                    <h6 id="parametro_title">
+                        MUNICIPIO
+                    </h6>
+                    <form method="post" id="search_bar">
+                        <select onchange="guardarMunicipio()" id="municipio" name="municipio">
+
+                        </select>
+                    </form>
+                    <h6 id="parametro_title">
+                        TIPO DE PROPIEDAD
+                    </h6>
+                    <form method="post" id="search_bar">
+                        <select onchange="guardarTipoPropiedad()" id="tipo_propiedad" name="tipo_propiedad">
+
+                        </select>
+                    </form>
+                    <h6 id="parametro_title">
+                        CATEGORIA
+                    </h6>
+                    <form method="post" id="search_bar">
+                        <select onchange="guardarCategoria()" id="categoria" name="categoria">
+
+                        </select>
+                    </form>
                 </ul>
 
-                <!--boton para el menu-->
+
                 <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
                     data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
                     <span><img src="../../resources/img/iconos_navbar/menu_30px.png"></span>
                 </button>
-                <!--menu desplegablev publico-->
+
                 <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar"
                     aria-labelledby="offcanvasNavbarLabel">
                     <div class="offcanvas-header">
@@ -132,7 +104,7 @@
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="confianos_venta_alquiler.html"><img
-                                        src="../../resources/img/iconos_navbar//sale_30px.png">Alquila tu
+                                        src="../../resources/img/iconos_navbar/sale_30px.png">Alquila tu
                                     Inmueble</a>
                             </li>
                             <li class="nav-item">
@@ -196,19 +168,20 @@
                         <div class="col-2">
                             <img src="../../resources/img/iconos_navbar/gmail.png">
                         </div>
-                        <div class="col-10">
-                            <p>Ingrese su nombre:</p>
-                            <input type="email" class="form-control" id="exampleInputEmail1"
-                                aria-describedby="emailHelp" placeholder="Ingrese su nombre">
-                        </div>
-                        <div class="col-12">
-                            <p>Ingrese su correo electronico:</p>
-                            <input type="email" class="form-control" id="exampleInputEmail1"
-                                aria-describedby="emailHelp" placeholder="Ingrese el correo">
-                        </div>
-                        <div class="col-12 d-flex justify-content-center">
-                            <a class="btn">Enviar</a>
-                        </div>
+                        <form method="post" id="insert-modal">
+                            <div class="col-10">
+                                <p>Ingrese su nombre:</p>
+                                <input type="text" class="form-control" name="nombre_cliente"
+                                    placeholder="Ingrese su nombre">
+                            </div>
+                            <div class="col-12">
+                                <p>Ingrese su correo electronico:</p>
+                                <input type="email" class="form-control" name="correo" placeholder="Ingrese el correo">
+                            </div>
+                            <div class="col-12 d-flex justify-content-center">
+                                <button type="submit" class="btn">Enviar</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -230,7 +203,10 @@
         integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
         crossorigin="anonymous"></script>
     <script src="../../resources/js/main.js"></script>
+    <script type="module" src="../../controller/publica/navbar.js"></script>
     <script type="module" src="../../controller/publica/detalle_propiedad.js"></script>
+    <script type="module" src="../../controller/publica/footer.js"></script>
+
 </body>
 
 </html>

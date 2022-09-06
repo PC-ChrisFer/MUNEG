@@ -1,17 +1,19 @@
-//@ts-check
-
 import { APIConnection } from "../APIConnection.js";
-import { deleteRow, readRows, saveRow } from "../components.js";
+import { deleteRow, obtenerFechaActual, readRows, saveRow, searchRows, generatePDF } from "../components.js";
 import {
   API_CREATE,
   API_UPDATE,
   GET_METHOD,
+  POST_METHOD,
   SERVER,
 } from "../constants/api_constant.js";
-import { getElementById } from "../constants/functions.js";
+import { getElementById,  validateExistenceOfUser } from "../constants/functions.js";
 
 const API_REPORTES = SERVER + "privada/reporte.php?action=";
 const API_INQUILINOS = SERVER + "privada/inquilino.php?action=";
+const API_USUARIO = SERVER + 'privada/usuario.php?action=';
+const API_REPORTE = SERVER + "privada/pdf.php?action=";
+
 
 let datos_reporte = {
   id_reporte: "",
@@ -23,7 +25,8 @@ let datos_reporte = {
 
 // Método manejador de eventos que se ejecuta cuando el documento ha cargado.
 document.addEventListener("DOMContentLoaded", async () => {
-  //validateExistenceOfUser();
+  //Valida que el usuario este logeado
+   await validateExistenceOfUser();
   // Se llama a la función que obtiene los registros para llenar la tabla. Se encuentra en el archivo components.js
   await readRows(API_REPORTES, fillTableReportes);
   await fillInquilinosComboBox();
@@ -119,6 +122,15 @@ window.guardarDatosDelete = (id_reporte) => {
   $("#eliminar").modal("show");
 };
 
+// Método que se ejecuta al enviar un formulario de busqueda
+  // @ts-ignore
+getElementById("search-bar").addEventListener("submit", async (event) => {
+  // Se evita recargar la página web después de enviar el formulario.
+  event.preventDefault();
+  // Se llama a la función que realiza la búsqueda. Se encuentra en el archivo components.js
+  await searchRows(API_REPORTES, "search-bar", fillTableReportes);
+});
+
 getElementById("insert_form")?.addEventListener("submit", async (event) => {
   event.preventDefault();
 
@@ -170,4 +182,151 @@ getElementById("delete_form")?.addEventListener("submit", async (event) => {
 
   // @ts-ignore
   $("#eliminar").modal("hide");
-});
+})
+
+
+//CREACIÓN DE PDF
+window.createReporteReportesPDF = async () => {
+  let APIEnpointReadReportes = API_REPORTE + "reportes_orden";
+  let APIEndpointObtenerUsuarioActual = API_USUARIO + 'getUser';
+
+  let readReportesResponse = await APIConnection(APIEnpointReadReportes, POST_METHOD);
+  let ObtenerUsuarioActualResponse = await APIConnection(APIEndpointObtenerUsuarioActual, GET_METHOD, null);
+
+  let tableContent = ``;
+
+  readReportesResponse.dataset.forEach((element) => {
+      tableContent += `
+  <tr>
+  <td>${element.id_reporte}</td>
+  <td>${element.asunto}</td>
+  <td>${element.descripcion}</td>
+  <td>${element.estado}</td>
+  <td>${element.nombre}</td>
+  <tr>
+  `;
+  });
+
+
+
+  let generatedHTML = `<!doctype html>
+  <html lang="es">
+  
+  <head>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+      <style>
+          body {
+              display: flex;
+              justify-content: center;
+              text-align: center;
+  
+          }
+  
+          #tabla-header {
+              background-color: #007D84;
+              color: aliceblue;
+              padding: 10px;
+              font-size: 40px;
+              padding-bottom: 20px;
+              margin-bottom: 10px;
+  
+          }
+  
+          #tabla-footer {
+              background-color: #007D84;
+              color: aliceblue;
+              padding: 10px;
+              text-align: right;
+          }
+  
+          #tabla-header img {
+              max-width: 65px;
+          }
+  
+          /*Tabla de datos*/
+          #tabla_datos {
+              margin-top: 3%;
+              margin-bottom: 3%;
+              font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  
+          }
+  
+          /*Colores al encabezado*/
+          #tabla_datos th {
+              color: white;
+              background-color: #018080;
+          }
+  
+          /*Colores al cuerpo*/
+          #tabla_datos tr {
+              border: solid black 1px;
+              background-color: #A1A39F;
+          }
+  
+          #tabla_reporte {
+              width: 100%;
+              height: 60%;
+              margin-top: 20px;
+              
+  
+          }
+  
+          #tabla_reporte th,
+          td {
+              text-align: left;
+              padding-left: 5px;
+          }
+  
+          .text-footer {
+              font-size: 10px;
+              margin-top: 10px;
+          }
+      </style>
+      <title>MUNEG S.A C.V</title>
+  
+  </head>
+  
+  <body>
+      <!-- Tabla de Datos -->
+      <div class="container-fluid" id="tabla_datos" style="width: 100%">
+          <div class="container-fluid" id="tabla-header">
+              <a>MUNEG</a>
+          </div>
+          <div class="container-fluid" id="tabla-header">
+              <a>REPORTES POR ORDEN DE CREACION</a>
+          </div>
+          <table class="table table-responsive table-bordered" id="tabla_reporte">
+              <thead>
+                  <tr>
+                      <th>Creado por:</th>
+                      <td>${ObtenerUsuarioActualResponse.username}</td>
+                  </tr>
+                  <tr>
+                      <th>Fecha:</th>
+                      <td>${obtenerFechaActual()}</td>
+                  </tr>
+                  <tr>
+                      <th>Numero de Reporte</th>
+                      <th>Asunto</th>
+                      <th>Descripción</th>
+                      <th>Estado</th>
+                      <th>Nombre del Inquilino</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  ${tableContent}
+              </tbody>
+          </table>
+          <div class="container-fluid" id="tabla-footer">
+          <a>MUNEG S.A C.V</a>
+          </div>
+      </div>
+      </main>
+  
+  </body>
+  
+  </html>`;
+  let res = await generatePDF(generatedHTML, "reportes_orden" + ".pdf")
+
+  window.open("../../api/reporte/" + "reportes_orden" + ".pdf");
+}

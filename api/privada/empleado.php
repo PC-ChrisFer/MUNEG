@@ -27,8 +27,8 @@ const EMPLEADO_NOMBRE = 'nombre_empleado';
 const EMPLEADO_APELLIDO = 'apellido_empleado';
 const EMPLEADO_DUI = 'dui';
 const EMPLEADO_NIT = 'nit';
-const EMPLEADO_TELEFONO = 'telefono';
-const EMPLEADO_CORREO = 'correo';
+const EMPLEADO_TELEFONO = 'numero_telefono';
+const EMPLEADO_CORREO = 'correo_electronico';
 const EMPLEADO_GENERO = 'genero';
 const EMPLEADO_FECHA_NACIMIENTO = 'fecha_nacimiento';
 const EMPLEADO_ESTADO = 'estado_empleado';
@@ -36,6 +36,24 @@ const EMPLEADO_TIPO = 'tipo_empleado';
 const ID_DETALLE = 'id_detalle';
 const EMPLEADO_ARCHIVO = 'archivo';
 const TMP_NAME = 'tmp_name';
+
+
+//variables update
+const EMPLEADO1 = 'empleado_update';
+const EMPLEADO_ID1 = 'id';
+const EMPLEADO_NOMBRE1 = 'nombre_empleado_update';
+const EMPLEADO_APELLIDO1 = 'apellido_empleado_update';
+const EMPLEADO_DUI1 = 'dui_update';
+const EMPLEADO_NIT1 = 'nit_update';
+const EMPLEADO_TELEFONO1 = 'telefono_update';
+const EMPLEADO_CORREO1 = 'correo_electronico_update';
+const EMPLEADO_GENERO1 = 'genero_update';
+const EMPLEADO_FECHA_NACIMIENTO1 = 'fecha_nacimiento_update';
+const EMPLEADO_ESTADO1 = 'estado_empleado_update';
+const EMPLEADO_TIPO1 = 'tipo_empleado_update';
+const ID_DETALLE1 = 'id_detalle_update';
+const EMPLEADO_ARCHIVO1 = 'archivo_update';
+const TMP_NAME1 = 'tmp_name_update';
 
 
 // Se comprueba si existe una acción a realizar, de lo contrario se finaliza el script con un mensaje de error.
@@ -82,7 +100,7 @@ if (isset($_GET[ACTION])) {
                 $result[EXCEPTION] = 'DUI no valido';
             } else if (!$empleado->setNIT($_POST[EMPLEADO_NIT])) {
                 $result[EXCEPTION] = 'NIT no valido';
-            } else if (!$empleado->setFechaNacmiento($_POST['fecha_nacimiento'])) {
+            } else if (!$empleado->setFechaNacmiento($_POST[EMPLEADO_FECHA_NACIMIENTO])) {
                 $result[EXCEPTION] = 'Número de telefono no valido';
             } else if (!$empleado->setTelefono($_POST[EMPLEADO_TELEFONO])) {
                 $result[EXCEPTION] = 'Número de telefono no valido';
@@ -133,38 +151,36 @@ if (isset($_GET[ACTION])) {
             break;
         case UPDATE:
             $_POST = $empleado->validateSpace($_POST);
-            if (!$empleado->setId($_POST[EMPLEADO_ID])) {
+            if (!$empleado->setId($_POST[EMPLEADO_ID1])) {
                 $result[EXCEPTION] = 'Nombre incorrecto';
-            } else if (!$empleado->setNombre($_POST[EMPLEADO_NOMBRE])) {
+            } else if (!$empleado->setNombre($_POST[EMPLEADO_NOMBRE1])) {
                 $result[EXCEPTION] = 'Nombre incorrecto';
-            } else if (!$empleado->setApellido($_POST[EMPLEADO_APELLIDO])) {
+            } else if (!$empleado->setApellido($_POST[EMPLEADO_APELLIDO1])) {
                 $result[EXCEPTION] = 'Apellido incorrecto';
-            } else if (!$empleado->setDUI($_POST[EMPLEADO_DUI])) {
+            } else if (!$empleado->setDUI($_POST[EMPLEADO_DUI1])) {
                 $result[EXCEPTION] = 'DUI no valido';
-            } else if (!$empleado->setFechaNacmiento($_POST['fecha_nacimiento'])) {
+            } else if (!$empleado->setFechaNacmiento($_POST[EMPLEADO_FECHA_NACIMIENTO1])) {
                 $result[EXCEPTION] = 'Número de telefono no valido';
-            } else if (!$empleado->setNIT($_POST[EMPLEADO_NIT])) {
+            } else if (!$empleado->setNIT($_POST[EMPLEADO_NIT1])) {
                 $result[EXCEPTION] = 'NIT no valido';
-            } else if (!$empleado->setTelefono($_POST[EMPLEADO_TELEFONO])) {
+            } else if (!$empleado->setTelefono($_POST[EMPLEADO_TELEFONO1])) {
                 $result[EXCEPTION] = 'Número de telefono no valido';
-            } else if (!$empleado->setCorreo($_POST[EMPLEADO_CORREO])) {
+            } else if (!$empleado->setCorreo($_POST[EMPLEADO_CORREO1])) {
                 $result[EXCEPTION] = 'Correo electronico no valido';
-            } else if (!$empleado->setGenero($_POST[EMPLEADO_GENERO])) {
+            } else if (!$empleado->setGenero($_POST[EMPLEADO_GENERO1])) {
                 $result[EXCEPTION] = 'Genero no disponible';
-            } else if (!$empleado->setTelefono($_POST[EMPLEADO_FECHA_NACIMIENTO])) {
-                $result[EXCEPTION] = 'Fecha incorrecta';
-            } elseif (!is_uploaded_file($_FILES[EMPLEADO_ARCHIVO][TMP_NAME])) {
+            } elseif (!is_uploaded_file($_FILES[EMPLEADO_ARCHIVO1][TMP_NAME])) {
                 $result[EXCEPTION] = 'Seleccione una imagen';
-            } elseif (!$empleado->setImage($_FILES[EMPLEADO_ARCHIVO])) {
+            } elseif (!$empleado->setImage($_FILES[EMPLEADO_ARCHIVO1])) {
                 $result[EXCEPTION] = $empleado->getFileError();
-            } else if (!$empleado->setEstadoEmpleado($_POST[EMPLEADO_ESTADO])) {
+            } else if (!$empleado->setEstadoEmpleado($_POST[EMPLEADO_ESTADO1])) {
                 $result[EXCEPTION] = 'Estado incorrecto';
-            } else if (!$empleado->setTipoEmpleado($_POST[EMPLEADO_TIPO])) {
+            } else if (!$empleado->setTipoEmpleado($_POST[EMPLEADO_TIPO1])) {
                 $result[EXCEPTION] = 'Tipo incorrecto';
             } elseif ($empleado->updateRow()) {
                 $result[STATUS] = SUCESS_RESPONSE;
                 $result[MESSAGE] = 'EMPLEADO modificada correctamente';
-                if ($empleado->saveFile($_FILES[EMPLEADO_ARCHIVO], $empleado->getRutaImagenes(), $empleado->getImagen())) {
+                if ($empleado->saveFile($_FILES[EMPLEADO_ARCHIVO1], $empleado->getRutaImagenes(), $empleado->getImagen())) {
                     $result[MESSAGE] = 'Imagen ingresada correctanente';
                     if ($result[DATA_SET] = $empleado->readAll()) {
                         $result[STATUS] = SUCESS_RESPONSE;
@@ -214,6 +230,20 @@ if (isset($_GET[ACTION])) {
                 $result[EXCEPTION] = Database::getException();
             } else {
                 $result[EXCEPTION] = 'No hay datos registrados';
+            }
+            break;
+        case 'graphTopEmpleado':
+            if ($result[DATA_SET] = $empleado->readTopEmpleados()) {
+                $result[STATUS] = SUCESS_RESPONSE;
+            } else {
+                $result[EXCEPTION] = 'No hay datos disponibles';
+            }
+            break;
+        case 'graphEmpleadoActivoInactivo':
+            if ($result[DATA_SET] = $empleado->readEmpleadoActivoInactivo()) {
+                $result[STATUS] = SUCESS_RESPONSE;
+            } else {
+                $result[EXCEPTION] = 'No hay datos disponibles';
             }
             break;
         default:

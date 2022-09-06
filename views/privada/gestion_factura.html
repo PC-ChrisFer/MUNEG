@@ -9,7 +9,10 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <!-- libreria -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
     <link rel="stylesheet" href="../../resources/css/estilo_privado.css">
+
     <title>MUNEG S.A C.V</title>
 
 </head>
@@ -59,11 +62,6 @@
                                     Propietario</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="gestion_cliente.html"><img
-                                        src="../../resources/img/iconos_navbar/person_30px.png">Gestion
-                                    de Cliente</a>
-                            </li>
-                            <li class="nav-item">
                                 <a class="nav-link" href="gestion_inquilino.html"><img
                                         src="../../resources/img/iconos_navbar/person_30px.png">Gestion
                                     Inquilino</a>
@@ -97,29 +95,8 @@
                                     de Tipo Acabado</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="gestion_tipo_empleado.html"><img
-                                        src="../../resources/img/iconos_navbar/person_30px.png">Gestion
-                                    de Tipo Empleado</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="gestion_tipo_inquilino.html"><img
-                                        src="../../resources/img/iconos_navbar/person_30px.png">Gestion
-                                    de Tipo Inquilino</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="gestion_tipo_propiedad.html"><img
-                                        src="../../resources/img/iconos_navbar/rent_30px.png">Gestion
-                                    de Tipo Propiedad</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="gestion_tipo_propietario.html"><img
-                                        src="../../resources/img/iconos_navbar/person_30px.png">Gestion
-                                    de Tipo Propietario</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="gestion_tipo_usuario.html"><img
-                                        src="../../resources/img/iconos_navbar/person_30px.png">Gestion
-                                    de Tipo Usuario</a>
+                                <a class="nav-link" href="editar_perfil.html"><img
+                                        src="../../resources/img/iconos_navbar/settings_30px.png">Editar Usuario</a>
                             </li>
                         </ul>
                     </div>
@@ -134,17 +111,23 @@
     <main>
         <!-- Searchbar -->
         <div class="container-fluid" id="busqueda">
-            <form class="d-flex">
-                <input class="form-control me-2" type="search" placeholder="Búsqueda de Datos" aria-label="Search">
-                <a class="nav-link" href="#"><img src="../../resources/img/iconos_navbar/search_24px.png"></a>
+            <form class="d-flex" method="post" id="search-bar">
+                <input class="form-control me-2" name="search" placeholder="Búsqueda de Datos" aria-label="Search"
+                    required>
+                <button class="btn" type="submit"><img src="../../resources/img/iconos_navbar/search_24px.png"></button>
             </form>
         </div>
-
         <!-- Botones de SCRUD, actualizar y agregar -->
-        <div class="container-fluid" id="opciones">
-            <div class="btn-group" role="group" >
+        <div class="container-fluid d-flex justify-content-between" id="opciones">
+            <div class="btn-group" role="group">
+                <button type="button" class="btn btn-primary" id="button_ver_mas" data-bs-toggle="modal"
+                    data-bs-target="#generar_grafico">Generar Gráfico</button>
+                <button data-bs-toggle="modal" data-bs-target="#reportes" class="btn btn-primary" id="button_ver_mas">
+                    Gestion de reportes</button>
+            </div>
+            <div class="btn-group" role="group">
                 <button type="button" class="btn btn-primary" id="btnmenu" data-bs-toggle="modal"
-                    data-bs-target="#agregar"><a class="nav-link" href="#"><img
+                    data-bs-target="#agregar"><a class="nav-link"><img
                             src="../../resources/img/iconos_formularios/agregar_26px.png"></a></button>
             </div>
         </div>
@@ -160,97 +143,19 @@
                         <th>SubTotal</th>
                         <th>IVA</th>
                         <th>Venta Gravada</th>
+                        <th>Fecha</th>
+                        <th>Inquilino</th>
                         <th>Gestionar</th>
                     </tr>
                 </thead>
-                <tbody id="tbody-inquilino">
-                    <!-- Linea de Informacion -->
-                    <tr>
-                        <td>000001</td>
-                        <td>Pago del Deposito, de los servicios basicos(agua, luz y servicios de aseo)</td>
-                        <td>Av. Josefa Arce # 13 Piso 8</td>
-                        <td>800.00$</td>
-                        <td>104.00$</td>
-                        <td>904.00$</td>
-                        <td class="d-flex justify-content-center">
-                            <a class="btn" href="#" id="button_ver_mas" data-bs-toggle="modal"
-                                data-bs-target="#actualizar"><img
-                                    src="../../resources/img/iconos_formularios/edit_35px.png"></a>
-                            <a class="btn" href="#" id="button_ver_mas" data-bs-toggle="modal"
-                                data-bs-target="#eliminar"><img
-                                    src="../../resources/img/iconos_formularios/trash_can_35px.png"></a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>000001</td>
-                        <td>Pago del Deposito, de los servicios basicos(agua, luz y servicios de aseo)</td>
-                        <td>Av. Josefa Arce # 13 Piso 8</td>
-                        <td>800.00$</td>
-                        <td>104.00$</td>
-                        <td>904.00$</td>
-                        <td class="d-flex justify-content-center">
-                            <a class="btn" href="#" id="button_ver_mas" data-bs-toggle="modal"
-                                data-bs-target="#actualizar"><img
-                                    src="../../resources/img/iconos_formularios/edit_35px.png"></a>
-                            <a class="btn" href="#" id="button_ver_mas" data-bs-toggle="modal"
-                                data-bs-target="#eliminar"><img
-                                    src="../../resources/img/iconos_formularios/trash_can_35px.png"></a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>000001</td>
-                        <td>Pago del Deposito, de los servicios basicos(agua, luz y servicios de aseo)</td>
-                        <td>Av. Josefa Arce # 13 Piso 8</td>
-                        <td>800.00$</td>
-                        <td>104.00$</td>
-                        <td>904.00$</td>
-                        <td class="d-flex justify-content-center">
-                            <a class="btn" href="#" id="button_ver_mas" data-bs-toggle="modal"
-                                data-bs-target="#actualizar"><img
-                                    src="../../resources/img/iconos_formularios/edit_35px.png"></a>
-                            <a class="btn" href="#" id="button_ver_mas" data-bs-toggle="modal"
-                                data-bs-target="#eliminar"><img
-                                    src="../../resources/img/iconos_formularios/trash_can_35px.png"></a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>000001</td>
-                        <td>Pago del Deposito, de los servicios basicos(agua, luz y servicios de aseo)</td>
-                        <td>Av. Josefa Arce # 13 Piso 8</td>
-                        <td>800.00$</td>
-                        <td>104.00$</td>
-                        <td>904.00$</td>
-                        <td class="d-flex justify-content-center">
-                            <a class="btn" href="#" id="button_ver_mas" data-bs-toggle="modal"
-                                data-bs-target="#actualizar"><img
-                                    src="../../resources/img/iconos_formularios/edit_35px.png"></a>
-                            <a class="btn" href="#" id="button_ver_mas" data-bs-toggle="modal"
-                                data-bs-target="#eliminar"><img
-                                    src="../../resources/img/iconos_formularios/trash_can_35px.png"></a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>000001</td>
-                        <td>Pago del Deposito, de los servicios basicos(agua, luz y servicios de aseo)</td>
-                        <td>Av. Josefa Arce # 13 Piso 8</td>
-                        <td>800.00$</td>
-                        <td>104.00$</td>
-                        <td>904.00$</td>
-                        <td class="d-flex justify-content-center">
-                            <a class="btn" href="#" id="button_ver_mas" data-bs-toggle="modal"
-                                data-bs-target="#actualizar"><img
-                                    src="../../resources/img/iconos_formularios/edit_35px.png"></a>
-                            <a class="btn" href="#" id="button_ver_mas" data-bs-toggle="modal"
-                                data-bs-target="#eliminar"><img
-                                    src="../../resources/img/iconos_formularios/trash_can_35px.png"></a>
-                        </td>
-                    </tr>
+                <tbody id="tbody-Factura">
+
                 </tbody>
             </table>
         </div>
 
         <!-- Modal de AGREGAR REGISTRO-->
-        <div class="modal fade" id="agregarform" tabindex="-1">
+        <div class="modal fade" id="agregar" tabindex="-1">
             <div class="modal-dialog modal-xl modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header" id="formHeader">
@@ -258,48 +163,49 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <!-- Formulario de Insert-->
-                    <form method="post" id="insert_form">
+                    <form method="post" id="insert-form">
                         <div class="modal-body" id="formModal">
                             <div class="row">
                                 <div class="col">
                                     <label for="factura" class="form-label">Código de Factura</label>
-                                    <input type="text" class="form-control" id="factura" name="factura"
-                                        placeholder="Escriba el número de su factura" required>
+                                    <input type="text" class="form-control" id="factura" name="codigo_factura"
+                                    autocomplete="off"   placeholder="Escriba el número de su factura" required maxlength="6" pattern="[0-9]{1,6}">
 
                                     <label for="descripcion" class="form-label">Descripción</label>
                                     <textarea id="descripcion" name="descripcion" rows="4" class="form-control"
-                                        placeholder="Escriba la descripción de factura" required></textarea>
+                                    autocomplete="off"   placeholder="Escriba la descripción de factura" required maxlength="150"></textarea>
 
                                     <label for="direccion" class="form-label">Dirección</label>
                                     <textarea id="direccion" name="direccion" rows="4" class="form-control"
-                                        placeholder="Escriba la de dirección de factura" required></textarea>
+                                    autocomplete="off" placeholder="Escriba la de dirección de factura" required maxlength="100"></textarea>
                                 </div>
                                 <div class="col">
                                     <label for="subtotal" class="form-label">Subtotal</label>
                                     <input type="number" class="form-control" id="subtotal" name="subtotal"
-                                        placeholder="Escriba de SubTotal" required>
+                                    autocomplete="off" placeholder="Escriba de SubTotal" required min="1" max="1000000" step=".01">
 
                                     <label for="iva" class="form-label">IVA</label>
-                                    <input type="number" class="form-control" id="iva" name="iva" placeholder="IVA" required>
+                                    <input type="text" class="form-control" id="IVA" name="IVA" placeholder="IVA"
+                                    autocomplete="off" required min="0" pattern="[0-9.]{1,6}">
 
-                                    <label for="venta_grabada" class="form-label">Venta grabada</label>
-                                    <input type="text" class="form-control" id="venta_grabada" name="venta_grabada"
-                                        placeholder="Escriba la venta grabada" required>
+                                    <label for="venta_gravada" class="form-label">Venta grabada</label>
+                                    <input type="number" class="form-control" id="venta_gravada" name="venta_gravada"
+                                    autocomplete="off" placeholder="Escriba la venta grabada" required min="1" step=".01">
 
                                     <label for="fecha_emision" class="form-label">Fecha de emisión</label>
-                                    <input type="date" class="form-control" id="fecha_emision" name="fecha_emision" required>
+                                    <input type="date" class="form-control" id="fecha_emision" name="fecha_emision"
+                                        required>
 
-                                    <label for="tipo_factura" class="form-label">Tipo de Factura</label>
-                                    <select id="tipo_factura" name="tipo_factura" class="form-control">
-                                        <option value="value1" selected>Factura</option>
-                                        <option value="value2">Credito Fiscal</option>
+                                    <label for="id_inquilino" class="form-label">Inquilino</label>
+                                    <select onchange="seleccionarInquilino()" id="id_inquilino" name="id_inquilino"
+                                        class="form-control">
                                     </select>
                                 </div>
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <div class="btn-group" role="group"  id="opcionesModal">
-                                <button type="button" class="btn btn-primary" id="btnmenu"><a class="nav-link"><img
+                            <div class="btn-group" role="group" id="opcionesModal">
+                                <button type="submit" class="btn btn-primary" id="btnmenu"><a class="nav-link"><img
                                             src="../../resources/img/iconos_formularios/agregar_26px.png"></a></button>
                                 <button type="button" class="btn btn-primary" id="btnmenu" data-bs-dismiss="modal"><a
                                         class="nav-link"><img
@@ -319,52 +225,52 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <!-- Formulario de Update-->
-                    <form method="post" id="update_form">
+                    <form method="post" id="update-form">
                         <div class="modal-body" id="formModal">
                             <div class="row">
                                 <div class="col">
                                     <label for="factura_update" class="form-label">Código de Factura</label>
-                                    <input type="text" class="form-control" id="factura_update" name="factura_update" required>
+                                    <input type="text" class="form-control" id="codigo_factura_update"
+                                    autocomplete="off"  name="codigo_factura_update" required>
 
                                     <label for="descripcion" class="form-label">Descripción</label>
                                     <textarea id="descripcion_update" name="descripcion_update" rows="4"
-                                        class="form-control" required></textarea>
+                                    autocomplete="off"   class="form-control" required></textarea>
 
                                     <label for="direccion_update" class="form-label">Dirección</label>
                                     <textarea id="direccion_update" name="direccion_update" rows="4"
-                                        class="form-control" required></textarea>
+                                    autocomplete="off"  class="form-control" required></textarea>
                                 </div>
                                 <div class="col">
                                     <label for="subtotal_update" class="form-label">Subtotal</label>
                                     <input type="number" class="form-control" id="subtotal_update"
-                                        name="subtotal_update" required>
+                                    autocomplete="off"   name="subtotal_update" required min="1" max="1000000">
 
                                     <label for="iva_update" class="form-label">IVA</label>
-                                    <input type="number" class="form-control" id="iva_update" name="iva_update" required>
+                                    <input type="number" class="form-control" id="IVA_update" name="IVA_update" required
+                                    autocomplete="off" min="1" max="1000000">
 
                                     <label for="venta_grabada_update" class="form-label">Venta grabada</label>
-                                    <input type="text" class="form-control" id="venta_grabada_update"
-                                        name="venta_grabada_update" required>
+                                    <input type="number" class="form-control" id="venta_gravada_update"
+                                    autocomplete="off" name="venta_gravada_update" required min="1" max="1000000">
 
                                     <label for="fecha_emision_update" class="form-label">Fecha de emisión</label>
                                     <input type="date" class="form-control" id="fecha_emision_update"
-                                        name="fecha_emision_update" required>
+                                    autocomplete="off" name="fecha_emision_update" required>
 
-                                    <label for="tipo_factura_update" class="form-label">Tipo de Factura</label>
-                                    <select id="tipo_factura_update" name="tipo_factura_update" class="form-control">
-                                        <option value="value1" selected>Factura</option>
-                                        <option value="value2">Credito Fiscal</option>>
+                                    <label for="id_inquilino" class="form-label">Inquilino</label>
+                                    <select onchange="seleccionarInquilino()" id="id_inquilino_update"
+                                        name="id_inquilino_update" class="form-control">
                                     </select>
                                 </div>
                             </div>
                         </div>
                         <div class="modal-footer">
                             <div class="btn-group" role="group" id="opcionesModal">
-                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" id="btnmenu"><a
+                                <button type="submit" class="btn btn-primary" id="btnmenu"><a class="nav-link"><img
+                                            src="../../resources/img/iconos_formularios/agregar_26px.png"></a></button>
+                                <button type="button" class="btn btn-primary" id="btnmenu" data-bs-dismiss="modal"><a
                                         class="nav-link"><img
-                                            src="../../resources/img/iconos_formularios/editar_26px.png"></a></button>
-                                <button type="button" class="btn btn-primary" id="btnmenu" data-bs-dismiss="modal"
-                                    aria-label="Close"><a class="nav-link"><img
                                             src="../../resources/img/iconos_formularios/cerrar_26px.png"></a></button>
                             </div>
                         </div>
@@ -384,12 +290,45 @@
                         Desea Eliminar la información de este registro?
                     </div>
                     <!-- Formulario de Update -->
-                    <form method="post" id="delete_form">
+                    <form method="post" id="delete-form">
                         <div class="modal-footer">
-                            <button class="btn btn-primary" id="btnmenu">Volver</button>
-                            <button class="btn btn-primary" id="btnmenu">Confirmar</button>
+                            <button type="button" class="btn btn-primary" id="btnmenu"
+                                data-bs-dismiss="modal">Volver</button>
+                            <button type="submit" class="btn btn-primary" id="btnmenu">Confirmar</button>
                         </div>
                     </form>
+                </div>
+            </div>
+        </div>
+        <!-- Modal de GENERAR GRAFICO -->
+        <div class="modal fade" id="generar_grafico" tabindex="-1">
+            <div class="modal-dialog modal-lg modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header" id="formHeader">
+                        <h5 class="modal-title">Generar Gráfico</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <p>Generar Grafico: "Cantidad de Facturas emitidas a un inquilino"</p>
+                            <div class="col-8">
+                                <label for="departamento" class="form-label">Nombre del Propietario:</label>
+                            </div>
+                            <div class="col-4">
+                                <select onchange="selectInquilino('cmb_inquilino')" id="cmb_inquilino"
+                                    name="id_inquilino" class="form-control">
+                                    <option value="0" selected>Ninguno</option>
+                                </select>
+
+                                <button onclick="generarGrafico()" class="btn btn-primary"
+                                    id="button_ver_mas">GENERAR</button>
+
+                            </div>
+                        </div>
+                        <!-- Grafico Dinamico -->
+                        <div id="graph_contrato">
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -427,6 +366,128 @@
                 </div>
             </div>
         </div>
+        <!-- Modal de PROCESO FALLIDO -->
+        <div class="modal fade" id="error_proceso" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header" id="formHeader">
+                        <h5 class="modal-title">Error en el proceso</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        No se pudo realizar el proceso debido a que hubo un error.
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary" data-bs-dismiss="modal" id="btnmenu">Aceptar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Modal de reporte fallido -->
+        <div class="modal fade" id="errorReporte" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header" id="formHeader">
+                        <h5 class="modal-title">Error en el proceso</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        No se pudo generar el reporte, valide los datos ingreados
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary" data-bs-dismiss="modal" id="btnmenu">Aceptar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Modal de NO ENCONTRO DATA -->
+        <div class="modal fade" id="no_data" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header" id="formHeader">
+                        <h5 class="modal-title">No se han encontrado datos</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        No se han podido encontrar datos con estos parametros.
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary" data-bs-dismiss="modal" id="btnmenu">Aceptar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Modal de REPORTES -->
+        <div class="modal fade" id="reportes" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header" id="formHeader">
+                        <h5 class="modal-title" id="exampleModalToggleLabe3">Confirmar</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="factura_mes">
+                        <p>
+                            Generar reporte de casa mas alquiladas y vendidas durante el mes
+                        </p>
+                        <select name="select" id="meses_año">
+                            <option value="01">Enero</option>
+                            <option value="02">Febrero</option>
+                            <option value="3">Marzo</option>
+                            <option value="04">Abril</option>
+                            <option value="05">Mayo</option>
+                            <option value="06">Junio</option>
+                            <option value="07">Julio</option>
+                            <option value="08">Agosto</option>
+                            <option value="09">Septiembre</option>
+                            <option value="10">Octubre</option>
+                            <option value="11">Noviembre</option>
+                            <option value="12">Diciembre</option>
+                            <option value="13">Diciembre</option>
+                            <option value="12">Diciembre</option>
+                        </select>
+                        <button onclick="generarReporteFacturaMes()">
+                            Generar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Modal de NO SE PUDO ABRIR REPORTE -->
+        <div class="modal fade" id="reporteMal" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header" id="formHeader">
+                        <h5 class="modal-title" id="exampleModalToggleLabe3">Error</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        No se pudo abrir el reporte.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+                               <!-- MODAL DE ERROR GENERICO -->
+        <div class="modal fade" id="modalErrorDeBaseDeDatos" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header" id="formHeader">
+                        <h5 class="modal-title">Error en el proceso</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p id="dataBaseErrorMessage">
+                        ...
+                        </p>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary" data-bs-dismiss="modal" id="btnmenu">Aceptar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Importación de librería para generar gráficos en tiempo real. Para más información https://www.chartjs.org/ -->
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js"></script>
     </main>
 
     <footer class="text-white  pt-5 pb-4" id="Segundofooter">
@@ -442,12 +503,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"
         integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13"
         crossorigin="anonymous"></script>
-
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="module" src="../../controller/privada/factura.js"></script>
 </body>
-
-<footer>
-
-
-</footer>
 
 </html>

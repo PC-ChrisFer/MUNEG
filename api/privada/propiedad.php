@@ -42,6 +42,15 @@ if (isset($_GET[ACTION])) {
                 $result[EXCEPTION] = 'No hay datos registrados';
             }
             break;
+        case "readAllDeleted":
+            if ($result[DATA_SET] = $propiedad->readAllDeleted()) {
+                $result[STATUS] = SUCESS_RESPONSE;
+            } elseif (Database::getException()) {
+                $result[EXCEPTION] = Database::getException();
+            } else {
+                $result[EXCEPTION] = 'No hay datos registrados';
+            }
+            break;
         case SEARCH:
             $_POST = $propiedad->validateSpace($_POST);
             if ($_POST[SEARCH] == '') {
@@ -71,21 +80,31 @@ if (isset($_GET[ACTION])) {
             $result[EXCEPTION] = $propiedad->setIdMunicipio($_POST['id_municipio_update']) ? null : 'Municipio incorrecto';
             $result[EXCEPTION] = $propiedad->setIdTipoPropiedad($_POST['id_tipo_propiedad_update']) ? null : 'Dirreción incorrecta';
             $result[EXCEPTION] = $propiedad->setIdEmpleado($_POST['id_empleado_update']) ? null : 'Empleado incorrecto';
-            $result[EXCEPTION] = $propiedad->setIdInquilino($_POST['id_inquilino_update']) ? null : 'Inquilino incorrecto';
             $result[EXCEPTION] = $propiedad->setIdTipoAcabado($_POST['id_tipo_acabado_update']) ? null : 'Tipo de acabado incorrecto';
+            $result[EXCEPTION] = $propiedad->setEstadoPropiedad($_POST['id_estado_propiedad_update']) ? null : 'Estado propiedad incorrecto';
             $result[EXCEPTION] = is_uploaded_file($_FILES['archivo']['tmp_name']) ? null : "ARCHIVO INCORRECTO";
             $result[EXCEPTION] = $propiedad->setImage($_FILES['archivo']) ? null : $propiedad->getFileError();
-
-            if ($propiedad->createRow()) {
-                $result[MESSAGE] = 'Registro creado correctamente';
-                $result[DATA_SET] = $propiedad->readAll();
-                $result[STATUS] =  $result[DATA_SET] ? SUCESS_RESPONSE : 'No hay datos registrados';
-                if ($propiedad->saveFile($_FILES["archivo"], $propiedad->getRutaImagenes(), $propiedad->getImagen())) {
-                    $result[MESSAGE] = 'Imagen ingresada correctanente';
+            //Validacion isset
+            if ($_POST['id_inquilino'] != "") {
+                if (!$propiedad->setIdInquilino($_POST['id_inquilino'])) {
+                    $result[MESSAGE] = 'Algo anda mal';
                 }
             } else {
-                $result[EXCEPTION] = Database::getException();
+                $propiedad->setIdInquilino(null);
             }
+            if ($result[EXCEPTION] == null) {
+                if ($propiedad->createRow()) {
+                    $result[MESSAGE] = 'Registro creado correctamente';
+                    $result[DATA_SET] = $propiedad->readAll();
+                    $result[STATUS] =  $result[DATA_SET] ? SUCESS_RESPONSE : 'No hay datos registrados';
+                    if ($propiedad->saveFile($_FILES["archivo"], $propiedad->getRutaImagenes(), $propiedad->getImagen())) {
+                        $result[MESSAGE] = 'Imagen ingresada correctanente';
+                    }
+                } else {
+                    $result[EXCEPTION] = Database::getException();
+                }
+            }
+
             break;
         case UPDATE:
             $_POST = $propiedad->validateSpace($_POST);
@@ -100,14 +119,15 @@ if (isset($_GET[ACTION])) {
             $result[EXCEPTION] = $propiedad->setSanitario($_POST['sanitario_update']) ? null : 'Sanitario incorrecto';
             $result[EXCEPTION] = $propiedad->setEspacio($_POST['espacio_update']) ? null : 'Espacio incorrecto';
             $result[EXCEPTION] = $propiedad->setDescripcion($_POST['descripcion_update']) ? null : 'Descripción incorrecta';
-            $result[EXCEPTION] = $propiedad->setIdMunicipio($_POST['id_municipio_update']) ? null : 'Municipio incorrecto';
-            $result[EXCEPTION] = $propiedad->setIdTipoPropiedad($_POST['id_tipo_propiedad_update']) ? null : 'Dirreción incorrecta';
-            $result[EXCEPTION] = $propiedad->setIdEmpleado($_POST['id_empleado_update']) ? null : 'Empleado incorrecto';
-            $result[EXCEPTION] = $propiedad->setIdInquilino($_POST['id_inquilino_update']) ? null : 'Inquilino incorrecto';
-            $result[EXCEPTION] = $propiedad->setIdTipoAcabado($_POST['id_tipo_acabado_update']) ? null : 'Tipo de acabado incorrecto';
+            $result[EXCEPTION] = $propiedad->setIdMunicipio($_POST['municipio_update']) ? null : 'Municipio incorrecto';
+            $result[EXCEPTION] = $propiedad->setIdTipoPropiedad($_POST['tipo_propiedad_update']) ? null : 'Dirreción incorrecta';
+            $result[EXCEPTION] = $propiedad->setIdEmpleado($_POST['empleado_update']) ? null : 'Empleado incorrecto';
+            $result[EXCEPTION] = $propiedad->setIdInquilino($_POST['inquilino_update']) ? null : 'Inquilino incorrecto';
+            $result[EXCEPTION] = $propiedad->setIdTipoAcabado($_POST['tipo_acabado_update']) ? null : 'Tipo de acabado incorrecto';
             $result[EXCEPTION] = $propiedad->setId($_POST['id_propiedad']) ? null : 'Id incorrecto';
             $result[EXCEPTION] = is_uploaded_file($_FILES['archivo']['tmp_name']) ? null : "ARCHIVO INCORRECTO";
             $result[EXCEPTION] = $propiedad->setImage($_FILES['archivo']) ? null : $propiedad->getFileError();
+            $result[EXCEPTION] = $propiedad->setVisibilidad($_POST['visibilidad']) ? null : "VISIBILIDAD INCORRECTA";
 
             if ($propiedad->updateRow()) {
                 $result[MESSAGE] = 'Registro modificado correctamente';
@@ -122,13 +142,49 @@ if (isset($_GET[ACTION])) {
             break;
         case DELETE:
             $result[EXCEPTION] = $propiedad->setId($_POST['id_propiedad']) ? null : 'Id incorrecto';
-
             if ($propiedad->deleteRow()) {
                 $result[MESSAGE] = 'Registro eliminado correctamente';
                 $result[DATA_SET] = $propiedad->readAll();
                 $result[STATUS] =  $result[DATA_SET] ? SUCESS_RESPONSE : 'No hay datos registrados';
             } else {
                 $result[EXCEPTION] = Database::getException();
+            }
+            break;
+        case 'graphPlantaPropiedad':
+            if ($result[DATA_SET] = $propiedad->readPropiedadPlantas()) {
+                $result[STATUS] = SUCESS_RESPONSE;
+            } else {
+                $result[EXCEPTION] = 'No hay datos disponibles';
+            }
+            break;
+        case 'graphTopPropietarios':
+            if ($result[DATA_SET] = $propiedad->readTopPropietario()) {
+                $result[STATUS] = SUCESS_RESPONSE;
+            } else {
+                $result[EXCEPTION] = 'No hay datos disponibles';
+            }
+            break;
+        case 'graphDepartamentoPropiedad':
+            if ($result[DATA_SET] = $propiedad->readTopDepartamentos()) {
+                $result[STATUS] = SUCESS_RESPONSE;
+            } else {
+                $result[EXCEPTION] = 'No hay datos disponibles';
+            }
+            break;
+        case 'graphPropiedadAlquilerVenta':
+            if ($result[DATA_SET] = $propiedad->readPropiedadVentaAlquiler()) {
+                $result[STATUS] = SUCESS_RESPONSE;
+            } else {
+                $result[EXCEPTION] = 'No hay datos disponibles';
+            }
+            break;
+        case 'graphPropiedadPropietario':
+            if (!$propiedad->setPropietario($_POST['id_propietario'])) {
+                $result[EXCEPTION] = 'Fecha Invalidad';
+            } elseif ($result[DATA_SET] = $propiedad->readPropiedadesPropietarios()) {
+                $result[STATUS] = SUCESS_RESPONSE;
+            } else {
+                $result[EXCEPTION] = 'No hay datos disponibles';
             }
             break;
         default:

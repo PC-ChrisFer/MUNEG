@@ -18,6 +18,8 @@ const UPDATE = 'update';
 const DELETE = 'delete';
 const SUCESS_RESPONSE = 1;
 
+
+
 // NOMBRES DE PARAMETROS, DEBEN DE SER IGUALES AL ID Y NAME DEL INPUT DE EL FORMULARIO
 
 
@@ -35,6 +37,15 @@ if (isset($_GET[ACTION])) {
             //Leer todo
         case READ_ALL:
             if ($result[DATA_SET] = $reporte->readAll()) {
+                $result[STATUS] = SUCESS_RESPONSE;
+            } elseif (Database::getException()) {
+                $result[EXCEPTION] = Database::getException();
+            } else {
+                $result[EXCEPTION] = 'No hay datos registrados';
+            }
+            break;
+        case "readAllDeleted":
+            if ($result[DATA_SET] = $reporte->readAllDeleted()) {
                 $result[STATUS] = SUCESS_RESPONSE;
             } elseif (Database::getException()) {
                 $result[EXCEPTION] = Database::getException();
@@ -63,7 +74,7 @@ if (isset($_GET[ACTION])) {
             $result[EXCEPTION] = $reporte->setEstado($_POST['estado']) ? null : 'Estado incorrecto';
             $result[EXCEPTION] = is_uploaded_file($_FILES['archivo']['tmp_name']) ? null : "ARCHIVO INCORRECTO";
             $result[EXCEPTION] = $reporte->setImage($_FILES['archivo']) ? null : $reporte->getFileError();
-            
+
             if ($reporte->createRow()) {
                 $result[MESSAGE] = 'Registro creado correctamente';
                 $result[DATA_SET] = $reporte->readAll();
@@ -82,10 +93,16 @@ if (isset($_GET[ACTION])) {
             $result[EXCEPTION] = $reporte->setInquilino($_POST['inquilino_update']) ? null : 'Inquilino incorrecto';
             $result[EXCEPTION] = $reporte->setEstado($_POST['estado_update']) ? null : 'Estado incorrecto';
             $result[EXCEPTION] = $reporte->setId($_POST['reporte_id']) ? null : 'Reporte incorrecto';
-            $result[EXCEPTION] = is_uploaded_file($_FILES['archivo']['tmp_name']) ? null : "ARCHIVO INCORRECTO";
-            $result[EXCEPTION] = $reporte->setImage($_FILES['archivo']) ? null : $reporte->getFileError();
 
-            if ($reporte->updateRow()) {
+            if (is_uploaded_file($_FILES['archivo']['tmp_name'])) {
+                $result[EXCEPTION] = $reporte->setImage($_FILES['archivo']) ? null : $reporte->getFileError();
+            } else {
+                $result[EXCEPTION] = $reporte->setNoUpdatedImage($_POST['NoUpdatedImage']) ? null : "IMAGEN INCORRECTA";
+            }
+
+            if ($result[EXCEPTION] != null) {
+                $result[MESSAGE] = 'ALGO SALIO MAL';
+            } elseif ($reporte->updateRow()) {
                 $result[MESSAGE] = 'Registro modificado correctamente';
                 $result[DATA_SET] = $reporte->readAll();
                 $result[STATUS] =  $result[DATA_SET] ? SUCESS_RESPONSE : 'No hay datos registrados';

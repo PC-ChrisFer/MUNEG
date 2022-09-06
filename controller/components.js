@@ -451,3 +451,72 @@ export async function validarURL(URL){
   };
   return URL.exist();
 }
+
+// SE TIENE QUE PASAR EL HTML QUE SE QUIERE IMPRIMIR A PDF
+export async function generatePDF(stingHTML, nombreReporte) {
+  console.log("rxr");
+  let APIEndpointCreatePDF = SERVER + "privada/pdf.php?action=create_pdf";
+  // OPCIONES PARA LA GENERACION DE EL PDF
+  var opt = {
+    //MARGEN
+    margin: 1,
+    //NOMBRE REPORTE
+    filename: "reporte",
+    //EXTENCION
+    image: { type: "jpeg", quality: 1 },
+    // CONFIGURACIONES VISUALES
+    jsPDF: { unit: "in", format: "letter", orientation: "portrait" },
+  };
+
+  // OBTENIENDO BUFFER QUE RETORNA EL METODO
+  let buffer = await html2pdf()
+    .set(opt)
+    .from(stingHTML)
+    .toPdf()
+    .get("pdf")
+    .then(function (pdf) {
+      console.log(pdf);
+      var totalPages = pdf.internal.getNumberOfPages();
+      for (var i = 1; i <= pdf.internal.getNumberOfPages(); i++) {
+        pdf.setPage(i);
+        pdf.setFontSize(5);
+        pdf.setTextColor(0);
+        pdf.text(
+          pdf.internal.pageSize.getWidth() - 5,
+          pdf.internal.pageSize.getHeight() - 0.1,
+          "Page number " + i
+        );
+        // pdf.addImage(
+        //   "../../resources/img/navbar_publico/logoCut.png",
+        //   "jpeg",
+        //   pdf.internal.pageSize.getWidth() - 1.1,
+        //   pdf.internal.pageSize.getHeight() - 1.25,
+        //   1,
+        //   1
+        // );
+      }
+    })
+    .outputPdf("arraybuffer");
+
+  // CONVIRTIENDO "BUFFER" A "BLOB"
+  const blob = new Blob([buffer]);
+
+  console.log("blob")
+
+  console.log(blob)
+
+  let parameters = new FormData();
+
+  parameters.append("pdf", blob);
+  parameters.append("nombreReporte", nombreReporte);
+
+  await APIConnection(APIEndpointCreatePDF, POST_METHOD, parameters);
+}
+
+// OBTIENE LA FECHA DE HOY
+export function obtenerFechaActual() {
+  const tiempoTranscurrido = Date.now();
+  const hoy = new Date(tiempoTranscurrido);
+
+  return hoy.toLocaleDateString();
+}

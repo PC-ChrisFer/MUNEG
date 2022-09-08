@@ -42,7 +42,7 @@
                                 <form id="logInForm" method="post">
                                     <div id="Form_login">
                                         <label for="exampleInputPassword1" class="form-label">
-                                            <h2>Nueva contraseña</h2>
+                                            <h2>Nueva contraseña:</h2>
                                         </label>
                                         <input type="password" class="form-control" id="contrauno" size="40"
                                             name="passwordone" maxlength="70" required pattern="(?=^.{8,70}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$"
@@ -58,7 +58,7 @@
                                     </div>
                                     <div class="col-12 d-flex justify-content-center">
                                         <button class="btn btn-dark logIndButton" id="btnmenu" type="button" onclick="cambiarContraseña()">
-                                                Cambiar contraseña</button>
+                                                Cambiar contraseña:</button>
                                     </div>
                                     <a href="index.html" id="recuperar">Página de registro</a>
                                 </form>
@@ -73,11 +73,11 @@
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header" id="formHeader">
-                        <h5 class="modal-title">Error al iniciar sesión</h5>
+                        <h5 class="modal-title">Proceso fallido</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        Verifique que las contreseñas sean iguales
+                        Ha habido un error al restaurar la contraseña
                     </div>
                     <div class="modal-footer">
                         <button class="btn btn-primary" data-bs-dismiss="modal" id="btnmenu">Aceptar</button>
@@ -98,7 +98,6 @@
                     </div>
                     <div class="modal-footer">
                         <button class="btn btn-primary" data-bs-dismiss="modal" id="btnmenu">Aceptar</button>
-                        <button class="btn btn-primary" id="btnmenu">Registrarse</button>
                     </div>
                 </div>
             </div>

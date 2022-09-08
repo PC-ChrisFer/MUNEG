@@ -208,7 +208,7 @@ class Validator
             return false;
         //Tiene que tener un caracter especial incluyendo la ñ
         } elseif (preg_match('/[-*?#$%&=!°+.ñáéíóúAÉÍÓÚÑÜü]/', $value)){
-            $this->passwordError = 'La clave debe contener un número';
+            $this->passwordError = 'La clave debe contener un caracter especial';
             return false;
         } else {
             return true;

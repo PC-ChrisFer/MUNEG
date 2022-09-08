@@ -247,52 +247,72 @@
         </div>
       </div>
     </div>
-                             <!-- Modal de reporte fallido -->
-                             <div class="modal fade" id="errorReporte" tabindex="-1">
-                              <div class="modal-dialog modal-dialog-centered">
-                                  <div class="modal-content">
-                                      <div class="modal-header" id="formHeader">
-                                          <h5 class="modal-title">Error en el proceso</h5>
-                                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                      </div>
-                                      <div class="modal-body">
-                                          No se pudo generar el reporte, valide los datos ingreados
-                                      </div>
-                                      <div class="modal-footer">
-                                          <button class="btn btn-primary" data-bs-dismiss="modal" id="btnmenu">Aceptar</button>
-                                      </div>
-                                  </div>
-                              </div>
-                          </div>
-        <!-- CASAS MÁS BARATAS -->
-        <div>
-          <h2 class="titleInformation">PROPIEDADES CON LOS PRECIOS MÁS BAJOS</h2>
-          <!-- contenedor de casa vendida -->
-          <div class="row justify-content-center containerInformation" id="container_pag_principal" style="width: 75%">
-            <!-- contenedor de informacion -->
-            <div class="col-4 informationContainers detailsContainer" style="text-align: center;">
-              <button onclick="createPropiedadesBajosPDF()" class="btn" aria-expanded="false">
-                <h4>GENERAR REPORTE</h4>
-              </button>
-              <p>Haga clic para generar el reporte.</p>
-            </div>
+    <!-- Modal de reporte fallido -->
+    <div class="modal fade" id="errorReporte" tabindex="-1">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header" id="formHeader">
+            <h5 class="modal-title">Error en el proceso</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            No se pudo generar el reporte, valide los datos ingreados
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-primary" data-bs-dismiss="modal" id="btnmenu">Aceptar</button>
           </div>
         </div>
-        <!-- CASAS MÁS CARAS -->
-        <div>
-          <h2 class="titleInformation">PROPIEDADES CON LOS PRECIOS MÁS ALTOS</h2>
-          <!-- contenedor de casa vendida -->
-          <div class="row justify-content-center containerInformation" id="container_pag_principal" style="width: 75%">
-            <!-- contenedor de informacion -->
-            <div class="col-4 informationContainers detailsContainer" style="text-align: center;">
-              <button onclick="createPropiedadesAltosPDF()" class="btn" aria-expanded="false">
-                <h4>GENERAR REPORTE</h4>
-              </button>
-              <p>Haga clic para generar el reporte.</p>
-            </div>
+      </div>
+    </div>
+    <!-- CASAS MÁS BARATAS -->
+    <div>
+      <h2 class="titleInformation">PROPIEDADES CON LOS PRECIOS MÁS BAJOS</h2>
+      <!-- contenedor de casa vendida -->
+      <div class="row justify-content-center containerInformation" id="container_pag_principal" style="width: 75%">
+        <!-- contenedor de informacion -->
+        <div class="col-4 informationContainers detailsContainer" style="text-align: center;">
+          <button onclick="createPropiedadesBajosPDF()" class="btn" aria-expanded="false">
+            <h4>GENERAR REPORTE</h4>
+          </button>
+          <p>Haga clic para generar el reporte.</p>
+        </div>
+      </div>
+    </div>
+    <!-- CASAS MÁS CARAS -->
+    <div>
+      <h2 class="titleInformation">PROPIEDADES CON LOS PRECIOS MÁS ALTOS</h2>
+      <!-- contenedor de casa vendida -->
+      <div class="row justify-content-center containerInformation" id="container_pag_principal" style="width: 75%">
+        <!-- contenedor de informacion -->
+        <div class="col-4 informationContainers detailsContainer" style="text-align: center;">
+          <button onclick="createPropiedadesAltosPDF()" class="btn" aria-expanded="false">
+            <h4>GENERAR REPORTE</h4>
+          </button>
+          <p>Haga clic para generar el reporte.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODAL DE ERROR GENERICO -->
+    <div class="modal fade" id="modalErrorDeBaseDeDatos" tabindex="-1">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header" id="formHeader">
+            <h5 class="modal-title">Error en el proceso</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <p id="dataBaseErrorMessage">
+              ...
+            </p>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-primary" data-bs-dismiss="modal" id="btnmenu">Aceptar</button>
           </div>
         </div>
-    
+      </div>
+    </div>
+
   </main>
   <footer class="text-white pt-5 pb-4" id="Segundofooter">
     <div class="container-fluid"></div>

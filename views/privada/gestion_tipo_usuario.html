@@ -164,7 +164,7 @@
                                 <div class="col">
                                     <label for="tipo_usuario" class="form-label">Nombre de Tipo Usuario.</label>
                                     <input type="text" class="form-control" id="tipo_usuario" name="tipo_usuario"
-                                        placeholder="Escriba un nombre a la Tipo Usuario" required>
+                                    autocomplete="off" placeholder="Escriba un nombre a la Tipo Usuario" required>
                                 </div>
                             </div>
                         </div>
@@ -196,7 +196,7 @@
                                 <div class="col">
                                     <label for="tipo_usuario_update" class="form-label">Nombre de Tipo Usuario.</label>
                                     <input type="text" class="form-control" id="tipo_usuario_update"
-                                        name="tipo_usuario_update" required>
+                                    autocomplete="off" name="tipo_usuario_update" required>
                                         <div class="form-check form-switch">
                                             <input onclick="cambiarVisibilidadDeResgistro()" class="form-check-input" type="checkbox" role="switch"
                                                 id="eliminarElemento" >
@@ -308,6 +308,26 @@
                 </div>
             </div>
         </div>
+
+                            <!-- MODAL DE ERROR GENERICO -->
+                            <div class="modal fade" id="modalErrorDeBaseDeDatos" tabindex="-1">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <div class="modal-header" id="formHeader">
+                                            <h5 class="modal-title">Error en el proceso</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p id="dataBaseErrorMessage">
+                                                ...
+                                            </p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button class="btn btn-primary" data-bs-dismiss="modal" id="btnmenu">Aceptar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
     </main>
     <footer class="text-white  pt-5 pb-4" id="Segundofooter">
         <div class="container-fluid">

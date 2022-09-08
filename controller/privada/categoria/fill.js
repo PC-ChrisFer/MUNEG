@@ -1,3 +1,5 @@
+import { getElementById } from "../../constants/functions.js";
+
 //Función (ReadAll) llenar las tablas de información
 export function fillTableCategoria(dataset) {
     //Se define el contenido html
@@ -25,7 +27,7 @@ export function fillTableCategoria(dataset) {
               </tr>
           `;
     });
-    
+
     //Se escribe el id del contendor que se quiere llenar con el elemento html
     getElementById("tbody-Categoria").innerHTML = content ?? "";
   }

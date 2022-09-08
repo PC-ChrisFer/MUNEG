@@ -47,11 +47,6 @@ export function getFormData(object) {
 //CREANDO FUNCTION LOGOUT
 //@ts-ignore
 window.logOut = async () => {
-  let APIEndpoint = API_USUARIOS + "logOut";
-  let APIResponse = await APIConnection(APIEndpoint, GET_METHOD, null);
-
-  if (APIResponse.status == API_SUCESS_REQUEST) {
-    return;
-  }
-  console.log("SOMETING WENT WRONG");
 };
+
+

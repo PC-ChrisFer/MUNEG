@@ -15,7 +15,7 @@ class Database
         $server = 'localhost';
         $database = 'MUNEG';
         $username = 'postgres';
-        $password = 'georgia13';
+        $password = 'admin';
 
         //Se crea una sentencia usando la extensión PDO y el controlador para PostgreSQL
         self::$connection = new PDO('pgsql:host=' . $server . ';dbname=' . $database . ';port=5432', $username, $password);
@@ -120,7 +120,7 @@ class Database
         // Se toman los errores existentes y se añaden a este switch para generar el mensaje personalizado
         switch ($code) {
             default:
-                self::$error =  strval($code) . strval($message);
+                self::$error =  strval($code);
         }
     }
 

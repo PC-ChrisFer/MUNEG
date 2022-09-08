@@ -161,23 +161,23 @@
                                 <div class="col">
                                     <label for="nombre_inquilino" class="form-label">Nombre</label>
                                     <input type="text" class="form-control" id="nombre_inquilino"
-                                        placeholder="Ingrese un nombre." name="nombre_inquilino">
+                                    autocomplete="off"  placeholder="Ingrese un nombre." name="nombre_inquilino">
 
                                     <label for="apellido_inquilino" class="form-label">Apellido</label>
                                     <input type="text" class="form-control" id="apellido_inquilino"
-                                        placeholder="Ingrese un apellido." name="apellido_inquilino">
+                                    autocomplete="off" placeholder="Ingrese un apellido." name="apellido_inquilino">
 
                                     <label for="telefono" class="form-label">Teléfono</label>
                                     <input type="text" class="form-control" id="telefono" name="telefono"
-                                        placeholder="Ingrese un número teléfono.">
+                                    autocomplete="off" placeholder="Ingrese un número teléfono.">
 
                                     <label for="correo_electronico" class="form-label">Correo Electrónico</label>
                                     <input type="email" class="form-control" id="correo_electronico"
-                                        placeholder="Ingrese un correo electrónico." name="correo">
+                                    autocomplete="off" placeholder="Ingrese un correo electrónico." name="correo">
 
                                     <label for="fecha_nacimiento" class="form-label">Fecha de Nacimiento</label>
                                     <input type="date" class="form-control" id="fecha_nacimiento"
-                                        name="fecha_nacimiento">
+                                    autocomplete="off" name="fecha_nacimiento">
                                 </div>
                                 <div class="col">
                                     <label for="genero" class="form-label">Género</label>
@@ -188,15 +188,15 @@
 
                                     <label for="dui" class="form-label">DUI</label>
                                     <input type="text" class="form-control" id="dui" name="dui"
-                                        placeholder="Ingrese un número de DUI.">
+                                    autocomplete="off" placeholder="Ingrese un número de DUI.">
 
                                     <label for="nit" class="form-label">NIT</label>
                                     <input type="text" class="form-control" id="nit" name="nit"
-                                        placeholder="Ingrese un número de NIT.">
+                                    autocomplete="off" placeholder="Ingrese un número de NIT.">
 
                                     <label for="nrc" class="form-label">NRC</label>
                                     <input type="text" class="form-control" id="nrc" name="nrc"
-                                        placeholder="Ingrese un número de NIT.">
+                                    autocomplete="off" placeholder="Ingrese un número de NIT.">
 
                                     <label for="tipo_inquilino_i" class="form-label">Tipo de Inquilino</label>
                                     <select id="tipo_inquilino_i" name="tipo_inquilino" class="form-control">
@@ -246,22 +246,22 @@
                                 <div class="col">
                                     <label for="nombre_inquilino_update" class="form-label">Nombre</label>
                                     <input type="text" class="form-control" id="nombre_inquilino_update"
-                                        name="nombre_inquilino">
+                                    autocomplete="off" name="nombre_inquilino">
 
                                     <label for="apellido_inquilino_update" class="form-label">Apellido</label>
                                     <input type="text" class="form-control" id="apellido_inquilino_update"
-                                        name="apellido_inquilino">
+                                    autocomplete="off" name="apellido_inquilino">
 
                                     <label for="telefono_update" class="form-label">Teléfono</label>
-                                    <input type="tel" class="form-control" id="telefono_update" name="telefono">
+                                    <input type="tel" class="form-control" autocomplete="off" id="telefono_update" name="telefono">
 
                                     <label for="correo_electronico_update" class="form-label">Correo Electrónico</label>
                                     <input type="email" class="form-control" id="correo_electronico_update"
-                                        name="correo">
+                                    autocomplete="off" name="correo">
 
                                     <label for="fecha_nacimiento_update" class="form-label">Fecha de Nacimiento</label>
                                     <input type="date" class="form-control" id="fecha_nacimiento_update"
-                                        name="fecha_nacimiento">
+                                    autocomplete="off" name="fecha_nacimiento">
                                 </div>
                                 <div class="col">
                                     <label for="genero_update" class="form-label">Género</label>
@@ -271,13 +271,13 @@
                                     </select>
 
                                     <label for="dui_update" class="form-label">DUI</label>
-                                    <input type="text" class="form-control" id="dui_update" name="dui">
+                                    <input type="text" class="form-control" autocomplete="off" id="dui_update" name="dui">
 
                                     <label for="nit_update" class="form-label">NIT</label>
-                                    <input type="text" class="form-control" id="nit_update" name="nit">
+                                    <input type="text" class="form-control" autocomplete="off" id="nit_update" name="nit">
 
                                     <label for="nrc_update" class="form-label">NRC</label>
-                                    <input type="text" class="form-control" id="nrc_update" name="nrc">
+                                    <input type="text" class="form-control"autocomplete="off" id="nrc_update" name="nrc">
 
                                     <label for="tipo_inquilino_u" class="form-label">Tipo de Inquilino</label>
                                     <select id="tipo_inquilino_u" name="tipo_inquilino" class="form-control">
@@ -426,6 +426,26 @@
                     </div>
                     <div class="modal-body">
                         No se pudo realizar el proceso debido a que hubo un error.
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary" data-bs-dismiss="modal" id="btnmenu">Aceptar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+                               <!-- MODAL DE ERROR GENERICO -->
+        <div class="modal fade" id="modalErrorDeBaseDeDatos" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header" id="formHeader">
+                        <h5 class="modal-title">Error en el proceso</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p id="dataBaseErrorMessage">
+                        ...
+                        </p>
                     </div>
                     <div class="modal-footer">
                         <button class="btn btn-primary" data-bs-dismiss="modal" id="btnmenu">Aceptar</button>

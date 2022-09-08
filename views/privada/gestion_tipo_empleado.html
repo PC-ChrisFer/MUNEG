@@ -108,7 +108,7 @@
         <div class="container-fluid" id="busqueda">
             <form class="d-flex" method="post" id="search-bar">
                 <input class="form-control me-2" name="search" placeholder="Buscar por Nombre" aria-label="Search"
-                    required>
+                required>
                 <button class="btn" type="submit"><img src="../../resources/img/iconos_navbar/search_24px.png"></button>
             </form>
         </div>
@@ -157,7 +157,7 @@
                                 <div class="col">
                                     <label for="Empleado" class="form-label">Nombre del tipo Empleado</label>
                                     <input type="text" class="form-control" id="tipo_empleado"
-                                        name="tipo_empleado" placeholder="Escriba un nombre a la empleado"
+                                    autocomplete="off" name="tipo_empleado" placeholder="Escriba un nombre a la empleado"
                                         required>
                                 </div>
                             </div>
@@ -190,7 +190,7 @@
                                 <div class="col">
                                     <label for="enpleado" class="form-label">Nombre del tipo Empleado</label>
                                     <input type="text" class="form-control" id="tipo_empleado_update"
-                                        name="tipo_empleado_update" placeholder="Escriba el nombre del tipo empleado"
+                                    autocomplete="off" name="tipo_empleado_update" placeholder="Escriba el nombre del tipo empleado"
                                         required>
                                 </div>
                                 <div class="col">
@@ -281,6 +281,26 @@
                     </div>
                     <div class="modal-body">
                         Se han guardado los datos existosamente.
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary" data-bs-dismiss="modal" id="btnmenu">Aceptar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+                               <!-- MODAL DE ERROR GENERICO -->
+        <div class="modal fade" id="modalErrorDeBaseDeDatos" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header" id="formHeader">
+                        <h5 class="modal-title">Error en el proceso</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p id="dataBaseErrorMessage">
+                        ...
+                        </p>
                     </div>
                     <div class="modal-footer">
                         <button class="btn btn-primary" data-bs-dismiss="modal" id="btnmenu">Aceptar</button>

@@ -169,28 +169,28 @@
                                 <div class="col">
                                     <label for="factura" class="form-label">Código de Factura</label>
                                     <input type="text" class="form-control" id="factura" name="codigo_factura"
-                                        placeholder="Escriba el número de su factura" required>
+                                    autocomplete="off"   placeholder="Escriba el número de su factura" required>
 
                                     <label for="descripcion" class="form-label">Descripción</label>
                                     <textarea id="descripcion" name="descripcion" rows="4" class="form-control"
-                                        placeholder="Escriba la descripción de factura" required></textarea>
+                                    autocomplete="off"   placeholder="Escriba la descripción de factura" required></textarea>
 
                                     <label for="direccion" class="form-label">Dirección</label>
                                     <textarea id="direccion" name="direccion" rows="4" class="form-control"
-                                        placeholder="Escriba la de dirección de factura" required></textarea>
+                                    autocomplete="off" placeholder="Escriba la de dirección de factura" required></textarea>
                                 </div>
                                 <div class="col">
                                     <label for="subtotal" class="form-label">Subtotal</label>
                                     <input type="number" class="form-control" id="subtotal" name="subtotal"
-                                        placeholder="Escriba de SubTotal" required min="1" max="1000000">
+                                    autocomplete="off" placeholder="Escriba de SubTotal" required min="1" max="1000000">
 
                                     <label for="iva" class="form-label">IVA</label>
                                     <input type="number" class="form-control" id="IVA" name="IVA" placeholder="IVA"
-                                        required min="0">
+                                    autocomplete="off" required min="0">
 
                                     <label for="venta_gravada" class="form-label">Venta grabada</label>
                                     <input type="number" class="form-control" id="venta_gravada" name="venta_gravada"
-                                        placeholder="Escriba la venta grabada" required min="1">
+                                    autocomplete="off" placeholder="Escriba la venta grabada" required min="1">
 
                                     <label for="fecha_emision" class="form-label">Fecha de emisión</label>
                                     <input type="date" class="form-control" id="fecha_emision" name="fecha_emision"
@@ -231,32 +231,32 @@
                                 <div class="col">
                                     <label for="factura_update" class="form-label">Código de Factura</label>
                                     <input type="text" class="form-control" id="codigo_factura_update"
-                                        name="codigo_factura_update" required>
+                                    autocomplete="off"  name="codigo_factura_update" required>
 
                                     <label for="descripcion" class="form-label">Descripción</label>
                                     <textarea id="descripcion_update" name="descripcion_update" rows="4"
-                                        class="form-control" required></textarea>
+                                    autocomplete="off"   class="form-control" required></textarea>
 
                                     <label for="direccion_update" class="form-label">Dirección</label>
                                     <textarea id="direccion_update" name="direccion_update" rows="4"
-                                        class="form-control" required></textarea>
+                                    autocomplete="off"  class="form-control" required></textarea>
                                 </div>
                                 <div class="col">
                                     <label for="subtotal_update" class="form-label">Subtotal</label>
                                     <input type="number" class="form-control" id="subtotal_update"
-                                        name="subtotal_update" required min="1" max="1000000">
+                                    autocomplete="off"   name="subtotal_update" required min="1" max="1000000">
 
                                     <label for="iva_update" class="form-label">IVA</label>
                                     <input type="number" class="form-control" id="IVA_update" name="IVA_update" required
-                                        min="1" max="1000000">
+                                    autocomplete="off" min="1" max="1000000">
 
                                     <label for="venta_grabada_update" class="form-label">Venta grabada</label>
                                     <input type="number" class="form-control" id="venta_gravada_update"
-                                        name="venta_gravada_update" required min="1" max="1000000">
+                                    autocomplete="off" name="venta_gravada_update" required min="1" max="1000000">
 
                                     <label for="fecha_emision_update" class="form-label">Fecha de emisión</label>
                                     <input type="date" class="form-control" id="fecha_emision_update"
-                                        name="fecha_emision_update" required>
+                                    autocomplete="off" name="fecha_emision_update" required>
 
                                     <label for="id_inquilino" class="form-label">Inquilino</label>
                                     <select onchange="seleccionarInquilino()" id="id_inquilino_update"
@@ -462,6 +462,26 @@
                     </div>
                     <div class="modal-body">
                         No se pudo abrir el reporte.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+                               <!-- MODAL DE ERROR GENERICO -->
+        <div class="modal fade" id="modalErrorDeBaseDeDatos" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header" id="formHeader">
+                        <h5 class="modal-title">Error en el proceso</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p id="dataBaseErrorMessage">
+                        ...
+                        </p>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary" data-bs-dismiss="modal" id="btnmenu">Aceptar</button>
                     </div>
                 </div>
             </div>

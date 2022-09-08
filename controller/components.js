@@ -1,5 +1,6 @@
 //Importar las constantes y metodos de components.js y api_constant.js
 import { APIConnection } from "./APIConnection.js";
+import { showErrorModal } from "./components/htmlComponents.js";
 import {
   API_READALL,
   API_SEARCH,
@@ -14,6 +15,7 @@ import {
 } from "./constants/api_constant.js";
 import { getElementById } from "./constants/functions.js";
 
+
 // LEER REGISTROS
 export async function readRows(ENDPOINT, fillrows) {
   let APIEndpoint = ENDPOINT + API_READALL;
@@ -23,8 +25,10 @@ export async function readRows(ENDPOINT, fillrows) {
   if (APIResponse.status == API_SUCESS_REQUEST) {
     fillrows(APIResponse.dataset)
     return
+  } else {
+    // FUNCION PARA ABRIR EL MODAL DE ERROR
+    showErrorModal(APIResponse.exception)
   }
-  // dado caso este if se ejecute con "return" hara que hasta este punto llegue el codigo
 }
 
 // LEER REGISTROS ELIMINADOS
@@ -42,8 +46,10 @@ export async function readDeletedRowns(ENDPOINT, fillrows) {
       fillrows(APIResponse.dataset)
     }
     return
+  } else {
+    // FUNCION PARA ABRIR EL MODAL DE ERROR
+    showErrorModal(APIResponse.exception)
   }
-  // dado caso este if se ejecute con "return" hara que hasta este punto llegue el codigo
 }
 
 // BUSCAR REGISTROS
@@ -80,11 +86,13 @@ export async function saveRow(ENDPOINT, ACTION, parameters, fillrows) {
     fillrows(APIResponse.dataset)
     //@ts-ignore
     $('#guardado').modal('show');
-    return;
+  } else {
+      // FUNCION PARA ABRIR EL MODAL DE ERROR
+    showErrorModal(APIResponse.exception)
   }
   //En caso de fracaso se abrira un modal de error
   //@ts-ignore
-  $('#error_proceso').modal('show');
+  //$('#error_proceso').modal('show');
 
 }
 
@@ -98,11 +106,10 @@ export async function deleteRow(ENDPOINT, parameters, fillrows) {
     fillrows(APIResponse.dataset)
     //@ts-ignore
     $('#eliminado').modal('show');
-    return;
+  } else {
+    // FUNCION PARA ABRIR EL MODAL DE ERROR
+    showErrorModal(APIResponse.exception)
   }
-  //En caso de fracaso se abrira un modal de error
-  //@ts-ignore
-  $('#error_proceso').modal('show');
 }
 
 // Hacer un readOne
@@ -111,10 +118,11 @@ export async function readOne(ENDPOINT, parameters, fillrows) {
 
   let APIResponse = await APIConnection(APIEndpoint, POST_METHOD, parameters);
 
-  console.log(APIResponse);  
   if (APIResponse.status == API_SUCESS_REQUEST) {
     fillrows(APIResponse.dataset)
-    return;
+  } else {
+    // FUNCION PARA ABRIR EL MODAL DE ERROR
+    showErrorModal(APIResponse.exception)
   }
 }
 
@@ -126,11 +134,11 @@ export async function unDeleteRow(ENDPOINT, parameters, fillrows) {
 
   if (APIResponse.status == API_SUCESS_REQUEST) {
     fillrows(APIResponse.dataset)
-    return;
+  } else {
+     // FUNCION PARA ABRIR EL MODAL DE ERROR
+    showErrorModal(APIResponse.exception)
   }
-  //En caso de fracaso se abrira un modal de error
-  //@ts-ignore
-  $('#error_proceso').modal('show');
+
 }
 
 

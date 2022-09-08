@@ -9,6 +9,9 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <!-- Libreria del token -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js">
+    </script>
     <link rel="stylesheet" href="../../resources/css/estilo_privado.css">
     <title>MUNEG S.A C.V</title>
 </head>
@@ -44,41 +47,44 @@
                                         <label for="exampleInputEmail1" class="form-label">
                                             <h2>Usuario</h2>
                                         </label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1"
-                                            name="nombre_usuario" aria-describedby="emailHelp" size="40" maxlength="50"
+                                        <input type="text" class="form-control" id="userNameInput" name="nombre_usuario"
+                                            aria-describedby="emailHelp" size="40" maxlength="50" autocomplete="off"
                                             required>
                                     </div>
                                     <div id="Form_login">
                                         <label for="exampleInputPassword1" class="form-label">
                                             <h2>Contraseña</h2>
                                         </label>
-                                        <input type="password" class="form-control" id="exampleInputPassword1" size="40"
-                                            name="password" maxlength="70" required pattern="(?=^.{8,70}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$"
-                                            title="Debe contener al menos una mayúscula, una minúscula, un número y un caracter especial (@$!%?&)">
+                                        <input type="password" class="form-control" id="password" size="40"
+                                            name="password" maxlength="70" autocomplete="off" required pattern="(?=^.{8,70}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$"
+                                            title="Debe contener al menos una mayúscula, una minúscula, un número y un caracter especial">
                                     </div>
-                                    <a href="" id="recuperar">Recuperar contraseña</a>
+                                   
                                     <div class="col-12 d-flex justify-content-center">
                                         <button type="submit" class="btn btn-dark logIndButton" id="btnmenu"><a
                                                 type="submit">Iniciar
                                                 sesión</a></button>
                                     </div>
                                 </form>
-                            </div>
+                            </div> 
+                            <button type="button" class="" id="recuperar" ><a onclick="abrirGuardarDato()"
+                                type="submit">¿Olvidó su contraseña?</a></button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        
         <!-- Modal de PROCESO FALLIDO -->
         <div class="modal fade" id="error_proceso" tabindex="-1">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header" id="formHeader">
-                        <h5 class="modal-title">Error al iniciar sesión</h5>
+                        <h5 class="modal-title">Error en el proceso</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        Verifique que sus credenciales son correctas
+                        Verifique que sus credenciales sean correctas
                     </div>
                     <div class="modal-footer">
                         <button class="btn btn-primary" data-bs-dismiss="modal" id="btnmenu">Aceptar</button>
@@ -86,6 +92,102 @@
                 </div>
             </div>
         </div>
+
+        <!-- MODAL DE ERROR GENERICO -->
+        <div class="modal fade" id="modalErrorDeBaseDeDatos" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header" id="formHeader">
+                        <h5 class="modal-title">Error en el proceso</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p id="dataBaseErrorMessage">
+                            ...
+                        </p>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary" data-bs-dismiss="modal" id="btnmenu">Aceptar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- MODAL DE PROCESO EXITOSO -->
+        <div class="modal fade" id="proceso_bien" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header" id="formHeader">
+                        <h5 class="modal-title">Proceso exitoso</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        Verifique el correo electrónico enviado con anterioridad
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary" data-bs-dismiss="modal" id="btnmenu">Aceptar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- MODAL PARA INSERTAR EL CODIGO DE CONFIRMACIÓN -->
+        <div class="modal fade" id="modalConfirmacion" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header" id="formHeader">
+                        <h5 class="modal-title">Ingresar Token enviado a su Correo</h5>
+                    </div>
+                    <div class="modal-body">
+                        <p>Ingrese el codigo de confirmación por el correo</p>
+                        <input id="codigoConfirmacion" class="form-control me-2" name="codigo" placeholder="Codigo"
+                            aria-label="Search" required>
+                    </div>
+                    <div class="modal-footer">
+                        <button id="confirmCodeButton" onclick="confirmarCodigo()" class="btn btn-primary" type="submit"><img
+                            src="../../resources/img/iconos_navbar/search_24px.png">Confirmar codigo</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+         <!-- Modal de CORREO ENVIADO -->
+         <div class="modal fade" id="correo_enviado" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header" id="formHeader">
+                        <h5 class="modal-title">Proporcione sus datos</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Ingrese su nombre de usuario</p>
+                        <input id="nombre_usuario" class="form-control me-2" name="nombre_usuario" placeholder="Nombre usuario"
+                            aria-label="Search" required>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary" data-bs-dismiss="modal" id="btnmenu" type="button" onclick="comprobarDato()">Enviar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal de CAMBIAR CONTRASEÑA -->
+        <div class="modal fade" id="cambio_contra" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header" id="formHeader">
+                        <h5 class="modal-title">Han pasado 90 días</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        Por cuestiones de seguridad, necesita cambiar su contraseña
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary" data-bs-dismiss="modal" id="btnmenu">Aceptar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </main>
 
     <footer class="text-white  pt-5 pb-4" id="Segundofooter">

@@ -163,20 +163,20 @@
                                 <div class="col">
                                     <label for="nombre_empleado" class="form-label">Nombre</label>
                                     <input type="text" class="form-control" id="nombre_empleado" name="nombre_empleado"
-                                        placeholder="Ingrese el nombre del empleado" required>
+                                    autocomplete="off" placeholder="Ingrese el nombre del empleado" required>
 
                                     <label for="apellido_empleado" class="form-label">Apellido</label>
                                     <input type="text" class="form-control" id="apellido_empleado"
-                                        name="apellido_empleado" placeholder="Ingrese el apellido del empleado"
+                                    autocomplete="off"   name="apellido_empleado" placeholder="Ingrese el apellido del empleado"
                                         required>
 
                                     <label for="telefono" class="form-label">Teléfono</label>
                                     <input type="tel" class="form-control" id="telefono" name="numero_telefono"
-                                        placeholder="Ingrese el telefono del empleado" required>
+                                    autocomplete="off"  placeholder="Ingrese el telefono del empleado" required>
 
                                     <label for="correo_electronico" class="form-label">Correo Electrónico</label>
                                     <input type="email" class="form-control" id="correo_electronico"
-                                        name="correo_electronico" placeholder="Ingrese correo electrónico" required>
+                                    autocomplete="off"  name="correo_electronico" placeholder="Ingrese correo electrónico" required>
 
                                     <label for="fecha_nacimiento" class="form-label">Fecha de Nacimiento</label>
                                     <input type="date" class="form-control" id="fecha_nacimiento"
@@ -191,7 +191,7 @@
 
                                     <label for="dui" class="form-label">DUI</label>
                                     <input type="text" class="form-control" id="dui" name="dui"
-                                        placeholder="Ingrese el DUI del empleado" required>
+                                    autocomplete="off" placeholder="Ingrese el DUI del empleado" required>
 
                                     <label for="nit" class="form-label">NIT</label>
                                     <input type="text" class="form-control" id="nit" name="nit"
@@ -244,18 +244,18 @@
                                 <div class="col">
                                     <label for="nombre_empleado_update" class="form-label">Nombre</label>
                                     <input type="text" class="form-control" id="nombre_empleado_update"
-                                        name="nombre_empleado_update">
+                                    autocomplete="off" name="nombre_empleado_update">
 
                                     <label for="apellido_empleado_update" class="form-label">Apellido</label>
                                     <input type="text" class="form-control" id="apellido_empleado_update"
-                                        name="apellido_empleado_update">
+                                    autocomplete="off"  name="apellido_empleado_update">
 
                                     <label for="telefono_update" class="form-label">Teléfono</label>
                                     <input type="tel" class="form-control" id="telefono_update" name="telefono_update">
 
                                     <label for="correo_electronico_update" class="form-label">Correo Electrónico</label>
                                     <input type="email" class="form-control" id="correo_electronico_update"
-                                        name="correo_electronico_update">
+                                    autocomplete="off" name="correo_electronico_update">
 
                                     <label for="fecha_nacimiento_update" class="form-label">Fecha de Nacimiento</label>
                                     <input type="date" class="form-control" id="fecha_nacimiento_update"
@@ -268,10 +268,10 @@
                                         <option value="F">Femenino</option>
                                     </select>
                                     <label for="dui_update" class="form-label">DUI</label>
-                                    <input type="text" class="form-control" id="dui_update" name="dui_update">
+                                    <input type="text" class="form-control" autocomplete="off" id="dui_update" name="dui_update">
 
                                     <label for="nit_update" class="form-label">NIT</label>
-                                    <input type="text" class="form-control" id="nit_update" name="nit_update">
+                                    <input type="text" class="form-control" autocomplete="off" id="nit_update" name="nit_update">
 
                                     <label for="tipo_empleado_update" class="form-label">Tipo de Empleado</label>
                                     <select  class="form-control" id="tipo_empleado_update"
@@ -372,6 +372,25 @@
                     </div>
                     <div class="modal-body">
                         Se han guardado los datos existosamente.
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary" data-bs-dismiss="modal" id="btnmenu">Aceptar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+                               <!-- MODAL DE ERROR GENERICO -->
+        <div class="modal fade" id="modalErrorDeBaseDeDatos" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header" id="formHeader">
+                        <h5 class="modal-title">Error en el proceso</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p id="dataBaseErrorMessage">
+                        ...
+                        </p>
                     </div>
                     <div class="modal-footer">
                         <button class="btn btn-primary" data-bs-dismiss="modal" id="btnmenu">Aceptar</button>

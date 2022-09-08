@@ -161,11 +161,11 @@
                                 <div class="col">
                                     <label for="asunto" class="form-label">Asunto</label>
                                     <input type="text" name="asunto" id="asunto" rows="4" class="form-control"
-                                        placeholder="Ingrese el Asunto" required maxlength="100"></input>
+                                    autocomplete="off" placeholder="Ingrese el Asunto" required maxlength="100"></input>
 
                                     <label for="descripcion" class="form-label">Descripción</label>
                                     <input type="text" name="descripcion" id="descripcion" rows="4" class="form-control"
-                                        placeholder="Ingrese la Descripción" required maxlength="300"></input>
+                                    autocomplete="off" placeholder="Ingrese la Descripción" required maxlength="300"></input>
 
                                     <label for="inquilino" class="form-label">Inquilino</label>
                                     <select onchange="seleccionarInquilino('inquilinos')" id="inquilinos"
@@ -177,8 +177,7 @@
                                     <label for="upload_image" class="form-label">Imagen</label><br>
                                     <a class="btn" name="archivo" id="upload_image">
                                         <input accept="image/jpeg" type="file"
-                                            class="form-control form-control-sm form-Input-Style" name="archivo"
-                                            required>
+                                        autocomplete="off" class="form-control form-control-sm form-Input-Style" name="archivo" required>
                                         <img src="../../resources/img/iconos_formularios/download_100px.png">
                                     </a>
                                 </div>
@@ -212,12 +211,12 @@
                                 <div class="col">
                                     <label for="asunto_update" class="form-label">Asunto</label>
                                     <input type="text" name="asunto_update" id="asunto_update" rows="4"
-                                        class="form-control" placeholder="Ingrese el Asunto" required
+                                    autocomplete="off" class="form-control" placeholder="Ingrese el Asunto" required
                                         maxlength="100"></input>
 
                                     <label for="descripcion_update" class="form-label">Descripción</label>
                                     <input type="text" name="descripcion_update" id="descripcion_update" rows="4"
-                                        class="form-control" placeholder="Ingrese la Descripción" required
+                                    autocomplete="off" class="form-control" placeholder="Ingrese la Descripción" required
                                         maxlength="300"></input>
 
                                     <label for="inquilino_update" class="form-label">Inquilino</label>
@@ -327,6 +326,26 @@
                 </div>
             </div>
         </div>
+
+                            <!-- MODAL DE ERROR GENERICO -->
+                            <div class="modal fade" id="modalErrorDeBaseDeDatos" tabindex="-1">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <div class="modal-header" id="formHeader">
+                                            <h5 class="modal-title">Error en el proceso</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p id="dataBaseErrorMessage">
+                                                ...
+                                            </p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button class="btn btn-primary" data-bs-dismiss="modal" id="btnmenu">Aceptar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
     </main>
 
     <footer class="text-white  pt-5 pb-4" id="Segundofooter">

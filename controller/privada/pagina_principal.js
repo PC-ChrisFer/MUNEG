@@ -213,7 +213,7 @@ export async function graphDoughnutTopDepartamento() {
         "chartTopDepartamento",
         departamento,
         num_propiedades,
-        "Cantidad de Propiedades por cantidad de plantas que posee."
+        "Cantidad de Propiedades por el Departamento en el que se localizan."
       );
     } else {
       document.getElementById("chartTopDepartamento").remove();
@@ -249,7 +249,7 @@ export async function graphDoughnutPropiedadVenta() {
         "chartPropiedadVenta",
         estado,
         num_propiedades,
-        "Cantidad de Propiedades de casas en venta frente a las que estan en venta"
+        "Cantidad de Propiedades de casas en venta frente a las que estan en alquiler"
       );
     } else {
       document.getElementById("chartPropiedadVenta").remove();
@@ -319,7 +319,7 @@ export async function graphBarTopVentasAlquiler() {
         "chartTopEmpleado",
         nombre,
         count,
-        "Top 5 emplados que mas venden/alquilan casas",
+        "Cantidad de Transacciones",
         "Top 5 emplados que mas venden/alquilan casas"
      
       );
@@ -356,7 +356,7 @@ export async function graphPieEmpleadosActivoInactivo() {
         "chartTopEmpleadoEstado",
         nombre_estado,
         count,
-        "empleados activos e incativos"
+        "Empleados activos e incativos"
       );
     } else {
       document.getElementById("chartTopEmpleadoEstado").remove();

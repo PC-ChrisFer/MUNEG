@@ -163,25 +163,25 @@
                                 <div class="col">
                                     <label for="nombre" class="form-label">Nombre de Propietario</label>
                                     <input type="text" class="form-control" id="nombre" name="nombre"
-                                        placeholder="Escriba el nombre del Propietario" required maxlength="50">
+                                    autocomplete="off" placeholder="Escriba el nombre del Propietario" required maxlength="50">
 
                                     <label for="apellido" class="form-label">Apellido</label>
                                     <input type="text" class="form-control" id="apellido" name="apellido"
-                                        placeholder="Escriba el apellido del propietario" required maxlength="50">
+                                    autocomplete="off" placeholder="Escriba el apellido del propietario" required maxlength="50">
 
                                     <label for="telefono" class="form-label">Teléfono</label>
                                     <input type="tel" class="form-control" id="telefono" name="telefono"
-                                        placeholder="Escriba el numero de Telefono del propietario" required
+                                    autocomplete="off" placeholder="Escriba el numero de Telefono del propietario" required
                                         maxlength="8">
 
                                     <label for="correo_electronico" class="form-label">Correo Electrónico</label>
                                     <input type="email" class="form-control" id="correo_electronico"
-                                        name="correo_electronico" placeholder="Escriba el correo del propietario"
+                                    autocomplete="off" name="correo_electronico" placeholder="Escriba el correo del propietario"
                                         required maxlength="75">
 
                                     <label for="fecha_nacimiento" class="form-label">Fecha de Nacimiento</label>
                                     <input type="date" class="form-control" id="fecha_nacimiento"
-                                        name="fecha_nacimiento" required>
+                                    autocomplete="off" name="fecha_nacimiento" required>
                                 </div>
                                 <div class="col">
                                     <label for="genero" class="form-label">Género</label>
@@ -192,7 +192,7 @@
 
                                     <label for="DUI" class="form-label">DUI</label>
                                     <input type="text" class="form-control" id="DUI" name="DUI"
-                                        placeholder="Escriba el DUI" required maxlength="10">
+                                    autocomplete="off" placeholder="Escriba el DUI" required maxlength="10">
 
                                     <label for="id_inquilino" class="form-label">Tipo de Propietario</label>
                                     <select onchange="seleccionarTipoPropietario()" id="id_tipo_propietario_create"
@@ -237,25 +237,25 @@
                                 <div class="col">
                                     <label for="nombre" class="form-label">Nombre de Propietario</label>
                                     <input type="text" class="form-control" id="nombre_update" name="nombre_update"
-                                        placeholder="Escriba el nombre del Propietario" required maxlength="50">
+                                    autocomplete="off" placeholder="Escriba el nombre del Propietario" required maxlength="50">
 
                                     <label for="apellido" class="form-label">Apellido</label>
                                     <input type="text" class="form-control" id="apellido_update" name="apellido_update"
-                                        placeholder="Escriba el apellido del propietario" required maxlength="50">
+                                    autocomplete="off" placeholder="Escriba el apellido del propietario" required maxlength="50">
 
                                     <label for="telefono" class="form-label">Teléfono</label>
                                     <input type="tel" class="form-control" id="telefono_update" name="telefono_update"
-                                        placeholder="Escriba el numero de Telefono del propietario" required
+                                    autocomplete="off" placeholder="Escriba el numero de Telefono del propietario" required
                                         maxlength="13">
 
                                     <label for="correo_electronico" class="form-label">Correo Electrónico</label>
                                     <input type="email" class="form-control" id="correo_electronico_update"
-                                        name="correo_electronico_update" placeholder="Escriba el correo del propietario"
+                                    autocomplete="off" name="correo_electronico_update" placeholder="Escriba el correo del propietario"
                                         required maxlength="75">
 
                                     <label for="fecha_nacimiento" class="form-label">Fecha de Nacimiento</label>
                                     <input type="date" class="form-control" id="fecha_nacimiento_update"
-                                        name="fecha_nacimiento_update" required>
+                                    autocomplete="off" name="fecha_nacimiento_update" required>
                                 </div>
                                 <div class="col">
                                     <label for="formGroupExampleInput" class="form-label">Género</label>
@@ -266,7 +266,7 @@
 
                                     <label for="DUI" class="form-label">DUI</label>
                                     <input type="text" class="form-control" id="DUI_update" name="DUI_update"
-                                        placeholder="Escriba el DUI" required maxlength="10">
+                                    autocomplete="off" placeholder="Escriba el DUI" required maxlength="10">
 
                                     <label for="id_inquilino" class="form-label">Tipo de Propietario</label>
                                     <select onchange="seleccionarTipoPropietario()" id="id_tipo_propietario_update"
@@ -410,6 +410,26 @@
                 </div>
             </div>
         </div>
+
+                            <!-- MODAL DE ERROR GENERICO -->
+                            <div class="modal fade" id="modalErrorDeBaseDeDatos" tabindex="-1">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <div class="modal-header" id="formHeader">
+                                            <h5 class="modal-title">Error en el proceso</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p id="dataBaseErrorMessage">
+                                                ...
+                                            </p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button class="btn btn-primary" data-bs-dismiss="modal" id="btnmenu">Aceptar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
     </main>
 
     <footer class="text-white  pt-5 pb-4" id="Segundofooter">

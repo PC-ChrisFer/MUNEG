@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Contact Form</title>
+    <script type="text/javascript"
+        src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js">
+    </script>
+<body>
+
+    <input id="correoUsario" class="form-control me-2" name="correo" placeholder="Correo" aria-label="Search" required>
+    <input id="codigoConfirmacion" class="form-control me-2" name="codigo" placeholder="Codigo" aria-label="Search" disabled required>
+    <button onclick="enviarEmail()" class="btn" type="submit"><img src="../../resources/img/iconos_navbar/search_24px.png">Enviar email</button>
+    <button id="confirmCodeButton" onclick="confirmarCodigo()" class="btn" type="submit" disabled><img src="../../resources/img/iconos_navbar/search_24px.png">Confirmar codigo</button>
+
+</body>
+
+</head>
+
+<body>
+    <script type="module" src="../../controller/privada/segundoFactor_Autentificacion/segundoFactor_autentificacion.js"></script>
+</body>
+
+</html>

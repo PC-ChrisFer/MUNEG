@@ -1,0 +1,2928 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 14.1
+-- Dumped by pg_dump version 14.1
+
+-- Started on 2022-09-10 14:15:37
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+--
+-- TOC entry 257 (class 1255 OID 26241)
+-- Name: actualizar_inquilino(); Type: FUNCTION; Schema: public; Owner: postgres
+--
+
+CREATE FUNCTION public.actualizar_inquilino() RETURNS trigger
+    LANGUAGE plpgsql
+    AS $$
+ 	BEGIN
+	SELECT visibilidad from inquilino;
+  	END;
+	$$;
+
+
+ALTER FUNCTION public.actualizar_inquilino() OWNER TO postgres;
+
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
+
+--
+-- TOC entry 209 (class 1259 OID 26242)
+-- Name: categoria; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.categoria (
+    id_categoria integer NOT NULL,
+    nombre_categoria character varying(20) NOT NULL,
+    visibilidad boolean
+);
+
+
+ALTER TABLE public.categoria OWNER TO postgres;
+
+--
+-- TOC entry 210 (class 1259 OID 26245)
+-- Name: categoria_id_categoria_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.categoria_id_categoria_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.categoria_id_categoria_seq OWNER TO postgres;
+
+--
+-- TOC entry 3624 (class 0 OID 0)
+-- Dependencies: 210
+-- Name: categoria_id_categoria_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.categoria_id_categoria_seq OWNED BY public.categoria.id_categoria;
+
+
+--
+-- TOC entry 211 (class 1259 OID 26246)
+-- Name: cliente; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.cliente (
+    id_cliente integer NOT NULL,
+    nombre_cliente character varying(75) NOT NULL,
+    correo character varying(100) NOT NULL
+);
+
+
+ALTER TABLE public.cliente OWNER TO postgres;
+
+--
+-- TOC entry 212 (class 1259 OID 26249)
+-- Name: cliente_id_cliente_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.cliente_id_cliente_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.cliente_id_cliente_seq OWNER TO postgres;
+
+--
+-- TOC entry 3625 (class 0 OID 0)
+-- Dependencies: 212
+-- Name: cliente_id_cliente_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.cliente_id_cliente_seq OWNED BY public.cliente.id_cliente;
+
+
+--
+-- TOC entry 213 (class 1259 OID 26250)
+-- Name: contrato; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.contrato (
+    id_contrato integer NOT NULL,
+    descripcion character varying(500),
+    fecha_firma date NOT NULL,
+    imagen character varying(200) NOT NULL,
+    id_propietario integer NOT NULL,
+    id_propiedad integer NOT NULL,
+    id_empleado integer NOT NULL,
+    id_inquilino integer NOT NULL
+);
+
+
+ALTER TABLE public.contrato OWNER TO postgres;
+
+--
+-- TOC entry 214 (class 1259 OID 26255)
+-- Name: contrato_id_contrato_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.contrato_id_contrato_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.contrato_id_contrato_seq OWNER TO postgres;
+
+--
+-- TOC entry 3626 (class 0 OID 0)
+-- Dependencies: 214
+-- Name: contrato_id_contrato_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.contrato_id_contrato_seq OWNED BY public.contrato.id_contrato;
+
+
+--
+-- TOC entry 215 (class 1259 OID 26256)
+-- Name: departamento; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.departamento (
+    id_departamento integer NOT NULL,
+    departamento character varying(25) NOT NULL,
+    estado boolean NOT NULL
+);
+
+
+ALTER TABLE public.departamento OWNER TO postgres;
+
+--
+-- TOC entry 216 (class 1259 OID 26259)
+-- Name: departamento_id_departamento_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.departamento_id_departamento_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.departamento_id_departamento_seq OWNER TO postgres;
+
+--
+-- TOC entry 3627 (class 0 OID 0)
+-- Dependencies: 216
+-- Name: departamento_id_departamento_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.departamento_id_departamento_seq OWNED BY public.departamento.id_departamento;
+
+
+--
+-- TOC entry 217 (class 1259 OID 26260)
+-- Name: empleado; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.empleado (
+    id_empleado integer NOT NULL,
+    nombre character varying(50) NOT NULL,
+    apellido character varying(50) NOT NULL,
+    numero_telefono character varying(13) NOT NULL,
+    correo_electronico character varying(75) NOT NULL,
+    fecha_nacimiento date NOT NULL,
+    genero "char" NOT NULL,
+    "DUI" character varying(10) NOT NULL,
+    "NIT" character varying(17) NOT NULL,
+    imagen character varying(200),
+    id_tipo_empleado integer NOT NULL,
+    id_estado_empleado integer NOT NULL
+);
+
+
+ALTER TABLE public.empleado OWNER TO postgres;
+
+--
+-- TOC entry 218 (class 1259 OID 26263)
+-- Name: empleado_id_empleado_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.empleado_id_empleado_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.empleado_id_empleado_seq OWNER TO postgres;
+
+--
+-- TOC entry 3628 (class 0 OID 0)
+-- Dependencies: 218
+-- Name: empleado_id_empleado_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.empleado_id_empleado_seq OWNED BY public.empleado.id_empleado;
+
+
+--
+-- TOC entry 219 (class 1259 OID 26264)
+-- Name: estado_empleado; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.estado_empleado (
+    id_estado_empleado integer NOT NULL,
+    nombre_estado character varying(30) NOT NULL
+);
+
+
+ALTER TABLE public.estado_empleado OWNER TO postgres;
+
+--
+-- TOC entry 220 (class 1259 OID 26267)
+-- Name: estado_empleado_id_estado_empleado_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.estado_empleado_id_estado_empleado_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.estado_empleado_id_estado_empleado_seq OWNER TO postgres;
+
+--
+-- TOC entry 3629 (class 0 OID 0)
+-- Dependencies: 220
+-- Name: estado_empleado_id_estado_empleado_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.estado_empleado_id_estado_empleado_seq OWNED BY public.estado_empleado.id_estado_empleado;
+
+
+--
+-- TOC entry 221 (class 1259 OID 26268)
+-- Name: estado_inquilino; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.estado_inquilino (
+    id_estado_inquilino integer NOT NULL,
+    nombre_estado character varying(30) NOT NULL
+);
+
+
+ALTER TABLE public.estado_inquilino OWNER TO postgres;
+
+--
+-- TOC entry 222 (class 1259 OID 26271)
+-- Name: estado_inquilino_id_estado_inquilino_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.estado_inquilino_id_estado_inquilino_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.estado_inquilino_id_estado_inquilino_seq OWNER TO postgres;
+
+--
+-- TOC entry 3630 (class 0 OID 0)
+-- Dependencies: 222
+-- Name: estado_inquilino_id_estado_inquilino_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.estado_inquilino_id_estado_inquilino_seq OWNED BY public.estado_inquilino.id_estado_inquilino;
+
+
+--
+-- TOC entry 223 (class 1259 OID 26272)
+-- Name: estado_propiedad; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.estado_propiedad (
+    id_estado_propiedad integer NOT NULL,
+    estado character varying(10) NOT NULL
+);
+
+
+ALTER TABLE public.estado_propiedad OWNER TO postgres;
+
+--
+-- TOC entry 224 (class 1259 OID 26275)
+-- Name: estado_propiedad_id_estado_propiedad_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.estado_propiedad_id_estado_propiedad_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.estado_propiedad_id_estado_propiedad_seq OWNER TO postgres;
+
+--
+-- TOC entry 3631 (class 0 OID 0)
+-- Dependencies: 224
+-- Name: estado_propiedad_id_estado_propiedad_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.estado_propiedad_id_estado_propiedad_seq OWNED BY public.estado_propiedad.id_estado_propiedad;
+
+
+--
+-- TOC entry 225 (class 1259 OID 26276)
+-- Name: factura; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.factura (
+    id_factura integer NOT NULL,
+    codigo_factura character varying(6) NOT NULL,
+    descripcion character varying(150) NOT NULL,
+    direccion character varying(100) NOT NULL,
+    subtotal numeric(6,2) NOT NULL,
+    "IVA" numeric(6,2) NOT NULL,
+    venta_gravada numeric(7,2) NOT NULL,
+    fecha date NOT NULL,
+    id_inquilino integer NOT NULL
+);
+
+
+ALTER TABLE public.factura OWNER TO postgres;
+
+--
+-- TOC entry 226 (class 1259 OID 26279)
+-- Name: factura_id_factura_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.factura_id_factura_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.factura_id_factura_seq OWNER TO postgres;
+
+--
+-- TOC entry 3632 (class 0 OID 0)
+-- Dependencies: 226
+-- Name: factura_id_factura_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.factura_id_factura_seq OWNED BY public.factura.id_factura;
+
+
+--
+-- TOC entry 227 (class 1259 OID 26280)
+-- Name: imagen_propiedad; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.imagen_propiedad (
+    id_imagen_propiedad integer NOT NULL,
+    id_propiedad integer NOT NULL,
+    imagen character varying(200)
+);
+
+
+ALTER TABLE public.imagen_propiedad OWNER TO postgres;
+
+--
+-- TOC entry 228 (class 1259 OID 26283)
+-- Name: image_propiedad_id_imagen_propiedad_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.image_propiedad_id_imagen_propiedad_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.image_propiedad_id_imagen_propiedad_seq OWNER TO postgres;
+
+--
+-- TOC entry 3633 (class 0 OID 0)
+-- Dependencies: 228
+-- Name: image_propiedad_id_imagen_propiedad_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.image_propiedad_id_imagen_propiedad_seq OWNED BY public.imagen_propiedad.id_imagen_propiedad;
+
+
+--
+-- TOC entry 229 (class 1259 OID 26284)
+-- Name: imagen_reporte; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.imagen_reporte (
+    id_imagen_reporte integer NOT NULL,
+    id_reporte integer NOT NULL,
+    imagen character varying(200)
+);
+
+
+ALTER TABLE public.imagen_reporte OWNER TO postgres;
+
+--
+-- TOC entry 230 (class 1259 OID 26287)
+-- Name: imagen_reporte_id_imagen_reporte_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.imagen_reporte_id_imagen_reporte_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.imagen_reporte_id_imagen_reporte_seq OWNER TO postgres;
+
+--
+-- TOC entry 3634 (class 0 OID 0)
+-- Dependencies: 230
+-- Name: imagen_reporte_id_imagen_reporte_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.imagen_reporte_id_imagen_reporte_seq OWNED BY public.imagen_reporte.id_imagen_reporte;
+
+
+--
+-- TOC entry 231 (class 1259 OID 26288)
+-- Name: inquilino; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.inquilino (
+    id_inquilino integer NOT NULL,
+    nombre character varying(50) NOT NULL,
+    apellido character varying(50) NOT NULL,
+    numero_telefono character varying(13) NOT NULL,
+    correo_electronico character varying(75) NOT NULL,
+    fecha_nacimiento date NOT NULL,
+    genero "char" NOT NULL,
+    "DUI" character varying(100) NOT NULL,
+    "NRC" character varying(8),
+    "NIT" character varying(17) NOT NULL,
+    imagen character varying(200),
+    id_tipo_inquilino integer NOT NULL,
+    id_estado_inquilino integer NOT NULL,
+    visibilidad boolean
+);
+
+
+ALTER TABLE public.inquilino OWNER TO postgres;
+
+--
+-- TOC entry 232 (class 1259 OID 26293)
+-- Name: inquilino_id_inquilino_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.inquilino_id_inquilino_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.inquilino_id_inquilino_seq OWNER TO postgres;
+
+--
+-- TOC entry 3635 (class 0 OID 0)
+-- Dependencies: 232
+-- Name: inquilino_id_inquilino_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.inquilino_id_inquilino_seq OWNED BY public.inquilino.id_inquilino;
+
+
+--
+-- TOC entry 233 (class 1259 OID 26294)
+-- Name: municipio; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.municipio (
+    id_municipio integer NOT NULL,
+    municipio character varying(40) NOT NULL,
+    id_departamento integer NOT NULL,
+    estado boolean NOT NULL
+);
+
+
+ALTER TABLE public.municipio OWNER TO postgres;
+
+--
+-- TOC entry 234 (class 1259 OID 26297)
+-- Name: municipio_id_municipio_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.municipio_id_municipio_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.municipio_id_municipio_seq OWNER TO postgres;
+
+--
+-- TOC entry 3636 (class 0 OID 0)
+-- Dependencies: 234
+-- Name: municipio_id_municipio_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.municipio_id_municipio_seq OWNED BY public.municipio.id_municipio;
+
+
+--
+-- TOC entry 235 (class 1259 OID 26298)
+-- Name: propiedad; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.propiedad (
+    id_propiedad integer NOT NULL,
+    direccion character varying(100) NOT NULL,
+    area_propiedad integer NOT NULL,
+    area_contruccion integer NOT NULL,
+    codigo character varying(8) NOT NULL,
+    precio numeric(8,2),
+    alquiler numeric(6,2),
+    habitaciones integer NOT NULL,
+    plantas integer NOT NULL,
+    sanitario integer NOT NULL,
+    espacio_parqueo integer NOT NULL,
+    descripcion character varying(100) NOT NULL,
+    id_municipio integer NOT NULL,
+    id_tipo_propiedad integer NOT NULL,
+    id_empleado integer NOT NULL,
+    id_inquilino integer,
+    id_tipo_acabado integer NOT NULL,
+    imagen character varying(200),
+    visibilidad boolean,
+    id_estado_propiedad integer
+);
+
+
+ALTER TABLE public.propiedad OWNER TO postgres;
+
+--
+-- TOC entry 236 (class 1259 OID 26301)
+-- Name: propiedad_id_propiedad_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.propiedad_id_propiedad_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.propiedad_id_propiedad_seq OWNER TO postgres;
+
+--
+-- TOC entry 3637 (class 0 OID 0)
+-- Dependencies: 236
+-- Name: propiedad_id_propiedad_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.propiedad_id_propiedad_seq OWNED BY public.propiedad.id_propiedad;
+
+
+--
+-- TOC entry 237 (class 1259 OID 26302)
+-- Name: propietario; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.propietario (
+    id_propietario integer NOT NULL,
+    nombre character varying(50) NOT NULL,
+    apellido character varying(50) NOT NULL,
+    numero_telefono character varying(13) NOT NULL,
+    correo_electronico character varying(75) NOT NULL,
+    fecha_nacimiento date NOT NULL,
+    genero "char" NOT NULL,
+    "DUI" character varying(10) NOT NULL,
+    imagen character varying(200),
+    id_tipo_propietario integer NOT NULL
+);
+
+
+ALTER TABLE public.propietario OWNER TO postgres;
+
+--
+-- TOC entry 238 (class 1259 OID 26305)
+-- Name: propietario_id_propietario_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.propietario_id_propietario_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.propietario_id_propietario_seq OWNER TO postgres;
+
+--
+-- TOC entry 3638 (class 0 OID 0)
+-- Dependencies: 238
+-- Name: propietario_id_propietario_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.propietario_id_propietario_seq OWNED BY public.propietario.id_propietario;
+
+
+--
+-- TOC entry 239 (class 1259 OID 26306)
+-- Name: propietario_propiedad; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.propietario_propiedad (
+    id_propietario_propiedad integer NOT NULL,
+    id_propietario integer NOT NULL,
+    id_propiedad integer NOT NULL
+);
+
+
+ALTER TABLE public.propietario_propiedad OWNER TO postgres;
+
+--
+-- TOC entry 240 (class 1259 OID 26309)
+-- Name: propietario_propiedad_id_propietario_propiedad_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.propietario_propiedad_id_propietario_propiedad_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.propietario_propiedad_id_propietario_propiedad_seq OWNER TO postgres;
+
+--
+-- TOC entry 3639 (class 0 OID 0)
+-- Dependencies: 240
+-- Name: propietario_propiedad_id_propietario_propiedad_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.propietario_propiedad_id_propietario_propiedad_seq OWNED BY public.propietario_propiedad.id_propietario_propiedad;
+
+
+--
+-- TOC entry 241 (class 1259 OID 26310)
+-- Name: reporte; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.reporte (
+    id_reporte integer NOT NULL,
+    asunto character varying(100) NOT NULL,
+    descripcion character varying(300) NOT NULL,
+    id_inquilino integer NOT NULL,
+    estado boolean,
+    imagen character varying(200)
+);
+
+
+ALTER TABLE public.reporte OWNER TO postgres;
+
+--
+-- TOC entry 242 (class 1259 OID 26315)
+-- Name: reporte_id_reporte_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.reporte_id_reporte_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.reporte_id_reporte_seq OWNER TO postgres;
+
+--
+-- TOC entry 3640 (class 0 OID 0)
+-- Dependencies: 242
+-- Name: reporte_id_reporte_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.reporte_id_reporte_seq OWNED BY public.reporte.id_reporte;
+
+
+--
+-- TOC entry 243 (class 1259 OID 26316)
+-- Name: tipo_acabado; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.tipo_acabado (
+    id_tipo_acabado integer NOT NULL,
+    nombre_tipo character varying(35) NOT NULL,
+    visibilidad boolean NOT NULL
+);
+
+
+ALTER TABLE public.tipo_acabado OWNER TO postgres;
+
+--
+-- TOC entry 244 (class 1259 OID 26319)
+-- Name: tipo_acabado_id_tipo_acabado_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.tipo_acabado_id_tipo_acabado_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.tipo_acabado_id_tipo_acabado_seq OWNER TO postgres;
+
+--
+-- TOC entry 3641 (class 0 OID 0)
+-- Dependencies: 244
+-- Name: tipo_acabado_id_tipo_acabado_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.tipo_acabado_id_tipo_acabado_seq OWNED BY public.tipo_acabado.id_tipo_acabado;
+
+
+--
+-- TOC entry 245 (class 1259 OID 26320)
+-- Name: tipo_empleado; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.tipo_empleado (
+    id_tipo_empleado integer NOT NULL,
+    nombre_tipo character varying(35) NOT NULL,
+    visibilidad boolean
+);
+
+
+ALTER TABLE public.tipo_empleado OWNER TO postgres;
+
+--
+-- TOC entry 246 (class 1259 OID 26323)
+-- Name: tipo_empleado_id_tipo_empleado_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.tipo_empleado_id_tipo_empleado_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.tipo_empleado_id_tipo_empleado_seq OWNER TO postgres;
+
+--
+-- TOC entry 3642 (class 0 OID 0)
+-- Dependencies: 246
+-- Name: tipo_empleado_id_tipo_empleado_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.tipo_empleado_id_tipo_empleado_seq OWNED BY public.tipo_empleado.id_tipo_empleado;
+
+
+--
+-- TOC entry 247 (class 1259 OID 26324)
+-- Name: tipo_inquilino; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.tipo_inquilino (
+    id_tipo_inquilino integer NOT NULL,
+    nombre_tipo character varying(30) NOT NULL,
+    visibilidad boolean
+);
+
+
+ALTER TABLE public.tipo_inquilino OWNER TO postgres;
+
+--
+-- TOC entry 248 (class 1259 OID 26327)
+-- Name: tipo_inquilino_id_tipo_inquilino_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.tipo_inquilino_id_tipo_inquilino_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.tipo_inquilino_id_tipo_inquilino_seq OWNER TO postgres;
+
+--
+-- TOC entry 3643 (class 0 OID 0)
+-- Dependencies: 248
+-- Name: tipo_inquilino_id_tipo_inquilino_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.tipo_inquilino_id_tipo_inquilino_seq OWNED BY public.tipo_inquilino.id_tipo_inquilino;
+
+
+--
+-- TOC entry 249 (class 1259 OID 26328)
+-- Name: tipo_propiedad; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.tipo_propiedad (
+    id_tipo_propiedad integer NOT NULL,
+    nombre_tipo character varying(30) NOT NULL,
+    id_categoria integer NOT NULL,
+    visibilidad boolean
+);
+
+
+ALTER TABLE public.tipo_propiedad OWNER TO postgres;
+
+--
+-- TOC entry 250 (class 1259 OID 26331)
+-- Name: tipo_propiedad_id_tipo_propiedad_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.tipo_propiedad_id_tipo_propiedad_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.tipo_propiedad_id_tipo_propiedad_seq OWNER TO postgres;
+
+--
+-- TOC entry 3644 (class 0 OID 0)
+-- Dependencies: 250
+-- Name: tipo_propiedad_id_tipo_propiedad_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.tipo_propiedad_id_tipo_propiedad_seq OWNED BY public.tipo_propiedad.id_tipo_propiedad;
+
+
+--
+-- TOC entry 251 (class 1259 OID 26332)
+-- Name: tipo_propietario; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.tipo_propietario (
+    id_tipo_propietario integer NOT NULL,
+    nombre_tipo character varying(30) NOT NULL,
+    visibilidad boolean
+);
+
+
+ALTER TABLE public.tipo_propietario OWNER TO postgres;
+
+--
+-- TOC entry 252 (class 1259 OID 26335)
+-- Name: tipo_propietario_id_tipo_propietario_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.tipo_propietario_id_tipo_propietario_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.tipo_propietario_id_tipo_propietario_seq OWNER TO postgres;
+
+--
+-- TOC entry 3645 (class 0 OID 0)
+-- Dependencies: 252
+-- Name: tipo_propietario_id_tipo_propietario_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.tipo_propietario_id_tipo_propietario_seq OWNED BY public.tipo_propietario.id_tipo_propietario;
+
+
+--
+-- TOC entry 253 (class 1259 OID 26336)
+-- Name: tipo_usuario; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.tipo_usuario (
+    id_tipo_usuario integer NOT NULL,
+    nombre_tipo character varying(30) NOT NULL,
+    visibilidad boolean
+);
+
+
+ALTER TABLE public.tipo_usuario OWNER TO postgres;
+
+--
+-- TOC entry 254 (class 1259 OID 26339)
+-- Name: tipo_usuario_id_tipo_usuario_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.tipo_usuario_id_tipo_usuario_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.tipo_usuario_id_tipo_usuario_seq OWNER TO postgres;
+
+--
+-- TOC entry 3646 (class 0 OID 0)
+-- Dependencies: 254
+-- Name: tipo_usuario_id_tipo_usuario_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.tipo_usuario_id_tipo_usuario_seq OWNED BY public.tipo_usuario.id_tipo_usuario;
+
+
+--
+-- TOC entry 255 (class 1259 OID 26340)
+-- Name: usuario; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.usuario (
+    id_usuario integer NOT NULL,
+    nombre_usuario character varying(50) NOT NULL,
+    password character varying(150) NOT NULL,
+    id_tipo_usuario integer NOT NULL,
+    id_propietario integer,
+    id_empleado integer
+);
+
+
+ALTER TABLE public.usuario OWNER TO postgres;
+
+--
+-- TOC entry 256 (class 1259 OID 26343)
+-- Name: usuario_id_usuario_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.usuario_id_usuario_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.usuario_id_usuario_seq OWNER TO postgres;
+
+--
+-- TOC entry 3647 (class 0 OID 0)
+-- Dependencies: 256
+-- Name: usuario_id_usuario_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.usuario_id_usuario_seq OWNED BY public.usuario.id_usuario;
+
+
+--
+-- TOC entry 3280 (class 2604 OID 26344)
+-- Name: categoria id_categoria; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.categoria ALTER COLUMN id_categoria SET DEFAULT nextval('public.categoria_id_categoria_seq'::regclass);
+
+
+--
+-- TOC entry 3281 (class 2604 OID 26345)
+-- Name: cliente id_cliente; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.cliente ALTER COLUMN id_cliente SET DEFAULT nextval('public.cliente_id_cliente_seq'::regclass);
+
+
+--
+-- TOC entry 3282 (class 2604 OID 26346)
+-- Name: contrato id_contrato; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.contrato ALTER COLUMN id_contrato SET DEFAULT nextval('public.contrato_id_contrato_seq'::regclass);
+
+
+--
+-- TOC entry 3283 (class 2604 OID 26347)
+-- Name: departamento id_departamento; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.departamento ALTER COLUMN id_departamento SET DEFAULT nextval('public.departamento_id_departamento_seq'::regclass);
+
+
+--
+-- TOC entry 3284 (class 2604 OID 26348)
+-- Name: empleado id_empleado; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.empleado ALTER COLUMN id_empleado SET DEFAULT nextval('public.empleado_id_empleado_seq'::regclass);
+
+
+--
+-- TOC entry 3286 (class 2604 OID 26349)
+-- Name: estado_empleado id_estado_empleado; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.estado_empleado ALTER COLUMN id_estado_empleado SET DEFAULT nextval('public.estado_empleado_id_estado_empleado_seq'::regclass);
+
+
+--
+-- TOC entry 3287 (class 2604 OID 26350)
+-- Name: estado_inquilino id_estado_inquilino; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.estado_inquilino ALTER COLUMN id_estado_inquilino SET DEFAULT nextval('public.estado_inquilino_id_estado_inquilino_seq'::regclass);
+
+
+--
+-- TOC entry 3288 (class 2604 OID 26351)
+-- Name: estado_propiedad id_estado_propiedad; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.estado_propiedad ALTER COLUMN id_estado_propiedad SET DEFAULT nextval('public.estado_propiedad_id_estado_propiedad_seq'::regclass);
+
+
+--
+-- TOC entry 3289 (class 2604 OID 26352)
+-- Name: factura id_factura; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.factura ALTER COLUMN id_factura SET DEFAULT nextval('public.factura_id_factura_seq'::regclass);
+
+
+--
+-- TOC entry 3290 (class 2604 OID 26353)
+-- Name: imagen_propiedad id_imagen_propiedad; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.imagen_propiedad ALTER COLUMN id_imagen_propiedad SET DEFAULT nextval('public.image_propiedad_id_imagen_propiedad_seq'::regclass);
+
+
+--
+-- TOC entry 3291 (class 2604 OID 26354)
+-- Name: imagen_reporte id_imagen_reporte; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.imagen_reporte ALTER COLUMN id_imagen_reporte SET DEFAULT nextval('public.imagen_reporte_id_imagen_reporte_seq'::regclass);
+
+
+--
+-- TOC entry 3292 (class 2604 OID 26355)
+-- Name: inquilino id_inquilino; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.inquilino ALTER COLUMN id_inquilino SET DEFAULT nextval('public.inquilino_id_inquilino_seq'::regclass);
+
+
+--
+-- TOC entry 3294 (class 2604 OID 26356)
+-- Name: municipio id_municipio; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.municipio ALTER COLUMN id_municipio SET DEFAULT nextval('public.municipio_id_municipio_seq'::regclass);
+
+
+--
+-- TOC entry 3295 (class 2604 OID 26357)
+-- Name: propiedad id_propiedad; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.propiedad ALTER COLUMN id_propiedad SET DEFAULT nextval('public.propiedad_id_propiedad_seq'::regclass);
+
+
+--
+-- TOC entry 3303 (class 2604 OID 26358)
+-- Name: propietario id_propietario; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.propietario ALTER COLUMN id_propietario SET DEFAULT nextval('public.propietario_id_propietario_seq'::regclass);
+
+
+--
+-- TOC entry 3305 (class 2604 OID 26359)
+-- Name: propietario_propiedad id_propietario_propiedad; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.propietario_propiedad ALTER COLUMN id_propietario_propiedad SET DEFAULT nextval('public.propietario_propiedad_id_propietario_propiedad_seq'::regclass);
+
+
+--
+-- TOC entry 3306 (class 2604 OID 26360)
+-- Name: reporte id_reporte; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.reporte ALTER COLUMN id_reporte SET DEFAULT nextval('public.reporte_id_reporte_seq'::regclass);
+
+
+--
+-- TOC entry 3307 (class 2604 OID 26361)
+-- Name: tipo_acabado id_tipo_acabado; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.tipo_acabado ALTER COLUMN id_tipo_acabado SET DEFAULT nextval('public.tipo_acabado_id_tipo_acabado_seq'::regclass);
+
+
+--
+-- TOC entry 3308 (class 2604 OID 26362)
+-- Name: tipo_empleado id_tipo_empleado; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.tipo_empleado ALTER COLUMN id_tipo_empleado SET DEFAULT nextval('public.tipo_empleado_id_tipo_empleado_seq'::regclass);
+
+
+--
+-- TOC entry 3309 (class 2604 OID 26363)
+-- Name: tipo_inquilino id_tipo_inquilino; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.tipo_inquilino ALTER COLUMN id_tipo_inquilino SET DEFAULT nextval('public.tipo_inquilino_id_tipo_inquilino_seq'::regclass);
+
+
+--
+-- TOC entry 3310 (class 2604 OID 26364)
+-- Name: tipo_propiedad id_tipo_propiedad; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.tipo_propiedad ALTER COLUMN id_tipo_propiedad SET DEFAULT nextval('public.tipo_propiedad_id_tipo_propiedad_seq'::regclass);
+
+
+--
+-- TOC entry 3311 (class 2604 OID 26365)
+-- Name: tipo_propietario id_tipo_propietario; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.tipo_propietario ALTER COLUMN id_tipo_propietario SET DEFAULT nextval('public.tipo_propietario_id_tipo_propietario_seq'::regclass);
+
+
+--
+-- TOC entry 3312 (class 2604 OID 26366)
+-- Name: tipo_usuario id_tipo_usuario; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.tipo_usuario ALTER COLUMN id_tipo_usuario SET DEFAULT nextval('public.tipo_usuario_id_tipo_usuario_seq'::regclass);
+
+
+--
+-- TOC entry 3313 (class 2604 OID 26367)
+-- Name: usuario id_usuario; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.usuario ALTER COLUMN id_usuario SET DEFAULT nextval('public.usuario_id_usuario_seq'::regclass);
+
+
+--
+-- TOC entry 3571 (class 0 OID 26242)
+-- Dependencies: 209
+-- Data for Name: categoria; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.categoria (id_categoria, nombre_categoria, visibilidad) FROM stdin;
+2	Terreno	t
+25	cwwrvw	f
+30	fewfwf	f
+5	Oficinas	t
+1	Viviendas	t
+4	Comercios	t
+3	Apartamentos	t
+28	BodegonasSSS	f
+6	BodegaDASDS	f
+\.
+
+
+--
+-- TOC entry 3573 (class 0 OID 26246)
+-- Dependencies: 211
+-- Data for Name: cliente; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.cliente (id_cliente, nombre_cliente, correo) FROM stdin;
+6	Maximiliano Hernandez	Basado@gmail.com
+1	Weird Al	adri@gmail.com
+\.
+
+
+--
+-- TOC entry 3575 (class 0 OID 26250)
+-- Dependencies: 213
+-- Data for Name: contrato; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.contrato (id_contrato, descripcion, fecha_firma, imagen, id_propietario, id_propiedad, id_empleado, id_inquilino) FROM stdin;
+10	super amplia, Cuarto de Servicio Completo, Zona de lavado, Terraza super amplia, Amplio Jardín con árboles de sombra, Muro perimetrado	2021-03-08	62baa01b193e3.png	2	2	11	9
+7	terreno, 4 Habitaciones, dos habitaciones con su baño y walk in closet, dos habitaciones JR comparten baño, Estudio completo con	2018-06-27	62baa022e955c.png	1	1	7	10
+6	árboles de sombra, Muro perimetral, Cochera para 2 vehículos, Tanque de agua con bomba eléctrica, Bodega, Jardín interno, todo esto	2017-12-08	62baa02a638ea.png	4	4	6	3
+15	con zonas verdes, Cancha de futbol, Cancha de Baloncesto, Casa de eventos, Parque recreativo para niños, todo mezclado con la	2019-03-03	62baa0308fc65.png	4	4	5	4
+8	Vistas al Jardín, Cocina super amplia, Cuarto de Servicio Completo, Zona de lavado, Terraza super amplia, Amplio Jardín con árboles	2019-04-03	62baa03895eff.png	5	5	1	4
+9	futbol, Cancha de Baloncesto, Casa de eventos, Parque recreativo para niños, todo mezclado con la naturaleza, seguridad 24/7. a solo	2020-09-28	62baa03b56adb.png	4	4	14	1
+11	super amplia, Cuarto de Servicio Completo, Zona de lavado, Terraza super amplia, Amplio Jardín con árboles de sombra, Muro perimetral	2019-07-09	62baa0412a3bd.png	3	3	4	9
+12	super amplia, Amplio Jardín con árboles de sombra, Muro perimetral, Cochera para 2 vehículos, Tanque de agua con bomba eléctrica	2022-06-27	62baa04626a3b.png	5	5	5	9
+13	sombra, Muro perimetral, Cochera para 2 vehículos, Tanque de agua con bomba eléctrica, Bodega, Jardín interno, todo esto en un	2020-10-15	62baa04b4275e.png	1	1	8	7
+14	amplia, Amplio Jardín con árboles de sombra, Muro perimetral, Cochera para 2 vehículos, Tanque de agua con bomba eléctrica, Bodega	2018-11-23	62baa050c4b62.png	3	3	14	9
+\.
+
+
+--
+-- TOC entry 3577 (class 0 OID 26256)
+-- Dependencies: 215
+-- Data for Name: departamento; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.departamento (id_departamento, departamento, estado) FROM stdin;
+1	Ahuáchapan	t
+2	Cabañas	t
+3	Chalatenango	t
+4	Cúscatlan	t
+5	La Libertad	t
+6	La Paz	t
+7	La Unión	t
+8	Morazán	t
+9	San Miguel	t
+10	San Salvador	t
+11	San Vicente	t
+12	Santa Ana	t
+13	Sonsonate	t
+14	Usulután	t
+\.
+
+
+--
+-- TOC entry 3579 (class 0 OID 26260)
+-- Dependencies: 217
+-- Data for Name: empleado; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.empleado (id_empleado, nombre, apellido, numero_telefono, correo_electronico, fecha_nacimiento, genero, "DUI", "NIT", imagen, id_tipo_empleado, id_estado_empleado) FROM stdin;
+9	Mira Bravo	Carissa Nieto	+128 66537851	carissanieto.mirabravo@google.com	1993-01-10	M	97117289-0	2476-649838-473-2	PPq10IS31b56h.png	2	3
+1	Kirsten Figueroa	Vielka Saez	+412 35658537	mirarojas.vielkasaez9126@google.com	1991-01-02	F	25243814-3	4789-375656-100-5	62c309af372ce.jpg	1	1
+2	Britanni Laura	Elaine Alonso	+857 43562854	ielainealonso650@hotmail.com	1975-05-23	F	74204509-4	3331-063585-245-6	62c309c3d942e.jpg	2	1
+4	Fiona Catalina	Adria Cortes	+188 64662839	padriacortes8540@hotmail.com	1987-02-11	M	28063416-7	5387-142474-804-3	62c309cb0fa5c.jpg	3	2
+3	Nathaniel Tomas	Gage Iba	+263 75785322	g_chaimzavala@hotmail.com	2001-11-18	M	57276324-7	1772-729679-117-5	62c309ced392d.jpg	3	1
+7	Upton Gonzalez	Brent Garrido	+655 92895845	uptongonzalezbrentgarrido2274@hotmail.com	2001-04-30	F	41121412-0	1349-884245-857-2	62c309d371db1.jpg	1	2
+6	Linus Castillo	Alice Gimenez	+764 98776870	alicegimenez_linuscastillo@google.com	1993-05-26	F	75087201-2	5838-414877-987-0	62c309d56d6b4.jpg	3	1
+8	Hop Carrasco	Cassandra Garrido	+662 58603739	c-hopcarrasco1062@hotmail.com	1992-07-11	M	16881833-1	8056-938227-767-3	62c309d7d0446.jpg	2	1
+10	Damon Fuentes	Katell Calvo	+237 01928635	k-damonfuentes1885@google.com	1995-08-09	F	96779533-2	5488-816641-321-1	62c309da94449.jpg	2	1
+11	Hayfa Testudines	Yoko Herrera	+030 43858548	h_yokoherrera@google.com	1990-05-06	F	02473506-0	7990-716026-287-3	62c309dc68e38.jpg	2	2
+12	Maris Carla	Jana Calvo	+794 51786388	janacalvomariscarla@hotmail.com	2001-08-25	F	88352444-5	9688-108128-227-2	62c309de3738a.jpg	2	2
+13	Farrah Silva	Wang Velasco	+842 79406767	wangvelasco-farrahsilva@hotmail.com	1991-10-13	M	18132115-5	2973-584344-935-7	62c309e02e6f6.jpg	1	1
+14	Mariam Cortes	William Fuentes	+102 75154165	w.mariamcortes@google.com	1994-12-05	M	84261341-0	6216-742353-015-1	62c309e21aaaa.jpg	3	2
+15	Mercedes Maximo	Norman Soler	+581 51264614	m_normansoler3907@google.com	1997-03-14	F	39834397-7	9847-548657-551-8	62c309e3e93a9.jpg	1	2
+5	Mallory Maria	Jack Aguilar	+726 33185016	20190489@ricaldone.edu.sv	2002-09-18	F	77788661-9	2266-682481-648-2	62c309d1c1a01.jpg	3	2
+\.
+
+
+--
+-- TOC entry 3581 (class 0 OID 26264)
+-- Dependencies: 219
+-- Data for Name: estado_empleado; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.estado_empleado (id_estado_empleado, nombre_estado) FROM stdin;
+1	Activo
+2	Inctivo
+3	Despedido
+\.
+
+
+--
+-- TOC entry 3583 (class 0 OID 26268)
+-- Dependencies: 221
+-- Data for Name: estado_inquilino; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.estado_inquilino (id_estado_inquilino, nombre_estado) FROM stdin;
+1	Solvente
+2	En Mora
+3	Desalojado
+\.
+
+
+--
+-- TOC entry 3585 (class 0 OID 26272)
+-- Dependencies: 223
+-- Data for Name: estado_propiedad; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.estado_propiedad (id_estado_propiedad, estado) FROM stdin;
+1	Venta
+2	Alquiler
+\.
+
+
+--
+-- TOC entry 3587 (class 0 OID 26276)
+-- Dependencies: 225
+-- Data for Name: factura; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.factura (id_factura, codigo_factura, descripcion, direccion, subtotal, "IVA", venta_gravada, fecha, id_inquilino) FROM stdin;
+8	613749	siguientes servicios de cobro de deudas: Cobro Amistoso y Judicial	Ap #533-4362 Nulla. Rd.	410.00	71.00	690.00	2018-07-15	3
+9	086728	Atradius Collections ofrece los siguientes servicios de cobro de deudas	P.O. Box 765, 2613 Neque. Rd.	330.00	64.00	325.00	2017-07-22	7
+11	246168	servicios de cobro de deudas: Cobro Amistoso y Judicial, Verificación	Ap #190-1193 Sagittis. Street	536.00	91.00	540.00	2021-02-27	7
+12	518917	servicios de cobro de deudas: Cobro Amistoso y Judicial, Verificación	621-8133 Iaculis Avenue	400.00	46.00	272.00	2022-10-29	8
+13	778164	siguientes servicios de cobro de deudas: Cobro Amistoso y Judicial,	946-2095 Nec, Av.	196.00	31.00	643.00	2019-08-29	10
+14	365283	Collections ofrece los siguientes servicios de cobro de deudas: Cobro	Ap #548-5981 Aliquet Avenue	458.00	58.00	700.00	2019-08-04	2
+15	668173	Atradius Collections ofrece los siguientes servicios de cobro de deudas:	Ap #887-2910 Porttitor St.	267.00	69.00	741.00	2020-12-17	6
+16	421105	de cobro de deudas: Cobro Amistoso y Judicial, Verificación de	Ap #412-5205 Mi Road	543.00	86.00	599.00	2021-01-16	9
+17	799952	de deudas: Cobro Amistoso y Judicial, Verificación de Facturas, Cartas	472-5378 Condimentum Road	283.00	46.00	397.00	2022-02-28	5
+19	432573	Collections ofrece los siguientes servicios de cobro de deudas: Cobro	7326 Posuere, Ave	512.00	44.00	752.00	2022-09-20	3
+3	465483	ofrece los siguientes servicios de cobro de deudas: Cobro Amistoso	Ap #175-9138 Nulla Rd test"	413.00	72.00	556.00	2020-10-22	3
+20	645131	Collections ofrece los siguientes servicios de cobro de deudas: Cobro	P.O. Box 718, 9757 Metus Avenue	216.00	68.00	475.00	2023-03-16	4
+1	214749	deudas: Cobro Amistoso y Judicial, Verificación de Facturas, Cartas de	Ap #768-2819 Bibendum Road	632.00	38.00	539.00	2018-12-14	9
+2	183917	siguientes servicios de cobro de deudas: Cobro Amistoso y Judicial,	P.O. Box 634, 4609 Eu Street	663.00	24.00	217.00	2022-03-12	10
+4	406567	ofrece los siguientes servicios de cobro de deudas: Cobro Amistoso	6935 Etiam Ave	677.00	80.00	473.00	2021-08-16	10
+5	171006	deudas: Cobro Amistoso y Judicial, Verificación de Facturas, Cartas de	436-8268 Lobortis Street	329.00	34.00	687.00	2018-07-14	10
+6	911421	servicios de cobro de deudas: Cobro Amistoso y Judicial, Verificación	Ap #489-9049 Egestas Ave	680.00	35.00	343.00	2020-10-13	3
+7	705743	de deudas: Cobro Amistoso y Judicial, Verificación de Facturas, Cartas	Ap #855-1911 Egestas Av.	545.00	24.00	517.00	2021-03-30	3
+18	346140	de deudas: Cobro Amistoso y Judicial, Verificación de Facturas, Cartas	Ap #448-2201 Etiam Av.	184.00	34.00	360.00	2019-09-27	3
+10	237364	los siguientes servicios de cobro de deudas: Cobro Amistoso y	875-7545 Dui Rd.	389.00	41.00	393.00	2022-10-25	3
+21	354251	Ninguna	deez prueba	424.00	20.00	444.00	2022-07-04	4
+\.
+
+
+--
+-- TOC entry 3589 (class 0 OID 26280)
+-- Dependencies: 227
+-- Data for Name: imagen_propiedad; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.imagen_propiedad (id_imagen_propiedad, id_propiedad, imagen) FROM stdin;
+1	1	\N
+2	1	\N
+3	1	\N
+4	1	\N
+5	2	\N
+6	2	\N
+7	2	\N
+8	2	\N
+9	3	\N
+10	3	\N
+11	3	\N
+12	3	\N
+13	4	\N
+14	4	\N
+15	4	\N
+16	4	\N
+17	5	\N
+18	5	\N
+19	5	\N
+20	5	\N
+21	6	\N
+22	6	\N
+23	6	\N
+24	6	\N
+25	7	\N
+26	7	\N
+27	7	\N
+28	7	\N
+29	8	\N
+30	8	\N
+31	8	\N
+32	8	\N
+33	9	\N
+34	9	\N
+35	9	\N
+36	9	\N
+37	10	\N
+38	10	\N
+39	10	\N
+40	10	\N
+\.
+
+
+--
+-- TOC entry 3591 (class 0 OID 26284)
+-- Dependencies: 229
+-- Data for Name: imagen_reporte; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.imagen_reporte (id_imagen_reporte, id_reporte, imagen) FROM stdin;
+1	1	\N
+2	1	\N
+3	2	\N
+4	2	\N
+5	3	\N
+6	3	\N
+7	4	\N
+8	4	\N
+9	5	\N
+10	5	\N
+\.
+
+
+--
+-- TOC entry 3593 (class 0 OID 26288)
+-- Dependencies: 231
+-- Data for Name: inquilino; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.inquilino (id_inquilino, nombre, apellido, numero_telefono, correo_electronico, fecha_nacimiento, genero, "DUI", "NRC", "NIT", imagen, id_tipo_inquilino, id_estado_inquilino, visibilidad) FROM stdin;
+12	sdfsdf	sdfsdf	+503212121108	AndresFlores12@gmail.com	1997-01-12	M	00000000-3	\N	222222	\N	1	3	f
+1	sdfdf	ewrewr	2022-06-23	AlmacenesBo12m12b12aSV@gmail.com	1997-01-12	M	02124320-2	\N	0987-302809-209-1	62bb294f049ae.jpg	1	3	f
+14	qweqwe	dsfsdfdsf	324234	AlmacenesBombaSV@gmail.com	1997-01-12	M	02124310-2	\N	234234	62bb298284cff.jpg	1	3	f
+2	fsdfs	dfsdfsd	2022-06-15	AndresFlores12@gmail.com	1997-01-12	M	02124330-2	\N	1231-139402-201-2	62bb29c36b5f9.jfif	2	3	f
+18	Ipos Daneile	Mangandi	+50325082521	lohiceyo@gmail.com	2002-01-17	M	02124332-2	928023-1	9302-349235-309-2	62cc833c0eb07.jpg	2	1	f
+10	Ivan Testudines	Ivan Arias	+50398231285	i.ivanarias9305@hotmail.com	1997-01-11	M	00404667-2	855428-5	3130-107877-574-9	62c2823f9caf1.jpg	1	1	t
+3	Ciara Diego	Ahmed Vazquez	+72115401715	ahmedvazquez_ciaradiego1011@google.com	1997-01-12	M	28378808-7	983624-3	5438-376377-965-4	62c2828cd778c.jpg	1	2	t
+4	Ronan Bentlee	Malcolm Fuentes	+824 81836691	r.malcolmfuentes@hotmail.com	1997-01-12	M	35686460-5	443351-2	4759-684438-564-7	62c2829302159.jpg	1	1	t
+5	Maia Fernanda	Tatum Pardo	+599 15105372	maiafernandatatumpardo@google.com	1997-01-12	M	52064684-5	273247-9	3330-147718-952-6	62c28295a275d.jpg	1	2	t
+6	Gage Mateo	Kylan Moya	+581 78145671	kylanmoya.gagemateo6193@google.com	1997-01-12	M	56836864-1	792258-2	3817-274498-424-2	62c28297bd184.jpg	1	2	t
+7	Kuame Espinoza	Ciaran Molina	+825 57275384	k.ciaranmolina6926@google.com	1997-01-12	M	34882753-1	217595-6	7589-344481-264-4	62c2829b0d963.jpg	1	1	t
+9	Chester Rodriguez	Bo Romero	1997-01-12	boromero_chesterrodriguez@google.com	1997-01-12	M	52207478-3	\N	9687-144183-212-5	62c27cbc6d2ca.jpg	1	2	t
+16	rwgqegtg	etwgwtgt	+50379429023	ergqeqe@fgmail	2001-01-01	M	40584923-3		3049-309209-343-2	62c2842671b5a.png	1	3	f
+15	Mario Mol	Morales Mendéz	+50373902312	MMMM@gmail.com	1976-02-03	M	09248294-6	\N	4928-047238-938-4	62c276d567a3f.jpg	1	2	t
+8	Louis Castro	Aretha Castillo	+634 58128863	louiscastro-arethacastillo@hotmail.com	1997-01-12	M	13342615-0	434486-2	1370-239681-993-1	62c2826a06338.jpg	1	2	t
+\.
+
+
+--
+-- TOC entry 3595 (class 0 OID 26294)
+-- Dependencies: 233
+-- Data for Name: municipio; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.municipio (id_municipio, municipio, id_departamento, estado) FROM stdin;
+1	Ahuachapán	1	t
+2	Apaneca	1	t
+3	Atiquizaya	1	t
+4	Concepción de Ataco	1	t
+5	El Refugio	1	t
+6	Guaymango	1	t
+7	Jujutla	1	t
+8	San Francisco Menéndez	1	t
+9	San Lorenzo	1	t
+10	San Pedro Puxtla	1	t
+11	Tacuba	1	t
+12	Turín	1	t
+13	Cinquera	2	t
+14	Dolores	2	t
+15	Guacotecti	2	t
+16	Ilobasco	2	t
+17	Jutiapa	2	t
+18	San Isidro	2	t
+19	Sensuntepeque	2	t
+20	Tejutepeque	2	t
+21	Victoria	2	t
+22	Agua Caliente	3	t
+23	Arcatao	3	t
+24	Azacualpa	3	t
+25	Chalatenango	3	t
+26	Citalá	3	t
+27	Comalapa	3	t
+28	Concepción Quezaltepeque	3	t
+29	Dulce Nombre de María	3	t
+30	El Carrizal	3	t
+31	El Paraíso	3	t
+32	La Laguna	3	t
+33	La Palma	3	t
+34	La Reina	3	t
+35	Las Vueltas	3	t
+36	Nombre de Jesús	3	t
+37	Nueva Concepción	3	t
+38	Nueva Trinidad	3	t
+39	Ojos de Agua	3	t
+40	Potonico	3	t
+41	San Antonio La Cruz	3	t
+42	San Antonio Ranchos	3	t
+43	San Fernando	3	t
+44	San Francisco Lempa	3	t
+45	San Francisco Morazán	3	t
+46	San Ignacio	3	t
+47	San Isidro Labrador	3	t
+48	San José Cancasque	3	t
+49	San José Las Flores	3	t
+50	San Luis del Carmen	3	t
+51	San Miguel de Mercedes	3	t
+52	San Rafael	3	t
+53	Santa Rita	3	t
+54	Tejutla	3	t
+55	Candelaria	4	t
+56	Cojutepeque	4	t
+57	El Carmen	4	t
+58	El Rosario	4	t
+59	Monte San Juan	4	t
+60	Oratorio de Concepción	4	t
+61	San Bartolomé Perulapía	4	t
+62	San Cristóbal	4	t
+63	San José Guayabal	4	t
+64	San Pedro Perulapán	4	t
+65	San Rafael Cedros	4	t
+66	San Ramón	4	t
+67	Santa Cruz Analquito	4	t
+68	Santa Cruz Michapa	4	t
+69	Suchitoto	4	t
+70	Tenancingo	4	t
+71	Antiguo Cuscatlán	5	t
+72	Chiltiupán	5	t
+73	Ciudad Arce	5	t
+74	Colón	5	t
+75	Comasagua	5	t
+76	Huizúcar	5	t
+77	Jayaque	5	t
+78	Jicalapa	5	t
+79	La Libertad	5	t
+80	Nuevo Cuscatlán	5	t
+81	Opico	5	t
+82	Quezaltepeque	5	t
+83	Sacacoyo	5	t
+84	San José Villanueva	5	t
+85	San Matías	5	t
+86	San Pablo Tacachico	5	t
+87	Santa Tecla	5	t
+88	Talnique	5	t
+89	Tamanique	5	t
+90	Teotepeque	5	t
+91	Tepecoyo	5	t
+92	Zaragoza	5	t
+93	Cuyultitán	6	t
+94	El Rosario	6	t
+95	Jerusalén	6	t
+96	Mercedes La Ceiba	6	t
+97	Olocuilta	6	t
+98	Paraíso de Osorio	6	t
+99	San Antonio Masahuat	6	t
+100	San Emigdio	6	t
+101	San Francisco Chinameca	6	t
+102	San Juan Nonualco	6	t
+103	San Juan Talpa	6	t
+104	San Juan Tepezontes	6	t
+105	San Luis La Herradura	6	t
+106	San Luis Talpa	6	t
+107	San Miguel Tepezontes	6	t
+108	San Pedro Masahuat	6	t
+109	San Pedro Nonualco	6	t
+110	San Rafael Obrajuelo	6	t
+111	Santa María Ostuma	6	t
+112	Santiago Nonualco	6	t
+113	Tapalhuaca	6	t
+114	Zacatecoluca	6	t
+115	Anamorós	7	t
+116	Bolívar	7	t
+117	Concepción de Oriente	7	t
+118	Conchagua	7	t
+119	El Carmen	7	t
+120	El Sauce	7	t
+121	Intipucá	7	t
+122	La Unión	7	t
+123	Lislique	7	t
+124	Meanguera del Golfo	7	t
+125	Nueva Esparta	7	t
+126	Pasaquina	7	t
+127	Polorós	7	t
+128	San Alejo	7	t
+129	San José	7	t
+130	Santa Rosa de Lima	7	t
+131	Yayantique	7	t
+132	Yucuaiquín	7	t
+133	Arambala	8	t
+134	Cacaopera	8	t
+135	Chilanga	8	t
+136	Corinto	8	t
+137	Delicias de Concepción	8	t
+138	El Divisadero	8	t
+139	El Rosario	8	t
+140	Gualococti	8	t
+141	Guatajiagua	8	t
+142	Joateca	8	t
+143	Jocoaitique	8	t
+144	Jocoro	8	t
+145	Lolotiquillo	8	t
+146	Meanguera	8	t
+147	Osicala	8	t
+148	Perquín	8	t
+149	San Carlos	8	t
+150	San Fernando	8	t
+151	San Francisco Gotera	8	t
+152	San Isidro	8	t
+153	San Simón	8	t
+154	Sensembra	8	t
+155	Sociedad	8	t
+156	Torola	8	t
+157	Yamabal	8	t
+158	Yoloaiquín	8	t
+159	Carolina	9	t
+160	Chapeltique	9	t
+161	Chinameca	9	t
+162	Chirilagua	9	t
+163	Ciudad Barrios	9	t
+164	Comacarán	9	t
+165	El Tránsito	9	t
+166	Lolotique	9	t
+167	Moncagua	9	t
+168	Nueva Guadalupe	9	t
+169	Nuevo Edén de San Juan	9	t
+170	Quelepa	9	t
+171	San Antonio	9	t
+172	San Gerardo	9	t
+173	San Jorge	9	t
+174	San Luis de la Reina	9	t
+175	San Miguel	9	t
+176	San Rafael Oriente	9	t
+177	Sesori	9	t
+178	Uluazapa	9	t
+179	Aguilares	10	t
+180	Apopa	10	t
+181	Ayutuxtepeque	10	t
+182	Cuscatancingo	10	t
+183	Delgado	10	t
+184	El Paisnal	10	t
+185	Guazapa	10	t
+186	Ilopango	10	t
+187	Mejicanos	10	t
+188	Nejapa	10	t
+189	Panchimalco	10	t
+190	Rosario de Mora	10	t
+191	San Marcos	10	t
+192	San Martín	10	t
+193	San Salvador	10	t
+194	Santiago Texacuangos	10	t
+195	Santo Tomás	10	t
+196	Soyapango	10	t
+197	Tonacatepeque	10	t
+198	Apastepeque	11	t
+199	Guadalupe	11	t
+200	San Cayetano Istepeque	11	t
+201	San Esteban Catarina	11	t
+202	San Ildefonso	11	t
+203	San Lorenzo	11	t
+204	San Sebastián	11	t
+205	San Vicente	11	t
+206	Santa Clara	11	t
+207	Santo Domingo	11	t
+208	Tecoluca	11	t
+209	Tepetitán	11	t
+210	Verapaz	11	t
+211	Candelaria de la Frontera	12	t
+212	Chalchuapa	12	t
+213	Coatepeque	12	t
+214	El Congo	12	t
+215	El Porvenir	12	t
+216	Masahuat	12	t
+217	Metapán	12	t
+218	San Antonio Pajonal	12	t
+219	San Sebastián Salitrillo	12	t
+220	Santa Ana	12	t
+221	Santa Rosa Guachipilín	12	t
+222	Santiago de la Frontera	12	t
+223	Texistepeque	12	t
+224	Acajutla	13	t
+225	Armenia	13	t
+226	Caluco	13	t
+227	Cuisnahuat	13	t
+228	Izalco	13	t
+229	Juayúa	13	t
+230	Nahuizalco	13	t
+231	Nahulingo	13	t
+232	Salcoatitán	13	t
+233	San Antonio del Monte	13	t
+234	San Julián	13	t
+235	Santa Catarina Masahuat	13	t
+236	Santa Isabel Ishuatán	13	t
+237	Santo Domingo	13	t
+238	Sonsonate	13	t
+239	Sonzacate	13	t
+240	Alegría	14	t
+241	Berlín	14	t
+242	California	14	t
+243	Concepción Batres	14	t
+244	El Triunfo	14	t
+245	Ereguayquín	14	t
+246	Estanzuelas	14	t
+247	Jiquilisco	14	t
+248	Jucuapa	14	t
+249	Jucuarán	14	t
+250	Mercedes Umaña	14	t
+251	Nueva Granada	14	t
+252	Ozatlán	14	t
+253	Puerto El Triunfo	14	t
+254	San Agustín	14	t
+255	San Buenaventura	14	t
+256	San Dionisio	14	t
+257	San Francisco Javier	14	t
+258	Santa Elena	14	t
+259	Santa María	14	t
+260	Santiago de María	14	t
+261	Tecapán	14	t
+262	Usulután	14	t
+\.
+
+
+--
+-- TOC entry 3597 (class 0 OID 26298)
+-- Dependencies: 235
+-- Data for Name: propiedad; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.propiedad (id_propiedad, direccion, area_propiedad, area_contruccion, codigo, precio, alquiler, habitaciones, plantas, sanitario, espacio_parqueo, descripcion, id_municipio, id_tipo_propiedad, id_empleado, id_inquilino, id_tipo_acabado, imagen, visibilidad, id_estado_propiedad) FROM stdin;
+9	HOLAA	100000	90000	ns-3-542	20000.00	1000.00	5	2	3	8	test	14	4	13	\N	2	62baf920aebf8.jpg	t	1
+2	7864 Eros. St.	100000	90000	mm-5-847	293787.00	394.00	4	4	6	8	2 vehículos, Tanque de agua con bomba eléctrica, Bodega, Jardín	122	3	1	2	4	62baf920aebf8.jpg	t	2
+4	Ap #240-6920 Dignissim Avenue	100000	90000	lj-6-622	272073.00	392.00	7	7	3	8	baño, Estudio completo con baño, Sala Familiar, Sala Principal, Comedor	189	2	10	5	3	62baf920aebf8.jpg	t	2
+1	278-4617 Augue Street	100000	90000	ex-8-852	299908.00	357.00	6	2	6	1	Tanque de agua con bomba eléctrica, Bodega, Jardín interno, todo	39	2	8	4	2	62baf920aebf8.jpg	t	2
+20	Direccion	10000	1000	pd-7-512	1000.00	100.00	3	3	2	2	descripcion	5	4	12	9	2	62cc80656142d.jpg	f	2
+3	Col. Escalon pasaje 3	100000	90000	pd-3-523	20000.00	200.00	4	2	3	3	ninguna	2	5	13	\N	2	62baf920aebf8.jpg	t	1
+6	P.O. Box 716, 9309 Sed Road	100000	90000	tp-2-585	280577.00	553.00	1	3	1	8	exclusivo con zonas verdes, Cancha de futbol, Cancha de Baloncesto	11	2	14	\N	3	62baf920aebf8.jpg	t	1
+8	811-4010 Vitae St.	100000	90000	cq-0-163	456555.00	176.00	1	5	2	2	lavado, Terraza super amplia, Amplio Jardín con árboles de sombra	89	3	4	\N	4	62baf920aebf8.jpg	t	1
+15	Prueba Evaluacion	100000	90000	pd-5-321	100000.00	343.00	4	2	2	1	Prueba Evaluacion	5	2	13	\N	6	62c25a9ff2cd3.jpg	t	1
+16	Avenida Montaña #2	100000	90000	pd-9-503	100000.00	200.00	5	2	2	1	Hermosa vivienda de 2 plantas	3	1	14	\N	4	62c25bd8708a6.jpg	t	1
+10	Ap #269-4107 Nonummy Ave	100000	90000	gb-4-661	571586.00	216.00	9	8	7	2	zonas verdes, Cancha de futbol, Cancha de Baloncesto, Casa de papel	196	3	11	\N	6	62baf920aebf8.jpg	t	2
+5	P.O. Box 162, 1331 Leo. Road	100000	90000	ei-0-831	590633.00	650.00	1	6	2	1	Casa de eventos, Parque recreativo para niños, todo mezclado con elegancia	39	11	7	10	3	62baf920aebf8.jpg	t	2
+7	P.O. Box 610, 9920 In St.	100000	90000	hs-7-214	271024.00	439.00	8	5	4	10	de eventos, Parque recreativo para niños, todo mezclado con la	191	3	13	3	3	62baf920aebf8.jpg	f	2
+17	Prueba	100000	90000	pd-7-503	100000.00	300.00	5	2	2	1	Prueba	2	2	2	14	3	62c25aad1ae90.jpg	t	2
+\.
+
+
+--
+-- TOC entry 3599 (class 0 OID 26302)
+-- Dependencies: 237
+-- Data for Name: propietario; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.propietario (id_propietario, nombre, apellido, numero_telefono, correo_electronico, fecha_nacimiento, genero, "DUI", imagen, id_tipo_propietario) FROM stdin;
+4	Ronan Bentlee	Malcolm Fuentes	+824 81836691	r.malcolmfuentes@hotmail.com	1966-03-06	M	35686460-5	62c2705933335.jpg	2
+3	Ciara Diego	Ahmed Vazquez	+721 15401715	ahmedvazquez_ciaradiego1011@google.com	1975-07-24	M	28378808-7	62c2706916c3d.jpg	1
+5	Maia Fernanda	Tatum Pardo	+599 15105372	maiafernandatatumpardo@google.com	2000-11-04	F	52064684-0	62c270be5191b.jpg	2
+2	Sybill Bastian	Ahmed Hernandez	+917 96365555	ahmedhernandezsybillbastian9250@google.com	1999-11-30	F	27471313-6	62c270c35a0b9.jpg	2
+1	Matthew Vergara	Leo Diez	+653 6075546	leodiezmatthewvergara1366@google.com	1962-12-05	F	66288618-6	62c270c5a817e.jpg	2
+6	Cristian Fernando	Parada Mira	+50379429025	leodiezmatthewvergara1366@google.com	1986-07-10	F	98765432-2	62c270e296151.jpg	2
+\.
+
+
+--
+-- TOC entry 3601 (class 0 OID 26306)
+-- Dependencies: 239
+-- Data for Name: propietario_propiedad; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.propietario_propiedad (id_propietario_propiedad, id_propietario, id_propiedad) FROM stdin;
+1	1	1
+2	1	2
+3	2	3
+4	2	4
+5	3	5
+6	3	6
+7	4	7
+8	4	8
+9	5	9
+10	5	10
+\.
+
+
+--
+-- TOC entry 3603 (class 0 OID 26310)
+-- Dependencies: 241
+-- Data for Name: reporte; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.reporte (id_reporte, asunto, descripcion, id_inquilino, estado, imagen) FROM stdin;
+1	Ayuda, se cayo el techo.	de cobro de deudas: Cobro Amistoso y Judicial, Verificación de	6	f	\N
+8	SDFSDF	SDF	6	f	null
+4	se ha ido la luz por mas de una semana	Collectionsasaas ofrece los siguientes servicios de cobro de deudas: Cobro	14	t	62c0fb5c9af83.jpg
+9	Carrito	porfavor	1	t	62c0fb54d69c3.jpg
+2	Se destruyo una puerta	de deudas: Cobro Amistoso y Judicial, Verificación de Facturas, Cartas	4	t	null
+5	Se destruyo una puerta	Collections ofrece los siguientes servicios de cobro de deudas: Cobro	9	t	null
+10	AYUDA	porfavor	2	t	62ba69ef788bb.jpg
+11	AYUDAdtyhtyht	trtrttwht	5	f	62c3437b68a50.jpg
+3	hikkkkkka23123	de deudas: Cobro Amistoso y Judicial, Verificación de Facturas, Cartas	14	f	62c1e0e164738.jpg
+6	aSAS	ASDAS	6	f	\N
+7	aSAS	ASDAS	6	f	\N
+12	Iggrese Asunto	Ingrese una descripcion	9	f	62cc8ddebb74b.jpg
+\.
+
+
+--
+-- TOC entry 3605 (class 0 OID 26316)
+-- Dependencies: 243
+-- Data for Name: tipo_acabado; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.tipo_acabado (id_tipo_acabado, nombre_tipo, visibilidad) FROM stdin;
+4	Ladrillo	t
+2	Cerámica con textura	t
+3	Madera Rustica	t
+5	Madera	t
+1	Textura y Piedra lisa	f
+6	Piedra	t
+13	Piedras	t
+\.
+
+
+--
+-- TOC entry 3607 (class 0 OID 26320)
+-- Dependencies: 245
+-- Data for Name: tipo_empleado; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.tipo_empleado (id_tipo_empleado, nombre_tipo, visibilidad) FROM stdin;
+2	Abogado	t
+7	abogado	f
+1	Vendedor	t
+6	rlrprr	f
+3	Contratista	t
+\.
+
+
+--
+-- TOC entry 3609 (class 0 OID 26324)
+-- Dependencies: 247
+-- Data for Name: tipo_inquilino; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.tipo_inquilino (id_tipo_inquilino, nombre_tipo, visibilidad) FROM stdin;
+2	Persona Juridica	t
+3	Persona Importante	f
+4	Persona personal	f
+1	Persona Natural	t
+\.
+
+
+--
+-- TOC entry 3611 (class 0 OID 26328)
+-- Dependencies: 249
+-- Data for Name: tipo_propiedad; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.tipo_propiedad (id_tipo_propiedad, nombre_tipo, id_categoria, visibilidad) FROM stdin;
+3	Terreno	1	t
+2	Casa	1	t
+4	Local	4	t
+5	Bodega	2	t
+11	Apartamento	3	t
+1	Oficina	2	t
+\.
+
+
+--
+-- TOC entry 3613 (class 0 OID 26332)
+-- Dependencies: 251
+-- Data for Name: tipo_propietario; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.tipo_propietario (id_tipo_propietario, nombre_tipo, visibilidad) FROM stdin;
+2	Propietario	t
+1	Socio	t
+3	Anxeity	f
+\.
+
+
+--
+-- TOC entry 3615 (class 0 OID 26336)
+-- Dependencies: 253
+-- Data for Name: tipo_usuario; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.tipo_usuario (id_tipo_usuario, nombre_tipo, visibilidad) FROM stdin;
+1	Administrador	f
+2	tes	f
+3	Empleado	f
+5	sss	f
+4	Inactivo	t
+6	new user	f
+7	Activo	t
+\.
+
+
+--
+-- TOC entry 3617 (class 0 OID 26340)
+-- Dependencies: 255
+-- Data for Name: usuario; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.usuario (id_usuario, nombre_usuario, password, id_tipo_usuario, id_propietario, id_empleado) FROM stdin;
+1	fatimachurch	ECX60JVX3MH82JJ	2	1	\N
+2	trevorpratt	OFA38ONH1HO12LI	2	2	\N
+3	adriapuckett9578	LQT32VWG7FE76LM	2	3	\N
+4	allendurham	RZN30COU1SN12TX	2	4	\N
+5	howardhester	HRE03RDF6SH13UC	2	5	\N
+8	adenawilder949	JMI40MBX9BC71IS	3	\N	3
+9	timonwaller	KHL95KHC8MU53GU	3	\N	4
+10	emilymorgan	FIX61IMF5PM51TB	3	\N	5
+11	connordillon	DPH71EOD7QI23EI	3	\N	6
+12	lindamontgomery9814	CYJ89HDS0FL99VU	3	\N	7
+13	maxwellkelley2500	LES27TPM5EB93K	3	\N	8
+14	jillianschwartz2596	GML58LLN4DH89KR	3	\N	9
+15	amerysimpson4258	JRY96CUS2IF78LT	3	\N	10
+6	portiamoore	NVI75CZU1UH04DS	4	\N	1
+7	clairesosa195	XAI36OYK5XU10TB	4	\N	2
+20	eleanorholden8818	QYI84RIC0DM57WL	4	\N	15
+19	margaretfoley	MTV91RWN1EM77OO	4	\N	14
+18	wendyyates	KYM68NYB9GD46CO	4	\N	13
+17	salvadoroliver446	PME87MWT3BR74LL	4	\N	12
+16	heheha	Adriana!13	3	\N	5
+\.
+
+
+--
+-- TOC entry 3648 (class 0 OID 0)
+-- Dependencies: 210
+-- Name: categoria_id_categoria_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.categoria_id_categoria_seq', 34, true);
+
+
+--
+-- TOC entry 3649 (class 0 OID 0)
+-- Dependencies: 212
+-- Name: cliente_id_cliente_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.cliente_id_cliente_seq', 8, true);
+
+
+--
+-- TOC entry 3650 (class 0 OID 0)
+-- Dependencies: 214
+-- Name: contrato_id_contrato_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.contrato_id_contrato_seq', 16, true);
+
+
+--
+-- TOC entry 3651 (class 0 OID 0)
+-- Dependencies: 216
+-- Name: departamento_id_departamento_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.departamento_id_departamento_seq', 14, true);
+
+
+--
+-- TOC entry 3652 (class 0 OID 0)
+-- Dependencies: 218
+-- Name: empleado_id_empleado_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.empleado_id_empleado_seq', 17, true);
+
+
+--
+-- TOC entry 3653 (class 0 OID 0)
+-- Dependencies: 220
+-- Name: estado_empleado_id_estado_empleado_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.estado_empleado_id_estado_empleado_seq', 3, true);
+
+
+--
+-- TOC entry 3654 (class 0 OID 0)
+-- Dependencies: 222
+-- Name: estado_inquilino_id_estado_inquilino_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.estado_inquilino_id_estado_inquilino_seq', 3, true);
+
+
+--
+-- TOC entry 3655 (class 0 OID 0)
+-- Dependencies: 224
+-- Name: estado_propiedad_id_estado_propiedad_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.estado_propiedad_id_estado_propiedad_seq', 2, true);
+
+
+--
+-- TOC entry 3656 (class 0 OID 0)
+-- Dependencies: 226
+-- Name: factura_id_factura_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.factura_id_factura_seq', 23, true);
+
+
+--
+-- TOC entry 3657 (class 0 OID 0)
+-- Dependencies: 228
+-- Name: image_propiedad_id_imagen_propiedad_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.image_propiedad_id_imagen_propiedad_seq', 40, true);
+
+
+--
+-- TOC entry 3658 (class 0 OID 0)
+-- Dependencies: 230
+-- Name: imagen_reporte_id_imagen_reporte_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.imagen_reporte_id_imagen_reporte_seq', 10, true);
+
+
+--
+-- TOC entry 3659 (class 0 OID 0)
+-- Dependencies: 232
+-- Name: inquilino_id_inquilino_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.inquilino_id_inquilino_seq', 18, true);
+
+
+--
+-- TOC entry 3660 (class 0 OID 0)
+-- Dependencies: 234
+-- Name: municipio_id_municipio_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.municipio_id_municipio_seq', 262, true);
+
+
+--
+-- TOC entry 3661 (class 0 OID 0)
+-- Dependencies: 236
+-- Name: propiedad_id_propiedad_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.propiedad_id_propiedad_seq', 20, true);
+
+
+--
+-- TOC entry 3662 (class 0 OID 0)
+-- Dependencies: 238
+-- Name: propietario_id_propietario_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.propietario_id_propietario_seq', 12, true);
+
+
+--
+-- TOC entry 3663 (class 0 OID 0)
+-- Dependencies: 240
+-- Name: propietario_propiedad_id_propietario_propiedad_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.propietario_propiedad_id_propietario_propiedad_seq', 10, true);
+
+
+--
+-- TOC entry 3664 (class 0 OID 0)
+-- Dependencies: 242
+-- Name: reporte_id_reporte_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.reporte_id_reporte_seq', 12, true);
+
+
+--
+-- TOC entry 3665 (class 0 OID 0)
+-- Dependencies: 244
+-- Name: tipo_acabado_id_tipo_acabado_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.tipo_acabado_id_tipo_acabado_seq', 13, true);
+
+
+--
+-- TOC entry 3666 (class 0 OID 0)
+-- Dependencies: 246
+-- Name: tipo_empleado_id_tipo_empleado_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.tipo_empleado_id_tipo_empleado_seq', 7, true);
+
+
+--
+-- TOC entry 3667 (class 0 OID 0)
+-- Dependencies: 248
+-- Name: tipo_inquilino_id_tipo_inquilino_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.tipo_inquilino_id_tipo_inquilino_seq', 4, true);
+
+
+--
+-- TOC entry 3668 (class 0 OID 0)
+-- Dependencies: 250
+-- Name: tipo_propiedad_id_tipo_propiedad_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.tipo_propiedad_id_tipo_propiedad_seq', 11, true);
+
+
+--
+-- TOC entry 3669 (class 0 OID 0)
+-- Dependencies: 252
+-- Name: tipo_propietario_id_tipo_propietario_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.tipo_propietario_id_tipo_propietario_seq', 3, true);
+
+
+--
+-- TOC entry 3670 (class 0 OID 0)
+-- Dependencies: 254
+-- Name: tipo_usuario_id_tipo_usuario_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.tipo_usuario_id_tipo_usuario_seq', 7, true);
+
+
+--
+-- TOC entry 3671 (class 0 OID 0)
+-- Dependencies: 256
+-- Name: usuario_id_usuario_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.usuario_id_usuario_seq', 20, true);
+
+
+--
+-- TOC entry 3315 (class 2606 OID 26369)
+-- Name: categoria PK_categoria; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.categoria
+    ADD CONSTRAINT "PK_categoria" PRIMARY KEY (id_categoria);
+
+
+--
+-- TOC entry 3323 (class 2606 OID 26371)
+-- Name: contrato PK_contrato; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.contrato
+    ADD CONSTRAINT "PK_contrato" PRIMARY KEY (id_contrato);
+
+
+--
+-- TOC entry 3325 (class 2606 OID 26373)
+-- Name: departamento PK_departamento; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.departamento
+    ADD CONSTRAINT "PK_departamento" PRIMARY KEY (id_departamento);
+
+
+--
+-- TOC entry 3329 (class 2606 OID 26375)
+-- Name: empleado PK_empleado; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.empleado
+    ADD CONSTRAINT "PK_empleado" PRIMARY KEY (id_empleado);
+
+
+--
+-- TOC entry 3337 (class 2606 OID 26377)
+-- Name: estado_empleado PK_estado_empleado; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.estado_empleado
+    ADD CONSTRAINT "PK_estado_empleado" PRIMARY KEY (id_estado_empleado);
+
+
+--
+-- TOC entry 3341 (class 2606 OID 26379)
+-- Name: estado_inquilino PK_estado_inquilino; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.estado_inquilino
+    ADD CONSTRAINT "PK_estado_inquilino" PRIMARY KEY (id_estado_inquilino);
+
+
+--
+-- TOC entry 3347 (class 2606 OID 26381)
+-- Name: factura PK_factura; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.factura
+    ADD CONSTRAINT "PK_factura" PRIMARY KEY (id_factura);
+
+
+--
+-- TOC entry 3351 (class 2606 OID 26383)
+-- Name: imagen_propiedad PK_imagen_propiedad; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.imagen_propiedad
+    ADD CONSTRAINT "PK_imagen_propiedad" PRIMARY KEY (id_imagen_propiedad);
+
+
+--
+-- TOC entry 3353 (class 2606 OID 26385)
+-- Name: imagen_reporte PK_imagen_reporte; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.imagen_reporte
+    ADD CONSTRAINT "PK_imagen_reporte" PRIMARY KEY (id_imagen_reporte);
+
+
+--
+-- TOC entry 3355 (class 2606 OID 26387)
+-- Name: inquilino PK_inquilino; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.inquilino
+    ADD CONSTRAINT "PK_inquilino" PRIMARY KEY (id_inquilino);
+
+
+--
+-- TOC entry 3363 (class 2606 OID 26389)
+-- Name: municipio PK_municipio; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.municipio
+    ADD CONSTRAINT "PK_municipio" PRIMARY KEY (id_municipio);
+
+
+--
+-- TOC entry 3365 (class 2606 OID 26391)
+-- Name: propiedad PK_propiedad; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.propiedad
+    ADD CONSTRAINT "PK_propiedad" PRIMARY KEY (id_propiedad);
+
+
+--
+-- TOC entry 3369 (class 2606 OID 26393)
+-- Name: propietario PK_propietario; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.propietario
+    ADD CONSTRAINT "PK_propietario" PRIMARY KEY (id_propietario);
+
+
+--
+-- TOC entry 3375 (class 2606 OID 26395)
+-- Name: propietario_propiedad PK_propietario_propiedad; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.propietario_propiedad
+    ADD CONSTRAINT "PK_propietario_propiedad" PRIMARY KEY (id_propietario_propiedad);
+
+
+--
+-- TOC entry 3377 (class 2606 OID 26397)
+-- Name: reporte PK_reporte; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.reporte
+    ADD CONSTRAINT "PK_reporte" PRIMARY KEY (id_reporte);
+
+
+--
+-- TOC entry 3379 (class 2606 OID 26399)
+-- Name: tipo_acabado PK_tipo_acabado; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.tipo_acabado
+    ADD CONSTRAINT "PK_tipo_acabado" PRIMARY KEY (id_tipo_acabado);
+
+
+--
+-- TOC entry 3383 (class 2606 OID 26401)
+-- Name: tipo_empleado PK_tipo_empleado; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.tipo_empleado
+    ADD CONSTRAINT "PK_tipo_empleado" PRIMARY KEY (id_tipo_empleado);
+
+
+--
+-- TOC entry 3387 (class 2606 OID 26403)
+-- Name: tipo_inquilino PK_tipo_inquilino; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.tipo_inquilino
+    ADD CONSTRAINT "PK_tipo_inquilino" PRIMARY KEY (id_tipo_inquilino);
+
+
+--
+-- TOC entry 3391 (class 2606 OID 26405)
+-- Name: tipo_propiedad PK_tipo_propiedad; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.tipo_propiedad
+    ADD CONSTRAINT "PK_tipo_propiedad" PRIMARY KEY (id_tipo_propiedad);
+
+
+--
+-- TOC entry 3395 (class 2606 OID 26407)
+-- Name: tipo_propietario PK_tipo_propietario; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.tipo_propietario
+    ADD CONSTRAINT "PK_tipo_propietario" PRIMARY KEY (id_tipo_propietario);
+
+
+--
+-- TOC entry 3399 (class 2606 OID 26409)
+-- Name: tipo_usuario PK_tipo_usuario; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.tipo_usuario
+    ADD CONSTRAINT "PK_tipo_usuario" PRIMARY KEY (id_tipo_usuario);
+
+
+--
+-- TOC entry 3403 (class 2606 OID 26411)
+-- Name: usuario PK_usuario; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.usuario
+    ADD CONSTRAINT "PK_usuario" PRIMARY KEY (id_usuario);
+
+
+--
+-- TOC entry 3331 (class 2606 OID 26413)
+-- Name: empleado U_DUI_empleado; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.empleado
+    ADD CONSTRAINT "U_DUI_empleado" UNIQUE ("DUI");
+
+
+--
+-- TOC entry 3357 (class 2606 OID 26415)
+-- Name: inquilino U_DUI_inquilino; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.inquilino
+    ADD CONSTRAINT "U_DUI_inquilino" UNIQUE ("DUI");
+
+
+--
+-- TOC entry 3371 (class 2606 OID 26417)
+-- Name: propietario U_DUI_propietario; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.propietario
+    ADD CONSTRAINT "U_DUI_propietario" UNIQUE ("DUI");
+
+
+--
+-- TOC entry 3333 (class 2606 OID 26419)
+-- Name: empleado U_NIT_empleado; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.empleado
+    ADD CONSTRAINT "U_NIT_empleado" UNIQUE ("NIT");
+
+
+--
+-- TOC entry 3359 (class 2606 OID 26421)
+-- Name: inquilino U_NIT_inquilino; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.inquilino
+    ADD CONSTRAINT "U_NIT_inquilino" UNIQUE ("NIT");
+
+
+--
+-- TOC entry 3317 (class 2606 OID 26423)
+-- Name: categoria U_categoria; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.categoria
+    ADD CONSTRAINT "U_categoria" UNIQUE (nombre_categoria);
+
+
+--
+-- TOC entry 3349 (class 2606 OID 26425)
+-- Name: factura U_codigo_factura; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.factura
+    ADD CONSTRAINT "U_codigo_factura" UNIQUE (codigo_factura);
+
+
+--
+-- TOC entry 3367 (class 2606 OID 26427)
+-- Name: propiedad U_codigo_propiedad; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.propiedad
+    ADD CONSTRAINT "U_codigo_propiedad" UNIQUE (codigo);
+
+
+--
+-- TOC entry 3327 (class 2606 OID 26429)
+-- Name: departamento U_departamento; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.departamento
+    ADD CONSTRAINT "U_departamento" UNIQUE (departamento);
+
+
+--
+-- TOC entry 3339 (class 2606 OID 26431)
+-- Name: estado_empleado U_estado_empleado; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.estado_empleado
+    ADD CONSTRAINT "U_estado_empleado" UNIQUE (nombre_estado);
+
+
+--
+-- TOC entry 3343 (class 2606 OID 26433)
+-- Name: estado_inquilino U_estado_inquilino; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.estado_inquilino
+    ADD CONSTRAINT "U_estado_inquilino" UNIQUE (nombre_estado);
+
+
+--
+-- TOC entry 3405 (class 2606 OID 26435)
+-- Name: usuario U_nombre_usuario; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.usuario
+    ADD CONSTRAINT "U_nombre_usuario" UNIQUE (nombre_usuario);
+
+
+--
+-- TOC entry 3335 (class 2606 OID 26437)
+-- Name: empleado U_telefono_empleado; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.empleado
+    ADD CONSTRAINT "U_telefono_empleado" UNIQUE (numero_telefono);
+
+
+--
+-- TOC entry 3361 (class 2606 OID 26439)
+-- Name: inquilino U_telefono_inquilino; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.inquilino
+    ADD CONSTRAINT "U_telefono_inquilino" UNIQUE (numero_telefono);
+
+
+--
+-- TOC entry 3373 (class 2606 OID 26441)
+-- Name: propietario U_telefono_propietario; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.propietario
+    ADD CONSTRAINT "U_telefono_propietario" UNIQUE (numero_telefono);
+
+
+--
+-- TOC entry 3381 (class 2606 OID 26443)
+-- Name: tipo_acabado U_tipo_acabado; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.tipo_acabado
+    ADD CONSTRAINT "U_tipo_acabado" UNIQUE (nombre_tipo);
+
+
+--
+-- TOC entry 3385 (class 2606 OID 26445)
+-- Name: tipo_empleado U_tipo_empleado; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.tipo_empleado
+    ADD CONSTRAINT "U_tipo_empleado" UNIQUE (nombre_tipo);
+
+
+--
+-- TOC entry 3389 (class 2606 OID 26447)
+-- Name: tipo_inquilino U_tipo_inquilino; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.tipo_inquilino
+    ADD CONSTRAINT "U_tipo_inquilino" UNIQUE (nombre_tipo);
+
+
+--
+-- TOC entry 3393 (class 2606 OID 26449)
+-- Name: tipo_propiedad U_tipo_propiedad; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.tipo_propiedad
+    ADD CONSTRAINT "U_tipo_propiedad" UNIQUE (nombre_tipo);
+
+
+--
+-- TOC entry 3397 (class 2606 OID 26451)
+-- Name: tipo_propietario U_tipo_propietario; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.tipo_propietario
+    ADD CONSTRAINT "U_tipo_propietario" UNIQUE (nombre_tipo);
+
+
+--
+-- TOC entry 3401 (class 2606 OID 26453)
+-- Name: tipo_usuario U_tipo_usuario; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.tipo_usuario
+    ADD CONSTRAINT "U_tipo_usuario" UNIQUE (nombre_tipo);
+
+
+--
+-- TOC entry 3296 (class 2606 OID 26454)
+-- Name: propiedad alquiler_check; Type: CHECK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE public.propiedad
+    ADD CONSTRAINT alquiler_check CHECK ((alquiler > (10)::numeric)) NOT VALID;
+
+
+--
+-- TOC entry 3297 (class 2606 OID 26455)
+-- Name: propiedad areas_extensiones_check; Type: CHECK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE public.propiedad
+    ADD CONSTRAINT areas_extensiones_check CHECK ((area_contruccion <= area_propiedad)) NOT VALID;
+
+
+--
+-- TOC entry 3319 (class 2606 OID 26457)
+-- Name: cliente cliente_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.cliente
+    ADD CONSTRAINT cliente_pkey PRIMARY KEY (id_cliente);
+
+
+--
+-- TOC entry 3321 (class 2606 OID 26459)
+-- Name: cliente correo_u; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.cliente
+    ADD CONSTRAINT correo_u UNIQUE (correo);
+
+
+--
+-- TOC entry 3298 (class 2606 OID 26460)
+-- Name: propiedad espacio_parqueo_check; Type: CHECK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE public.propiedad
+    ADD CONSTRAINT espacio_parqueo_check CHECK ((espacio_parqueo >= 1)) NOT VALID;
+
+
+--
+-- TOC entry 3345 (class 2606 OID 26462)
+-- Name: estado_propiedad estado_propiedad_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.estado_propiedad
+    ADD CONSTRAINT estado_propiedad_pkey PRIMARY KEY (id_estado_propiedad);
+
+
+--
+-- TOC entry 3293 (class 2606 OID 26463)
+-- Name: inquilino fecha_nacimiento_check; Type: CHECK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE public.inquilino
+    ADD CONSTRAINT fecha_nacimiento_check CHECK ((fecha_nacimiento <= '2004-01-01'::date)) NOT VALID;
+
+
+--
+-- TOC entry 3285 (class 2606 OID 26464)
+-- Name: empleado fecha_nacimiento_check; Type: CHECK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE public.empleado
+    ADD CONSTRAINT fecha_nacimiento_check CHECK ((fecha_nacimiento <= '2004-01-01'::date)) NOT VALID;
+
+
+--
+-- TOC entry 3304 (class 2606 OID 26465)
+-- Name: propietario fecha_nacimiento_check; Type: CHECK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE public.propietario
+    ADD CONSTRAINT fecha_nacimiento_check CHECK ((fecha_nacimiento <= '2004-01-01'::date)) NOT VALID;
+
+
+--
+-- TOC entry 3299 (class 2606 OID 26466)
+-- Name: propiedad habitaciones_check; Type: CHECK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE public.propiedad
+    ADD CONSTRAINT habitaciones_check CHECK ((habitaciones > 0)) NOT VALID;
+
+
+--
+-- TOC entry 3300 (class 2606 OID 26467)
+-- Name: propiedad planta_check; Type: CHECK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE public.propiedad
+    ADD CONSTRAINT planta_check CHECK ((plantas >= 1)) NOT VALID;
+
+
+--
+-- TOC entry 3301 (class 2606 OID 26468)
+-- Name: propiedad precio_check; Type: CHECK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE public.propiedad
+    ADD CONSTRAINT precio_check CHECK ((precio >= (1000)::numeric)) NOT VALID;
+
+
+--
+-- TOC entry 3302 (class 2606 OID 26469)
+-- Name: propiedad sanitario_check; Type: CHECK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE public.propiedad
+    ADD CONSTRAINT sanitario_check CHECK ((sanitario >= 1)) NOT VALID;
+
+
+--
+-- TOC entry 3428 (class 2606 OID 26470)
+-- Name: tipo_propiedad FK_categoria; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.tipo_propiedad
+    ADD CONSTRAINT "FK_categoria" FOREIGN KEY (id_categoria) REFERENCES public.categoria(id_categoria);
+
+
+--
+-- TOC entry 3417 (class 2606 OID 26475)
+-- Name: municipio FK_departamento; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.municipio
+    ADD CONSTRAINT "FK_departamento" FOREIGN KEY (id_departamento) REFERENCES public.departamento(id_departamento);
+
+
+--
+-- TOC entry 3429 (class 2606 OID 26480)
+-- Name: usuario FK_empleado; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.usuario
+    ADD CONSTRAINT "FK_empleado" FOREIGN KEY (id_empleado) REFERENCES public.empleado(id_empleado);
+
+
+--
+-- TOC entry 3406 (class 2606 OID 26485)
+-- Name: contrato FK_empleado_contrato; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.contrato
+    ADD CONSTRAINT "FK_empleado_contrato" FOREIGN KEY (id_empleado) REFERENCES public.empleado(id_empleado);
+
+
+--
+-- TOC entry 3418 (class 2606 OID 26490)
+-- Name: propiedad FK_empleado_p; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.propiedad
+    ADD CONSTRAINT "FK_empleado_p" FOREIGN KEY (id_empleado) REFERENCES public.empleado(id_empleado);
+
+
+--
+-- TOC entry 3410 (class 2606 OID 26495)
+-- Name: empleado FK_estado_empleado; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.empleado
+    ADD CONSTRAINT "FK_estado_empleado" FOREIGN KEY (id_estado_empleado) REFERENCES public.estado_empleado(id_estado_empleado);
+
+
+--
+-- TOC entry 3419 (class 2606 OID 26500)
+-- Name: propiedad FK_estado_empleado; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.propiedad
+    ADD CONSTRAINT "FK_estado_empleado" FOREIGN KEY (id_estado_propiedad) REFERENCES public.estado_propiedad(id_estado_propiedad) NOT VALID;
+
+
+--
+-- TOC entry 3415 (class 2606 OID 26505)
+-- Name: inquilino FK_estado_inquilino; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.inquilino
+    ADD CONSTRAINT "FK_estado_inquilino" FOREIGN KEY (id_estado_inquilino) REFERENCES public.estado_inquilino(id_estado_inquilino);
+
+
+--
+-- TOC entry 3420 (class 2606 OID 26510)
+-- Name: propiedad FK_inquilino; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.propiedad
+    ADD CONSTRAINT "FK_inquilino" FOREIGN KEY (id_inquilino) REFERENCES public.inquilino(id_inquilino);
+
+
+--
+-- TOC entry 3407 (class 2606 OID 26515)
+-- Name: contrato FK_inquilino_contrato; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.contrato
+    ADD CONSTRAINT "FK_inquilino_contrato" FOREIGN KEY (id_inquilino) REFERENCES public.inquilino(id_inquilino);
+
+
+--
+-- TOC entry 3412 (class 2606 OID 26520)
+-- Name: factura FK_inquilino_f; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.factura
+    ADD CONSTRAINT "FK_inquilino_f" FOREIGN KEY (id_inquilino) REFERENCES public.inquilino(id_inquilino);
+
+
+--
+-- TOC entry 3427 (class 2606 OID 26525)
+-- Name: reporte FK_inquilino_reporte; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.reporte
+    ADD CONSTRAINT "FK_inquilino_reporte" FOREIGN KEY (id_inquilino) REFERENCES public.inquilino(id_inquilino);
+
+
+--
+-- TOC entry 3421 (class 2606 OID 26530)
+-- Name: propiedad FK_municipio; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.propiedad
+    ADD CONSTRAINT "FK_municipio" FOREIGN KEY (id_municipio) REFERENCES public.municipio(id_municipio);
+
+
+--
+-- TOC entry 3425 (class 2606 OID 26535)
+-- Name: propietario_propiedad FK_propiedad; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.propietario_propiedad
+    ADD CONSTRAINT "FK_propiedad" FOREIGN KEY (id_propiedad) REFERENCES public.propiedad(id_propiedad);
+
+
+--
+-- TOC entry 3408 (class 2606 OID 26540)
+-- Name: contrato FK_propiedad_contrato; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.contrato
+    ADD CONSTRAINT "FK_propiedad_contrato" FOREIGN KEY (id_propiedad) REFERENCES public.propiedad(id_propiedad);
+
+
+--
+-- TOC entry 3413 (class 2606 OID 26545)
+-- Name: imagen_propiedad FK_propiedad_imagen; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.imagen_propiedad
+    ADD CONSTRAINT "FK_propiedad_imagen" FOREIGN KEY (id_propiedad) REFERENCES public.propiedad(id_propiedad);
+
+
+--
+-- TOC entry 3426 (class 2606 OID 26550)
+-- Name: propietario_propiedad FK_propietario; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.propietario_propiedad
+    ADD CONSTRAINT "FK_propietario" FOREIGN KEY (id_propietario) REFERENCES public.propietario(id_propietario);
+
+
+--
+-- TOC entry 3430 (class 2606 OID 26555)
+-- Name: usuario FK_propietario; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.usuario
+    ADD CONSTRAINT "FK_propietario" FOREIGN KEY (id_propietario) REFERENCES public.propietario(id_propietario);
+
+
+--
+-- TOC entry 3409 (class 2606 OID 26560)
+-- Name: contrato FK_propietario_contrato; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.contrato
+    ADD CONSTRAINT "FK_propietario_contrato" FOREIGN KEY (id_propietario) REFERENCES public.propietario(id_propietario);
+
+
+--
+-- TOC entry 3414 (class 2606 OID 26565)
+-- Name: imagen_reporte FK_reporte_imagen; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.imagen_reporte
+    ADD CONSTRAINT "FK_reporte_imagen" FOREIGN KEY (id_reporte) REFERENCES public.reporte(id_reporte);
+
+
+--
+-- TOC entry 3422 (class 2606 OID 26570)
+-- Name: propiedad FK_tipo_acabado; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.propiedad
+    ADD CONSTRAINT "FK_tipo_acabado" FOREIGN KEY (id_tipo_acabado) REFERENCES public.tipo_acabado(id_tipo_acabado);
+
+
+--
+-- TOC entry 3411 (class 2606 OID 26575)
+-- Name: empleado FK_tipo_empleado; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.empleado
+    ADD CONSTRAINT "FK_tipo_empleado" FOREIGN KEY (id_tipo_empleado) REFERENCES public.tipo_empleado(id_tipo_empleado);
+
+
+--
+-- TOC entry 3416 (class 2606 OID 26580)
+-- Name: inquilino FK_tipo_inquilino; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.inquilino
+    ADD CONSTRAINT "FK_tipo_inquilino" FOREIGN KEY (id_tipo_inquilino) REFERENCES public.tipo_inquilino(id_tipo_inquilino);
+
+
+--
+-- TOC entry 3423 (class 2606 OID 26585)
+-- Name: propiedad FK_tipo_propiedad; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.propiedad
+    ADD CONSTRAINT "FK_tipo_propiedad" FOREIGN KEY (id_tipo_propiedad) REFERENCES public.tipo_propiedad(id_tipo_propiedad);
+
+
+--
+-- TOC entry 3424 (class 2606 OID 26590)
+-- Name: propietario FK_tipo_propietario; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.propietario
+    ADD CONSTRAINT "FK_tipo_propietario" FOREIGN KEY (id_tipo_propietario) REFERENCES public.tipo_propietario(id_tipo_propietario);
+
+
+--
+-- TOC entry 3431 (class 2606 OID 26595)
+-- Name: usuario FK_tipo_usuario; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.usuario
+    ADD CONSTRAINT "FK_tipo_usuario" FOREIGN KEY (id_tipo_usuario) REFERENCES public.tipo_usuario(id_tipo_usuario);
+
+
+-- Completed on 2022-09-10 14:15:38
+
+--
+-- PostgreSQL database dump complete
+--
+

@@ -56,25 +56,26 @@
                                             <h2>Contraseña</h2>
                                         </label>
                                         <input type="password" class="form-control" id="password" size="40"
-                                            name="password" maxlength="70" autocomplete="off" required pattern="(?=^.{8,70}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$"
+                                            name="password" maxlength="70" autocomplete="off" required
+                                            pattern="(?=^.{8,70}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$"
                                             title="Debe contener al menos una mayúscula, una minúscula, un número y un caracter especial">
                                     </div>
-                                   
+
                                     <div class="col-12 d-flex justify-content-center">
                                         <button type="submit" class="btn btn-dark logIndButton" id="btnmenu"><a
                                                 type="submit">Iniciar
                                                 sesión</a></button>
                                     </div>
                                 </form>
-                            </div> 
-                            <button type="button" class="" id="recuperar" ><a onclick="abrirGuardarDato()"
-                                type="submit">¿Olvidó su contraseña?</a></button>
+                            </div>
+                            <button type="button" class="" id="recuperar"><a onclick="abrirGuardarDato()"
+                                    type="submit">¿Olvidó su contraseña?</a></button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        
+
         <!-- Modal de PROCESO FALLIDO -->
         <div class="modal fade" id="error_proceso" tabindex="-1">
             <div class="modal-dialog modal-dialog-centered">
@@ -140,18 +141,19 @@
                     <div class="modal-body">
                         <p>Ingrese el codigo de confirmación por el correo</p>
                         <input id="codigoConfirmacion" class="form-control me-2" name="codigo" placeholder="Codigo"
-                            aria-label="Search" required>
+                            aria-label="Search" required autocomplete="off">
                     </div>
                     <div class="modal-footer">
-                        <button id="confirmCodeButton" onclick="confirmarCodigo()" class="btn btn-primary" type="submit"><img
-                            src="../../resources/img/iconos_navbar/search_24px.png">Confirmar codigo</button>
+                        <button id="confirmCodeButton" onclick="confirmarCodigo()" class="btn btn-primary"
+                            type="submit"><img src="../../resources/img/iconos_navbar/search_24px.png">Confirmar
+                            codigo</button>
                     </div>
                 </div>
             </div>
         </div>
 
-         <!-- Modal de CORREO ENVIADO -->
-         <div class="modal fade" id="correo_enviado" tabindex="-1">
+        <!-- Modal de CORREO ENVIADO -->
+        <div class="modal fade" id="correo_enviado" tabindex="-1">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header" id="formHeader">
@@ -160,11 +162,12 @@
                     </div>
                     <div class="modal-body">
                         <p>Ingrese su nombre de usuario</p>
-                        <input id="nombre_usuario" class="form-control me-2" name="nombre_usuario" placeholder="Nombre usuario"
-                            aria-label="Search" required>
+                        <input id="nombre_usuario" class="form-control me-2" name="nombre_usuario"
+                            placeholder="Nombre usuario" aria-label="Search" required>
                     </div>
                     <div class="modal-footer">
-                        <button class="btn btn-primary" data-bs-dismiss="modal" id="btnmenu" type="button" onclick="comprobarDato()">Enviar</button>
+                        <button class="btn btn-primary" data-bs-dismiss="modal" id="btnmenu" type="button"
+                            onclick="comprobarDato()">Enviar</button>
                     </div>
                 </div>
             </div>

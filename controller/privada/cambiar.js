@@ -33,22 +33,38 @@ let datosUsuario = {
 };
 
 window.cambiarContraseña = async () => {
-  if (getElementById('contrauno').value == getElementById('contrados').value){
+  if (getElementById('contrauno').value == getElementById('contrados').value) {
     let endpointChange = API_EDICION_USUARIO + 'passwordRecovery'
 
-  let parametros = new FormData()
-  // Se busca en la URL las variables (parámetros) disponibles.
+    let parametros = new FormData()
+    // Se busca en la URL las variables (parámetros) disponibles.
 
-  let params = new URLSearchParams(location.search);
+    let params = new URLSearchParams(location.search);
 
-  // Se obtienen los datos localizados por medio de las variables.
+    // Se obtienen los datos localizados por medio de las variables.
 
-  let id_empleado = params.get("id");
-  parametros.append('id', id_empleado)
+    let id_usuario = params.get("id");
+    parametros.append('id', id_usuario)
 
-  parametros.append('password_user', getElementById('contrauno').value)
-  let respuesta = await APIConnection(endpointChange, POST_METHOD, parametros)
+    parametros.append('password_user', getElementById('contrauno').value)
+    var object = {};
+    parametros.forEach(function (value, key) {
+      object[key] = value;
+    });
+    var json = JSON.stringify(object);
+
+    console.log(json)
+    let respuesta = await APIConnection(endpointChange, POST_METHOD, parametros)
     console.log(respuesta)
+
+    if (respuesta == API_SUCESS_REQUEST) {
+      $("#buen_proceso").modal("show");
+    } else {
+      $("#error_proceso").modal("show");
+    }
+  }
+  else {
+    $("#mal_proceso").modal("show");
   }
 };
 

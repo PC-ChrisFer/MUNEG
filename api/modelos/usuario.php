@@ -45,7 +45,7 @@ class usuario extends validator
     //Password - varchar
     public function setPassword($value)
     {
-        if ($this->validateAlphanumeric($value, 6, 100)) {
+        if ($this->validatePassword($value)) {
             $this->password = $value;
             return true;
         } else {
@@ -329,7 +329,7 @@ class usuario extends validator
 
     //Buscar el correo segun la contraseña
     public function readCorreo(){
-        $sql = 'SELECT empleado.id_empleado, correo_electronico   
+        $sql = 'SELECT empleado.id_empleado, correo_electronico, usuario.id_usuario   
         FROM public.usuario
         INNER JOIN empleado
         ON usuario.id_empleado = empleado.id_empleado

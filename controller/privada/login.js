@@ -60,7 +60,7 @@ getElementById("logInForm")?.addEventListener("submit", async (event) => {
     if(APIMailResponse.status == API_SUCESS_REQUEST){
       console.log('NICE')
       // Se muestra que hubo error a la hora de loggearse
-        console.log(APIMailResponse.dataset.correo_electronic)
+        console.log(APIMailResponse.dataset.correo_electronico)
 
       await sendEmail(APIMailResponse.dataset.correo_electronico);
       $("#modalConfirmacion").modal("show");
@@ -143,7 +143,7 @@ window.comprobarDato = async () => {
 
   console.log(respuesta)
 
-  let URL = "http://localhost/MUNEG/views/privada/cambiar.html?id="+respuesta.dataset.id_empleado;
+  let URL = "http://localhost/MUNEG/views/privada/cambiar.html?id="+respuesta.dataset.id_usuario;
 
   //ENVIANDO EMAIL
     //Inicializadno libreria 

@@ -197,21 +197,21 @@ class Validator
         //Para comprobar que tendrá al menos un digito numérico
         } elseif (preg_match('/[0-9]/', $value)){
             $this->passwordError = 'La clave debe tener un número';
-            return false;
+            return true;
         //Tendrá a fuerza una letra minúscula
         } elseif (preg_match('/[a-z]/', $value)){
             $this->passwordError = 'La clave debe tener una letra minúscula';
-            return false;
+            return true;
         //A fuerza una letra mayúscula
         } elseif (preg_match('/[A-Z]/', $value)){
             $this->passwordError = 'La clave debe tener una letra mayuscula';
-            return false;
-        //Tiene que tener un caracter especial incluyendo la ñ
-        } elseif (preg_match('/[-*?#$%&=!°+.ñáéíóúAÉÍÓÚÑÜü]/', $value)){
-            $this->passwordError = 'La clave debe contener un caracter especial';
-            return false;
-        } else {
             return true;
+        //Tiene que tener un caracter especial incluyendo la ñ
+        } elseif (preg_match('/[-*%&=!°+.ñáéíóúAÉÍÓÚÑÜü]/', $value)){
+            $this->passwordError = 'La clave debe contener un número';
+            return true;
+        } else {
+            return false;
         }
     }
 

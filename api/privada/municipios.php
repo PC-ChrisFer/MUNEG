@@ -45,6 +45,15 @@ if (isset($_GET[ACTION])) {
                 $result[EXCEPTION] = 'No hay datos registrados';
             }
             break;
+        case 'read_departamento':
+            if ($result[DATA_SET] = $municipio->readDepartamento()) {
+                $result[STATUS] = SUCESS_RESPONSE;
+            } elseif (Database::getException()) {
+                $result[EXCEPTION] = Database::getException();
+            } else {
+                $result[EXCEPTION] = 'No hay datos registrados';
+            }
+            break;
 
         default:
             $result[EXCEPTION] = 'Acción no disponible dentro de la sesión';

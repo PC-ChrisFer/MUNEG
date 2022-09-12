@@ -146,7 +146,7 @@
                                 <div class="col">
                                     <label for="propietario" class="form-label">Nombre del tipo propietario</label>
                                     <input type="text" class="form-control" id="tipo_propietario"
-                                        name="tipo_propietario" placeholder="Escriba un nombre a la Propietario"
+                                    autocomplete="off" name="tipo_propietario" placeholder="Escriba un nombre a la Propietario"
                                         required>
                                 </div>  
                             </div>
@@ -179,7 +179,7 @@
                                 <div class="col">
                                     <label for="propietario" class="form-label">Nombre del tipo propietario</label>
                                     <input type="text" class="form-control" id="tipo_propietario_update"
-                                        name="tipo_propietario_update" placeholder="Escriba un nombre a la Propietario"
+                                    autocomplete="off" name="tipo_propietario_update" placeholder="Escriba un nombre a la Propietario"
                                         required>
                                 </div>
                                 <div class="col">
@@ -204,6 +204,23 @@
                 </div>
             </div>
         </div>
+                                 <!-- Modal de reporte fallido -->
+                                 <div class="modal fade" id="errorReporte" tabindex="-1">
+                                    <div class="modal-dialog modal-dialog-centered">
+                                        <div class="modal-content">
+                                            <div class="modal-header" id="formHeader">
+                                                <h5 class="modal-title">Error en el proceso</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                No se pudo generar el reporte, valide los datos ingreados
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button class="btn btn-primary" data-bs-dismiss="modal" id="btnmenu">Aceptar</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
         <!-- Modal de ELIMINAR -->
         <div class="modal fade" id="eliminar" tabindex="-1">
             <div class="modal-dialog modal-dialog-centered">
@@ -260,6 +277,26 @@
                 </div>
             </div>
         </div>
+
+                            <!-- MODAL DE ERROR GENERICO -->
+                            <div class="modal fade" id="modalErrorDeBaseDeDatos" tabindex="-1">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <div class="modal-header" id="formHeader">
+                                            <h5 class="modal-title">Error en el proceso</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p id="dataBaseErrorMessage">
+                                                ...
+                                            </p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button class="btn btn-primary" data-bs-dismiss="modal" id="btnmenu">Aceptar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
     </main>
     <footer class="text-white  pt-5 pb-4" id="Segundofooter">
         <div class="container-fluid">

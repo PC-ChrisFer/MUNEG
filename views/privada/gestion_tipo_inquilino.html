@@ -100,7 +100,7 @@
             </div>
         </nav>
         <div class="container-fluid" id="encabezado">
-            <h1>GESTIÓN DE TIPO CATEGORIA</h1>
+            <h1>GESTIÓN DE TIPO INQUILINO</h1>
         </div>
     </header>
     <main>
@@ -156,9 +156,9 @@
                             <div class="row">
                                 <div class="col">
                                     <label for="Inquilino" class="form-label">Nombre del tipo Inquilino</label>
-                                    <input type="text" class="form-control" id="tipo_inquilino"
-                                        name="tipo_inquilino" placeholder="Escriba un nombre a la inquilino"
-                                        required>
+                                    <input type="text" class="form-control" id="tipo_inquilino" autocomplete="off"
+                                        name="tipo_inquilino" placeholder="Escriba un nombre a la inquilino" required
+                                        pattern="[a-zA-Z]{1,30}" title="No es un dato correspondiente">
                                 </div>
                             </div>
                         </div>
@@ -190,8 +190,9 @@
                                 <div class="col">
                                     <label for="inquilino" class="form-label">Nombre del tipo Inquilino</label>
                                     <input type="text" class="form-control" id="tipo_inquilino_update"
-                                        name="tipo_inquilino_update" placeholder="Escriba el nombre del tipo inquilino"
-                                        required>
+                                        autocomplete="off" name="tipo_inquilino_update"
+                                        placeholder="Escriba el nombre del tipo inquilino" required
+                                        pattern="[a-zA-Z]{1,30}" title="No es un dato correspondiente">
                                 </div>
                                 <div class="col">
                                     <label for="" class="form-label">Visibilidad</label><br>
@@ -254,6 +255,23 @@
                 </div>
             </div>
         </div>
+        <!-- Modal de reporte fallido -->
+        <div class="modal fade" id="errorReporte" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header" id="formHeader">
+                        <h5 class="modal-title">Error en el proceso</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        No se pudo generar el reporte, valide los datos ingreados
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary" data-bs-dismiss="modal" id="btnmenu">Aceptar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
         <!-- Modal de PROCESO REALIZADO -->
         <div class="modal fade" id="proceso_exito" tabindex="-1">
             <div class="modal-dialog modal-dialog-centered">
@@ -264,6 +282,26 @@
                     </div>
                     <div class="modal-body">
                         Se han guardado los datos existosamente.
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary" data-bs-dismiss="modal" id="btnmenu">Aceptar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- MODAL DE ERROR GENERICO -->
+        <div class="modal fade" id="modalErrorDeBaseDeDatos" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header" id="formHeader">
+                        <h5 class="modal-title">Error en el proceso</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p id="dataBaseErrorMessage">
+                            ...
+                        </p>
                     </div>
                     <div class="modal-footer">
                         <button class="btn btn-primary" data-bs-dismiss="modal" id="btnmenu">Aceptar</button>

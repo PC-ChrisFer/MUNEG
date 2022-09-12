@@ -10,6 +10,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link rel="stylesheet" href="../../resources/css/estilo_privado.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
     <title>MUNEG S.A C.V</title>
 </head>
 
@@ -98,7 +99,7 @@
             </div>
         </nav>
         <div class="container-fluid" id="encabezado">
-            <h1>GESTIÓN DE TIPO CATEGORIA</h1>
+            <h1>GESTIÓN DE TIPO PROPIEDAD</h1>
         </div>
     </header>
     <main>
@@ -155,7 +156,8 @@
                                 <div class="col">
                                     <label for="tipo_propiedad" class="form-label">Nombre de Tipo Propiedad.</label>
                                     <input type="text" class="form-control" id="tipo_propiedad" name="tipo_propiedad"
-                                        placeholder="Escriba un nombre a la Tipo Propiedad" required>
+                                        placeholder="Escriba un nombre a la Tipo Propiedad" required pattern="[a-zA-Z]{1,30}"
+                                        title="No es un dato correspondiente">
                                     <select onchange="selectIdCategoria('listado_categorias_id')"
                                         id="listado_categorias_id" name="proveedores_select" class="form-control">
                                     </select>
@@ -192,7 +194,7 @@
                                     <label for="tipo_propiedad_update" class="form-label">Nombre de Tipo
                                         Propiedad.</label>
                                     <input type="text" class="form-control" id="tipo_propiedad_update"
-                                        name="tipo_propiedad_update" required>
+                                        autocomplete="off" name="tipo_propiedad_update" required pattern="[a-zA-Z]{1,30}">
                                     <select onchange="selectIdCategoria('listado_categorias_id_u')"
                                         id="listado_categorias_id_u" name="proveedores_select" class="form-control">
                                     </select>
@@ -290,6 +292,23 @@
                 </div>
             </div>
         </div>
+        <!-- Modal de reporte fallido -->
+        <div class="modal fade" id="errorTipoPropiedadReporte" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header" id="formHeader">
+                        <h5 class="modal-title">Error en el proceso</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        No se pudo generar el reporte, seleccione un tipo de propiedad valida
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary" data-bs-dismiss="modal" id="btnmenu">Aceptar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
         <!-- Modal de NO ENCONTRO DATA -->
         <div class="modal fade" id="no_data" tabindex="-1">
             <div class="modal-dialog modal-dialog-centered">
@@ -300,6 +319,26 @@
                     </div>
                     <div class="modal-body">
                         No se han podido encontrar datos con estos parametros.
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary" data-bs-dismiss="modal" id="btnmenu">Aceptar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- MODAL DE ERROR GENERICO -->
+        <div class="modal fade" id="modalErrorDeBaseDeDatos" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header" id="formHeader">
+                        <h5 class="modal-title">Error en el proceso</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p id="dataBaseErrorMessage">
+                            ...
+                        </p>
                     </div>
                     <div class="modal-footer">
                         <button class="btn btn-primary" data-bs-dismiss="modal" id="btnmenu">Aceptar</button>

@@ -100,7 +100,7 @@
             </div>
         </nav>
         <div class="container-fluid" id="encabezado">
-            <h1>GESTIÓN DE TIPO CATEGORIA</h1>
+            <h1>GESTIÓN DE INQUILINO</h1>
         </div>
     </header>
     <main>
@@ -114,7 +114,9 @@
         </div>
         <!-- Botones de SCRUD, actualizar y agregar -->
         <div class="container-fluid d-flex justify-content-between" id="opciones">
-            <a class="btn" id="button_ver_mas" href="gestion_tipo_inquilino.html">Tipo Empleado</a>
+            <a class="btn btn-primary" id="button_ver_mas" href="gestion_tipo_inquilino.html">Gestionar Tipo Inquilino</a>
+            <button type="button" class="btn btn-primary" id="button_ver_mas" data-bs-toggle="modal"
+            data-bs-target="#generar_grafico">Generar Gráfico</button>
             <div class="btn-group" role="group">
                 <button type="button" class="btn btn-primary" id="btnmenu" data-bs-toggle="modal"
                     data-bs-target="#agregar"><a class="nav-link"><img
@@ -158,23 +160,24 @@
                             <div class="row">
                                 <div class="col">
                                     <label for="nombre_inquilino" class="form-label">Nombre</label>
-                                    <input type="text" class="form-control" id="nombre_inquilino" placeholder="Ingrese un nombre."
-                                        name="nombre_inquilino">
+                                    <input type="text" class="form-control" id="nombre_inquilino"
+                                    autocomplete="off"  placeholder="Ingrese un nombre." name="nombre_inquilino" required maxlength="50" pattern="[a-zA-Z ]{1,50}">
 
                                     <label for="apellido_inquilino" class="form-label">Apellido</label>
-                                    <input type="text" class="form-control" id="apellido_inquilino" placeholder="Ingrese un apellido."
-                                        name="apellido_inquilino">
+                                    <input type="text" class="form-control" id="apellido_inquilino"
+                                    autocomplete="off" placeholder="Ingrese un apellido." name="apellido_inquilino" required maxlength="50" pattern="[a-zA-Z ]{1,50}">
 
                                     <label for="telefono" class="form-label">Teléfono</label>
-                                    <input type="text" class="form-control" id="telefono" name="telefono" placeholder="Ingrese un número teléfono.">
+                                    <input type="text" class="form-control" id="telefono" name="telefono"
+                                    autocomplete="off" placeholder="Ingrese un número teléfono." required maxlength="13" pattern="[0-9+ ]{1,13}">
 
                                     <label for="correo_electronico" class="form-label">Correo Electrónico</label>
-                                    <input type="email" class="form-control" id="correo_electronico" placeholder="Ingrese un correo electrónico."
-                                        name="correo">
+                                    <input type="email" class="form-control" id="correo_electronico"
+                                    autocomplete="off" placeholder="Ingrese un correo electrónico." name="correo" required maxlength="75">
 
                                     <label for="fecha_nacimiento" class="form-label">Fecha de Nacimiento</label>
                                     <input type="date" class="form-control" id="fecha_nacimiento"
-                                        name="fecha_nacimiento">
+                                    autocomplete="off" name="fecha_nacimiento" required>
                                 </div>
                                 <div class="col">
                                     <label for="genero" class="form-label">Género</label>
@@ -184,13 +187,16 @@
                                     </select>
 
                                     <label for="dui" class="form-label">DUI</label>
-                                    <input type="text" class="form-control" id="dui" name="dui" placeholder="Ingrese un número de DUI.">
+                                    <input type="text" class="form-control" id="dui" name="dui"
+                                    autocomplete="off" placeholder="Ingrese un número de DUI."  required maxlength="10" pattern="[0-9-]{1,10}">
 
                                     <label for="nit" class="form-label">NIT</label>
-                                    <input type="text" class="form-control" id="nit" name="nit" placeholder="Ingrese un número de NIT.">
+                                    <input type="text" class="form-control" id="nit" name="nit"
+                                    autocomplete="off" placeholder="Ingrese un número de NIT." required pattern="[0-9-]{1,17}">
 
                                     <label for="nrc" class="form-label">NRC</label>
-                                    <input type="text" class="form-control" id="nrc" name="nrc" placeholder="Ingrese un número de NIT.">
+                                    <input type="text" class="form-control" id="nrc" name="nrc"
+                                    autocomplete="off" placeholder="Ingrese un número de NRC." required pattern="[0-9-]{1,8}">
 
                                     <label for="tipo_inquilino_i" class="form-label">Tipo de Inquilino</label>
                                     <select id="tipo_inquilino_i" name="tipo_inquilino" class="form-control">
@@ -240,38 +246,38 @@
                                 <div class="col">
                                     <label for="nombre_inquilino_update" class="form-label">Nombre</label>
                                     <input type="text" class="form-control" id="nombre_inquilino_update"
-                                        name="nombre_inquilino">
+                                    autocomplete="off" name="nombre_inquilino" required maxlength="50" pattern="[a-zA-Z ]{1,50}">
 
                                     <label for="apellido_inquilino_update" class="form-label">Apellido</label>
                                     <input type="text" class="form-control" id="apellido_inquilino_update"
-                                        name="apellido_inquilino">
+                                    autocomplete="off" name="apellido_inquilino" required maxlength="50" pattern="[a-zA-Z ]{1,50}">
 
                                     <label for="telefono_update" class="form-label">Teléfono</label>
-                                    <input type="tel" class="form-control" id="telefono_update" name="telefono">
+                                    <input type="tel" class="form-control" autocomplete="off" id="telefono_update" name="telefono" required maxlength="13" pattern="[0-9+ ]{1,13}">
 
                                     <label for="correo_electronico_update" class="form-label">Correo Electrónico</label>
                                     <input type="email" class="form-control" id="correo_electronico_update"
-                                        name="correo">
+                                    autocomplete="off" name="correo">
 
                                     <label for="fecha_nacimiento_update" class="form-label">Fecha de Nacimiento</label>
                                     <input type="date" class="form-control" id="fecha_nacimiento_update"
-                                        name="fecha_nacimiento">
+                                    autocomplete="off" name="fecha_nacimiento">
                                 </div>
                                 <div class="col">
                                     <label for="genero_update" class="form-label">Género</label>
                                     <select id="genero_update" name="genero" class="form-control">
-                                        <option value="M" >Masculino</option>
+                                        <option value="M">Masculino</option>
                                         <option value="F">Femenino</option>
                                     </select>
 
                                     <label for="dui_update" class="form-label">DUI</label>
-                                    <input type="text" class="form-control" id="dui_update" name="dui">
+                                    <input type="text" class="form-control" autocomplete="off" id="dui_update" name="dui" required maxlength="10" pattern="[0-9-]{1,10}">
 
                                     <label for="nit_update" class="form-label">NIT</label>
-                                    <input type="text" class="form-control" id="nit_update" name="nit">
+                                    <input type="text" class="form-control" autocomplete="off" id="nit_update" name="nit" required maxlength="10" pattern="[0-9-]{1,17}">
 
                                     <label for="nrc_update" class="form-label">NRC</label>
-                                    <input type="text" class="form-control" id="nrc_update" name="nrc">
+                                    <input type="text" class="form-control"autocomplete="off" id="nrc_update" name="nrc" required maxlength="10" pattern="[0-9-]{1,8}">
 
                                     <label for="tipo_inquilino_u" class="form-label">Tipo de Inquilino</label>
                                     <select id="tipo_inquilino_u" name="tipo_inquilino" class="form-control">
@@ -360,6 +366,56 @@
                 </div>
             </div>
         </div>
+        <!-- Modal de GENERAR GRAFICO -->
+        <div class="modal fade" id="generar_grafico" tabindex="-1">
+            <div class="modal-dialog modal-lg modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header" id="formHeader">
+                        <h5 class="modal-title">Generar Gráfico</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <p>Generar Grafico: "La cantidad  de inquilinos por municipio segun el departamento"</p>
+                            <div class="col-8">
+                                <label for="departamento" class="form-label">Nombre del Departamento:</label>
+                            </div>
+                            <div class="col-4">
+                                <select onchange="selectDepartamento('cmb_departamento')" id="cmb_departamento"
+                                    name="id_departamento" class="form-control">
+                                    <option value="0" selected>Ninguno</option>
+                                </select>
+
+                                <button onclick="generarGrafico()" class="btn btn-primary"
+                                    id="button_ver_mas">GENERAR</button>
+
+                            </div>
+                        </div>
+                        <!-- Grafico Dinamico -->
+                        <div id="graph_contrato">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+                                     <!-- Modal de reporte fallido -->
+                                     <div class="modal fade" id="errorReporte" tabindex="-1">
+                                        <div class="modal-dialog modal-dialog-centered">
+                                            <div class="modal-content">
+                                                <div class="modal-header" id="formHeader">
+                                                    <h5 class="modal-title">Error en el proceso</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    No se pudo generar el reporte, valide los datos ingreados
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button class="btn btn-primary" data-bs-dismiss="modal" id="btnmenu">Aceptar</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
         <!-- Modal de PROCESO FALLIDO -->
         <div class="modal fade" id="error_proceso" tabindex="-1">
             <div class="modal-dialog modal-dialog-centered">
@@ -377,6 +433,28 @@
                 </div>
             </div>
         </div>
+
+                               <!-- MODAL DE ERROR GENERICO -->
+        <div class="modal fade" id="modalErrorDeBaseDeDatos" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header" id="formHeader">
+                        <h5 class="modal-title">Error en el proceso</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p id="dataBaseErrorMessage">
+                        ...
+                        </p>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary" data-bs-dismiss="modal" id="btnmenu">Aceptar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Importación de librería para generar gráficos en tiempo real. Para más información https://www.chartjs.org/ -->
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js"></script>
     </main>
 
     <footer class="text-white  pt-5 pb-4" id="Segundofooter">

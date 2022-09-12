@@ -5,14 +5,15 @@ import {
   GET_METHOD,
   API_SUCESS_REQUEST,
   API_CHECK_SESSION,
+  POST_METHOD,
 } from "../../controller/constants/api_constant.js";
 import { APIConnection } from "../APIConnection.js";
 
 const API_USUARIOS = SERVER + "privada/usuario.php?action=";
 const API_USUARIOS_PUBLIC = SERVER + "publica/usuario.php?action=";
 
-export function getElementById(elementID)   {
-  return document.getElementById(elementID) ;
+export function getElementById(elementID) {
+  return document.getElementById(elementID);
 }
 
 export async function validateExistenceOfUser() {
@@ -21,12 +22,13 @@ export async function validateExistenceOfUser() {
   let APIEndpoint = API_USUARIOS + "checkSession";
   let APIResponse = await APIConnection(APIEndpoint, GET_METHOD, null);
   if (APIResponse.status == API_SUCESS_REQUEST) {
-    console.log("all good")
+    console.log("all good");
+
+    console.log("hola");
     window.location.href = "http://localhost/MUNEG/views/privada/index.html";
-    return;
+    //return;
   }
 }
-
 
 export async function getUser() {
   let APIEndpoint = API_USUARIOS_PUBLIC + "getUser";
@@ -46,12 +48,4 @@ export function getFormData(object) {
 
 //CREANDO FUNCTION LOGOUT
 //@ts-ignore
-window.logOut = async () => {
-  let APIEndpoint = API_USUARIOS + "logOut";
-  let APIResponse = await APIConnection(APIEndpoint, GET_METHOD, null);
-
-  if (APIResponse.status == API_SUCESS_REQUEST) {
-    return;
-  }
-  console.log("SOMETING WENT WRONG");
-};
+window.logOut = async () => {};

@@ -48,7 +48,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   await readRows(API_PROPIETARIO, fillTablePropietario);
   //Cargar combo box de Factura
   await fillComboBoxTipoPropietario();
-  inactivityTime();
 });
 
 
@@ -339,28 +338,3 @@ window.createPropietarioPDF = async () => {
 
   window.open("../../api/reporte/" + getElementById("id_tipo_propietario").value + "tipo_propietario" + ".pdf");
 }
-
-var inactivityTime = function () {
-    var time;
-    window.onload = resetTimer;
-    // DOM Events
-    document.onmousemove = resetTimer;
-    document.onkeydown = resetTimer;
-  
-    async function logout() {
-      let APIEndpoint = API_USUARIO + "logOut";
-      let APIResponse = await APIConnection(APIEndpoint, GET_METHOD, null);
-    
-      if (APIResponse.status == API_SUCESS_REQUEST) {
-        location.href = "index.html";
-        return;
-      }
-      console.log("SOMETHING WENT WRONG");
-    }
-  
-    function resetTimer() {
-        clearTimeout(time);
-        time = setTimeout(logout, 300000)
-        // 1000 milliseconds = 1 second
-    }
-  };

@@ -38,7 +38,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   await readRows(API_FACTURA, fillTableFactura);
   //Cargar combo box de Inquilino
   await fillComboBoxInquilino();
-  inactivityTime();
 });
 
 //Obtener los datos de combobox tipo empleado
@@ -556,28 +555,3 @@ window.generarReporteFacturaMes = async () => {
   window.open("../../api/reporte/" + getElementById("meses_año").value + "facturas" + ".pdf");
 
 }
-
-var inactivityTime = function () {
-  var time;
-  window.onload = resetTimer;
-  // DOM Events
-  document.onmousemove = resetTimer;
-  document.onkeydown = resetTimer;
-
-  async function logout() {
-    let APIEndpoint = API_USUARIO + "logOut";
-    let APIResponse = await APIConnection(APIEndpoint, GET_METHOD, null);
-  
-    if (APIResponse.status == API_SUCESS_REQUEST) {
-      location.href = "index.html";
-      return;
-    }
-    console.log("SOMETHING WENT WRONG");
-  }
-
-  function resetTimer() {
-      clearTimeout(time);
-      time = setTimeout(logout, 300000)
-      // 1000 milliseconds = 1 second
-  }
-};

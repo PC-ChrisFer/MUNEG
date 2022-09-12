@@ -169,28 +169,28 @@
                                 <div class="col">
                                     <label for="factura" class="form-label">Código de Factura</label>
                                     <input type="text" class="form-control" id="factura" name="codigo_factura"
-                                    autocomplete="off"   placeholder="Escriba el número de su factura" required maxlength="6" pattern="[0-9]{1,6}">
+                                    autocomplete="off"   placeholder="Escriba el número de su factura" required>
 
                                     <label for="descripcion" class="form-label">Descripción</label>
                                     <textarea id="descripcion" name="descripcion" rows="4" class="form-control"
-                                    autocomplete="off"   placeholder="Escriba la descripción de factura" required maxlength="150"></textarea>
+                                    autocomplete="off"   placeholder="Escriba la descripción de factura" required></textarea>
 
                                     <label for="direccion" class="form-label">Dirección</label>
                                     <textarea id="direccion" name="direccion" rows="4" class="form-control"
-                                    autocomplete="off" placeholder="Escriba la de dirección de factura" required maxlength="100"></textarea>
+                                    autocomplete="off" placeholder="Escriba la de dirección de factura" required></textarea>
                                 </div>
                                 <div class="col">
                                     <label for="subtotal" class="form-label">Subtotal</label>
                                     <input type="number" class="form-control" id="subtotal" name="subtotal"
-                                    autocomplete="off" placeholder="Escriba de SubTotal" required min="1" max="1000000" step=".01">
+                                    autocomplete="off" placeholder="Escriba de SubTotal" required min="1" max="1000000">
 
                                     <label for="iva" class="form-label">IVA</label>
-                                    <input type="text" class="form-control" id="IVA" name="IVA" placeholder="IVA"
-                                    autocomplete="off" required min="0" pattern="[0-9.]{1,6}">
+                                    <input type="number" class="form-control" id="IVA" name="IVA" placeholder="IVA"
+                                    autocomplete="off" required min="0">
 
                                     <label for="venta_gravada" class="form-label">Venta grabada</label>
                                     <input type="number" class="form-control" id="venta_gravada" name="venta_gravada"
-                                    autocomplete="off" placeholder="Escriba la venta grabada" required min="1" step=".01">
+                                    autocomplete="off" placeholder="Escriba la venta grabada" required min="1">
 
                                     <label for="fecha_emision" class="form-label">Fecha de emisión</label>
                                     <input type="date" class="form-control" id="fecha_emision" name="fecha_emision"

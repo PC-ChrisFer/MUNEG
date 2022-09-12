@@ -100,7 +100,7 @@
             </div>
         </nav>
         <div class="container-fluid" id="encabezado">
-            <h1>GESTIÓN DE INQUILINO</h1>
+            <h1>GESTIÓN DE TIPO CATEGORIA</h1>
         </div>
     </header>
     <main>
@@ -114,7 +114,7 @@
         </div>
         <!-- Botones de SCRUD, actualizar y agregar -->
         <div class="container-fluid d-flex justify-content-between" id="opciones">
-            <a class="btn btn-primary" id="button_ver_mas" href="gestion_tipo_inquilino.html">Gestionar Tipo Inquilino</a>
+            <a class="btn btn-primary" id="button_ver_mas" href="gestion_tipo_inquilino.html">Tipo Empleado</a>
             <button type="button" class="btn btn-primary" id="button_ver_mas" data-bs-toggle="modal"
             data-bs-target="#generar_grafico">Generar Gráfico</button>
             <div class="btn-group" role="group">
@@ -161,23 +161,23 @@
                                 <div class="col">
                                     <label for="nombre_inquilino" class="form-label">Nombre</label>
                                     <input type="text" class="form-control" id="nombre_inquilino"
-                                    autocomplete="off"  placeholder="Ingrese un nombre." name="nombre_inquilino" required maxlength="50" pattern="[a-zA-Z ]{1,50}">
+                                    autocomplete="off"  placeholder="Ingrese un nombre." name="nombre_inquilino">
 
                                     <label for="apellido_inquilino" class="form-label">Apellido</label>
                                     <input type="text" class="form-control" id="apellido_inquilino"
-                                    autocomplete="off" placeholder="Ingrese un apellido." name="apellido_inquilino" required maxlength="50" pattern="[a-zA-Z ]{1,50}">
+                                    autocomplete="off" placeholder="Ingrese un apellido." name="apellido_inquilino">
 
                                     <label for="telefono" class="form-label">Teléfono</label>
                                     <input type="text" class="form-control" id="telefono" name="telefono"
-                                    autocomplete="off" placeholder="Ingrese un número teléfono." required maxlength="13" pattern="[0-9+ ]{1,13}">
+                                    autocomplete="off" placeholder="Ingrese un número teléfono.">
 
                                     <label for="correo_electronico" class="form-label">Correo Electrónico</label>
                                     <input type="email" class="form-control" id="correo_electronico"
-                                    autocomplete="off" placeholder="Ingrese un correo electrónico." name="correo" required maxlength="75">
+                                    autocomplete="off" placeholder="Ingrese un correo electrónico." name="correo">
 
                                     <label for="fecha_nacimiento" class="form-label">Fecha de Nacimiento</label>
                                     <input type="date" class="form-control" id="fecha_nacimiento"
-                                    autocomplete="off" name="fecha_nacimiento" required>
+                                    autocomplete="off" name="fecha_nacimiento">
                                 </div>
                                 <div class="col">
                                     <label for="genero" class="form-label">Género</label>
@@ -188,15 +188,15 @@
 
                                     <label for="dui" class="form-label">DUI</label>
                                     <input type="text" class="form-control" id="dui" name="dui"
-                                    autocomplete="off" placeholder="Ingrese un número de DUI."  required maxlength="10" pattern="[0-9-]{1,10}">
+                                    autocomplete="off" placeholder="Ingrese un número de DUI.">
 
                                     <label for="nit" class="form-label">NIT</label>
                                     <input type="text" class="form-control" id="nit" name="nit"
-                                    autocomplete="off" placeholder="Ingrese un número de NIT." required pattern="[0-9-]{1,17}">
+                                    autocomplete="off" placeholder="Ingrese un número de NIT.">
 
                                     <label for="nrc" class="form-label">NRC</label>
                                     <input type="text" class="form-control" id="nrc" name="nrc"
-                                    autocomplete="off" placeholder="Ingrese un número de NRC." required pattern="[0-9-]{1,8}">
+                                    autocomplete="off" placeholder="Ingrese un número de NIT.">
 
                                     <label for="tipo_inquilino_i" class="form-label">Tipo de Inquilino</label>
                                     <select id="tipo_inquilino_i" name="tipo_inquilino" class="form-control">
@@ -246,14 +246,14 @@
                                 <div class="col">
                                     <label for="nombre_inquilino_update" class="form-label">Nombre</label>
                                     <input type="text" class="form-control" id="nombre_inquilino_update"
-                                    autocomplete="off" name="nombre_inquilino" required maxlength="50" pattern="[a-zA-Z ]{1,50}">
+                                    autocomplete="off" name="nombre_inquilino">
 
                                     <label for="apellido_inquilino_update" class="form-label">Apellido</label>
                                     <input type="text" class="form-control" id="apellido_inquilino_update"
-                                    autocomplete="off" name="apellido_inquilino" required maxlength="50" pattern="[a-zA-Z ]{1,50}">
+                                    autocomplete="off" name="apellido_inquilino">
 
                                     <label for="telefono_update" class="form-label">Teléfono</label>
-                                    <input type="tel" class="form-control" autocomplete="off" id="telefono_update" name="telefono" required maxlength="13" pattern="[0-9+ ]{1,13}">
+                                    <input type="tel" class="form-control" autocomplete="off" id="telefono_update" name="telefono">
 
                                     <label for="correo_electronico_update" class="form-label">Correo Electrónico</label>
                                     <input type="email" class="form-control" id="correo_electronico_update"
@@ -271,13 +271,13 @@
                                     </select>
 
                                     <label for="dui_update" class="form-label">DUI</label>
-                                    <input type="text" class="form-control" autocomplete="off" id="dui_update" name="dui" required maxlength="10" pattern="[0-9-]{1,10}">
+                                    <input type="text" class="form-control" autocomplete="off" id="dui_update" name="dui">
 
                                     <label for="nit_update" class="form-label">NIT</label>
-                                    <input type="text" class="form-control" autocomplete="off" id="nit_update" name="nit" required maxlength="10" pattern="[0-9-]{1,17}">
+                                    <input type="text" class="form-control" autocomplete="off" id="nit_update" name="nit">
 
                                     <label for="nrc_update" class="form-label">NRC</label>
-                                    <input type="text" class="form-control"autocomplete="off" id="nrc_update" name="nrc" required maxlength="10" pattern="[0-9-]{1,8}">
+                                    <input type="text" class="form-control"autocomplete="off" id="nrc_update" name="nrc">
 
                                     <label for="tipo_inquilino_u" class="form-label">Tipo de Inquilino</label>
                                     <select id="tipo_inquilino_u" name="tipo_inquilino" class="form-control">

@@ -73,7 +73,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   await fillComboBoxEmpleado();
   //Se llama las funciones de combobox de inquilino
   await fillComboBoxInquilino();
-  inactivityTime();
 });
 
 //Obtener los datos de combobox tipo propietario
@@ -499,29 +498,3 @@ window.createContratoOrdenPDF = async () => {
 
   window.open("../../api/reporte/" + "contratos_fecha" + ".pdf");
 }
-
-
-var inactivityTime = function () {
-  var time;
-  window.onload = resetTimer;
-  // DOM Events
-  document.onmousemove = resetTimer;
-  document.onkeydown = resetTimer;
-
-  async function logout() {
-    let APIEndpoint = API_USUARIO + "logOut";
-    let APIResponse = await APIConnection(APIEndpoint, GET_METHOD, null);
-  
-    if (APIResponse.status == API_SUCESS_REQUEST) {
-      location.href = "index.html";
-      return;
-    }
-    console.log("SOMETHING WENT WRONG");
-  }
-
-  function resetTimer() {
-      clearTimeout(time);
-      time = setTimeout(logout, 300000)
-      // 1000 milliseconds = 1 second
-  }
-};

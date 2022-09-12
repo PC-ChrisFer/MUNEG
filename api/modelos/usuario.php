@@ -17,7 +17,7 @@ class usuario extends validator
     private $true = true;
     private $false = '0';
     private $usuario_bloquear = 'fatimachurch';
-    private $fecha_actual = '01-09-2022';
+    private $fecha_actual = '05/09/2022';
 
     //Metodos para setear los valores de los campos
     //Id - serial
@@ -45,13 +45,14 @@ class usuario extends validator
     //Password - varchar
     public function setPassword($value)
     {
-        if ($this->validatePassword($value)) {
-            $this->password = password_hash($value, PASSWORD_DEFAULT);
+        if ($this->validateAlphanumeric($value, 6, 100)) {
+            $this->password = $value;
             return true;
         } else {
             return false;
         }
     }
+
     //Id Tipo de Usuario - Integer
     public function setTipoUsuario($value)
     {
@@ -252,28 +253,9 @@ class usuario extends validator
     public function editUser()
     {
         $sql = 'UPDATE public.usuario
-        SET nombre_usuario=?, password=?, fecha_cambio_contra=?
+        SET nombre_usuario=?, password=?
         WHERE id_usuario=?';
-        $params = array($this->nombre_usuario, $this->password, $this->fecha_actual, $this->id_usuario);
-        if (Database::executeRow($sql, $params)) {
-            $sql2 = 'INSERT INTO public.usuario_password(
-            id_usuario, password)
-            VALUES (?, ?)';
-            $params2 = array($this->id_usuario, $this->password);
-            return Database::executeRow($sql2, $params2);
-        } else {
-            return false;
-        }
-    }
-
-    //Metodo para la actualización UPDATE
-    //(nombre_usuario, password, tipo_usuario, propietario, usuario)
-    public function editPassword()
-    {
-        $sql = 'UPDATE public.usuario
-        SET password= ?
-        WHERE id_usuario= ?';
-        $params = array($this->password, $this->id_usuario);
+        $params = array($this->nombre_usuario, $this->password, $this->id_usuario);
         return Database::executeRow($sql, $params);
     }
 
@@ -314,7 +296,7 @@ class usuario extends validator
          WHERE id_usuario = ? AND id_tipo_usuario != 4';
         $param = array($this->id_usuario);
         if ($data = Database::getRow($sql, $param)) {
-            if (password_verify($insertedPassword, $data['password'])) {
+            if ($data['password'] == $insertedPassword) {
                 return true;
             } else {
                 return false;
@@ -334,50 +316,13 @@ class usuario extends validator
     }
 
     //Buscar el correo segun la contraseña
-    public function readCorreo()
-    {
-        $sql = 'SELECT empleado.id_empleado, correo_electronico, usuario.id_usuario
+    public function readCorreo(){
+        $sql = 'SELECT empleado.id_empleado, correo_electronico   
         FROM public.usuario
         INNER JOIN empleado
         ON usuario.id_empleado = empleado.id_empleado
         WHERE nombre_usuario = ?';
         $params = array($this->nombre_usuario);
         return Database::getRow($sql, $params);
-    }
-
-
-    //Buscar la fecha de cambio de contra
-    public function readFechaCambio()
-    {
-        $sql = 'SELECT fecha_cambio_contra 
-        FROM usuario 
-        WHERE id_usuario = ?;';
-        $params = array($this->id_usuario);
-        return Database::getRow($sql, $params);
-    }
-
-    //Comparar las anteriores contraseñas
-    public function comparePassword($password)
-    {
-        $sql = 'SELECT password 
-        FROM public.usuario_password 
-        WHERE id_usuario = ? 
-        ORDER BY id_password DESC LIMIT 6';
-        $params = array($this->id_usuario);
-        //La información de las respuestas se guarda en esta variable como en un arreglo
-        $data = Database::getRows($sql, $params);
-        //Se crear una variable, estado, para determinar si la password puede ser utilizada o no segun si coincide con los datos encontrados
-        //El estado por defecto es falso por que el primer valor en los registros es la contraseña que acaba de escribir
-        $estado = false;
-        //Se crea un foreach para hacer una comparación entre la password recibida y un registro de las tablas traidas
-        foreach ($data as $value) {
-            //Se "desencripta" la contraseña y realiza la comparación
-            if (password_verify($password, $value['password'])) {
-                //Si coinciden se determina como true la coincidencia y se restringe la continuacion del proceso
-                $estado = true;
-            }
-        }
-        //Se retorna el estado al final
-        return $estado;
     }
 }

@@ -63,10 +63,10 @@ if (isset($_GET[ACTION])) {
                 $result[EXCEPTION] = 'No hay datos registrados';
             }
             break;
-        case 'propiedad_municipio':
-            if (!$reporte_pdf->setIdMunicipio($_POST['id_municipio'])) {
+        case 'propiedad_departamento':
+            if (!$reporte_pdf->setIdDepartamento($_POST['id_departamento'])) {
                 $result[EXCEPTION] = 'Identificador de departamento incorrecto';
-            } elseif ($result[DATA_SET] = $reporte_pdf->readPropiedadMunicipio()) {
+            } elseif ($result[DATA_SET] = $reporte_pdf->readPropiedadDepartamento()) {
                 $result[STATUS] = SUCESS_RESPONSE;
             } elseif (Database::getException()) {
                 $result[EXCEPTION] = Database::getException();
@@ -75,9 +75,7 @@ if (isset($_GET[ACTION])) {
             }
             break;
         case 'factura':
-            if (!$reporte_pdf->setIdFactura($_POST['id_factura'])) {
-                $result[EXCEPTION] = 'Identificador de factura incorrecto';
-            } elseif ($result[DATA_SET] = $reporte_pdf->readFactura()) {
+            if ($result[DATA_SET] = $reporte_pdf->readFactura()) {
                 $result[STATUS] = SUCESS_RESPONSE;
             } elseif (Database::getException()) {
                 $result[EXCEPTION] = Database::getException();
@@ -98,7 +96,7 @@ if (isset($_GET[ACTION])) {
             break;
         case 'propietario_tipo_propietario':
             if (!$reporte_pdf->setIdTipoPropietario($_POST['id_tipo_propietario'])) {
-                $result[EXCEPTION] = 'tipo propietario no válido';
+                $result[EXCEPTION] = 'fecha de fecha invalida';
             } elseif ($result[DATA_SET] = $reporte_pdf->readPropietarioTipoPropietario()) {
                 $result[STATUS] = SUCESS_RESPONSE;
             } elseif (Database::getException()) {
@@ -125,33 +123,6 @@ if (isset($_GET[ACTION])) {
                 $result[EXCEPTION] = 'No hay datos registrados';
             }
             break;
-        case 'propiedades_valiosas':
-            if ($result[DATA_SET] = $reporte_pdf->readPropiedadesValiosas()) {
-                $result[STATUS] = SUCESS_RESPONSE;
-            } elseif (Database::getException()) {
-                $result[EXCEPTION] = Database::getException();
-            } else {
-                $result[EXCEPTION] = 'No hay datos registrados';
-            }
-            break;
-            case 'reportes_orden':
-                if ($result[DATA_SET] = $reporte_pdf->readReportesOrden()) {
-                    $result[STATUS] = SUCESS_RESPONSE;
-                } elseif (Database::getException()) {
-                    $result[EXCEPTION] = Database::getException();
-                } else {
-                    $result[EXCEPTION] = 'No hay datos registrados';
-                }
-                break;
-            case 'contratos_orden':
-                if ($result[DATA_SET] = $reporte_pdf->readContratoFecha()) {
-                    $result[STATUS] = SUCESS_RESPONSE;
-                } elseif (Database::getException()) {
-                    $result[EXCEPTION] = Database::getException();
-                } else {
-                    $result[EXCEPTION] = 'No hay datos registrados';
-                }
-                break;
         case 'create_pdf':
             $_POST = $reporte_pdf->validateSpace($_POST);
             //FALTA GUARDAR NOMBRE EN DB

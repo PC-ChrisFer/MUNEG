@@ -136,20 +136,8 @@ if (isset($_GET[ACTION])) {
                 $usuario->setNombre($_POST['nombre_usuario']) ? null : "nombre incorrecto";
                 if ($usuario->readCorreo()) {
                     $result[STATUS] = SUCESS_RESPONSE;
-                    $result[MESSAGE] = 'Correo Encontrado';
-                    $result[DATASET] =  $usuario->readCorreo();
-                } elseif (Database::getException()) {
-                    $result[EXCEPTION] = Database::getException();
-                } else {
-                    $result[EXCEPTION] = 'No hay datos registrados';
-                }
-                break;
-            case 'readDate':
-                $usuario->setId($_SESSION[ID_USUARIO]) ? null : "identificador incorrecto";
-                if ($usuario->readFechaCambio()) {
-                    $result[STATUS] = SUCESS_RESPONSE;
-                    $result[MESSAGE] = 'Fecha Encontrado';
-                    $result[DATASET] =  $usuario->readFechaCambio();
+                    $result[MESSAGE] = 'The name of the game is lightworks';
+                    $result[DATASET] = $usuario->readCorreo();
                 } elseif (Database::getException()) {
                     $result[EXCEPTION] = Database::getException();
                 } else {
@@ -267,18 +255,6 @@ if (isset($_GET[ACTION])) {
                     $result[MESSAGE] = '¡Usuario bloqueado!';
                 } else {
                     $result[EXCEPTION] = Database::getException();
-                }
-                break;
-            case 'readMail':
-                $usuario->setNombre($_POST['nombre_usuario']) ? null : "nombre incorrecto";
-                if ($usuario->readCorreo()) {
-                    $result[STATUS] = SUCESS_RESPONSE;
-                    $result[MESSAGE] = 'Correo Encontrado';
-                    $result[DATASET] =  $usuario->readCorreo();
-                } elseif (Database::getException()) {
-                    $result[EXCEPTION] = Database::getException();
-                } else {
-                    $result[EXCEPTION] = 'No hay datos registrados';
                 }
                 break;
             default:

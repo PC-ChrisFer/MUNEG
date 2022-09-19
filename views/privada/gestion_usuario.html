@@ -100,7 +100,7 @@
             </div>
         </nav>
         <div class="container-fluid" id="encabezado">
-            <h1>GESTIÓN DE TIPO CATEGORIA</h1>
+            <h1>GESTIÓN DE USUARIO</h1>
         </div>
     </header>
     <main>
@@ -114,7 +114,7 @@
         </div>
         <!-- Botones de SCRUD, actualizar y agregar -->
         <div class="container-fluid  d-flex justify-content-between" id="opciones">
-            <a class="btn" id="button_ver_mas" href="gestion_tipo_usuario.html">Tipo Usuario</a>
+            <a class="btn" id="button_ver_mas" href="gestion_tipo_usuario.html">Gestionar Tipo Usuario</a>
         </div>
 
         <div class="form-check form-switch">
@@ -158,7 +158,8 @@
                                             <label for="nombre_usuario_update" class="form-label">Nombre de
                                                 Usuario</label>
                                             <input type="text" class="form-control" id="nombre_usuario"
-                                                name="nombre_usuario">
+                                                autocomplete="off" name="nombre_usuario" required maxlength="50"
+                                                pattern="[a-z0-9]{1,50}">
                                         </div>
                                         <div class="col-md-12">
                                             <label for="cmbtipo_usuario_update" class="form-label">Tipo Usuario</label>
@@ -171,17 +172,17 @@
                                         <div class="col-12">
                                             <label for="cmb_empleado_update" class="form-label">Empleado</label>
                                             <select onchange="selectEmpleado('cmb_empleado_update')"
-                                                id="cmb_empleado_update" name="empleado_update"
-                                                class="form-control">
+                                                id="cmb_empleado_update" name="empleado_update" class="form-control">
 
                                             </select>
                                         </div>
 
-                                    <div class="form-check form-switch">
-                                        <input onclick="cambiarVisibilidadDeResgistro()" class="form-check-input" type="checkbox" role="switch"
-                                            id="eliminarElemento" >
-                                        <label class="form-check-label" for="flexSwitchCheckDefault" id="textoSwitch"></label>
-                                    </div>
+                                        <div class="form-check form-switch">
+                                            <input onclick="cambiarVisibilidadDeResgistro()" class="form-check-input"
+                                                type="checkbox" role="switch" id="eliminarElemento">
+                                            <label class="form-check-label" for="flexSwitchCheckDefault"
+                                                id="textoSwitch"></label>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -195,6 +196,23 @@
                             </div>
                         </div>
                     </form>
+                </div>
+            </div>
+        </div>
+        <!-- Modal de reporte fallido -->
+        <div class="modal fade" id="errorReporte" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header" id="formHeader">
+                        <h5 class="modal-title">Error en el proceso</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        No se pudo generar el reporte, valide los datos ingreados
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary" data-bs-dismiss="modal" id="btnmenu">Aceptar</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -270,6 +288,26 @@
                 </div>
             </div>
         </div>
+
+        <!-- MODAL DE ERROR GENERICO -->
+        <div class="modal fade" id="modalErrorDeBaseDeDatos" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header" id="formHeader">
+                        <h5 class="modal-title">Error en el proceso</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p id="dataBaseErrorMessage">
+                            ...
+                        </p>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary" data-bs-dismiss="modal" id="btnmenu">Aceptar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </main>
 
     <footer class="text-white  pt-5 pb-4" id="Segundofooter">
@@ -280,6 +318,8 @@
 
 
     <!-- Activando Bootstrap desde JS -->
+    <script src="http://momentjs.com/downloads/moment.min.js"></script>
+
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
         integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB"
         crossorigin="anonymous"></script>

@@ -72,6 +72,8 @@ class categoria extends validator
 
     //Metodo para la busqueda SEARCH
     //Utilizaremos los campos o (NOMBRE_TIPO)
+
+    // PUNTO 9 EMANUEL 
     public function searchRows($value)
     {
         $sql = 'SELECT id_categoria, nombre_categoria, visibilidad 

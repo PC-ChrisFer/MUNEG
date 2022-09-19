@@ -13,6 +13,8 @@ import { getElementById } from "../constants/functions.js";
 
 const API_GESTION_TIPO_PROPIEDAD =
   SERVER + "privada/tipo_propiedad.php?action=";
+  const API_USUARIO = SERVER + 'privada/usuario.php?action=';
+
 
 let datos_tipoPropiedad = {
   id_tipo_propiedad: "",
@@ -28,6 +30,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   await readRows(API_GESTION_TIPO_PROPIEDAD, fillTableTipoPropiedad);
   await fillCategoriaCombobox("listado_categorias_id");
   await fillCategoriaCombobox("listado_categorias_id_u");
+  inactivityTime();
 });
 
 async function fillCategoriaCombobox(fieldID) {
@@ -168,3 +171,28 @@ getElementById("delete_form")?.addEventListener("submit", async (event) => {
   // @ts-ignore
   $("#eliminar").modal("hide");
 });
+
+var inactivityTime = function () {
+  var time;
+  window.onload = resetTimer;
+  // DOM Events
+  document.onmousemove = resetTimer;
+  document.onkeydown = resetTimer;
+
+  async function logout() {
+    let APIEndpoint = API_USUARIO + "logOut";
+    let APIResponse = await APIConnection(APIEndpoint, GET_METHOD, null);
+  
+    if (APIResponse.status == API_SUCESS_REQUEST) {
+      location.href = "index.html";
+      return;
+    }
+    console.log("SOMETHING WENT WRONG");
+  }
+
+  function resetTimer() {
+      clearTimeout(time);
+      time = setTimeout(logout, 300000)
+      // 1000 milliseconds = 1 second
+  }
+};

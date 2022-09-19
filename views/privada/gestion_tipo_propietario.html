@@ -145,10 +145,10 @@
                             <div class="row">
                                 <div class="col">
                                     <label for="propietario" class="form-label">Nombre del tipo propietario</label>
-                                    <input type="text" class="form-control" id="tipo_propietario"
+                                    <input type="text" class="form-control" id="tipo_propietario" autocomplete="off"
                                         name="tipo_propietario" placeholder="Escriba un nombre a la Propietario"
                                         required>
-                                </div>  
+                                </div>
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -179,8 +179,8 @@
                                 <div class="col">
                                     <label for="propietario" class="form-label">Nombre del tipo propietario</label>
                                     <input type="text" class="form-control" id="tipo_propietario_update"
-                                        name="tipo_propietario_update" placeholder="Escriba un nombre a la Propietario"
-                                        required>
+                                        autocomplete="off" name="tipo_propietario_update"
+                                        placeholder="Escriba un nombre a la Propietario" required>
                                 </div>
                                 <div class="col">
                                     <label for="" class="form-label">Visibilidad</label><br>
@@ -201,6 +201,23 @@
                             </div>
                         </div>
                     </form>
+                </div>
+            </div>
+        </div>
+        <!-- Modal de reporte fallido -->
+        <div class="modal fade" id="errorReporte" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header" id="formHeader">
+                        <h5 class="modal-title">Error en el proceso</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        No se pudo generar el reporte, valide los datos ingreados
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary" data-bs-dismiss="modal" id="btnmenu">Aceptar</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -260,6 +277,26 @@
                 </div>
             </div>
         </div>
+
+        <!-- MODAL DE ERROR GENERICO -->
+        <div class="modal fade" id="modalErrorDeBaseDeDatos" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header" id="formHeader">
+                        <h5 class="modal-title">Error en el proceso</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p id="dataBaseErrorMessage">
+                            ...
+                        </p>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary" data-bs-dismiss="modal" id="btnmenu">Aceptar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </main>
     <footer class="text-white  pt-5 pb-4" id="Segundofooter">
         <div class="container-fluid">
@@ -268,6 +305,7 @@
     </footer>
 
     <!-- Activando Bootstrap desde JS -->
+    <script src="http://momentjs.com/downloads/moment.min.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
         integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB"

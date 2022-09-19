@@ -62,7 +62,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     await fillComboBoxTipoEmpleado()
     //Carfar combo box de estado empleado
     await fillComboxEstadoEmpleado()
-    //inactivityTime();
+    inactivityTime();
 });
 
 //Obtener los datos de combobox tipo empleado
@@ -259,8 +259,6 @@ getElementById("delete_form")?.addEventListener("submit", async (event) => {
   });
   
 
-  // PUNTO 15 EMANUEL
-
   var inactivityTime = function () {
     var time;
     window.onload = resetTimer;
@@ -281,7 +279,7 @@ getElementById("delete_form")?.addEventListener("submit", async (event) => {
   
     function resetTimer() {
         clearTimeout(time);
-        time = setTimeout(logout, 30000)
+        time = setTimeout(logout, 300000)
         // 1000 milliseconds = 1 second
     }
   };

@@ -13,11 +13,8 @@ class usuario extends validator
     private $empleado_id = null;
 
     //Variables true -- false
-    private $tipo_administrador = 1;
     private $true = true;
     private $false = '0';
-    private $usuario_bloquear = 'fatimachurch';
-    private $fecha_actual = '05/09/2022';
 
     //Metodos para setear los valores de los campos
     //Id - serial
@@ -173,16 +170,18 @@ class usuario extends validator
     //(sin parametros)
     public function readAllEmpleado()
     {
-        $sql = 'SELECT id_usuario, nombre_usuario, password, usuario.id_tipo_usuario
-        FROM usuario
-        INNER JOIN tipo_usuario
-        ON tipo_usuario.id_tipo_usuario = usuario.id_tipo_usuario';
+        $sql = 'SELECT id_usuario, nombre_usuario, password, usuario.id_tipo_usuario, nombre_tipo, usuario.id_empleado, nombre, apellido	    
+        FROM public.usuario
+        INNER JOIN public.empleado 
+        ON empleado.id_empleado = usuario.id_empleado
+	    INNER JOIN public.tipo_usuario
+	    ON tipo_usuario.id_tipo_usuario = usuario.id_tipo_usuario';
         $params = null;
         return Database::getRows($sql, $params);
     }
 
 
-
+    
     //Metodo para la inserción de Adminitrador
     public function createRow()
     {
@@ -202,7 +201,7 @@ class usuario extends validator
         WHERE id_usuario = ?';
         $params = array($idUsuario);
         return Database::getRow($sql, $params);
-    }
+    }    
 
     //Metodo para la insercción INSERT (propietario)
     //(nombre_usuario, password, tipo_usuario, propietario)
@@ -257,7 +256,7 @@ class usuario extends validator
         WHERE id_usuario=?';
         $params = array($this->nombre_usuario, $this->password, $this->id_usuario);
         return Database::executeRow($sql, $params);
-    }
+    }    
 
     //Metodo para la eliminación DELETE
     //(visibilidad, id_tipo_propietario)
@@ -273,10 +272,8 @@ class usuario extends validator
     //Buscar el nombre del usuario
     public function searchUser($nombre_Usuario)
     {
-        $sql = 'SELECT id_usuario, nombre_usuario, password, id_tipo_usuario, correo_electronico
-        FROM public.usuario
-        INNER JOIN public.empleado
-        ON empleado.id_empleado = usuario.id_empleado
+        $sql = 'SELECT id_usuario, nombre_usuario, password, id_tipo_usuario
+        FROM usuario
         WHERE nombre_usuario = ? AND id_tipo_usuario != 4';
         $param = array($nombre_Usuario);
         if ($data = Database::getRow($sql, $param)) {
@@ -295,34 +292,15 @@ class usuario extends validator
          FROM usuario 
          WHERE id_usuario = ? AND id_tipo_usuario != 4';
         $param = array($this->id_usuario);
-        if ($data = Database::getRow($sql, $param)) {
-            if ($data['password'] == $insertedPassword) {
+        if($data = Database::getRow($sql, $param)){
+            if($data['password'] == $insertedPassword) {
                 return true;
             } else {
                 return false;
             }
-        } else {
+        }
+        else{
             return false;
         }
-    }
-    //Bloquear usuario
-    public function blockUser()
-    {
-        $sql = 'UPDATE public.usuario 
-        SET id_tipo_usuario = 4
-        WHERE nombre_usuario = ?';
-        $params = array($this->nombre_usuario);
-        return Database::executeRow($sql, $params);
-    }
-
-    //Buscar el correo segun la contraseña
-    public function readCorreo(){
-        $sql = 'SELECT empleado.id_empleado, correo_electronico   
-        FROM public.usuario
-        INNER JOIN empleado
-        ON usuario.id_empleado = empleado.id_empleado
-        WHERE nombre_usuario = ?';
-        $params = array($this->nombre_usuario);
-        return Database::getRow($sql, $params);
     }
 }

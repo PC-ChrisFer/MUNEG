@@ -201,19 +201,4 @@ class factura extends validator
         $params = null;
         return Database::getRows($sql, $params);
     }
-
-    //Consultas para graficos
-    //Cantidad de Facturas emitidas a un inquilino (id_inquilino)
-    public function readFacturaInquilino()
-    {
-        $sql = 'SELECT COUNT(factura.id_factura), nombre_estado FROM factura
-        INNER JOIN inquilino
-        ON factura.id_inquilino = inquilino.id_inquilino
-        INNER JOIN estado_factura
-        ON factura.id_estado_factura = estado_factura.id_estado_factura
-        WHERE inquilino.id_inquilino = ?
-        GROUP BY nombre_estado';
-        $params = array($this->id_inquilino);
-        return Database::getRows($sql, $params);
-    }
 }

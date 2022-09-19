@@ -23,7 +23,6 @@ class empleado extends validator
     private $true = 1;
     private $still_true = 2;
     private $false =3;
-    private $despedido = 'Despedido';
     //Metodos para setear los valores de los campos
     //Id - integer
     public function setId($value)
@@ -348,31 +347,4 @@ class empleado extends validator
         $params = null;
         return Database::getRows($sql, $params);
     }
-
-    //Consultas de graficos
-    //  TOP 5 EMPLEADOS QUE MAS VENDEN/ALQUILAN CASAS
-    public function readTopEmpleados()
-    {
-        $sql = 'SELECT COUNT(id_propiedad), nombre, apellido  from propiedad
-        INNER JOIN empleado
-        ON propiedad.id_empleado = empleado.id_empleado
-        GROUP BY nombre, apellido 
-        ORDER BY COUNT(id_propiedad) DESC
-        LIMIT 5';
-        $params = null;
-        return Database::getRows($sql, $params);
-    }    
-
-    //INQUILINOS ACTIVOS E INACTIVOS
-    public function readEmpleadoActivoInactivo()
-    {
-        $sql = 'SELECT count(id_empleado), nombre_estado FROM empleado
-        INNER JOIN estado_empleado
-        ON empleado.id_estado_empleado = estado_empleado.id_estado_empleado
-        WHERE nombre_estado != ? 
-        GROUP BY nombre_estado';
-        $params = array($this->despedido);
-        return Database::getRows($sql, $params);
-    }   
- 
 }

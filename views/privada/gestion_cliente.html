@@ -155,7 +155,7 @@
                                 <div class="col">
                                     <label for="nombre_cliente_update" class="form-label">Nombre de Clinete.</label>
                                     <input type="text" class="form-control" id="nombre_cliente_update"
-                                        autocomplete="off" name="nombre_cliente_update" required>
+                                        name="nombre_cliente_update" required>
                                     <label for="correo_update" class="form-label">Correo de Cliente.</label>
                                     <input type="text" class="form-control" id="correo_update" name="correo_update"
                                         required>
@@ -230,23 +230,6 @@
                 </div>
             </div>
         </div>
-        <!-- Modal de reporte fallido -->
-        <div class="modal fade" id="errorReporte" tabindex="-1">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header" id="formHeader">
-                        <h5 class="modal-title">Error en el proceso</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        No se pudo generar el reporte, valide los datos ingreados
-                    </div>
-                    <div class="modal-footer">
-                        <button class="btn btn-primary" data-bs-dismiss="modal" id="btnmenu">Aceptar</button>
-                    </div>
-                </div>
-            </div>
-        </div>
         <!-- Modal de PROCESO FALLIDO -->
         <div class="modal fade" id="error_proceso" tabindex="-1">
             <div class="modal-dialog modal-dialog-centered">
@@ -257,26 +240,6 @@
                     </div>
                     <div class="modal-body">
                         No se pudo realizar el proceso debido a que hubo un error.
-                    </div>
-                    <div class="modal-footer">
-                        <button class="btn btn-primary" data-bs-dismiss="modal" id="btnmenu">Aceptar</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- MODAL DE ERROR GENERICO -->
-        <div class="modal fade" id="modalErrorDeBaseDeDatos" tabindex="-1">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header" id="formHeader">
-                        <h5 class="modal-title">Error en el proceso</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <p id="dataBaseErrorMessage">
-                        ...
-                        </p>
                     </div>
                     <div class="modal-footer">
                         <button class="btn btn-primary" data-bs-dismiss="modal" id="btnmenu">Aceptar</button>

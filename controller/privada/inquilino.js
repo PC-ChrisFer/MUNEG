@@ -1,13 +1,13 @@
 //Importar las constantes y metodos de components.js y api_constant.js
-import { readRows, saveRow, searchRows, deleteRow, pieGraph } from "../components.js";
-import { GET_METHOD, SERVER, API_CREATE, API_UPDATE, API_SUCESS_REQUEST, POST_METHOD } from "../constants/api_constant.js";
+import { readRows, saveRow, searchRows, deleteRow } from "../components.js";
+import { GET_METHOD, SERVER, API_CREATE, API_UPDATE } from "../constants/api_constant.js";
 import { getElementById } from "../constants/functions.js";
 import { validateExistenceOfUser } from "../constants/validationUser.js";
 import { APIConnection } from "../APIConnection.js";
 
 //Constantes que establece la comunicación entre la API y el controller utilizando parametros y rutas
 const API_INQUILINO = SERVER + "privada/inquilino.php?action=";
-const API_MUNICIPIO = SERVER + "privada/municipios.php?action=";
+
 //El nombre del CRUD que es
 const CRUD_NAME = "inquilino";
 
@@ -28,7 +28,6 @@ let datos_inquilino = {
   nombre_estado_inquilino: "",
   id_tipo_inquilino: 0,
   nombre_tipo_inquilino: "",
-  id_departamento: 0,
 };
 
 let datos_estado_inquilino = {
@@ -48,12 +47,11 @@ document.addEventListener("DOMContentLoaded", async () => {
   // Se llama a la función que obtiene los registros para llenar la tabla. Se encuentra en el archivo components.js
   await readRows(API_INQUILINO, fillTableInquilino);
   // Se define una variable para establecer las opciones del componente Modal.
+
   //Cargar combo box de tipo inquilino
   await fillComboBoxTipoInquilino();
-  //Cargar combo box de estado inquilino
+  //Carfar combo box de estado inquilino
   await fillComboxEstadoInquilino();
-  //Cargar combo box de departamento
-  await fillComboboxDepartamento();
 });
 
 //Obtener los datos de combobox tipo inquilino
@@ -86,17 +84,6 @@ async function fillComboxEstadoInquilino() {
   });
 }
 
-//Obtener los datos de combobox estado inquilino
-async function fillComboboxDepartamento() {
-  //Se crea un endpoint especifico para el caso de leer tipo inquilino
-  let APIEndpoint = API_MUNICIPIO + "read_departamento";
-  //Se utiliza como api connection para realizar la consulta
-  let APIResponse = await APIConnection(APIEndpoint, GET_METHOD, null);
-  //Obtiene todos los valores y los ordena en un array, presentandolos en el select
-  APIResponse.dataset.map((element) => { 
-    getElementById("cmb_departamento").innerHTML += `<option value="${element.id_departamento}" > ${element.departamento} </option>`; });
-}
-
 //Función para guardar los datos cambiados en el combobox
 window.seleccionarTipoinquilino = () => {
   datos_inquilino.id_tipo_inquilino = document.getElementById("tipo_inquilino").value;
@@ -105,11 +92,6 @@ window.seleccionarTipoinquilino = () => {
 //Función para guardar los datos cambiados en el combobox
 window.seleccionarEstadoinquilino = () => {
   datos_inquilino.id_estado_inquilino = document.getElementById("estado_inquilino").value;
-};
-
-//Función para guardar los datos cambiados en el combobox
-window.selectDepartamento = (id_departamento) => {
-  datos_inquilino.id_departamento = document.getElementById(id_departamento).value;
 };
 
 //Metodo para llenar las tablas de datos, utiliza la función readRows()
@@ -246,47 +228,3 @@ getElementById("delete_form").addEventListener("submit", async (event) => {
   // Se llama a la función que realiza la actualización. Se encuentra en el archivo components.js
   await deleteRow(API_INQUILINO, parameters, fillTableInquilino);
 });
-
-// Función para crear el grafico que, "La cantidad  de inquilinos por municipio segun el departamento"
-export async function graphPieInquilinoDepartamento(id_departamento) {
-  //Creo un formData para los parametros
-  let parameters = new FormData();
-  //Inserto el id_producto a los parametros
-  parameters.append("id_departamento", id_departamento);
-  //Obtener los datos del grafico
-  //Crear endpoint
-  let APIEndpoint = API_INQUILINO + "graphInquilino2";
-  //Se realiza la consulta con el endpoint, el metodo "get" y no requiere parametros
-  let APIResponse = await APIConnection(APIEndpoint, POST_METHOD, parameters);
-  //Se verifica si la consulta retorna un valor positivo
-  if (APIResponse.status == API_SUCESS_REQUEST) {
-    // Se comprueba si la respuesta es satisfactoria, de lo contrario se remueve la etiqueta canvas.
-    if (APIResponse.status) {
-      // Se declaran los arreglos para guardar los datos a gráficar.
-      let municipio = [];
-      let num_inquilino = [];
-      // Se recorre el conjunto de registros devuelto por la API (dataset) fila por fila a través del objeto row.
-      APIResponse.dataset.map(function (row) {
-        // Se agregan los datos a los arreglos.
-        municipio.push(row.municipio);
-        num_inquilino.push(row.count);
-      });
-      getElementById('graph_contrato').innerHTML = '<canvas id="chartInquilino" style="background-color: white; border-radius: 20px"></canvas>'
-      // Se llama a la función que genera y muestra un gráfico de pastel. Se encuentra en el archivo components.js
-      pieGraph(
-        "chartInquilino",
-        municipio,
-        num_inquilino,
-        "La cantidad  de inquilinos por municipio segun el departamento."
-      );
-    } else {
-      console.log(response.exception);
-    }
-  }
-}
-
-//Funcion para generar grafico a traves del click de un boton
-window.generarGrafico = async () => {
-  console.log(datos_inquilino.id_departamento);
-  await graphPieInquilinoDepartamento(datos_inquilino.id_departamento);
-};

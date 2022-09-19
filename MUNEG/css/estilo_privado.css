@@ -1,0 +1,162 @@
+/*Emanuel Luna*/
+#navcolor{
+    background-color: #007D84;
+}
+
+#footer{
+    background-color: #018080;
+}
+
+#imgnav{
+height: 60px;
+
+}
+
+
+#cotones{
+   display: flex;
+   align-items: center;
+}
+
+#celimg{
+    height: 20px;
+
+}
+
+#menu1 a{
+  color: aliceblue;
+}
+
+#menu1 ul a{
+    color: #007D84;
+  }
+
+#contactenos a{
+    color: #A1A39F;
+}
+
+#le{
+    text-align: center;
+    display: flex;
+    font-size: 10px;
+}
+
+#con a{
+    color: #A1A39F;
+    font-size: 17px;
+}
+
+#fondo{
+    background-color: #E2E2E2;
+}
+
+#encabezado{
+    align-items: center;
+    text-align: center;
+    font-style: italic;
+    background-color: #1d4347;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    color: #E2E2E2;
+}
+
+#busqueda{
+    align-items: center;
+    font-style: italic;
+    text-align: center;
+    background-color: #2bcbd9;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    color: #E2E2E2;
+}
+
+#opciones{
+    width: 99%;
+    justify-content: right;
+    align-items: right;
+    display: flex;
+    margin: 10px;
+    
+}
+
+#btnmenu{
+    background-color: white;
+    border-color: black;
+    color: black;
+}
+
+#formHeader{
+    background-color: #2bcbd9;
+    color: white;
+}
+
+/*Tabla de datos*/
+
+/*Colores al encabezado*/
+#tabla_datos th{
+    color: white;
+    background-color: #1D4347;
+}
+
+/*Colores al encabezado*/
+#tabla_datos tr{
+    background-color: #D6D6D6;
+}
+
+
+/*Colores boton ver mas*/
+#button_ver_mas{
+ background-color: #2BCBD9;
+ margin-top: 15px;
+
+}
+
+
+/*Jefferson Solorzano*/
+/* pagina privada paginaPrincipal */
+
+#welcomeContainer{
+    position: relative;
+    display: inline-block;
+    text-align: center;
+}
+
+.centrado {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.welcomeText {
+    font-size: 350%;
+    color: white;
+}
+
+.informationContainers {
+    height: 20%;
+    margin: auto; 
+}
+
+.informationContainers.detailsContainer {
+    margin-top: 2%;
+    margin-bottom: 2%;
+ }
+
+.containerInformation{
+    background-color: #389ca4;
+    width: 50%;
+    margin: auto; 
+}
+
+.titleInformation{
+    text-align: center;
+    margin: 1%;
+    color: #389ca4;
+}
+
+/*Colores del footer*/
+#Segundofooter{
+    background-color: #2698A2;
+}
+

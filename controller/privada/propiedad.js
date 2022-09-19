@@ -1,6 +1,6 @@
 //Importar las constantes y metodos de components.js y api_constant.js
-import { deleteRow, readRows, saveRow, searchRows, readDeletedRowns, generatePDF, obtenerFechaActual } from "../components.js";
-import { SERVER, API_CREATE, API_UPDATE, API_SUCESS_REQUEST, GET_METHOD, POST_METHOD } from "../constants/api_constant.js";
+import { deleteRow, readRows, saveRow, searchRows, readDeletedRowns } from "../components.js";
+import { SERVER, API_CREATE, API_UPDATE, API_SUCESS_REQUEST, GET_METHOD } from "../constants/api_constant.js";
 import { getElementById } from "../constants/functions.js";
 import { validateExistenceOfUser } from "../constants/validationUser.js";
 import { APIConnection } from "../APIConnection.js";
@@ -12,8 +12,6 @@ const API_TIPO_PROPIEDAD = SERVER + "privada/tipo_propiedad.php?action=";
 const API_MUNICIPIO = SERVER + "privada/municipios.php?action=";
 const API_EMPLEADO = SERVER + "privada/empleado.php?action=";
 const API_INQUILINOS = SERVER + "privada/inquilino.php?action=";
-const API_REPORTES = SERVER + "privada/pdf.php?action=";
-
 
 // JSON EN EN CUAL SE GUARDA INFORMACION DE EL TIPO DE EMPLEADO, ESTA INFORMACION
 // SE ACTUALIZA CUANDO SE DA CLICK EN ELIMINAR O HACER UN UPDATE
@@ -103,157 +101,10 @@ async function fillTipoAcabado() {
     APIResponse.dataset.map((element) => {
       getElementById("cmb_tipo_acabado_update").innerHTML += `<option value="${element.id_tipo_acabado}" > ${element.nombre_tipo} </option>`;
       getElementById("cmb_tipo_acabado").innerHTML += `<option value="${element.id_tipo_acabado}" > ${element.nombre_tipo} </option>`;
-    });
+  });
     return;
   }
   console.log("all bad");
-}
-
-window.abrirModalReportes = () => {
-  $("#reportes").modal("show");
-};
-
-window.generarReporteCasasMasVendidas_Alquiladas = async () => {
-  let tableContent = ""
-  let enpointReporte = API_REPORTES + "propiedad_vendida_alquilada"
-  let parameters = new FormData()
-  parameters.append("fecha_firma", getElementById("meses_año").value)
-  let obtenerDatosParaReporte = await APIConnection(enpointReporte, POST_METHOD, parameters)
-  let ObtenerUsuarioActualResponse = await APIConnection(APIEndpointObtenerUsuarioActual, GET_METHOD, null);
-
-
-  obtenerDatosParaReporte.dataset.forEach(element => {
-    tableContent += `
-      <tr>
-      <td>${element.codigo}</td>
-      <td>${element.departamento}</td>
-      <td>${element.municipio}</td>
-      <td>${element.direccion}</td>
-      <td>${element.apellido}</td>
-      <td>${element.nombre}</td>
-      <td>${element.precio}</td>
-      </tr>
-    `
-  })
-
-  let generatedHTML = `<!doctype html>
-  <html lang="es">
-  
-  <head>
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-      <style>
-          body {
-              display: flex;
-              justify-content: center;
-              text-align: center;
-  
-          }
-  
-          #tabla-header {
-              background-color: #007D84;
-              color: aliceblue;
-              padding: 10px;
-              font-size: 40px;
-              padding-bottom: 20px;
-              margin-bottom: 10px;
-  
-          }
-  
-          #tabla-footer {
-              background-color: #007D84;
-              color: aliceblue;
-              padding: 10px;
-              text-align: right;
-          }
-  
-          #tabla-header img {
-              max-width: 65px;
-          }
-  
-          /*Tabla de datos*/
-          #tabla_datos {
-              margin-top: 3%;
-              margin-bottom: 3%;
-              font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-  
-          }
-  
-          /*Colores al encabezado*/
-          #tabla_datos th {
-              color: white;
-              background-color: #018080;
-          }
-  
-          /*Colores al cuerpo*/
-          #tabla_datos tr {
-              border: solid black 1px;
-              background-color: #A1A39F;
-          }
-  
-          #tabla_reporte {
-              width: 100%;
-              height: 60%;
-              margin-top: 20px;
-  
-          }
-  
-          #tabla_reporte th,
-          td {
-              text-align: left;
-              padding-left: 5px;
-          }
-  
-          .text-footer {
-              font-size: 10px;
-              margin-top: 10px;
-          }
-      </style>
-      <title>MUNEG S.A C.V</title>
-  
-  </head>
-  
-  <body>
-      <!-- Tabla de Datos -->
-      <div class="container-fluid" id="tabla_datos" style="width: 100%">
-          <div class="container-fluid" id="tabla-header">
-              <a>MUNEG</a>
-          </div>
-          <div class="container-fluid" id="tabla-header">
-              <a>PROPIEDADES  CON LOS PRECIOS MÁS BAJOS</a>
-          </div>
-          <table class="table table-responsive table-bordered" id="tabla_reporte">
-              <thead>
-                  <tr>
-                      <th>Creado por:</th>
-                       <td>${ObtenerUsuarioActualResponse.username}</td>
-                  </tr>
-                  <tr>
-                      <th>Fecha:</th>
-                      <td>${obtenerFechaActual()}</td>
-                  </tr>
-                  <tr>
-                      <th>Dirección</th>
-                      <th>Código</th>
-                      <th>Direccion</th>
-                      <th>monto total</th>
-                      <th>placa</th>
-                  </tr>
-              </thead>
-              <tbody>
-                  ${tableContent}
-              </tbody>
-          </table>
-          <div class="container-fluid" id="tabla-footer">
-              <a class="text-footer">MUNEG S.A C.V</a>
-          </div>
-      </div>
-      </main>
-  
-  </body>
-  
-  </html>`;
-
-  await generatePDF(generatedHTML, getElementById("meses_año").value + "mes" + ".pdf")
 }
 
 //Obtener los datos de combobox tipo municipio
@@ -314,7 +165,7 @@ async function fillInquilino() {
   if (APIResponse.status == API_SUCESS_REQUEST) {
     //Obtiene todos los valores y los ordena en un array, presentandolos en el select
     APIResponse.dataset.map((element) => {
-      getElementById("cmb_inquilino_update").innerHTML += `<option value="${element.id_inquilino}" > ${element.nombre} </option>`;
+      getElementById("cmb_inquilino_update").innerHTML += `<option value="${element.id_inquilino}" > ${element.nombre} </option>`;    
       getElementById("cmb_inquilino").innerHTML += `<option value="${element.id_inquilino}" > ${element.nombre} </option>`;
     });
     return;
@@ -329,20 +180,20 @@ window.leerDatosEliminados = async () => {
     await readRows(API_PROPIEDAD, fillTablePropiedad);
     isWatchinDeletedData = false
   }
-  getElementById("verDatosliminados").checked === true ? getElementById('textoSwitch').innerHTML = "Hacer visible" : getElementById('textoSwitch').innerHTML = "Hacer invisible"
+    getElementById("verDatosliminados").checked === true ?  getElementById('textoSwitch').innerHTML = "Hacer visible" : getElementById('textoSwitch').innerHTML = "Hacer invisible"
 };
 
 window.cambiarVisibilidadDeResgistro = () => {
-  if (isWatchinDeletedData) {
-    getElementById("eliminarElemento").checked === true
-      ? (datosPropiedad.visibilidad = true)
-      : (datosPropiedad.visibilidad = false);
+if(isWatchinDeletedData) {
+  getElementById("eliminarElemento").checked === true
+  ? (datosPropiedad.visibilidad = true)
+  : (datosPropiedad.visibilidad = false);
 
-  } else {
-    getElementById("eliminarElemento").checked === true
-      ? (datosPropiedad.visibilidad = false)
-      : (datosPropiedad.visibilidad = true);
-  }
+} else {
+  getElementById("eliminarElemento").checked === true
+    ? (datosPropiedad.visibilidad = false)
+    : (datosPropiedad.visibilidad = true);
+}
 };
 
 //Función para guardar los datos cambiados en el combobox
@@ -388,7 +239,7 @@ window.guardarDatosUpdate = (
   id_tipo_acabado,
   id_municipio,
   id_tipo_propiedad,
-  id_inquilino,
+  id_inquilino, 
   id_empleado
 ) => {
   //Se transfieren los datos del boton al json global  
@@ -433,7 +284,7 @@ addEventListener("submit", async (event) => {
   event.preventDefault();
   // Se llama a la función que realiza la búsqueda. Se encuentra en el archivo components.js
   await searchRows(API_PROPIEDAD, "search-bar", fillTablePropiedad);
-});
+});  
 
 // EVENTO PARA INSERT
 // Método manejador de eventos que se ejecuta cuando se envía el formulario de guardar.

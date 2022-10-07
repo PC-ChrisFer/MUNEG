@@ -102,29 +102,32 @@ if (isset($_GET[ACTION])) {
             $_POST = $contrato->validateSpace($_POST);
             $result[EXCEPTION] = $contrato->setDescripcion($_POST['descripcion_update']) ? null : 'Nombre incorrecto';
             $result[EXCEPTION] = $contrato->setFechaFirma($_POST['fecha_firma_update']) ? null : 'Fecha de firma incorrecta';
+            if (!is_uploaded_file($_FILES[CONTRATO_ARCHIVO][TMP_NAME])) {
+                $result[EXCEPTION] = 'Seleccione una imagen';
+            } elseif (!$contrato->setImage($_FILES[CONTRATO_ARCHIVO])) {
+                $result[EXCEPTION] = $contrato->getFileError();
+            }
             $result[EXCEPTION] = $contrato->setIdPropietario($_POST['id_propietario_update']) ? null : 'Propietario incorrecto';
             $result[EXCEPTION] = $contrato->setIdPropiedad($_POST['id_propietario_update']) ? null : 'Propiedad incorrecta';
             $result[EXCEPTION] = $contrato->setIdEmpleado($_POST['id_empleado_update']) ? null : 'Empleado incorrecto';
             $result[EXCEPTION] = $contrato->setIdInquilino($_POST['id_inquilino_update']) ? null : 'Inquilino incorrecto';
             $result[EXCEPTION] = $contrato->setId($_POST['id']) ? null : 'Id incorrecto';
-
-            // validando si imagen a sido ingresada
-            if ($_FILES[CONTRATO_ARCHIVO]['error'] == 4) {
-                $result[EXCEPTION] = $contrato->setImageName($_POST['imageName']) ? null : 'NOMBRE ARCHIVO NO ENVIADO';
-            } else {
-                $result[EXCEPTION] = $contrato->setImage($_FILES[CONTRATO_ARCHIVO]) ? null : $propiedad->getFileError();
-                $result[EXCEPTION] = is_uploaded_file($_FILES[CONTRATO_ARCHIVO]['tmp_name']) ? null : "ARCHIVO INCORRECTO";
-                if ($contrato->saveFile($_FILES[CONTRATO_ARCHIVO], $contrato->getRutaImagenes(), $contrato->getImagen())) {
-                    $result[MESSAGE] = 'Imagen ingresada correctanente';
-                }
-            }
-
             if ($contrato->updateRow()) {
                 $result[MESSAGE] = 'Registro modificado correctamente';
-                if ($result[DATA_SET] = $contrato->readAll()) {
-                    $result[STATUS] = SUCESS_RESPONSE;
+                if ($contrato->saveFile($_FILES[CONTRATO_ARCHIVO], $contrato->getRutaImagenes(), $contrato->getImagen())) {
+                    $result[MESSAGE] = 'Imagen ingresada correctanente';
+                    if ($result[DATA_SET] = $contrato->readAll()) {
+                        $result[STATUS] = SUCESS_RESPONSE;
+                    } else {
+                        $result[EXCEPTION] = 'No hay datos registrados';
+                    }
                 } else {
-                    $result[EXCEPTION] = 'No hay datos registrados';
+                    $result[MESSAGE] = 'Imagen no se a ingresado correctanente';
+                    if ($result[DATA_SET] = $contrato->readAll()) {
+                        $result[STATUS] = SUCESS_RESPONSE;
+                    } else {
+                        $result[EXCEPTION] = 'No hay datos registrados';
+                    }
                 }
             } else {
                 $result[EXCEPTION] = Database::getException();
@@ -185,9 +188,9 @@ if (isset($_GET[ACTION])) {
             }
             break;
         case 'graphContrato2':
-            if (!$contrato->setFechaFirma($_POST['fecha_firma'])) {
+            if(!$contrato->setFechaFirma($_POST['fecha_firma'])) {
                 $result[EXCEPTION] = 'Fecha Invalidad';
-            } elseif (!$contrato->setFechaFirmaFinal($_POST['fecha_firma_final'])) {
+            } elseif(!$contrato->setFechaFirmaFinal($_POST['fecha_firma_final'])) {
                 $result[EXCEPTION] = 'Fecha Invalidad';
             } elseif ($result[DATA_SET] = $contrato->readFirmasEmpleados()) {
                 $result[STATUS] = SUCESS_RESPONSE;

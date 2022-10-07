@@ -17,10 +17,8 @@ import {
   GET_METHOD,
   POST_METHOD,
 } from "../constants/api_constant.js";
-import { getElementById } from "../constants/helpers.js";
+import { getElementById } from "../constants/functions.js";
 import { validateExistenceOfUser } from "../constants/validationUser.js";
-import { inactivityTime } from "../soporte/soporte.js";
-
 
 //Constantes que establece la comunicación entre la API y el controller utilizando parametros y rutas
 const API_GESTION_TIPO_PROPIEDAD =
@@ -88,11 +86,11 @@ function fillTableTipoPropiedad(dataset) {
              <td>${row.nombre_tipo}</td>
              <td>${row.visibilidad}</td>
              <td class="d-flex justify-content-center">
-             <a onclick="guardarDatosUpdate(${row.id_tipo_propiedad},${row.visibilidad},'${row.nombre_tipo}')" class="btn edit_add_deleteButtons edit"  id="button_ver_mas">
-               <img  src="../../resources/img/iconos_formularios/edit_icon.png"   style="width: 35px; height: 35px;"></a>
-             <a onclick="guardarDatosDelete(${row.id_tipo_propiedad})" class="btn edit_add_deleteButtons delete"  id="button_ver_mas">
-               <img src="../../resources/img/iconos_formularios/trash_icon.png" style="width: 35px; height: 35px;"></a>
-                    <a onclick="generarReporteTipoPropiedad(${row.id_tipo_propiedad})" class="btn edit_add_deleteButtons edit"  id="button_ver_mas">Generar Reporte</a>
+             <a onclick="guardarDatosUpdate(${row.id_tipo_propiedad},${row.visibilidad},'${row.nombre_tipo}')" class="btn" id="button_ver_mas">
+               <img  src="../../resources/img/iconos_formularios/edit_35px.png"></a>
+             <a onclick="guardarDatosDelete(${row.id_tipo_propiedad})" class="btn" id="button_ver_mas">
+               <img src="../../resources/img/iconos_formularios/trash_can_35px.png"></a>
+                    <a onclick="generarReporteTipoPropiedad(${row.id_tipo_propiedad})" class="btn" id="button_ver_mas">Generar Reporte</a>
          </td>
          </tr>
         `;
@@ -403,4 +401,29 @@ window.generarReporteTipoPropiedad = async (idTipoPropiedad) => {
       "../../api/reporte/" + idTipoPropiedad + "_TipoPropiedad" + ".pdf"
     );
 
+};
+
+var inactivityTime = function () {
+  var time;
+  window.onload = resetTimer;
+  // DOM Events
+  document.onmousemove = resetTimer;
+  document.onkeydown = resetTimer;
+
+  async function logout() {
+    let APIEndpoint = API_USUARIO + "logOut";
+    let APIResponse = await APIConnection(APIEndpoint, GET_METHOD, null);
+  
+    if (APIResponse.status == API_SUCESS_REQUEST) {
+      location.href = "index.html";
+      return;
+    }
+    console.log("SOMETHING WENT WRONG");
+  }
+
+  function resetTimer() {
+      clearTimeout(time);
+      time = setTimeout(logout, 300000)
+      // 1000 milliseconds = 1 second
+  }
 };

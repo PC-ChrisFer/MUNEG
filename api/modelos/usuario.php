@@ -172,12 +172,10 @@ class usuario extends validator
     //(sin parametros)
     public function readAllEmpleado()
     {
-        $sql = 'SELECT id_usuario, nombre_usuario, nombre,apellido, usuario.id_tipo_usuario, nombre_tipo
+        $sql = 'SELECT id_usuario, nombre_usuario, password, usuario.id_tipo_usuario
         FROM usuario
         INNER JOIN tipo_usuario
-        ON tipo_usuario.id_tipo_usuario = usuario.id_tipo_usuario
-        INNER JOIN empleado
-        ON empleado.id_empleado = usuario.id_empleado';
+        ON tipo_usuario.id_tipo_usuario = usuario.id_tipo_usuario';
         $params = null;
         return Database::getRows($sql, $params);
     }

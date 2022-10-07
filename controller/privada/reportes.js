@@ -1,4 +1,3 @@
-//@ts-check
 import { APIConnection } from "../APIConnection.js";
 import { deleteRow, obtenerFechaActual, readRows, saveRow, searchRows, generatePDF } from "../components.js";
 import {
@@ -8,8 +7,7 @@ import {
   POST_METHOD,
   SERVER,
 } from "../constants/api_constant.js";
-import { getElementById,  validateExistenceOfUser } from "../constants/helpers.js";
-import { inactivityTime } from "../soporte/soporte.js";
+import { getElementById,  validateExistenceOfUser } from "../constants/functions.js";
 
 const API_REPORTES = SERVER + "privada/reporte.php?action=";
 const API_INQUILINOS = SERVER + "privada/inquilino.php?action=";
@@ -48,10 +46,10 @@ function fillTableReportes(dataset) {
             <td>${row.descripcion}</td>
             <td><img src="../../api/imagenes/reporte/${row.imagen}" width="50%" height="50%"></td>
             <td class="d-flex justify-content-center">
-                <a onclick="guardarDatosUpdate(${row.id_reporte},'${row.asunto}','${row.descripcion}', '${row.id_inquilino}','${row.estado}')" class="btn edit_add_deleteButtons edit"  id="button_ver_mas">
-                  <img  src="../../resources/img/iconos_formularios/edit_icon.png"   style="width: 35px; height: 35px;"></a>
-                <a onclick="guardarDatosDelete(${row.id_reporte})" class="btn edit_add_deleteButtons delete"  id="button_ver_mas">
-                  <img src="../../resources/img/iconos_formularios/trash_icon.png" style="width: 35px; height: 35px;"></a>
+                <a onclick="guardarDatosUpdate(${row.id_reporte},'${row.asunto}','${row.descripcion}', '${row.id_inquilino}','${row.estado}')" class="btn" id="button_ver_mas">
+                  <img  src="../../resources/img/iconos_formularios/edit_35px.png"></a>
+                <a onclick="guardarDatosDelete(${row.id_reporte})" class="btn" id="button_ver_mas">
+                  <img src="../../resources/img/iconos_formularios/trash_can_35px.png"></a>
             </td>
          </tr>
         `;
@@ -334,3 +332,28 @@ window.createReporteReportesPDF = async () => {
   window.open("../../api/reporte/" + "reportes_orden" + ".pdf");
 }
 
+
+var inactivityTime = function () {
+  var time;
+  window.onload = resetTimer;
+  // DOM Events
+  document.onmousemove = resetTimer;
+  document.onkeydown = resetTimer;
+
+  async function logout() {
+    let APIEndpoint = API_USUARIO + "logOut";
+    let APIResponse = await APIConnection(APIEndpoint, GET_METHOD, null);
+  
+    if (APIResponse.status == API_SUCESS_REQUEST) {
+      location.href = "index.html";
+      return;
+    }
+    console.log("SOMETHING WENT WRONG");
+  }
+
+  function resetTimer() {
+      clearTimeout(time);
+      time = setTimeout(logout, 300000)
+      // 1000 milliseconds = 1 second
+  }
+};

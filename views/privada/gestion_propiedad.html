@@ -111,7 +111,7 @@
             <form class="d-flex" method="post" id="search-bar">
                 <input class="form-control me-2" name="search" placeholder="Búsqueda de Datos" aria-label="Search"
                     required>
-                <button class="btn"  type="submit"><img src="../../resources/img/iconos_navbar/search_24px.png"></button>
+                <button class="btn" type="submit"><img src="../../resources/img/iconos_navbar/search_24px.png"></button>
             </form>
         </div>
         <!-- Botones de SCRUD, actualizar y agregar -->
@@ -120,12 +120,12 @@
                 <button type="button" class="btn btn-primary" id="button_ver_mas" data-bs-toggle="modal"
                     data-bs-target="#generar_grafico">Generar Gráfico</button>
                 <button type="button" class="btn btn-primary" id="button_ver_mas" data-bs-toggle="modal"
-                    data-bs-target="#reportes">Gestion de
+                data-bs-target="#reportes">Gestion de
                     Reportes</button>
             </div>
-            <a class="btn btn-primary" id="button_ver_mas" href="gestion_tipo_propiedad.html">Tipo Propiedad</a>
+            <a class="btn" id="button_ver_mas" href="gestion_tipo_propiedad.html">Tipo Propiedad</a>
             <div class="btn-group" role="group">
-                <button type="button" class="edit_add_deleteButtons add" id="btnmenu" data-bs-toggle="modal"
+                <button type="button" class="btn btn-primary" id="btnmenu" data-bs-toggle="modal"
                     data-bs-target="#agregar"><a class="nav-link"><img
                             src="../../resources/img/iconos_formularios/agregar_26px.png"></a></button>
             </div>
@@ -176,8 +176,8 @@
                                         placeholder="Escriba la Direccion" maxlength="100" required></textarea>
 
                                     <label for="area_propiedad" class="form-label">Área Propiedad</label>
-                                    <input type="number" class="form-control" id="area_propiedad" name="area_propiedad"
-                                        placeholder="0 Km2" min="1" max="100000" required step=".01">
+                                    <input type="number" class="form-control" id="area_propiedad"
+                                        name="area_propiedad" placeholder="0 Km2" min="1" max="100000" required step=".01">
 
                                     <label for="area_construccion" class="form-label">Área Construcción</label>
                                     <input type="number" class="form-control" id="area_construccion"
@@ -204,23 +204,20 @@
 
                                     <label for="plantas" class="form-label">Plantas</label>
                                     <input type="number" class="form-control" id="plantas" name="plantas_update"
-                                        placeholder="0 Plantas" min="1" max="1000" required pattern="[0-9]{1,2}"
-                                        title="Dato fuera de rango.">
+                                        placeholder="0 Plantas" min="1" max="1000" required pattern="[0-9]{1,2}" title="Dato fuera de rango.">
 
                                     <label for="sanitario" class="form-label">Sanitario</label>
                                     <input type="number" class="form-control" id="sanitario" name="sanitario_update"
-                                        placeholder="0 Baños" min="1" max="100000" required pattern="[0-9]{1,2}"
-                                        title="Dato fuera de rango.">
+                                        placeholder="0 Baños" min="1" max="100000" required pattern="[0-9]{1,2}" title="Dato fuera de rango.">
 
                                     <label for="espacio_parqueo" class="form-label">Espacio de Parqueo</label>
                                     <input type="number" class="form-control" id="espacio_parqueo_i"
-                                        name="espacio_update" placeholder="0 Vehiculos" min="1" max="100000" required
-                                        pattern="[0-9]{1,3}" title="Dato fuera de rango.">
+                                        name="espacio_update" placeholder="0 Vehiculos" min="1" max="100000" required pattern="[0-9]{1,3}" title="Dato fuera de rango.">
 
                                     <label for="descripcion" class="form-label">Descripción</label>
                                     <textarea id="descripcion_i" name="descripcion_update" rows="6" class="form-control"
                                         placeholder="Escriba una Descripción" maxlength="1000" required></textarea>
-                                </div>
+                                </div>      
 
                                 <div class="col">
                                     <label for="tipo_acabado" class="form-label">Tipo de Acabados</label>
@@ -255,8 +252,8 @@
                                     </select>
 
                                     <label for="upload_image" class="form-label">Imagen</label>
-                                    <a class="btn"  name="archivo">
-                                        <input accept="image/jpeg" id="upload_image" name="archivo" type="file"
+                                    <a class="btn" name="archivo" id="upload_image">
+                                        <input accept="image/jpeg" name="archivo" type="file"
                                             class="form-control form-control-sm form-Input-Style" required>
                                         <img src="../../resources/img/iconos_formularios/download_100px.png">
                                     </a>
@@ -317,8 +314,7 @@
 
                                     <label for="habitaciones_update" class="form-label">Habitaciones</label>
                                     <input type="number" class="form-control" id="habitaciones_update"
-                                        name="habitaciones_update" min="1" max="100000" required pattern="[0-9]{1,2}"
-                                        title="Dato fuera de rango.">
+                                        name="habitaciones_update" min="1" max="100000" required pattern="[0-9]{1,2}" title="Dato fuera de rango.">
 
                                     <label for="plantas_update" class="form-label">Plantas</label>
                                     <input type="number" class="form-control" id="plantas_update" name="plantas_update"
@@ -326,13 +322,11 @@
 
                                     <label for="sanitario_update" class="form-label">Sanitario</label>
                                     <input type="number" class="form-control" id="sanitario_update"
-                                        name="sanitario_update" min="1" max="100000" required pattern="[0-9]{1,2}"
-                                        title="Dato fuera de rango.">
+                                        name="sanitario_update" min="1" max="100000" required pattern="[0-9]{1,2}" title="Dato fuera de rango.">
 
                                     <label for="espacio_parqueo_update" class="form-label">Espacio de Parqueo</label>
                                     <input type="number" class="form-control" id="espacio_parqueo_update"
-                                        name="espacio_update" min="1" max="100000" required pattern="[0-9]{1,3}"
-                                        title="Dato fuera de rango.">
+                                        name="espacio_update" min="1" max="100000" required pattern="[0-9]{1,3}" title="Dato fuera de rango.">
 
                                     <label for="descripcion_updat" class="form-label">Descripción</label>
                                     <textarea id="descripcion_update" name="descripcion_update" rows="6"
@@ -372,10 +366,9 @@
                                     </select>
 
                                     <label for="upload_image" class="form-label">Imagen</label>
-                                    <a class="btn"  name="archivo" id="upload_image">
+                                    <a class="btn" name="archivo" id="upload_image">
                                         <input accept="image/jpeg" name="archivo" type="file"
-                                            id="updateGestionImagen"
-                                            class="form-control form-control-sm form-Input-Style" >
+                                            class="form-control form-control-sm form-Input-Style" required>
                                         <img src="../../resources/img/iconos_formularios/download_100px.png">
                                     </a>
                                 </div>
@@ -455,23 +448,23 @@
                 </div>
             </div>
         </div>
-        <!-- Modal de ERROR DE GENERACION DE REPORTE POR AÑOS -->
-        <div class="modal fade" id="errorModalReporteMes" tabindex="-1">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header" id="formHeader">
-                        <h5 class="modal-title" id="exampleModalToggleLabel4">Error al generar reporte</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        Verifique que el mes este dentro del rango.
-                    </div>
-                    <div class="modal-footer">
-                        <button class="btn btn-primary" data-bs-dismiss="modal" id="btnmenu">Aceptar</button>
+                <!-- Modal de ERROR DE GENERACION DE REPORTE POR AÑOS -->
+                <div class="modal fade" id="errorModalReporteMes" tabindex="-1">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header" id="formHeader">
+                                <h5 class="modal-title" id="exampleModalToggleLabel4">Error al generar reporte</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                Verifique que el mes este dentro del rango.
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn btn-primary" data-bs-dismiss="modal" id="btnmenu">Aceptar</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
         <!-- Modal de GENERAR GRAFICO -->
         <div class="modal fade" id="generar_grafico" tabindex="-1">
             <div class="modal-dialog modal-lg modal-dialog-centered">
@@ -521,31 +514,30 @@
                 </div>
             </div>
         </div>
-        <!-- Modal de reporte fallido -->
-        <div class="modal fade" id="errorReporteCasasVendidas" tabindex="-1">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header" id="formHeader">
-                        <h5 class="modal-title">Error en el proceso</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        No se pudo generar el reporte, seleccione un mes valido
-                    </div>
-                    <div class="modal-footer">
-                        <button class="btn btn-primary" data-bs-dismiss="modal"
-                            id="btnmenuFailedReport">Aceptar</button>
+                <!-- Modal de reporte fallido -->
+                <div class="modal fade" id="errorReporteCasasVendidas" tabindex="-1">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header" id="formHeader">
+                                <h5 class="modal-title">Error en el proceso</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                No se pudo generar el reporte, seleccione un mes valido
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn btn-primary" data-bs-dismiss="modal" id="btnmenu">Aceptar</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
         <!-- Modal de REPORTES -->
         <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js"></script>
         <div class="modal fade" id="reportes" tabindex="-1">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
-                    <div class="modal-header" id="formHeaderReport">
-                        <h5 class="modal-title" id="exampleModalToggleLabe3Report">Confirmar</h5>
+                    <div class="modal-header" id="formHeader">
+                        <h5 class="modal-title" id="exampleModalToggleLabe3">Confirmar</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="reporte_casas_mas_vendidas_alquiladas">
@@ -595,19 +587,16 @@
     </footer>
 
     <!-- Activando Bootstrap desde JS -->
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
-    <script src="https://www.gstatic.com/firebasejs/3.7.4/firebase.js ">
-    </script>
-    <script type="module" src="../../controller/privada/propiedad/propiedad.js"></script>
     <script src="http://momentjs.com/downloads/moment.min.js"></script>
-    
+
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
         integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB"
         crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"
         integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13"
         crossorigin="anonymous"></script>
-
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="module" src="../../controller/privada/propiedad.js"></script>
 </body>
 
 <footer>

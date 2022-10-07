@@ -2,21 +2,20 @@
 //Importar las constantes y metodos de components.js y api_constant.js
 import { readRows, saveRow, searchRows, deleteRow } from "../components.js";
 import {
-    API_SUCESS_REQUEST,
-    SERVER
+    INSERT_MODAL,
+    SEARCH_BAR,
+    SERVER,
+    SUBMIT,
 } from "../constants/api_constant.js";
 import {
     getElementById,
      validateExistenceOfUser,
-} from "../constants/helpers.js";
+} from "../constants/functions.js";
 import { API_CREATE, API_UPDATE, GET_METHOD } from "../constants/api_constant.js";
-import { inactivityTime } from "../soporte/soporte.js";
-
+import { APIConnection } from "../APIConnection.js";
 
 //Constantes que establece la comunicación entre la API y el controller utilizando parametros y rutas
 const API_TIPO_PROPIETARIO = SERVER + "privada/tipo_propietario.php?action=";
-const API_USUARIO = SERVER + 'privada/usuario.php?action=';
-
 
 // JSON EN EN CUAL SE GUARDA INFORMACION DE EL TIPO DE EMPLEADO, ESTA INFORMACION
 // SE ACTUALIZA CUANDO SE DA CLICK EN ELIMINAR O HACER UN UPDATE, CON LA FUNCION "guardarDatosTipoEmpleado"
@@ -50,11 +49,11 @@ document.addEventListener("DOMContentLoaded", async () => {
                 <td class="d-flex justify-content-center">
                     <div class="btn-group" role="group">
                             <a onclick="guardarDatosTipoPropietarioUpdate('${row.id_tipo_propietario}', '${row.nombre_tipo}', '${row.visibilidad}')" class="btn btn-primary">
-                                <img src="../../resources/img/iconos_formularios/edit_icon.png"   style="width: 35px; height: 35px;" data-bs-toggle="modal"
+                                <img src="../../resources/img/iconos_formularios/edit_35px.png" data-bs-toggle="modal"
                                 data-bs-target="#actualizar"></a>
-                            <a  onclick="guardarDatosTipoPropietarioDelete(${row.id_tipo_propietario})"  class="btn edit_add_deleteButtons delete"  
+                            <a  onclick="guardarDatosTipoPropietarioDelete(${row.id_tipo_propietario})"  class="btn btn-primary"  
                             name="search">
-                                <img src="../../resources/img/iconos_formularios/trash_icon.png" style="width: 35px; height: 35px;" data-bs-toggle="modal"
+                                <img src="../../resources/img/iconos_formularios/trash_can_35px.png" data-bs-toggle="modal"
                                 data-bs-target="#eliminar"></a>
                     </div>
                 </td>
@@ -142,3 +141,28 @@ getElementById("delete-form").addEventListener("submit", async (event) => {
     $("#eliminar").modal("hide");
 
 });
+
+var inactivityTime = function () {
+    var time;
+    window.onload = resetTimer;
+    // DOM Events
+    document.onmousemove = resetTimer;
+    document.onkeydown = resetTimer;
+  
+    async function logout() {
+      let APIEndpoint = API_USUARIO + "logOut";
+      let APIResponse = await APIConnection(APIEndpoint, GET_METHOD, null);
+    
+      if (APIResponse.status == API_SUCESS_REQUEST) {
+        location.href = "index.html";
+        return;
+      }
+      console.log("SOMETHING WENT WRONG");
+    }
+  
+    function resetTimer() {
+        clearTimeout(time);
+        time = setTimeout(logout, 300000)
+        // 1000 milliseconds = 1 second
+    }
+  };

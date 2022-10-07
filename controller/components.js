@@ -1,7 +1,6 @@
-//@ts-check
 //Importar las constantes y metodos de components.js y api_constant.js
 import { APIConnection } from "./APIConnection.js";
-import { showErrorModal, showGenericErrorModal } from "./components/htmlComponents.js";
+import { showErrorModal } from "./components/htmlComponents.js";
 import {
   API_READALL,
   API_SEARCH,
@@ -14,7 +13,7 @@ import {
   API_READALL_DELETED,
   SERVER
 } from "./constants/api_constant.js";
-import { getElementById, showModal, uncheckButton } from "./constants/helpers.js";
+import { getElementById } from "./constants/functions.js";
 
 
 // LEER REGISTROS
@@ -22,6 +21,7 @@ export async function readRows(ENDPOINT, fillrows) {
   let APIEndpoint = ENDPOINT + API_READALL;
   //Llamar a la función de conexión api para realizar fetch y then
   let APIResponse = await APIConnection(APIEndpoint, GET_METHOD, null);
+  console.log(APIResponse.dataset)
   if (APIResponse.status == API_SUCESS_REQUEST) {
     fillrows(APIResponse.dataset)
     return
@@ -34,33 +34,41 @@ export async function readRows(ENDPOINT, fillrows) {
 // LEER REGISTROS ELIMINADOS
 export async function readDeletedRowns(ENDPOINT, fillrows) {
   let APIEndpoint = ENDPOINT + API_READALL_DELETED;
+  //Llamar a la función de conexión api para realizar fetch y then
   let APIResponse = await APIConnection(APIEndpoint, GET_METHOD, null);
+  console.log(APIResponse.dataset)
   if (APIResponse.status == API_SUCESS_REQUEST) {
-    if(!APIResponse.dataset.length){
-      showModal('#no_data')
+    // valida si el array tiene longitud
+    if(APIResponse.dataset.length == 0){
+      //@ts-ignore
+      $('#no_data').modal('show');
     }else {
       fillrows(APIResponse.dataset)
     }
     return
   } else {
-    uncheckButton("#verDatosliminados")
-    showGenericErrorModal(APIResponse.exception)
+    // FUNCION PARA ABRIR EL MODAL DE ERROR
+    showErrorModal(APIResponse.exception)
   }
 }
 
 // BUSCAR REGISTROS
 export async function searchRows(ENDPOINT, formID, fillrows, parametersJson) {
   let APIEndpoint = ENDPOINT + API_SEARCH;
-
+  //@ts-ignore
   let parameters = formID ? new FormData(getElementById(formID)) : parametersJson;
 
   //Llamar a la función de conexión api para realizar fetch y then
   let APIResponse = await APIConnection(APIEndpoint, POST_METHOD, parameters);
-
+  //Utilizar la respuesta del api para realizar funciones
   if (APIResponse.status == API_SUCESS_REQUEST) {
     fillrows(APIResponse.dataset)
+    // dado caso este if se ejecute con "return" hara que hasta este punto llegue el codigo
+    return;
   } else {
     fillrows([])
+    // dado caso este if se ejecute con "return" hara que hasta este punto llegue el codigo
+    return;
   }
 }
 
@@ -68,17 +76,23 @@ export async function searchRows(ENDPOINT, formID, fillrows, parametersJson) {
 export async function saveRow(ENDPOINT, ACTION, parameters, fillrows) {
   // ingresando valores a variables
   let APIEndpoint = ENDPOINT + ACTION;
+  console.log(APIEndpoint)
 
+
+  // ejecutando request hacia la API
   let APIResponse = await APIConnection(APIEndpoint, POST_METHOD, parameters);
-
   // validando respuesta 
   if (APIResponse.status == API_SUCESS_REQUEST) {
-    console.log(APIResponse.dataset)
     fillrows(APIResponse.dataset)
-    showModal('#proceso_exito')
+    //@ts-ignore
+    $('#guardado').modal('show');
   } else {
+      // FUNCION PARA ABRIR EL MODAL DE ERROR
     showErrorModal(APIResponse.exception)
   }
+  //En caso de fracaso se abrira un modal de error
+  //@ts-ignore
+  //$('#error_proceso').modal('show');
 
 }
 
@@ -90,13 +104,15 @@ export async function deleteRow(ENDPOINT, parameters, fillrows) {
 
   if (APIResponse.status == API_SUCESS_REQUEST) {
     fillrows(APIResponse.dataset)
-    showModal('#eliminado')
+    //@ts-ignore
+    $('#eliminado').modal('show');
   } else {
+    // FUNCION PARA ABRIR EL MODAL DE ERROR
     showErrorModal(APIResponse.exception)
   }
 }
 
-// LEET UN SOLO REGISTRO
+// Hacer un readOne
 export async function readOne(ENDPOINT, parameters, fillrows) {
   let APIEndpoint = ENDPOINT + API_READONE;
 
@@ -105,6 +121,7 @@ export async function readOne(ENDPOINT, parameters, fillrows) {
   if (APIResponse.status == API_SUCESS_REQUEST) {
     fillrows(APIResponse.dataset)
   } else {
+    // FUNCION PARA ABRIR EL MODAL DE ERROR
     showErrorModal(APIResponse.exception)
   }
 }
@@ -118,6 +135,7 @@ export async function unDeleteRow(ENDPOINT, parameters, fillrows) {
   if (APIResponse.status == API_SUCESS_REQUEST) {
     fillrows(APIResponse.dataset)
   } else {
+     // FUNCION PARA ABRIR EL MODAL DE ERROR
     showErrorModal(APIResponse.exception)
   }
 

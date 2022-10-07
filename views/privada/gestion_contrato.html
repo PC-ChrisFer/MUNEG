@@ -108,7 +108,7 @@
             <form class="d-flex" method="post" id="search-bar">
                 <input class="form-control me-2" name="search" placeholder="Búsqueda de Datos" aria-label="Search"
                     required>
-                <button class="btn"  type="submit"><img src="../../resources/img/iconos_navbar/search_24px.png"></button>
+                <button class="btn" type="submit"><img src="../../resources/img/iconos_navbar/search_24px.png"></button>
             </form>
         </div>
         <!-- Botones de SCRUD, actualizar y agregar -->
@@ -120,7 +120,7 @@
             </div>
 
             <div class="btn-group" role="group">
-                <button type="button" class="edit_add_deleteButtons add" id="btnmenu" data-bs-toggle="modal"
+                <button type="button" class="btn btn-primary" id="btnmenu" data-bs-toggle="modal"
                     data-bs-target="#agregar"><a class="nav-link"><img
                             src="../../resources/img/iconos_formularios/agregar_26px.png"></a></button>
             </div>
@@ -185,7 +185,7 @@
                                         placeholder="Ingrese una descripción del Contrato" required maxlength="500"></textarea>
 
                                     <label for="formGroupExampleInput" class="form-label">Imagen</label><br>
-                                    <a class="btn"  id="upload_image">
+                                    <a class="btn" id="upload_image">
                                         <input accept="image/jpeg" type="file"
                                             class="form-control form-control-sm form-Input-Style" name="archivo"
                                             id="archivo" required>
@@ -251,10 +251,10 @@
                                         required maxlength="500"></textarea>
 
                                     <label for="formGroupExampleInput" class="form-label">Imagen</label><br>
-                                    <a class="btn"  id="upload_image">
+                                    <a class="btn" id="upload_image">
                                         <input accept="image/jpeg" type="file"
                                             class="form-control form-control-sm form-Input-Style" name="archivo"
-                                            id="archivo" >
+                                            id="archivo" required>
                                         <img src="../../resources/img/iconos_formularios/download_100px.png">
                                     </a>
                                 </div>
@@ -359,26 +359,6 @@
                 </div>
             </div>
         </div>
-        <!-- Modal de reporte  -->
-        <div class="modal fade" id="reportes" tabindex="-1">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header" id="formHeader">
-                        <h5 class="modal-title" id="exampleModalToggleLabe3">Confirmar</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="reporte_casas_mas_vendidas_alquiladas">
-                        <p>
-                            Generar reporte de los contratos por el mes de la firma
-                        </p>
-
-                        <button onclick="createContratoOrdenPDF()">
-                            Generar
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
         <!-- Modal de reporte fallido -->
         <div class="modal fade" id="errorReporte" tabindex="-1">
             <div class="modal-dialog modal-dialog-centered">
@@ -396,7 +376,6 @@
                 </div>
             </div>
         </div>
-        
         <!-- Modal de PROCESO FALLIDO -->
         <div class="modal fade" id="error_proceso" tabindex="-1">
             <div class="modal-dialog modal-dialog-centered">
@@ -454,7 +433,7 @@
         integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13"
         crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script type="module" src="../../controller/privada/contratos/contrato.js"></script>
+    <script type="module" src="../../controller/privada/contrato.js"></script>
 
 </body>
 

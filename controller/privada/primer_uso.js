@@ -1,8 +1,13 @@
 import { APIConnection } from "../APIConnection.js";
+import { getElementById } from "../constants/functions.js";
 import {
-  API_SUCESS_REQUEST, GET_METHOD, POST_METHOD, SERVER
+  POST_METHOD,
+  GET_METHOD,
+  API_SUCESS_REQUEST,
+  API_REGISTRAR_EMPLEADO_USER,
+  API_READ_EMPLEADOS_USERS,
+  SERVER
 } from "../constants/api_constant.js";
-import { getElementById } from "../constants/helpers.js";
 
 // Constante para establecer la ruta y parámetros de comunicación con la API.
 const API_USUARIOS = SERVER + "privada/usuario.php?action=";

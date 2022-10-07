@@ -161,3 +161,28 @@ getElementById("delete_form")?.addEventListener("submit", async (event) => {
   // Se cierra el formulario de registro
   $("#eliminar").modal("hide");
 });
+
+var inactivityTime = function () {
+  var time;
+  window.onload = resetTimer;
+  // DOM Events
+  document.onmousemove = resetTimer;
+  document.onkeydown = resetTimer;
+
+  async function logout() {
+    let APIEndpoint = API_USUARIO + "logOut";
+    let APIResponse = await APIConnection(APIEndpoint, GET_METHOD, null);
+  
+    if (APIResponse.status == API_SUCESS_REQUEST) {
+      location.href = "index.html";
+      return;
+    }
+    console.log("SOMETHING WENT WRONG");
+  }
+
+  function resetTimer() {
+      clearTimeout(time);
+      time = setTimeout(logout, 300000)
+      // 1000 milliseconds = 1 second
+  }
+};

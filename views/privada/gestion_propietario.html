@@ -112,16 +112,14 @@
             <form class="d-flex" method="post" id="search-bar">
                 <input class="form-control me-2" name="search" placeholder="Búsqueda de Datos" aria-label="Search"
                     required>
-                <button class="btn"  type="submit"><img src="../../resources/img/iconos_navbar/search_24px.png"></button>
+                <button class="btn" type="submit"><img src="../../resources/img/iconos_navbar/search_24px.png"></button>
             </form>
         </div>
+        <button onclick="abrirModalReportes()" class="btn" id="button_reportes">Gestion de reportes</button>
         <!-- Botones de SCRUD, actualizar y agregar -->
-        <div class="container-fluid d-flex justify-content-between" id="opciones">
-            <button class="btn btn-primary" id="button_ver_mas" onclick="abrirModalReportes()">Gestion de
-                reportes</button>
-            <a class="btn btn-primary" id="button_ver_mas" href="gestion_tipo_propietario.html">Tipo Propietario</a>
+        <div class="container-fluid" id="opciones">
             <div class="btn-group" role="group">
-                <button type="button" class="edit_add_deleteButtons add" id="btnmenu" data-bs-toggle="modal"
+                <button type="button" class="btn btn-primary" id="btnmenu" data-bs-toggle="modal"
                     data-bs-target="#agregar"><a class="nav-link"><img
                             src="../../resources/img/iconos_formularios/agregar_26px.png"></a></button>
             </div>
@@ -205,7 +203,7 @@
                                 </div>
                                 <div class="col">
                                     <label for="formGroupExampleInput" class="form-label">Imagen</label>
-                                    <a class="btn"  id="upload_image">
+                                    <a class="btn" id="upload_image">
                                         <input accept="image/jpeg" type="file"
                                             class="form-control form-control-sm form-Input-Style" name="archivo"
                                             id="archivo" required>
@@ -282,10 +280,10 @@
                                 </div>
                                 <div class="col">
                                     <label for="formGroupExampleInput" class="form-label">Imagen</label>
-                                    <a class="btn"  id="upload_image" required>
+                                    <a class="btn" id="upload_image" required>
                                         <input accept="image/jpeg" type="file"
                                             class="form-control form-control-sm form-Input-Style" name="archivo_update"
-                                            id="archivo_update">
+                                            id="archivo_update" required>
                                         <img src="../../resources/img/iconos_formularios/download_100px.png">
                                     </a>
                                 </div>
@@ -407,7 +405,7 @@
                         <p>
                             Generar reporte de los propietarios según el tipo propietario
                         </p>
-                        <select id="id_tipo_propietario_rep" name="id_tipo_propietario" class="form-control">
+                        <select id="id_tipo_propietario" name="id_tipo_propietario" class="form-control">
                         </select>
                         <button onclick="createPropietarioPDF()">
                             Generar
@@ -476,7 +474,7 @@
     integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13"
     crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script type="module" src="../../controller/privada/propietario/propietario.js"></script>
+<script type="module" src="../../controller/privada/propietario.js"></script>
 
 </body>
 

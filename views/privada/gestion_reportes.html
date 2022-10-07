@@ -112,14 +112,14 @@
             <form class="d-flex" method="post" id="search-bar">
                 <input class="form-control me-2" name="search" placeholder="Búsqueda de Datos" aria-label="Search"
                     required>
-                <button class="btn"  type="submit"><img src="../../resources/img/iconos_navbar/search_24px.png"></button>
+                <button class="btn" type="submit"><img src="../../resources/img/iconos_navbar/search_24px.png"></button>
             </form>
         </div>
         <!-- Botones de SCRUD, actualizar y agregar -->
         <div class="container-fluid d-flex justify-content-between" id="opciones">
             <a onclick="createReporteReportesPDF()" class="btn btn-primary" id="button_ver_mas">Generar reporte</a>
             <div class="btn-group" role="group">
-                <button type="button" class="edit_add_deleteButtons add" id="btnmenu" data-bs-toggle="modal"
+                <button type="button" class="btn btn-primary" id="btnmenu" data-bs-toggle="modal"
                     data-bs-target="#agregar"><a class="nav-link"><img
                             src="../../resources/img/iconos_formularios/agregar_26px.png"></a></button>
             </div>
@@ -162,12 +162,12 @@
                                     <label for="asunto" class="form-label">Asunto</label>
                                     <input type="text" name="asunto" id="asunto" rows="4" class="form-control"
                                         autocomplete="off" placeholder="Ingrese el Asunto" required
-                                        maxlength="100">
+                                        maxlength="100"></input>
 
                                     <label for="descripcion" class="form-label">Descripción</label>
                                     <input type="text" name="descripcion" id="descripcion" rows="4" class="form-control"
                                         autocomplete="off" placeholder="Ingrese la Descripción" required
-                                        maxlength="300">
+                                        maxlength="300"></input>
 
                                     <label for="inquilino" class="form-label">Inquilino</label>
                                     <select onchange="seleccionarInquilino('inquilinos')" id="inquilinos"
@@ -177,7 +177,7 @@
                                 </div>
                                 <div class="col">
                                     <label for="upload_image" class="form-label">Imagen</label><br>
-                                    <a class="btn"  name="archivo" id="upload_image">
+                                    <a class="btn" name="archivo" id="upload_image">
                                         <input accept="image/jpeg" type="file" autocomplete="off"
                                             class="form-control form-control-sm form-Input-Style" name="archivo"
                                             required>
@@ -237,7 +237,7 @@
                                 </div>
                                 <div class="col">
                                     <label for="upload_image" class="form-label">Imagen</label>
-                                    <a class="btn"  name="archivo" id="upload_image">
+                                    <a class="btn" name="archivo" id="upload_image">
                                         <input accept="image/jpeg" name="archivo" type="file"
                                             class="form-control form-control-sm form-Input-Style">
                                         <img src="../../resources/img/iconos_formularios/download_100px.png">
@@ -248,10 +248,10 @@
                         <div class="modal-footer">
                             <div class="btn-group" role="group" id="opcionesModal">
                                 <button type="submit" class="btn btn-primary" id="btnmenu"><a class="nav-link"><img
-                                            src="../../resources/img/iconos_formularios/agregar_26px.png"></a></button>
+                                            src="../img/iconos_formularios/agregar_26px.png"></a></button>
                                 <button type="button" class="btn btn-primary" id="btnmenu" data-bs-dismiss="modal"><a
                                         class="nav-link"><img
-                                            src="../../resources/img/iconos_formularios/cerrar_26px.png"></a></button>
+                                            src="../img/iconos_formularios/cerrar_26px.png"></a></button>
                             </div>
                         </div>
                     </form>
@@ -368,7 +368,7 @@
         integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13"
         crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script type="module" src="../../controller/privada/reportes/reportes.js"></script>
+    <script type="module" src="../../controller/privada/reportes.js"></script>
 
 
 

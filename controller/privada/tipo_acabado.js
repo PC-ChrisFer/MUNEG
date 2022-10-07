@@ -1,10 +1,9 @@
-//@ts-check
+//Importar las constantes y metodos de components.js y api_constant.js
 import { APIConnection } from "../APIConnection.js";
 import { deleteRow, readRows, saveRow, readDeletedRowns, obtenerFechaActual, generatePDF } from "../components.js";
 import { SERVER, API_CREATE, API_UPDATE, POST_METHOD, GET_METHOD } from "../constants/api_constant.js";
-import { getElementById } from "../constants/helpers.js";
+import { getElementById } from "../constants/functions.js";
 import { validateExistenceOfUser } from "../constants/validationUser.js";
-import { inactivityTime } from "../soporte/soporte.js";
 
 //Constantes que establece la comunicación entre la API y el controller utilizando parametros y rutas
 const API_GESTION_ACABADO = SERVER + "privada/tipo_acabado.php?action=";
@@ -46,11 +45,11 @@ function fillTableGestionAcabado(dataset) {
              <td>${row.nombre_tipo}</td>
              <td>${row.visibilidad}</td>
              <td class="d-flex justify-content-center">
-             <a onclick="guardarDatosUpdate(${row.id_tipo_acabado},${row.visibilidad},'${row.nombre_tipo}')" class="btn edit_add_deleteButtons edit"  id="button_ver_mas">
-               <img  src="../../resources/img/iconos_formularios/edit_icon.png"   style="width: 35px; height: 35px;"></a>
-             <a onclick="guardarDatosDelete(${row.id_tipo_acabado})" class="btn edit_add_deleteButtons delete"  id="button_ver_mas">
-               <img src="../../resources/img/iconos_formularios/trash_icon.png" style="width: 35px; height: 35px;"></a>
-             <a onclick="generarReporteTipoAcabado(${row.id_tipo_acabado})" class="btn edit_add_deleteButtons edit"  id="button_ver_mas">Generar Reporte</a>
+             <a onclick="guardarDatosUpdate(${row.id_tipo_acabado},${row.visibilidad},'${row.nombre_tipo}')" class="btn" id="button_ver_mas">
+               <img  src="../../resources/img/iconos_formularios/edit_35px.png"></a>
+             <a onclick="guardarDatosDelete(${row.id_tipo_acabado})" class="btn" id="button_ver_mas">
+               <img src="../../resources/img/iconos_formularios/trash_can_35px.png"></a>
+             <a onclick="generarReporteTipoAcabado(${row.id_tipo_acabado})" class="btn" id="button_ver_mas">Generar Reporte</a>
          </td>
          </tr>
         `;
@@ -325,3 +324,28 @@ window.generarReporteTipoAcabado = async (tipo_acabado_ID, nombre_tipo_acabado) 
   
   window.open("../../api/reporte/" +  nombre_tipo_acabado + "_nombre_tipo_acabado" + ".pdf");
 }
+
+var inactivityTime = function () {
+  var time;
+  window.onload = resetTimer;
+  // DOM Events
+  document.onmousemove = resetTimer;
+  document.onkeydown = resetTimer;
+
+  async function logout() {
+    let APIEndpoint = API_USUARIO + "logOut";
+    let APIResponse = await APIConnection(APIEndpoint, GET_METHOD, null);
+  
+    if (APIResponse.status == API_SUCESS_REQUEST) {
+      location.href = "index.html";
+      return;
+    }
+    console.log("SOMETHING WENT WRONG");
+  }
+
+  function resetTimer() {
+      clearTimeout(time);
+      time = setTimeout(logout, 300000)
+      // 1000 milliseconds = 1 second
+  }
+};

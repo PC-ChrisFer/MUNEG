@@ -1,10 +1,9 @@
-// @ts-check
+// @ts-ignore
 //Importar las constantes y metodos de components.js y api_constant.js
 import { readRows, saveRow, searchRows, deleteRow, readDeletedRowns } from "../components.js";
-import { getElementById } from "../constants/helpers.js";
+import { getElementById } from "../constants/functions.js";
 import { API_CREATE, API_UPDATE, GET_METHOD, SERVER } from "../constants/api_constant.js";
 import { validateExistenceOfUser } from "../constants/validationUser.js";
-import { inactivityTime } from "../soporte/soporte.js";
 
 
 //Constantes que establece la comunicación entre la API y el controller utilizando parametros y rutas
@@ -37,11 +36,11 @@ document.addEventListener("DOMContentLoaded", async () => {
                 
                 <td class="d-flex justify-content-center">
                     <div class="btn-group" role="group">
-                            <a onclick="guardarDatosTipoEmpleadoUpdate('${row.id_tipo_empleado}', '${row.nombre_tipo}', '${row.visibilidad}')" class="btn edit_add_deleteButtons edit"   id="button_ver_mas">
-                                <img src="../../resources/img/iconos_formularios/edit_icon.png"   style="width: 35px; height: 35px;"></a>
-                            <a  onclick="guardarDatosTipoEmpleadoDelete('${row.id_tipo_empleado}')"  class="btn edit_add_deleteButtons delete"   id="button_ver_mas"  
+                            <a onclick="guardarDatosTipoEmpleadoUpdate('${row.id_tipo_empleado}', '${row.nombre_tipo}', '${row.visibilidad}')" class="btn"  id="button_ver_mas">
+                                <img src="../../resources/img/iconos_formularios/edit_35px.png"></a>
+                            <a  onclick="guardarDatosTipoEmpleadoDelete('${row.id_tipo_empleado}')"  class="btn"  id="button_ver_mas"  
                             name="search">
-                                <img src="../../resources/img/iconos_formularios/trash_icon.png" style="width: 35px; height: 35px;"></a>
+                                <img src="../../resources/img/iconos_formularios/trash_can_35px.png"></a>
                     </div>
                 </td>
             </tr>
@@ -138,3 +137,28 @@ getElementById("delete-form").addEventListener("submit", async (event) => {
     $("#eliminar").modal("hide");
 
 });
+
+var inactivityTime = function () {
+    var time;
+    window.onload = resetTimer;
+    // DOM Events
+    document.onmousemove = resetTimer;
+    document.onkeydown = resetTimer;
+  
+    async function logout() {
+      let APIEndpoint = API_USUARIO + "logOut";
+      let APIResponse = await APIConnection(APIEndpoint, GET_METHOD, null);
+    
+      if (APIResponse.status == API_SUCESS_REQUEST) {
+        location.href = "index.html";
+        return;
+      }
+      console.log("SOMETHING WENT WRONG");
+    }
+  
+    function resetTimer() {
+        clearTimeout(time);
+        time = setTimeout(logout, 300000)
+        // 1000 milliseconds = 1 second
+    }
+  };

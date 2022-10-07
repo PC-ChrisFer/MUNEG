@@ -109,15 +109,15 @@
             <form class="d-flex" method="post" id="search-bar">
                 <input class="form-control me-2" name="search" placeholder="Búsqueda de Datos" aria-label="Search"
                     required>
-                <button class="btn"  type="submit"><img src="../../resources/img/iconos_navbar/search_24px.png"></button>
+                <button class="btn" type="submit"><img src="../../resources/img/iconos_navbar/search_24px.png"></button>
             </form>
         </div>
 
         <!-- Botones de SCRUD, actualizar y agregar -->
         <div class="container-fluid  d-flex justify-content-between" id="opciones">
-            <a class="btn btn-primary" id="button_ver_mas" href="gestion_tipo_empleado.html">Gestionar Tipo Empleado</a>
+            <a class="btn" id="button_ver_mas" href="gestion_tipo_empleado.html">Gestionar Tipo Empleado</a>
             <div class="btn-group" role="group">
-                <button type="button"  class="btn btn-primary" id="btnmenu" data-bs-toggle="modal"
+                <button type="button" class="btn btn-primary" id="btnmenu" data-bs-toggle="modal"
                     data-bs-target="#agregar"><a class="nav-link" href="#"><img
                             src="../../resources/img/iconos_formularios/agregar_26px.png"></a></button>
             </div>
@@ -216,7 +216,7 @@
                                 </div>
                                 <div class="col">
                                     <label for="upload_image" class="form-label">Imagen</label>
-                                    <a class="btn"  id="upload_image" name="archivo">
+                                    <a class="btn" id="upload_image" name="archivo">
                                         <input name="archivo" type="file"
                                             class="form-control form-control-sm form-Input-Style" required>
                                         <img src="../../resources/img/iconos_formularios/download_100px.png">
@@ -299,9 +299,9 @@
                                 </div>
                                 <div class="col">
                                     <label for="upload_image" class="form-label">Imagen</label>
-                                    <a class="btn"  id="upload_image" name="archivo">
+                                    <a class="btn" id="upload_image" name="archivo">
                                         <input name="archivo_update" type="file"
-                                            class="form-control form-control-sm form-Input-Style">
+                                            class="form-control form-control-sm form-Input-Style" required>
                                         <img src="../../resources/img/iconos_formularios/download_100px.png">
                                     </a>
                                 </div>
@@ -428,7 +428,7 @@
         integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13"
         crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script type="module" src="../../controller/privada/empleado/empleado.js"></script>
+    <script type="module" src="../../controller/privada/empleado.js"></script>
 </body>
 
 </html>

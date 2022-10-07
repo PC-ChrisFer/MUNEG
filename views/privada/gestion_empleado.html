@@ -109,15 +109,15 @@
             <form class="d-flex" method="post" id="search-bar">
                 <input class="form-control me-2" name="search" placeholder="Búsqueda de Datos" aria-label="Search"
                     required>
-                <button class="btn" type="submit"><img src="../../resources/img/iconos_navbar/search_24px.png"></button>
+                <button class="btn"  type="submit"><img src="../../resources/img/iconos_navbar/search_24px.png"></button>
             </form>
         </div>
 
         <!-- Botones de SCRUD, actualizar y agregar -->
         <div class="container-fluid  d-flex justify-content-between" id="opciones">
-            <a class="btn" id="button_ver_mas" href="gestion_tipo_empleado.html">Tipo Empleado</a>
+            <a class="btn btn-primary" id="button_ver_mas" href="gestion_tipo_empleado.html">Gestionar Tipo Empleado</a>
             <div class="btn-group" role="group">
-                <button type="button" class="btn btn-primary" id="btnmenu" data-bs-toggle="modal"
+                <button type="button"  class="btn btn-primary" id="btnmenu" data-bs-toggle="modal"
                     data-bs-target="#agregar"><a class="nav-link" href="#"><img
                             src="../../resources/img/iconos_formularios/agregar_26px.png"></a></button>
             </div>
@@ -157,26 +157,32 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <!-- Formulario de Insert-->
+
+        <!-- PUNTO 9 EMANUEL -->
+
                     <form method="post" id="insert_form">
                         <div class="modal-body" id="formModal">
                             <div class="row">
                                 <div class="col">
                                     <label for="nombre_empleado" class="form-label">Nombre</label>
                                     <input type="text" class="form-control" id="nombre_empleado" name="nombre_empleado"
-                                        placeholder="Ingrese el nombre del empleado" required>
+                                        autocomplete="off" placeholder="Ingrese el nombre del empleado" required
+                                        maxlength="50" pattern="[a-zA-Z ]{1,50}">
 
                                     <label for="apellido_empleado" class="form-label">Apellido</label>
-                                    <input type="text" class="form-control" id="apellido_empleado"
-                                        name="apellido_empleado" placeholder="Ingrese el apellido del empleado"
-                                        required>
+                                    <input type="text" class="form-control" id="apellido_empleado" autocomplete="off"
+                                        name="apellido_empleado" placeholder="Ingrese el apellido del empleado" required
+                                        maxlength="50" pattern="[a-zA-Z ]{1,50}">
 
                                     <label for="telefono" class="form-label">Teléfono</label>
                                     <input type="tel" class="form-control" id="telefono" name="numero_telefono"
-                                        placeholder="Ingrese el telefono del empleado" required>
+                                        autocomplete="off" placeholder="Ingrese el telefono del empleado" required
+                                        maxlength="13" pattern="[0-9+ ]{1,13}">
 
                                     <label for="correo_electronico" class="form-label">Correo Electrónico</label>
-                                    <input type="email" class="form-control" id="correo_electronico"
-                                        name="correo_electronico" placeholder="Ingrese correo electrónico" required>
+                                    <input type="email" class="form-control" id="correo_electronico" autocomplete="off"
+                                        name="correo_electronico" placeholder="Ingrese correo electrónico" required
+                                        maxlength="75">
 
                                     <label for="fecha_nacimiento" class="form-label">Fecha de Nacimiento</label>
                                     <input type="date" class="form-control" id="fecha_nacimiento"
@@ -190,12 +196,14 @@
                                     </select>
 
                                     <label for="dui" class="form-label">DUI</label>
-                                    <input type="text" class="form-control" id="dui" name="dui"
-                                        placeholder="Ingrese el DUI del empleado" required>
+                                    <input type="text" class="form-control" id="dui" name="dui" autocomplete="off"
+                                        placeholder="Ingrese el DUI del empleado" required maxlength="10"
+                                        pattern="[0-9-]{1,10}">
 
                                     <label for="nit" class="form-label">NIT</label>
                                     <input type="text" class="form-control" id="nit" name="nit"
-                                        placeholder="Ingrese NIT del empleado" required>
+                                        placeholder="Ingrese NIT del empleado" required maxlength="17"
+                                        pattern="[0-9-]{1,17}">
 
                                     <label for="tipo_empleado" class="form-label">Tipo de Empleado</label>
                                     <select class="form-control" id="tipo_empleado" name="tipo_empleado" required>
@@ -208,9 +216,9 @@
                                 </div>
                                 <div class="col">
                                     <label for="upload_image" class="form-label">Imagen</label>
-                                    <a class="btn" id="upload_image" name="archivo">
+                                    <a class="btn"  id="upload_image" name="archivo">
                                         <input name="archivo" type="file"
-                                            class="form-control form-control-sm form-Input-Style">
+                                            class="form-control form-control-sm form-Input-Style" required>
                                         <img src="../../resources/img/iconos_formularios/download_100px.png">
                                     </a>
                                 </div>
@@ -244,22 +252,25 @@
                                 <div class="col">
                                     <label for="nombre_empleado_update" class="form-label">Nombre</label>
                                     <input type="text" class="form-control" id="nombre_empleado_update"
-                                        name="nombre_empleado_update">
+                                        autocomplete="off" name="nombre_empleado_update" required maxlength="50"
+                                        pattern="[a-zA-Z ]{1,50}">
 
                                     <label for="apellido_empleado_update" class="form-label">Apellido</label>
                                     <input type="text" class="form-control" id="apellido_empleado_update"
-                                        name="apellido_empleado_update">
+                                        autocomplete="off" name="apellido_empleado_update" required maxlength="50"
+                                        pattern="[a-zA-Z ]{1,50}">
 
                                     <label for="telefono_update" class="form-label">Teléfono</label>
-                                    <input type="tel" class="form-control" id="telefono_update" name="telefono_update">
+                                    <input type="tel" class="form-control" id="telefono_update" name="telefono_update"
+                                        required maxlength="13" pattern="[0-9+ ]{1,13}">
 
                                     <label for="correo_electronico_update" class="form-label">Correo Electrónico</label>
                                     <input type="email" class="form-control" id="correo_electronico_update"
-                                        name="correo_electronico_update">
+                                        autocomplete="off" name="correo_electronico_update" maxlength="75">
 
                                     <label for="fecha_nacimiento_update" class="form-label">Fecha de Nacimiento</label>
                                     <input type="date" class="form-control" id="fecha_nacimiento_update"
-                                        name="fecha_nacimiento_update">
+                                        name="fecha_nacimiento_update" required>
                                 </div>
                                 <div class="col">
                                     <label for="genero_update" class="form-label">Género</label>
@@ -268,27 +279,29 @@
                                         <option value="F">Femenino</option>
                                     </select>
                                     <label for="dui_update" class="form-label">DUI</label>
-                                    <input type="text" class="form-control" id="dui_update" name="dui_update">
+                                    <input type="text" class="form-control" autocomplete="off" id="dui_update"
+                                        name="dui_update" required maxlength="10" pattern="[0-9-]{1,10}">
 
                                     <label for="nit_update" class="form-label">NIT</label>
-                                    <input type="text" class="form-control" id="nit_update" name="nit_update">
+                                    <input type="text" class="form-control" autocomplete="off" id="nit_update"
+                                        name="nit_update" required maxlength="17" pattern="[0-9-]{1,17}">
 
                                     <label for="tipo_empleado_update" class="form-label">Tipo de Empleado</label>
-                                    <select  class="form-control" id="tipo_empleado_update"
-                                        name="tipo_empleado_update">
+                                    <select class="form-control" id="tipo_empleado_update" name="tipo_empleado_update">
 
                                     </select>
 
                                     <label for="estado_empleado_update" class="form-label">Estado de Empleado</label>
-                                    <select  class="form-control" id="estado_empleado_update"
+                                    <select class="form-control" id="estado_empleado_update"
                                         name="estado_empleado_update">
 
                                     </select>
                                 </div>
                                 <div class="col">
                                     <label for="upload_image" class="form-label">Imagen</label>
-                                    <a class="btn" id="upload_image" name="archivo">
-                                        <input name="archivo_update" type="file" class="form-control form-control-sm form-Input-Style">
+                                    <a class="btn"  id="upload_image" name="archivo">
+                                        <input name="archivo_update" type="file"
+                                            class="form-control form-control-sm form-Input-Style">
                                         <img src="../../resources/img/iconos_formularios/download_100px.png">
                                     </a>
                                 </div>
@@ -345,6 +358,23 @@
                 </div>
             </div>
         </div>
+        <!-- Modal de reporte fallido -->
+        <div class="modal fade" id="errorReporte" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header" id="formHeader">
+                        <h5 class="modal-title">Error en el proceso</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        No se pudo generar el reporte, valide los datos ingreados
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary" data-bs-dismiss="modal" id="btnmenu">Aceptar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
         <!-- Modal de PROCESO REALIZADO -->
         <div class="modal fade" id="proceso_exito" tabindex="-1">
             <div class="modal-dialog modal-dialog-centered">
@@ -362,6 +392,25 @@
                 </div>
             </div>
         </div>
+        <!-- MODAL DE ERROR GENERICO -->
+        <div class="modal fade" id="modalErrorDeBaseDeDatos" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header" id="formHeader">
+                        <h5 class="modal-title">Error en el proceso</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p id="dataBaseErrorMessage">
+                            ...
+                        </p>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary" data-bs-dismiss="modal" id="btnmenu">Aceptar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </main>
 
     <footer class="text-white  pt-5 pb-4" id="Segundofooter">
@@ -371,6 +420,7 @@
     </footer>
 
     <!-- Activando Bootstrap desde JS -->
+    <script src="http://momentjs.com/downloads/moment.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
         integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB"
         crossorigin="anonymous"></script>
@@ -378,7 +428,7 @@
         integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13"
         crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script type="module" src="../../controller/privada/empleado.js"></script>
+    <script type="module" src="../../controller/privada/empleado/empleado.js"></script>
 </body>
 
 </html>

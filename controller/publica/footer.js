@@ -1,5 +1,5 @@
 //@ts-check
-import { getElementById } from "../constants/functions.js";
+import { getElementById } from "../constants/helpers.js";
 import {
   SERVER,
   API_CREATE

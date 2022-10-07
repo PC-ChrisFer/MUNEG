@@ -77,6 +77,7 @@ if (isset($_GET[ACTION])) {
             $_POST = $inquilino->validateSpace($_POST);
             $result[EXCEPTION] = is_uploaded_file($_FILES['archivo']['tmp_name']) ? null : "ARCHIVO INCORRECTO";
             $result[EXCEPTION] = $inquilino->setImage($_FILES['archivo']) ? null : $inquilino->getFileError();
+
             if (!$inquilino->setNombre($_POST[INQUILINO_NOMBRE])) {
                 $result[EXCEPTION] = 'Nombre incorrecto';
             } else if (!$inquilino->setApellido($_POST[INQUILINO_APELLIDO])) {
@@ -129,8 +130,18 @@ if (isset($_GET[ACTION])) {
             break;
         case UPDATE:
             $_POST = $inquilino->validateSpace($_POST);
-            $result[EXCEPTION] = is_uploaded_file($_FILES['archivo']['tmp_name']) ? null : "ARCHIVO INCORRECTO";
-            $result[EXCEPTION] = $inquilino->setImage($_FILES['archivo']) ? null : $inquilino->getFileError();
+
+            // validando si imagen a sido ingresada
+            if ($_FILES["archivo"]['error'] == 4) {
+                $result[EXCEPTION] = $inquilino->setImageName($_POST['imageName']) ? null : 'NOMBRE ARCHIVO NO ENVIADO';
+            } else {
+                $result[EXCEPTION] = $inquilino->setImage($_FILES["archivo"]) ? null : $propiedad->getFileError();
+                $result[EXCEPTION] = is_uploaded_file($_FILES["archivo"]['tmp_name']) ? null : "ARCHIVO INCORRECTO";
+                if ($inquilino->saveFile($_FILES["archivo"], $inquilino->getRutaImagenes(), $inquilino->getImagen())) {
+                    $result[MESSAGE] = 'Imagen ingresada correctanente';
+                }
+            }
+
             if (!$inquilino->setId($_POST[INQUILINO_ID])) {
                 $result[EXCEPTION] = 'id incorrecto';
             } else if (!$inquilino->setNombre($_POST[INQUILINO_NOMBRE])) {
@@ -149,18 +160,15 @@ if (isset($_GET[ACTION])) {
                 $result[EXCEPTION] = 'Correo electronico no valido';
             } else if (!$inquilino->setGenero($_POST[INQUILINO_GENERO])) {
                 $result[EXCEPTION] = 'Genero no disponible';
-            }  else if (!$inquilino->setNRC($_POST[INQUILINO_NCR])) {
+            } else if (!$inquilino->setNRC($_POST[INQUILINO_NCR])) {
                 $result[EXCEPTION] = 'Genero no disponible';
-            }  else if (!$inquilino->setEstadoInquilino($_POST[INQUILINO_ESTADO])) {
+            } else if (!$inquilino->setEstadoInquilino($_POST[INQUILINO_ESTADO])) {
                 $result[EXCEPTION] = 'Estado incorrecto';
             } else if (!$inquilino->setTipoInquilino($_POST[INQUILINO_TIPO])) {
                 $result[EXCEPTION] = 'Tipo incorrecto';
             } elseif ($inquilino->updateRow()) {
                 $result[STATUS] = SUCESS_RESPONSE;
                 $result[MESSAGE] = 'EMPLEADO modificada correctamente';
-                if ($inquilino->saveFile($_FILES["archivo"], $inquilino->getRutaImagenes(), $inquilino->getImagen())) {
-                    $result[MESSAGE] = 'Imagen ingresada correctanente';
-                }
                 if ($result[DATA_SET] = $inquilino->readAll()) {
                     $result[STATUS] = SUCESS_RESPONSE;
                 } elseif (Database::getException()) {
@@ -203,6 +211,22 @@ if (isset($_GET[ACTION])) {
                 $result[EXCEPTION] = Database::getException();
             } else {
                 $result[EXCEPTION] = 'No hay datos registrados';
+            }
+            break;
+        case 'graphInquilino':
+            if ($result[DATA_SET] = $inquilino->readInqulinoActivoInactivo()) {
+                $result[STATUS] = SUCESS_RESPONSE;
+            } else {
+                $result[EXCEPTION] = 'No hay datos disponibles';
+            }
+            break;
+        case 'graphInquilino2':
+            if (!$inquilino->setDepartamento($_POST['id_departamento'])) {
+                $result[EXCEPTION] = 'Identificador del deparamento incorrecto';
+            } elseif ($result[DATA_SET] = $inquilino->readInquilinosDepartamento()) {
+                $result[STATUS] = SUCESS_RESPONSE;
+            } else {
+                $result[EXCEPTION] = 'No hay datos disponibles';
             }
             break;
         default:

@@ -169,15 +169,24 @@ if (isset($_GET[ACTION])) {
                 $result[EXCEPTION] = 'Correo electronico no valido';
             } else if (!$empleado->setGenero($_POST[EMPLEADO_GENERO1])) {
                 $result[EXCEPTION] = 'Genero no disponible';
-            } elseif (!is_uploaded_file($_FILES[EMPLEADO_ARCHIVO1][TMP_NAME])) {
-                $result[EXCEPTION] = 'Seleccione una imagen';
-            } elseif (!$empleado->setImage($_FILES[EMPLEADO_ARCHIVO1])) {
-                $result[EXCEPTION] = $empleado->getFileError();
             } else if (!$empleado->setEstadoEmpleado($_POST[EMPLEADO_ESTADO1])) {
                 $result[EXCEPTION] = 'Estado incorrecto';
             } else if (!$empleado->setTipoEmpleado($_POST[EMPLEADO_TIPO1])) {
                 $result[EXCEPTION] = 'Tipo incorrecto';
-            } elseif ($empleado->updateRow()) {
+            }
+
+            // validando si imagen a sido ingresada
+            if ($_FILES[EMPLEADO_ARCHIVO1]['error'] == 4) {
+                $result[EXCEPTION] = $empleado->setImageName($_POST['imageName']) ? null : 'NOMBRE ARCHIVO NO ENVIADO';
+            } else {
+                $result[EXCEPTION] = $empleado->setImage($_FILES[EMPLEADO_ARCHIVO1]) ? null : $propiedad->getFileError();
+                $result[EXCEPTION] = is_uploaded_file($_FILES[EMPLEADO_ARCHIVO1]['tmp_name']) ? null : "ARCHIVO INCORRECTO";
+                if ($empleado->saveFile($_FILES[EMPLEADO_ARCHIVO1], $empleado->getRutaImagenes(), $empleado->getImagen())) {
+                    $result[MESSAGE] = 'Imagen ingresada correctanente';
+                }
+            }
+
+            if ($empleado->updateRow()) {
                 $result[STATUS] = SUCESS_RESPONSE;
                 $result[MESSAGE] = 'EMPLEADO modificada correctamente';
                 if ($empleado->saveFile($_FILES[EMPLEADO_ARCHIVO1], $empleado->getRutaImagenes(), $empleado->getImagen())) {
@@ -230,6 +239,20 @@ if (isset($_GET[ACTION])) {
                 $result[EXCEPTION] = Database::getException();
             } else {
                 $result[EXCEPTION] = 'No hay datos registrados';
+            }
+            break;
+        case 'graphTopEmpleado':
+            if ($result[DATA_SET] = $empleado->readTopEmpleados()) {
+                $result[STATUS] = SUCESS_RESPONSE;
+            } else {
+                $result[EXCEPTION] = 'No hay datos disponibles';
+            }
+            break;
+        case 'graphEmpleadoActivoInactivo':
+            if ($result[DATA_SET] = $empleado->readEmpleadoActivoInactivo()) {
+                $result[STATUS] = SUCESS_RESPONSE;
+            } else {
+                $result[EXCEPTION] = 'No hay datos disponibles';
             }
             break;
         default:

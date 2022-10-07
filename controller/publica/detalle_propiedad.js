@@ -4,7 +4,7 @@
 // @ts-ignore
 import { readRows, saveRow, searchRows, deleteRow } from "../components.js";
 import { SERVER, GET_METHOD } from "../constants/api_constant.js";
-import { getElementById, getFormData } from "../constants/functions.js";
+import { getElementById, getFormData } from "../constants/helpers.js";
 import { APIConnection } from "../APIConnection.js";
 
 //Constantes que establece la comunicación entre la API y el controller utilizando parametros y rutas
@@ -52,7 +52,7 @@ export function fillDetallePropiedad(dataset) {
         <div class="card1 mb-6" id="card_detalle">
             <div class="row" id="contenero_cartas12">
                 <div class="col-md-5" id="separado123">
-                    <img src="../../api/imagenes/propiedad/${row.imagen}"
+                    <img src="${row.imagen}"
                         class="img-fluid rounded-start" alt="...">
                 </div>
                 <div class="col-md-5 " id="completo12">
@@ -62,19 +62,19 @@ export function fillDetallePropiedad(dataset) {
                         <div class="gallery">
                             <div class="row gy-4 row-cols-1 row-cols-sm-2 row-cols-md-3">
                                 <div class="col">
-                                    <img src="../../api/imagenes/propiedad/${row.imagen}"
+                                    <img src="${row.imagen}"
                                         class="gallery-item" alt="gallery">
                                 </div>
                                 <div class="col">
-                                    <img src="../../api/imagenes/propiedad/${row.imagen}"
+                                    <img src="${row.imagen}"
                                         class="gallery-item" alt="gallery">
                                 </div>
                                 <div class="col">
-                                    <img src="../../api/imagenes/propiedad/${row.imagen}"
+                                    <img src="${row.imagen}"
                                         class="gallery-item" alt="gallery">
                                 </div>
                                 <div class="col">
-                                    <img src="../../api/imagenes/propiedad/${row.imagen}"
+                                    <img src="${row.imagen}"
                                         class="gallery-item" alt="gallery">
                                 </div>
                             </div>

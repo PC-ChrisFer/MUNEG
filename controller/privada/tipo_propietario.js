@@ -2,20 +2,21 @@
 //Importar las constantes y metodos de components.js y api_constant.js
 import { readRows, saveRow, searchRows, deleteRow } from "../components.js";
 import {
-    INSERT_MODAL,
-    SEARCH_BAR,
-    SERVER,
-    SUBMIT,
+    API_SUCESS_REQUEST,
+    SERVER
 } from "../constants/api_constant.js";
 import {
     getElementById,
      validateExistenceOfUser,
-} from "../constants/functions.js";
+} from "../constants/helpers.js";
 import { API_CREATE, API_UPDATE, GET_METHOD } from "../constants/api_constant.js";
-import { APIConnection } from "../APIConnection.js";
+import { inactivityTime } from "../soporte/soporte.js";
+
 
 //Constantes que establece la comunicación entre la API y el controller utilizando parametros y rutas
 const API_TIPO_PROPIETARIO = SERVER + "privada/tipo_propietario.php?action=";
+const API_USUARIO = SERVER + 'privada/usuario.php?action=';
+
 
 // JSON EN EN CUAL SE GUARDA INFORMACION DE EL TIPO DE EMPLEADO, ESTA INFORMACION
 // SE ACTUALIZA CUANDO SE DA CLICK EN ELIMINAR O HACER UN UPDATE, CON LA FUNCION "guardarDatosTipoEmpleado"
@@ -31,6 +32,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     await validateExistenceOfUser();
     // Se llama a la función que obtiene los registros para llenar la tabla. Se encuentra en el archivo components.js
     await readRows(API_TIPO_PROPIETARIO, fillTableTipoPropietario);
+    inactivityTime();
 });
 
 //Metodo para llenar las tablas de datos, utiliza la función readRows()
@@ -48,11 +50,11 @@ document.addEventListener("DOMContentLoaded", async () => {
                 <td class="d-flex justify-content-center">
                     <div class="btn-group" role="group">
                             <a onclick="guardarDatosTipoPropietarioUpdate('${row.id_tipo_propietario}', '${row.nombre_tipo}', '${row.visibilidad}')" class="btn btn-primary">
-                                <img src="../../resources/img/iconos_formularios/edit_35px.png" data-bs-toggle="modal"
+                                <img src="../../resources/img/iconos_formularios/edit_icon.png"   style="width: 35px; height: 35px;" data-bs-toggle="modal"
                                 data-bs-target="#actualizar"></a>
-                            <a  onclick="guardarDatosTipoPropietarioDelete(${row.id_tipo_propietario})"  class="btn btn-primary"  
+                            <a  onclick="guardarDatosTipoPropietarioDelete(${row.id_tipo_propietario})"  class="btn edit_add_deleteButtons delete"  
                             name="search">
-                                <img src="../../resources/img/iconos_formularios/trash_can_35px.png" data-bs-toggle="modal"
+                                <img src="../../resources/img/iconos_formularios/trash_icon.png" style="width: 35px; height: 35px;" data-bs-toggle="modal"
                                 data-bs-target="#eliminar"></a>
                     </div>
                 </td>

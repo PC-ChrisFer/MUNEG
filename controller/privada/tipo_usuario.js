@@ -1,8 +1,9 @@
-//Importar las constantes y metodos de components.js y api_constant.js
+//@ts-check
 import { deleteRow, readRows, saveRow, searchRows, readDeletedRowns } from "../components.js";
 import { SERVER, API_CREATE, API_UPDATE } from "../constants/api_constant.js";
-import { getElementById } from "../constants/functions.js";
+import { getElementById } from "../constants/helpers.js";
 import { validateExistenceOfUser } from "../constants/validationUser.js";
+import { inactivityTime } from "../soporte/soporte.js";
 
 //Constantes que establece la comunicación entre la API y el controller utilizando parametros y rutas
 const API_GESTION_TIPO_USUARIO = SERVER + "privada/tipo_usuario.php?action=";
@@ -23,6 +24,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   await validateExistenceOfUser();
   // Se llama a la función que obtiene los registros para llenar la tabla. Se encuentra en el archivo components.js
   await readRows(API_GESTION_TIPO_USUARIO, fillTableTipoUsuario);
+  inactivityTime();
 });
 
 
@@ -38,10 +40,10 @@ function fillTableTipoUsuario(dataset) {
              <td>${row.nombre_tipo}</td>
              <td>${row.visibilidad}</td>
              <td class="d-flex justify-content-center">
-             <a onclick="guardarDatosUpdate(${row.id_tipo_usuario},${row.visibilidad},'${row.nombre_tipo}')" class="btn" id="button_ver_mas">
-               <img  src="../../resources/img/iconos_formularios/edit_35px.png"></a>
-             <a onclick="guardarDatosDelete(${row.id_tipo_usuario})" class="btn" id="button_ver_mas">
-               <img src="../../resources/img/iconos_formularios/trash_can_35px.png"></a>
+             <a onclick="guardarDatosUpdate(${row.id_tipo_usuario},${row.visibilidad},'${row.nombre_tipo}')" class="btn edit_add_deleteButtons edit"  id="button_ver_mas">
+               <img  src="../../resources/img/iconos_formularios/edit_icon.png"   style="width: 35px; height: 35px;"></a>
+             <a onclick="guardarDatosDelete(${row.id_tipo_usuario})" class="btn edit_add_deleteButtons delete"  id="button_ver_mas">
+               <img src="../../resources/img/iconos_formularios/trash_icon.png" style="width: 35px; height: 35px;"></a>
          </td>
          </tr>
         `;

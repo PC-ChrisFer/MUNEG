@@ -103,13 +103,13 @@
             <form class="d-flex" method="post" id="search-bar">
                 <input class="form-control me-2" name="search" placeholder="Búsqueda de Datos" aria-label="Search"
                     required>
-                <button class="btn" type="submit"><img src="../../resources/img/iconos_navbar/search_24px.png"></button>
+                <button class="btn"  type="submit"><img src="../../resources/img/iconos_navbar/search_24px.png"></button>
             </form>
         </div>
         <!--Botón para agregar un nuevo tipo de inquilino-->
         <div class="container-fluid" id="opciones">
             <div class="btn-group" role="group">
-                <button type="button" class="btn btn-primary" id="btnmenu" data-bs-toggle="modal"
+                <button type="button" class="edit_add_deleteButtons add" id="btnmenu" data-bs-toggle="modal"
                     data-bs-target="#agregar"><a class="nav-link"><img
                             src="../../resources/img/iconos_formularios/agregar_26px.png"></a></button>
             </div>
@@ -145,10 +145,10 @@
                             <div class="row">
                                 <div class="col">
                                     <label for="propietario" class="form-label">Nombre del tipo propietario</label>
-                                    <input type="text" class="form-control" id="tipo_propietario"
+                                    <input type="text" class="form-control" id="tipo_propietario" autocomplete="off"
                                         name="tipo_propietario" placeholder="Escriba un nombre a la Propietario"
                                         required>
-                                </div>  
+                                </div>
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -179,8 +179,8 @@
                                 <div class="col">
                                     <label for="propietario" class="form-label">Nombre del tipo propietario</label>
                                     <input type="text" class="form-control" id="tipo_propietario_update"
-                                        name="tipo_propietario_update" placeholder="Escriba un nombre a la Propietario"
-                                        required>
+                                        autocomplete="off" name="tipo_propietario_update"
+                                        placeholder="Escriba un nombre a la Propietario" required>
                                 </div>
                                 <div class="col">
                                     <label for="" class="form-label">Visibilidad</label><br>
@@ -201,6 +201,23 @@
                             </div>
                         </div>
                     </form>
+                </div>
+            </div>
+        </div>
+        <!-- Modal de reporte fallido -->
+        <div class="modal fade" id="errorReporte" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header" id="formHeader">
+                        <h5 class="modal-title">Error en el proceso</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        No se pudo generar el reporte, valide los datos ingreados
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary" data-bs-dismiss="modal" id="btnmenu">Aceptar</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -260,6 +277,26 @@
                 </div>
             </div>
         </div>
+
+        <!-- MODAL DE ERROR GENERICO -->
+        <div class="modal fade" id="modalErrorDeBaseDeDatos" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header" id="formHeader">
+                        <h5 class="modal-title">Error en el proceso</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p id="dataBaseErrorMessage">
+                            ...
+                        </p>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary" data-bs-dismiss="modal" id="btnmenu">Aceptar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </main>
     <footer class="text-white  pt-5 pb-4" id="Segundofooter">
         <div class="container-fluid">
@@ -268,6 +305,7 @@
     </footer>
 
     <!-- Activando Bootstrap desde JS -->
+    <script src="http://momentjs.com/downloads/moment.min.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
         integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB"
@@ -276,7 +314,7 @@
         integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13"
         crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script type="module" src="../../controller/privado/tipo_propietario.js"></script>
+    <script type="module" src="../../controller/privada/tipo_propietario/tipo_propietario.js"></script>
 </body>
 
 </html>

@@ -1,11 +1,11 @@
-// @ts-ignore
+// @ts-check
 //Importar las constantes y metodos de components.js y api_constant.js
 import { readRows, saveRow, searchRows, deleteRow, readDeletedRowns } from "../components.js";
 import { SERVER } from "../constants/api_constant.js";
-import { getElementById } from "../constants/functions.js";
+import { getElementById } from "../constants/helpers.js";
 import { API_CREATE, API_UPDATE } from "../constants/api_constant.js"; 
 import { validateExistenceOfUser } from "../constants/validationUser.js";
-
+import { inactivityTime } from "../soporte/soporte.js";
 
 //Constantes que establece la comunicación entre la API y el controller utilizando parametros y rutas
 const API_TIPO_INQUILINO = SERVER + "privada/tipo_inquilino.php?action=";
@@ -22,6 +22,7 @@ let datos_tipo_inquilino = {
 document.addEventListener("DOMContentLoaded", async () => {
     await validateExistenceOfUser();
     await readRows(API_TIPO_INQUILINO, fillTableTipoInquilino);
+    inactivityTime();
 });
 
 //Metodo para llenar las tablas de datos, utiliza la función readRows()
@@ -36,11 +37,11 @@ document.addEventListener("DOMContentLoaded", async () => {
                 
                 <td class="d-flex justify-content-center">
                     <div class="btn-group" role="group">
-                            <a onclick="guardarDatosTipoInquilinoUpdate('${row.id_tipo_inquilino}', '${row.nombre_tipo}', '${row.visibilidad}')" class="btn" id="button_ver_mas">
-                                <img src="../../resources/img/iconos_formularios/edit_35px.png"></a>
-                            <a  onclick="guardarDatosTipoInquilinoDelete('${row.id_tipo_inquilino}')"  class="btn"  id="button_ver_mas"
+                            <a onclick="guardarDatosTipoInquilinoUpdate('${row.id_tipo_inquilino}', '${row.nombre_tipo}', '${row.visibilidad}')" class="btn edit_add_deleteButtons edit"  id="button_ver_mas">
+                                <img src="../../resources/img/iconos_formularios/edit_icon.png"   style="width: 35px; height: 35px;"></a>
+                            <a  onclick="guardarDatosTipoInquilinoDelete('${row.id_tipo_inquilino}')"  class="btn edit_add_deleteButtons delete"   id="button_ver_mas"
                             name="search">
-                                <img src="../../resources/img/iconos_formularios/trash_can_35px.png"></a>
+                                <img src="../../resources/img/iconos_formularios/trash_icon.png" style="width: 35px; height: 35px;"></a>
                     </div>
                 </td>
             </tr>

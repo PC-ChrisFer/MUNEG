@@ -9,11 +9,10 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
     <link rel="stylesheet" href="../../resources/css/estilo_privado.css">
     <title>MUNEG S.A C.V</title>
 </head>
-
-
 
 <body>
     <!-- Header Privado -->
@@ -109,13 +108,19 @@
             <form class="d-flex" method="post" id="search-bar">
                 <input class="form-control me-2" name="search" placeholder="Búsqueda de Datos" aria-label="Search"
                     required>
-                <button class="btn" type="submit"><img src="../../resources/img/iconos_navbar/search_24px.png"></button>
+                <button class="btn"  type="submit"><img src="../../resources/img/iconos_navbar/search_24px.png"></button>
             </form>
         </div>
         <!-- Botones de SCRUD, actualizar y agregar -->
-        <div class="container-fluid" id="opciones">
+        <div class="container-fluid d-flex justify-content-between" id="opciones">
             <div class="btn-group" role="group">
-                <button type="button" class="btn btn-primary" id="btnmenu" data-bs-toggle="modal"
+                <button type="button" class="btn btn-primary" id="button_ver_mas" data-bs-toggle="modal"
+                    data-bs-target="#generar_grafico">Generar Gráfico</button>
+                <a data-bs-toggle="modal" data-bs-target="#reportes" class="btn btn-primary" id="button_ver_mas">Generar reporte</a>
+            </div>
+
+            <div class="btn-group" role="group">
+                <button type="button" class="edit_add_deleteButtons add" id="btnmenu" data-bs-toggle="modal"
                     data-bs-target="#agregar"><a class="nav-link"><img
                             src="../../resources/img/iconos_formularios/agregar_26px.png"></a></button>
             </div>
@@ -177,12 +182,13 @@
                                 <div class="col">
                                     <label for="descripcion" class="form-label">Descripción</label>
                                     <textarea name="descripcion" id="descripcion" rows="4" class="form-control"
-                                        placeholder="Ingrese una descripción del Contrato" required></textarea>
+                                        placeholder="Ingrese una descripción del Contrato" required maxlength="500"></textarea>
 
                                     <label for="formGroupExampleInput" class="form-label">Imagen</label><br>
-                                    <a class="btn" id="upload_image">
-                                        <input accept="image/jpeg" type="file" class="form-control form-control-sm form-Input-Style"
-                                            name="archivo" id="archivo" required>
+                                    <a class="btn"  id="upload_image">
+                                        <input accept="image/jpeg" type="file"
+                                            class="form-control form-control-sm form-Input-Style" name="archivo"
+                                            id="archivo" required>
                                         <img src="../../resources/img/iconos_formularios/download_100px.png">
                                     </a>
                                 </div>
@@ -210,7 +216,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <!-- Formulario de Actualizacion-->
-                    <form method="post" id="update_form"> 
+                    <form method="post" id="update_form">
                         <div class="modal-body" id="formModal">
                             <div class="row">
                                 <div class="col">
@@ -242,12 +248,13 @@
                                     <label for="descripcion" class="form-label">Descripción</label>
                                     <textarea name="descripcion_update" id="descripcion_update" rows="4"
                                         class="form-control" placeholder="Ingrese una descripción del Contrato"
-                                        required></textarea>
+                                        required maxlength="500"></textarea>
 
                                     <label for="formGroupExampleInput" class="form-label">Imagen</label><br>
-                                    <a class="btn" id="upload_image">
-                                        <input accept="image/jpeg" type="file" class="form-control form-control-sm form-Input-Style"
-                                            name="archivo" id="archivo" required>
+                                    <a class="btn"  id="upload_image">
+                                        <input accept="image/jpeg" type="file"
+                                            class="form-control form-control-sm form-Input-Style" name="archivo"
+                                            id="archivo" >
                                         <img src="../../resources/img/iconos_formularios/download_100px.png">
                                     </a>
                                 </div>
@@ -322,23 +329,113 @@
                 </div>
             </div>
         </div>
-                <!-- Modal de PROCESO FALLIDO -->
-                <div class="modal fade" id="error_proceso" tabindex="-1">
-                    <div class="modal-dialog modal-dialog-centered">
-                        <div class="modal-content">
-                            <div class="modal-header" id="formHeader">
-                                <h5 class="modal-title">Error en el proceso</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <!-- Modal de GENERAR GRAFICO -->
+        <div class="modal fade" id="generar_grafico" tabindex="-1">
+            <div class="modal-dialog modal-lg modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header" id="formHeader">
+                        <h5 class="modal-title">Generar Gráfico</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-8">
+                                <label for="fecha_firma" class="form-label">Fecha Inicial</label>
+                                <input type="date" class="form-control" id="fecha_firma_inicial" name="fecha_firma"
+                                    required>
+                                <label for="fecha_firma" class="form-label">Fecha Final</label>
+                                <input type="date" class="form-control" id="fecha_firma_final" name="fecha_firma_final"
+                                    required>
                             </div>
-                            <div class="modal-body">
-                                No se pudo realizar el proceso debido a que hubo un error.
+                            <div class="col-4">
+                                <button onclick="generarGrafico()" class="btn btn-primary"
+                                    id="button_ver_mas">GENERAR</button>
                             </div>
-                            <div class="modal-footer">
-                                <button class="btn btn-primary" data-bs-dismiss="modal" id="btnmenu">Aceptar</button>
-                            </div>
+                        </div>
+                        <div id="graph_contrato">
+
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+        <!-- Modal de reporte  -->
+        <div class="modal fade" id="reportes" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header" id="formHeader">
+                        <h5 class="modal-title" id="exampleModalToggleLabe3">Confirmar</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="reporte_casas_mas_vendidas_alquiladas">
+                        <p>
+                            Generar reporte de los contratos por el mes de la firma
+                        </p>
+
+                        <button onclick="createContratoOrdenPDF()">
+                            Generar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Modal de reporte fallido -->
+        <div class="modal fade" id="errorReporte" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header" id="formHeader">
+                        <h5 class="modal-title">Error en el proceso</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        No se pudo generar el reporte, valide los datos ingreados
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary" data-bs-dismiss="modal" id="btnmenu">Aceptar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Modal de PROCESO FALLIDO -->
+        <div class="modal fade" id="error_proceso" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header" id="formHeader">
+                        <h5 class="modal-title">Error en el proceso</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        No se pudo realizar el proceso debido a que hubo un error.
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary" data-bs-dismiss="modal" id="btnmenu">Aceptar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+                        <!-- MODAL DE ERROR GENERICO -->
+        <div class="modal fade" id="modalErrorDeBaseDeDatos" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header" id="formHeader">
+                        <h5 class="modal-title">Error en el proceso</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p id="dataBaseErrorMessage">
+                        ...
+                        </p>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary" data-bs-dismiss="modal" id="btnmenu">Aceptar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Importación de librería para generar gráficos en tiempo real. Para más información https://www.chartjs.org/ -->
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js"></script>
     </main>
 
     <footer class="text-white  pt-5 pb-4" id="Segundofooter">
@@ -348,6 +445,8 @@
     </footer>
 
     <!-- Activando Bootstrap desde JS -->
+    <script src="http://momentjs.com/downloads/moment.min.js"></script>
+
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
         integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB"
         crossorigin="anonymous"></script>
@@ -355,7 +454,7 @@
         integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13"
         crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script type="module" src="../../controller/privada/contrato.js"></script>
+    <script type="module" src="../../controller/privada/contratos/contrato.js"></script>
 
 </body>
 

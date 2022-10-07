@@ -94,10 +94,15 @@ if (isset($_GET[ACTION])) {
             $result[EXCEPTION] = $reporte->setEstado($_POST['estado_update']) ? null : 'Estado incorrecto';
             $result[EXCEPTION] = $reporte->setId($_POST['reporte_id']) ? null : 'Reporte incorrecto';
 
-            if (is_uploaded_file($_FILES['archivo']['tmp_name'])) {
-                $result[EXCEPTION] = $reporte->setImage($_FILES['archivo']) ? null : $reporte->getFileError();
+            // validando si imagen a sido ingresada
+            if ($_FILES["archivo"]['error'] == 4) {
+                $result[EXCEPTION] = $reporte->setImageName($_POST['imageName']) ? null : 'NOMBRE ARCHIVO NO ENVIADO';
             } else {
-                $result[EXCEPTION] = $reporte->setNoUpdatedImage($_POST['NoUpdatedImage']) ? null : "IMAGEN INCORRECTA";
+                $result[EXCEPTION] = $reporte->setImage($_FILES["archivo"]) ? null : $propiedad->getFileError();
+                $result[EXCEPTION] = is_uploaded_file($_FILES["archivo"]['tmp_name']) ? null : "ARCHIVO INCORRECTO";
+                if ($reporte->saveFile($_FILES["archivo"], $reporte->getRutaImagenes(), $reporte->getImagen())) {
+                    $result[MESSAGE] = 'Imagen ingresada correctanente';
+                }
             }
 
             if ($result[EXCEPTION] != null) {
@@ -105,10 +110,8 @@ if (isset($_GET[ACTION])) {
             } elseif ($reporte->updateRow()) {
                 $result[MESSAGE] = 'Registro modificado correctamente';
                 $result[DATA_SET] = $reporte->readAll();
-                $result[STATUS] =  $result[DATA_SET] ? SUCESS_RESPONSE : 'No hay datos registrados';
-                if ($reporte->saveFile($_FILES["archivo"], $reporte->getRutaImagenes(), $reporte->getImagen())) {
-                    $result[MESSAGE] = 'Imagen ingresada correctanente';
-                }
+                $result[STATUS] =  SUCESS_RESPONSE ;
+
             } else {
                 $result[EXCEPTION] = Database::getException();
             }

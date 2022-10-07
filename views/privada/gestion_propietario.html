@@ -9,6 +9,8 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <!-- libreria -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
     <link rel="stylesheet" href="../../resources/css/estilo_privado.css">
 
     <title>MUNEG S.A C.V</title>
@@ -101,7 +103,7 @@
             </div>
         </nav>
         <div class="container-fluid" id="encabezado">
-            <h1>GESTIÓN DE TIPO CATEGORIA</h1>
+            <h1>GESTIÓN DE PROPIETARIO</h1>
         </div>
     </header>
     <main>
@@ -110,13 +112,16 @@
             <form class="d-flex" method="post" id="search-bar">
                 <input class="form-control me-2" name="search" placeholder="Búsqueda de Datos" aria-label="Search"
                     required>
-                <button class="btn" type="submit"><img src="../../resources/img/iconos_navbar/search_24px.png"></button>
+                <button class="btn"  type="submit"><img src="../../resources/img/iconos_navbar/search_24px.png"></button>
             </form>
         </div>
         <!-- Botones de SCRUD, actualizar y agregar -->
-        <div class="container-fluid" id="opciones">
+        <div class="container-fluid d-flex justify-content-between" id="opciones">
+            <button class="btn btn-primary" id="button_ver_mas" onclick="abrirModalReportes()">Gestion de
+                reportes</button>
+            <a class="btn btn-primary" id="button_ver_mas" href="gestion_tipo_propietario.html">Tipo Propietario</a>
             <div class="btn-group" role="group">
-                <button type="button" class="btn btn-primary" id="btnmenu" data-bs-toggle="modal"
+                <button type="button" class="edit_add_deleteButtons add" id="btnmenu" data-bs-toggle="modal"
                     data-bs-target="#agregar"><a class="nav-link"><img
                             src="../../resources/img/iconos_formularios/agregar_26px.png"></a></button>
             </div>
@@ -159,25 +164,27 @@
                             <div class="row">
                                 <div class="col">
                                     <label for="nombre" class="form-label">Nombre de Propietario</label>
-                                    <input type="text" class="form-control" id="nombre" name="nombre"
-                                        placeholder="Escriba el nombre del Propietario" required maxlength="50">
+                                    <input type="text" class="form-control" id="nombre" name="nombre" autocomplete="off"
+                                        placeholder="Escriba el nombre del Propietario" required maxlength="50"
+                                        pattern="[a-zA-Z ]{1,50}">
 
                                     <label for="apellido" class="form-label">Apellido</label>
                                     <input type="text" class="form-control" id="apellido" name="apellido"
-                                        placeholder="Escriba el apellido del propietario" required maxlength="50">
+                                        autocomplete="off" placeholder="Escriba el apellido del propietario" required
+                                        maxlength="50" pattern="[a-zA-Z ]{1,50}">
 
                                     <label for="telefono" class="form-label">Teléfono</label>
                                     <input type="tel" class="form-control" id="telefono" name="telefono"
-                                        placeholder="Escriba el numero de Telefono del propietario" required
-                                        maxlength="8">
+                                        autocomplete="off" placeholder="Escriba el numero de Telefono del propietario"
+                                        required maxlength="13" pattern="[0-9+ ]{1,13}">
 
                                     <label for="correo_electronico" class="form-label">Correo Electrónico</label>
-                                    <input type="email" class="form-control" id="correo_electronico"
+                                    <input type="email" class="form-control" id="correo_electronico" autocomplete="off"
                                         name="correo_electronico" placeholder="Escriba el correo del propietario"
                                         required maxlength="75">
 
                                     <label for="fecha_nacimiento" class="form-label">Fecha de Nacimiento</label>
-                                    <input type="date" class="form-control" id="fecha_nacimiento"
+                                    <input type="date" class="form-control" id="fecha_nacimiento" autocomplete="off"
                                         name="fecha_nacimiento" required>
                                 </div>
                                 <div class="col">
@@ -188,8 +195,8 @@
                                     </select>
 
                                     <label for="DUI" class="form-label">DUI</label>
-                                    <input type="text" class="form-control" id="DUI" name="DUI"
-                                        placeholder="Escriba el DUI" required maxlength="10">
+                                    <input type="text" class="form-control" id="DUI" name="DUI" autocomplete="off"
+                                        placeholder="Escriba el DUI" required maxlength="10" pattern="[0-9-]{1,10}">
 
                                     <label for="id_inquilino" class="form-label">Tipo de Propietario</label>
                                     <select onchange="seleccionarTipoPropietario()" id="id_tipo_propietario"
@@ -198,7 +205,7 @@
                                 </div>
                                 <div class="col">
                                     <label for="formGroupExampleInput" class="form-label">Imagen</label>
-                                    <a class="btn" id="upload_image">
+                                    <a class="btn"  id="upload_image">
                                         <input accept="image/jpeg" type="file"
                                             class="form-control form-control-sm form-Input-Style" name="archivo"
                                             id="archivo" required>
@@ -234,25 +241,27 @@
                                 <div class="col">
                                     <label for="nombre" class="form-label">Nombre de Propietario</label>
                                     <input type="text" class="form-control" id="nombre_update" name="nombre_update"
-                                        placeholder="Escriba el nombre del Propietario" required maxlength="50">
+                                        autocomplete="off" placeholder="Escriba el nombre del Propietario" required
+                                        maxlength="50" pattern="[a-zA-Z ]{1,50}">
 
                                     <label for="apellido" class="form-label">Apellido</label>
                                     <input type="text" class="form-control" id="apellido_update" name="apellido_update"
-                                        placeholder="Escriba el apellido del propietario" required maxlength="50">
+                                        autocomplete="off" placeholder="Escriba el apellido del propietario" required
+                                        maxlength="50" pattern="[a-zA-Z ]{1,50}">
 
                                     <label for="telefono" class="form-label">Teléfono</label>
                                     <input type="tel" class="form-control" id="telefono_update" name="telefono_update"
-                                        placeholder="Escriba el numero de Telefono del propietario" required
-                                        maxlength="13">
+                                        autocomplete="off" placeholder="Escriba el numero de Telefono del propietario"
+                                        required maxlength="13" pattern="[0-9+ ]{1,13}">
 
                                     <label for="correo_electronico" class="form-label">Correo Electrónico</label>
                                     <input type="email" class="form-control" id="correo_electronico_update"
-                                        name="correo_electronico_update" placeholder="Escriba el correo del propietario"
-                                        required maxlength="75">
+                                        autocomplete="off" name="correo_electronico_update"
+                                        placeholder="Escriba el correo del propietario" required maxlength="75">
 
                                     <label for="fecha_nacimiento" class="form-label">Fecha de Nacimiento</label>
                                     <input type="date" class="form-control" id="fecha_nacimiento_update"
-                                        name="fecha_nacimiento_update" required>
+                                        autocomplete="off" name="fecha_nacimiento_update" required>
                                 </div>
                                 <div class="col">
                                     <label for="formGroupExampleInput" class="form-label">Género</label>
@@ -263,7 +272,8 @@
 
                                     <label for="DUI" class="form-label">DUI</label>
                                     <input type="text" class="form-control" id="DUI_update" name="DUI_update"
-                                        placeholder="Escriba el DUI" required maxlength="10">
+                                        autocomplete="off" placeholder="Escriba el DUI" required maxlength="10"
+                                        pattern="[0-9-]{1,10}">
 
                                     <label for="id_inquilino" class="form-label">Tipo de Propietario</label>
                                     <select onchange="seleccionarTipoPropietario()" id="id_tipo_propietario_update"
@@ -272,10 +282,10 @@
                                 </div>
                                 <div class="col">
                                     <label for="formGroupExampleInput" class="form-label">Imagen</label>
-                                    <a class="btn" id="upload_image" required>
+                                    <a class="btn"  id="upload_image" required>
                                         <input accept="image/jpeg" type="file"
                                             class="form-control form-control-sm form-Input-Style" name="archivo_update"
-                                            id="archivo_update" required>
+                                            id="archivo_update">
                                         <img src="../../resources/img/iconos_formularios/download_100px.png">
                                     </a>
                                 </div>
@@ -368,6 +378,64 @@
                 </div>
             </div>
         </div>
+        <!-- Modal de reporte fallido -->
+        <div class="modal fade" id="errorReporte" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header" id="formHeader">
+                        <h5 class="modal-title">Error en el proceso</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        No se pudo generar el reporte, valide los datos ingreados
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary" data-bs-dismiss="modal" id="btnmenu">Aceptar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Modal de REPORTES -->
+        <div class="modal fade" id="reportes" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header" id="formHeader">
+                        <h5 class="modal-title" id="exampleModalToggleLabe3">Confirmar</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="reporte_casas_mas_vendidas_alquiladas">
+                        <p>
+                            Generar reporte de los propietarios según el tipo propietario
+                        </p>
+                        <select id="id_tipo_propietario_rep" name="id_tipo_propietario" class="form-control">
+                        </select>
+                        <button onclick="createPropietarioPDF()">
+                            Generar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- MODAL DE ERROR GENERICO -->
+        <div class="modal fade" id="modalErrorDeBaseDeDatos" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header" id="formHeader">
+                        <h5 class="modal-title">Error en el proceso</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p id="dataBaseErrorMessage">
+                            ...
+                        </p>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary" data-bs-dismiss="modal" id="btnmenu">Aceptar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </main>
 
     <footer class="text-white  pt-5 pb-4" id="Segundofooter">
@@ -377,6 +445,8 @@
     </footer>
 
     <!-- Activando Bootstrap desde JS -->
+    <script src="http://momentjs.com/downloads/moment.min.js"></script>
+
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
         integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB"
         crossorigin="anonymous"></script>
@@ -385,6 +455,28 @@
         crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script type="module" src="../../controller/privada/propietario.js"></script>
+
+</body>
+
+</html> </button>
+
+</main>
+
+<footer class="text-white  pt-5 pb-4" id="Segundofooter">
+    <div class="container-fluid">
+
+    </div>
+</footer>
+
+<!-- Activando Bootstrap desde JS -->
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
+    integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB"
+    crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"
+    integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13"
+    crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="module" src="../../controller/privada/propietario/propietario.js"></script>
 
 </body>
 

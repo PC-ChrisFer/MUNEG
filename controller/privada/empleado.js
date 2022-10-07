@@ -3,13 +3,14 @@
 //Importar las constantes y metodos de components.js y api_constant.js
 // @ts-ignore
 import { readRows, saveRow, searchRows, deleteRow } from "../components.js";
-import { GET_METHOD, SERVER, API_CREATE, API_UPDATE, DOM_CONTENT_LOADED, SEARCH_BAR, SUBMIT, INSERT_MODAL, UPDATE_MODAL, DELETE_FORM } from "../constants/api_constant.js";
+import { GET_METHOD, SERVER, API_CREATE, API_UPDATE, DOM_CONTENT_LOADED, SEARCH_BAR, SUBMIT, INSERT_MODAL, UPDATE_MODAL, DELETE_FORM, API_SUCESS_REQUEST } from "../constants/api_constant.js";
 import { getElementById } from "../constants/functions.js";
 import { APIConnection } from "../APIConnection.js";
 import { validateExistenceOfUser } from "../constants/validationUser.js";
 
 //Constantes que establece la comunicación entre la API y el controller utilizando parametros y rutas
 const API_EMPLEADO = SERVER + 'privada/empleado.php?action=';
+const API_USUARIO = SERVER + 'privada/usuario.php?action=';
 
 // JSON EN EN CUAL SE GUARDA INFORMACION DE EL TIPO DE EMPLEADO, ESTA INFORMACION
 // SE ACTUALIZA CUANDO SE DA CLICK EN ELIMINAR O HACER UN UPDATE, CON LA FUNCION "guardarDatosTipoEmpleado"
@@ -61,7 +62,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     await fillComboBoxTipoEmpleado()
     //Carfar combo box de estado empleado
     await fillComboxEstadoEmpleado()
-
+    inactivityTime();
 });
 
 //Obtener los datos de combobox tipo empleado
@@ -258,3 +259,27 @@ getElementById("delete_form")?.addEventListener("submit", async (event) => {
   });
   
 
+  var inactivityTime = function () {
+    var time;
+    window.onload = resetTimer;
+    // DOM Events
+    document.onmousemove = resetTimer;
+    document.onkeydown = resetTimer;
+  
+    async function logout() {
+      let APIEndpoint = API_USUARIO + "logOut";
+      let APIResponse = await APIConnection(APIEndpoint, GET_METHOD, null);
+    
+      if (APIResponse.status == API_SUCESS_REQUEST) {
+        location.href = "index.html";
+        return;
+      }
+      console.log("SOMETHING WENT WRONG");
+    }
+  
+    function resetTimer() {
+        clearTimeout(time);
+        time = setTimeout(logout, 300000)
+        // 1000 milliseconds = 1 second
+    }
+  };

@@ -77,6 +77,11 @@ class propietario extends validator
             return false;
         }
     }
+
+    public function setImageName($fileName) {
+        $this->imagen = $fileName;
+        return true;
+    }
     //Id Tipo Propietario
     public function setIdTipoPropietario($value)
     {

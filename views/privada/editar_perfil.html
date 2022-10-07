@@ -105,10 +105,10 @@
     <main>
         <div class="container" id="container_aqua">
             <div class="row">
-                <div class="col-6">
-                    <img src="../../resources/img/iconos_navbar/icono-persona.png">
+                <div class="col-6" id="resipiente1">
+                    <img src="../../resources/img/iconos_navbar/icono-persona.png" id="imgLogin2">
                 </div>
-                <div class="col-6">
+                <div class="col-6"  id="resipiente2">
                     <div class="container" id="container_interno">
                         <div class="row">
                             <div class="col-12">
@@ -121,12 +121,13 @@
                                         </label>
                                         <input type="text" class="form-control" id="nombre_usuario"
                                             name="nombre_usuario" aria-describedby="emailHelp" size="40" maxlength="50"
-                                            required>
+                                            autocomplete="off" required>
                                         <label for="password_user" class="form-label">
                                             <h2>Contraseña</h2>
                                         </label>
                                         <input type="text" class="form-control" id="password_user" size="40"
-                                            name="password_user" maxlength="150" required>
+                                            type="password" name="password_user" maxlength="150" autocomplete="off"
+                                            required>
                                     </div>
                                     <div class="col-12 d-flex justify-content-center">
                                         <button type="submit" class="btn btn-dark logIndButton" id="btnmenu"><a
@@ -138,6 +139,23 @@
                     </div>
                 </div>
             </div>
+        </div>
+        <!-- Modal de reporte fallido -->
+        <div class="modal fade" id="errorReporte" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header" id="formHeader">
+                        <h5 class="modal-title">Error en el proceso</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        No se pudo generar el reporte, valide los datos ingreados
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary" data-bs-dismiss="modal" id="btnmenu">Aceptar</button>
+                    </div>
+                </div>
+            </div> 
         </div>
         <!-- Modal de PROCESO FALLIDO -->
         <div class="modal fade" id="error_proceso" tabindex="-1">
@@ -171,7 +189,7 @@
         integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13"
         crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script type="module" src="../../controller/privada/editar_usuario.js"></script>
+    <script type="module" src="../../controller/privada/editar_usuario/editar_usuario.js"></script>
 </body>
 
 </html>

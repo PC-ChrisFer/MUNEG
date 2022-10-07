@@ -9,7 +9,10 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <!-- libreria -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
     <link rel="stylesheet" href="../../resources/css/estilo_privado.css">
+
     <title>MUNEG S.A C.V</title>
 
 </head>
@@ -101,7 +104,7 @@
             </div>
         </nav>
         <div class="container-fluid" id="encabezado">
-            <h1>GESTIÓN DE Factura</h1>
+            <h1>GESTIÓN DE FACTURA</h1>
         </div>
     </header>
 
@@ -111,13 +114,19 @@
             <form class="d-flex" method="post" id="search-bar">
                 <input class="form-control me-2" name="search" placeholder="Búsqueda de Datos" aria-label="Search"
                     required>
-                <button class="btn" type="submit"><img src="../../resources/img/iconos_navbar/search_24px.png"></button>
+                <button class="btn"  type="submit"><img src="../../resources/img/iconos_navbar/search_24px.png"></button>
             </form>
         </div>
         <!-- Botones de SCRUD, actualizar y agregar -->
-        <div class="container-fluid" id="opciones">
+        <div class="container-fluid d-flex justify-content-between" id="opciones">
             <div class="btn-group" role="group">
-                <button type="button" class="btn btn-primary" id="btnmenu" data-bs-toggle="modal"
+                <button type="button" class="btn btn-primary" id="button_ver_mas" data-bs-toggle="modal"
+                    data-bs-target="#generar_grafico">Generar Gráfico</button>
+                <button data-bs-toggle="modal" data-bs-target="#reportes" class="btn btn-primary" id="button_ver_mas">
+                    Gestion de reportes</button>
+            </div>
+            <div class="btn-group" role="group">
+                <button type="button" class="edit_add_deleteButtons add" id="btnmenu" data-bs-toggle="modal"
                     data-bs-target="#agregar"><a class="nav-link"><img
                             src="../../resources/img/iconos_formularios/agregar_26px.png"></a></button>
             </div>
@@ -160,28 +169,33 @@
                                 <div class="col">
                                     <label for="factura" class="form-label">Código de Factura</label>
                                     <input type="text" class="form-control" id="factura" name="codigo_factura"
-                                        placeholder="Escriba el número de su factura" required>
+                                        autocomplete="off" placeholder="Escriba el número de su factura" required
+                                        maxlength="6" pattern="[0-9]{1,6}">
 
                                     <label for="descripcion" class="form-label">Descripción</label>
                                     <textarea id="descripcion" name="descripcion" rows="4" class="form-control"
-                                        placeholder="Escriba la descripción de factura" required></textarea>
+                                        autocomplete="off" placeholder="Escriba la descripción de factura" required
+                                        maxlength="150"></textarea>
 
                                     <label for="direccion" class="form-label">Dirección</label>
                                     <textarea id="direccion" name="direccion" rows="4" class="form-control"
-                                        placeholder="Escriba la de dirección de factura" required></textarea>
+                                        autocomplete="off" placeholder="Escriba la de dirección de factura" required
+                                        maxlength="100"></textarea>
                                 </div>
                                 <div class="col">
                                     <label for="subtotal" class="form-label">Subtotal</label>
                                     <input type="number" class="form-control" id="subtotal" name="subtotal"
-                                        placeholder="Escriba de SubTotal" required min="1" max="1000000">
+                                        autocomplete="off" placeholder="Escriba de SubTotal" required min="1"
+                                        max="1000000" step=".01">
 
                                     <label for="iva" class="form-label">IVA</label>
-                                    <input type="number" class="form-control" id="IVA" name="IVA" placeholder="IVA"
-                                        required min="0">
+                                    <input type="text" class="form-control" id="IVA" name="IVA" placeholder="IVA"
+                                        autocomplete="off" required min="0" pattern="[0-9.]{1,6}">
 
                                     <label for="venta_gravada" class="form-label">Venta grabada</label>
                                     <input type="number" class="form-control" id="venta_gravada" name="venta_gravada"
-                                        placeholder="Escriba la venta grabada" required min="1">
+                                        autocomplete="off" placeholder="Escriba la venta grabada" required min="1"
+                                        step=".01">
 
                                     <label for="fecha_emision" class="form-label">Fecha de emisión</label>
                                     <input type="date" class="form-control" id="fecha_emision" name="fecha_emision"
@@ -222,31 +236,31 @@
                                 <div class="col">
                                     <label for="factura_update" class="form-label">Código de Factura</label>
                                     <input type="text" class="form-control" id="codigo_factura_update"
-                                        name="codigo_factura_update" required>
+                                        autocomplete="off" name="codigo_factura_update" required>
 
                                     <label for="descripcion" class="form-label">Descripción</label>
                                     <textarea id="descripcion_update" name="descripcion_update" rows="4"
-                                        class="form-control" required></textarea>
+                                        autocomplete="off" class="form-control" required></textarea>
 
                                     <label for="direccion_update" class="form-label">Dirección</label>
-                                    <textarea id="direccion_update" name="direccion_update" rows="4"
+                                    <textarea id="direccion_update" name="direccion_update" rows="4" autocomplete="off"
                                         class="form-control" required></textarea>
                                 </div>
                                 <div class="col">
                                     <label for="subtotal_update" class="form-label">Subtotal</label>
-                                    <input type="number" class="form-control" id="subtotal_update"
+                                    <input type="number" class="form-control" id="subtotal_update" autocomplete="off"
                                         name="subtotal_update" required min="1" max="1000000">
 
                                     <label for="iva_update" class="form-label">IVA</label>
                                     <input type="number" class="form-control" id="IVA_update" name="IVA_update" required
-                                        min="1" max="1000000">
+                                        autocomplete="off" min="1" max="1000000">
 
                                     <label for="venta_grabada_update" class="form-label">Venta grabada</label>
                                     <input type="number" class="form-control" id="venta_gravada_update"
-                                        name="venta_gravada_update" required min="1" max="1000000">
+                                        autocomplete="off" name="venta_gravada_update" required min="1" max="1000000">
 
                                     <label for="fecha_emision_update" class="form-label">Fecha de emisión</label>
-                                    <input type="date" class="form-control" id="fecha_emision_update"
+                                    <input type="date" class="form-control" id="fecha_emision_update" autocomplete="off"
                                         name="fecha_emision_update" required>
 
                                     <label for="id_inquilino" class="form-label">Inquilino</label>
@@ -288,6 +302,38 @@
                             <button type="submit" class="btn btn-primary" id="btnmenu">Confirmar</button>
                         </div>
                     </form>
+                </div>
+            </div>
+        </div>
+        <!-- Modal de GENERAR GRAFICO -->
+        <div class="modal fade" id="generar_grafico" tabindex="-1">
+            <div class="modal-dialog modal-lg modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header" id="formHeader">
+                        <h5 class="modal-title">Generar Gráfico</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <p>Generar Grafico: "Cantidad de Facturas emitidas a un inquilino"</p>
+                            <div class="col-8">
+                                <label for="departamento" class="form-label">Nombre del Propietario:</label>
+                            </div>
+                            <div class="col-4">
+                                <select onchange="selectInquilino('cmb_inquilino')" id="cmb_inquilino"
+                                    name="id_inquilino" class="form-control">
+                                    <option value="0" selected>Ninguno</option>
+                                </select>
+
+                                <button onclick="generarGrafico()" class="btn btn-primary"
+                                    id="button_ver_mas">GENERAR</button>
+
+                            </div>
+                        </div>
+                        <!-- Grafico Dinamico -->
+                        <div id="graph_contrato">
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -342,6 +388,23 @@
                 </div>
             </div>
         </div>
+        <!-- Modal de reporte fallido -->
+        <div class="modal fade" id="errorReporte" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header" id="formHeader">
+                        <h5 class="modal-title">Error en el proceso</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        No se pudo generar el reporte, valide los datos ingreados
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary" data-bs-dismiss="modal" id="btnmenu">Aceptar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
         <!-- Modal de NO ENCONTRO DATA -->
         <div class="modal fade" id="no_data" tabindex="-1">
             <div class="modal-dialog modal-dialog-centered">
@@ -359,6 +422,77 @@
                 </div>
             </div>
         </div>
+        <!-- Modal de REPORTES -->
+        <div class="modal fade" id="reportes" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header" id="formHeader">
+                        <h5 class="modal-title" id="exampleModalToggleLabe3">Confirmar</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="factura_mes">
+                        <p>
+                            Generar reporte de casa mas alquiladas y vendidas durante el mes
+                        </p>
+                        <select name="select" id="meses_año">
+                            <option value="01">Enero</option>
+                            <option value="02">Febrero</option>
+                            <option value="3">Marzo</option>
+                            <option value="04">Abril</option>
+                            <option value="05">Mayo</option>
+                            <option value="06">Junio</option>
+                            <option value="07">Julio</option>
+                            <option value="08">Agosto</option>
+                            <option value="09">Septiembre</option>
+                            <option value="10">Octubre</option>
+                            <option value="11">Noviembre</option>
+                            <option value="12">Diciembre</option>
+                            <option value="13">Diciembre</option>
+                            <option value="12">Diciembre</option>
+                        </select>
+                        <button onclick="generarReporteFacturaMes()">
+                            Generar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Modal de NO SE PUDO ABRIR REPORTE -->
+        <div class="modal fade" id="reporteMal" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header" id="formHeader">
+                        <h5 class="modal-title" id="exampleModalToggleLabe3">Error</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        No se pudo abrir el reporte.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- MODAL DE ERROR GENERICO -->
+        <div class="modal fade" id="modalErrorDeBaseDeDatos" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header" id="formHeader">
+                        <h5 class="modal-title">Error en el proceso</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p id="dataBaseErrorMessage">
+                            ...
+                        </p>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary" data-bs-dismiss="modal" id="btnmenu">Aceptar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Importación de librería para generar gráficos en tiempo real. Para más información https://www.chartjs.org/ -->
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js"></script>
     </main>
 
     <footer class="text-white  pt-5 pb-4" id="Segundofooter">
@@ -368,6 +502,7 @@
     </footer>
 
     <!-- Activando Bootstrap desde JS -->
+    <script src="http://momentjs.com/downloads/moment.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
         integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB"
         crossorigin="anonymous"></script>
@@ -375,9 +510,7 @@
         integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13"
         crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script type="module" src="../../controller/privada/factura.js"></script>
-
-
+    <script type="module" src="../../controller/privada/factura/factura.js"></script>
 </body>
 
 </html>

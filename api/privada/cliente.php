@@ -60,7 +60,6 @@ if (isset($_GET[ACTION])) {
                 $result[MESSAGE] = 'Datos guardados existosamente';
                 $result[DATA_SET] = $clientes->readAll();
                 $result[STATUS] =  $result[DATA_SET] ? SUCESS_RESPONSE : 'No hay datos registrados';
-
             } else {
                 $result[EXCEPTION] = Database::getException();
             }

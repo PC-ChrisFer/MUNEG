@@ -20,7 +20,7 @@ const SUCESS_RESPONSE = 1;
 
 const READ_TIPO_PROPIETARIO = 'readTipoPropietario';
 const PROPIETARIO_ARCHIVO = 'archivo';
-const TMP_NAME = 'tmp_name'; 
+const TMP_NAME = 'tmp_name';
 
 // NOMBRES DE PARAMETROS, DEBEN DE SER IGUALES AL ID Y NAME DEL INPUT DE EL FORMULARIO
 
@@ -61,38 +61,39 @@ if (isset($_GET[ACTION])) {
             break;
         case CREATE:
             $_POST = $propietario->validateSpace($_POST);
-                $result[EXCEPTION] = $propietario->setNombre($_POST['nombre']) ? null : 'Nombre incorrecto';
-                $result[EXCEPTION] = $propietario->setApellido($_POST['apellido']) ? null : 'Apellido incorrecto';
-                $result[EXCEPTION] = $propietario->setTelefono($_POST['telefono']) ? null : 'Telefono incorrecto';
-                $result[EXCEPTION] = $propietario->setCorreo($_POST['correo_electronico']) ? null : 'Correo Electrónico incorrecto';
-                $result[EXCEPTION] = $propietario->setFechaNacimiento($_POST['fecha_nacimiento']) ? null : 'Fecha de nacimiento incorrecto';
-                $result[EXCEPTION] = $propietario->setGenero($_POST['genero']) ? null : 'Género incorrecto';
-                $result[EXCEPTION] = $propietario->setIdTipoPropietario($_POST['id_tipo_propietario']) ? null : 'Tipo de propietario incorrecto';
-                $result[EXCEPTION] = $propietario->setDUI($_POST['DUI']) ? null : 'DUI incorrecto';
-                $result[EXCEPTION] = is_uploaded_file($_FILES['archivo']['tmp_name']) ? null : "ARCHIVO INCORRECTO";
-                $result[EXCEPTION] = $propietario->setImage($_FILES['archivo']) ? null : $propiedad->getFileError();
-                if ($propietario->createRow()) {
-                    $result[MESSAGE] = 'Registro creado correctamente';
-                    if ($propietario->saveFile($_FILES['archivo'], $propietario->getRutaImagenes(), $propietario->getImagen())) {
-                        $result[MESSAGE] = 'Imagen ingresada correctanente';
-                        if ($result[DATA_SET] = $propietario->readAll()) {
-                            $result[STATUS] = SUCESS_RESPONSE;
-                        } else {
-                            $result[EXCEPTION] = 'No hay datos registrados';
-                        }
+            $result[EXCEPTION] = $propietario->setNombre($_POST['nombre']) ? null : 'Nombre incorrecto';
+            $result[EXCEPTION] = $propietario->setApellido($_POST['apellido']) ? null : 'Apellido incorrecto';
+            $result[EXCEPTION] = $propietario->setTelefono($_POST['telefono']) ? null : 'Telefono incorrecto';
+            $result[EXCEPTION] = $propietario->setCorreo($_POST['correo_electronico']) ? null : 'Correo Electrónico incorrecto';
+            $result[EXCEPTION] = $propietario->setFechaNacimiento($_POST['fecha_nacimiento']) ? null : 'Fecha de nacimiento incorrecto';
+            $result[EXCEPTION] = $propietario->setGenero($_POST['genero']) ? null : 'Género incorrecto';
+            $result[EXCEPTION] = $propietario->setIdTipoPropietario($_POST['id_tipo_propietario']) ? null : 'Tipo de propietario incorrecto';
+            $result[EXCEPTION] = $propietario->setDUI($_POST['DUI']) ? null : 'DUI incorrecto';
+            $result[EXCEPTION] = is_uploaded_file($_FILES['archivo']['tmp_name']) ? null : "ARCHIVO INCORRECTO";
+            $result[EXCEPTION] = $propietario->setImage($_FILES['archivo']) ? null : $propiedad->getFileError();
+            if ($propietario->createRow()) {
+                $result[MESSAGE] = 'Registro creado correctamente';
+                if ($propietario->saveFile($_FILES['archivo'], $propietario->getRutaImagenes(), $propietario->getImagen())) {
+                    $result[MESSAGE] = 'Imagen ingresada correctanente';
+                    if ($result[DATA_SET] = $propietario->readAll()) {
+                        $result[STATUS] = SUCESS_RESPONSE;
                     } else {
-                        $result[MESSAGE] = 'Imagen no se a ingresado correctanente';
-                        if ($result[DATA_SET] = $propietario->readAll()) {
-                            $result[STATUS] = SUCESS_RESPONSE;
-                        } else {
-                            $result[EXCEPTION] = 'No hay datos registrados';
-                        }
+                        $result[EXCEPTION] = 'No hay datos registrados';
                     }
                 } else {
-                    $result[EXCEPTION] = Database::getException();
+                    $result[MESSAGE] = 'Imagen no se a ingresado correctanente';
+                    if ($result[DATA_SET] = $propietario->readAll()) {
+                        $result[STATUS] = SUCESS_RESPONSE;
+                    } else {
+                        $result[EXCEPTION] = 'No hay datos registrados';
+                    }
                 }
+            } else {
+                $result[EXCEPTION] = Database::getException();
+            }
             break;
         case UPDATE:
+
             $_POST = $propietario->validateSpace($_POST);
             $result[EXCEPTION] = $propietario->setNombre($_POST['nombre_update']) ? null : 'Nombre incorrecto';
             $result[EXCEPTION] = $propietario->setApellido($_POST['apellido_update']) ? null : 'Apellido incorrecto';
@@ -101,53 +102,53 @@ if (isset($_GET[ACTION])) {
             $result[EXCEPTION] = $propietario->setFechaNacimiento($_POST['fecha_nacimiento_update']) ? null : 'Fecha de nacimiento incorrecto';
             $result[EXCEPTION] = $propietario->setGenero($_POST['genero_update']) ? null : 'Género incorrecto';
             $result[EXCEPTION] = $propietario->setDUI($_POST['DUI_update']) ? null : 'DUI incorrecto';
-            $result[EXCEPTION] = is_uploaded_file($_FILES['archivo_update']['tmp_name']) ? null : "ARCHIVO INCORRECTO";
-            $result[EXCEPTION] = $propietario->setImage($_FILES['archivo_update']) ? null : $propiedad->getFileError();
             $result[EXCEPTION] = $propietario->setIdTipoPropietario($_POST['id_tipo_propietario_update']) ? null : 'Tipo de propietario incorrecto';
             $result[EXCEPTION] = $propietario->setId($_POST['id']) ? null : 'Id incorrecto';
-        
-        if ($propietario->updateRow()) {
-            $result[MESSAGE] = 'Registro modificado correctamente';
-            if ($propietario->saveFile($_FILES['archivo_update'], $propietario->getRutaImagenes(), $propietario->getImagen())) {
-                $result[MESSAGE] = 'Imagen ingresada correctanente';
+
+            // validando si imagen a sido ingresada
+            if ($_FILES['archivo_update']['error'] == 4) {
+                $result[EXCEPTION] = $propietario->setImageName($_POST['nombre_archivo']) ? null : 'NOMBRE ARCHIVO NO ENVIADO';
+            } else {
+                $result[EXCEPTION] = $propietario->setImage($_FILES['archivo_update']) ? null : $propiedad->getFileError();
+                $result[EXCEPTION] = is_uploaded_file($_FILES['archivo_update']['tmp_name']) ? null : "ARCHIVO INCORRECTO";
+                if ($propietario->saveFile($_FILES['archivo_update'], $propietario->getRutaImagenes(), $propietario->getImagen())) {
+                    $result[MESSAGE] = 'Imagen ingresada correctanente';
+                } 
+            }
+
+            if ($propietario->updateRow()) {
+                $result[MESSAGE] = 'Registro modificado correctamente';
                 if ($result[DATA_SET] = $propietario->readAll()) {
                     $result[STATUS] = SUCESS_RESPONSE;
                 } else {
                     $result[EXCEPTION] = 'No hay datos registrados';
                 }
             } else {
-                $result[MESSAGE] = 'Imagen no se a ingresado correctanente';
-                if ($result[DATA_SET] = $propietario->readAll()) {
-                    $result[STATUS] = SUCESS_RESPONSE;
-                } else {
-                    $result[EXCEPTION] = 'No hay datos registrados';
-                }
+                $result[EXCEPTION] = Database::getException();
             }
-        } else {
-            $result[EXCEPTION] = Database::getException();
-        }
-        break;
-    case DELETE:
-        $result[EXCEPTION] = $propietario->setId($_POST['id']) ? null : 'Id incorrecto';
-        if ($propietario->deleteRow()) {
-            $result[MESSAGE] = 'Registro eliminado correctamente';
-            $result[DATA_SET] = $propietario->readAll();
-            $result[STATUS] =  $result[DATA_SET] ? SUCESS_RESPONSE : 'No hay datos registrados';
-        } else {
-            $result[EXCEPTION] = Database::getException();
-        }
-        break;
-    case READ_TIPO_PROPIETARIO:
-        if ($result[DATA_SET] = $propietario->readTipoPropietario()) {
-            $result[STATUS] = SUCESS_RESPONSE;
-        } elseif (Database::getException()) {
-            $result[EXCEPTION] = Database::getException();
-        } else {
-            $result[EXCEPTION] = 'No hay datos registrados';
-        }
-        break;
-    default:
-        $result[EXCEPTION] = 'Acción no disponible dentro de la sesión';
+
+            break;
+        case DELETE:
+            $result[EXCEPTION] = $propietario->setId($_POST['id']) ? null : 'Id incorrecto';
+            if ($propietario->deleteRow()) {
+                $result[MESSAGE] = 'Registro eliminado correctamente';
+                $result[DATA_SET] = $propietario->readAll();
+                $result[STATUS] =  $result[DATA_SET] ? SUCESS_RESPONSE : 'No hay datos registrados';
+            } else {
+                $result[EXCEPTION] = Database::getException();
+            }
+            break;
+        case READ_TIPO_PROPIETARIO:
+            if ($result[DATA_SET] = $propietario->readTipoPropietario()) {
+                $result[STATUS] = SUCESS_RESPONSE;
+            } elseif (Database::getException()) {
+                $result[EXCEPTION] = Database::getException();
+            } else {
+                $result[EXCEPTION] = 'No hay datos registrados';
+            }
+            break;
+        default:
+            $result[EXCEPTION] = 'Acción no disponible dentro de la sesión';
     }
     // Se indica el tipo de contenido a mostrar y su respectivo conjunto de caracteres.
     header('content-type: application/json; charset=utf-8');

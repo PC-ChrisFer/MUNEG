@@ -1,10 +1,13 @@
 //@ts-check
 
+import { APIConnection } from "../APIConnection.js";
 import { deleteRow, readRows, saveRow } from "../components.js";
-import { SERVER, API_CREATE, API_UPDATE } from "../constants/api_constant.js";
+import { SERVER, API_CREATE, API_UPDATE, GET_METHOD, API_SUCESS_REQUEST } from "../constants/api_constant.js";
 import { getElementById } from "../constants/functions.js";
 
 const API_GESTION_ACABADO = SERVER + "privada/tipo_acabado.php?action=";
+const API_USUARIO = SERVER + 'privada/usuario.php?action=';
+
 
 let datos_gestion_acabado = {
   id_gestion_acabado: "",
@@ -17,6 +20,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   //validateExistenceOfUser();
   // Se llama a la función que obtiene los registros para llenar la tabla. Se encuentra en el archivo components.js
   await readRows(API_GESTION_ACABADO, fillTableGestionAcabado);
+  inactivityTime();
 });
 
 function fillTableGestionAcabado(dataset) {
@@ -135,3 +139,28 @@ getElementById("delete_form")?.addEventListener("submit", async (event) => {
   // @ts-ignore
   $("#eliminar").modal("hide");
 });
+
+var inactivityTime = function () {
+  var time;
+  window.onload = resetTimer;
+  // DOM Events
+  document.onmousemove = resetTimer;
+  document.onkeydown = resetTimer;
+
+  async function logout() {
+    let APIEndpoint = API_USUARIO + "logOut";
+    let APIResponse = await APIConnection(APIEndpoint, GET_METHOD, null);
+  
+    if (APIResponse.status == API_SUCESS_REQUEST) {
+      location.href = "index.html";
+      return;
+    }
+    console.log("SOMETHING WENT WRONG");
+  }
+
+  function resetTimer() {
+      clearTimeout(time);
+      time = setTimeout(logout, 300000)
+      // 1000 milliseconds = 1 second
+  }
+};

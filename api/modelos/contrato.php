@@ -13,6 +13,7 @@ class contrato extends validator
     private $id_propiedad = null;
     private $id_empleado = null;
     private $id_inquilino = null;
+    private $fecha_firma_final = null;
     private $ruta;
 
     //Metodos para setear los valores de los campos
@@ -28,11 +29,23 @@ class contrato extends validator
         $this->descripcion = $value;
         return true;
     }
+
+    public function setImageName($fileName) {
+        $this->imagen = $fileName;
+        return true;
+    }
     
     //Fecha firma
     public function setFechaFirma($value)
     {
         $this->fecha_firma = $value;
+        return true;
+    }
+
+    //Fecha firma
+    public function setFechaFirmaFinal($value)
+    {
+        $this->fecha_firma_final = $value;
         return true;
     }
 
@@ -102,6 +115,14 @@ class contrato extends validator
         return $this->fecha_firma;
         
     }
+
+    //Fecha firma
+    public function getFechaFirmaFinal($value)
+    {
+        return $this->fecha_firma_final;
+        
+    }
+
 
     //Imagen
     public function getImagen()
@@ -237,4 +258,26 @@ class contrato extends validator
         return Database::getRows($sql, $params);
     }
 
+    //Consultas de graficos
+    //CONTRATOS GENERADOS POR MES
+    public function readContratosxMes()
+    {
+        $sql = 'SELECT count(id_contrato), EXTRACT(MONTH FROM fecha_firma) FROM contrato 
+        GROUP BY EXTRACT(MONTH FROM fecha_firma)
+        ORDER BY EXTRACT(MONTH FROM fecha_firma)';
+        $params = null;
+        return Database::getRows($sql, $params);
+    }    
+
+    //La cantidad de firmas realizada por los empleados durante un periodo de tiempo (fecha_firma, fecha_firma)
+    public function readFirmasEmpleados()
+    {
+        $sql = 'SELECT COUNT(empleado.id_empleado), CONCAT(nombre, apellido) FROM empleado
+        INNER JOIN contrato 
+        ON contrato.id_empleado = empleado.id_empleado 
+        WHERE fecha_firma BETWEEN ? AND  ?
+        GROUP BY CONCAT(nombre, apellido)';
+        $params = array($this->fecha_firma, $this->fecha_firma_final);
+        return Database::getRows($sql, $params);
+    }  
 }

@@ -5,7 +5,7 @@ import { SERVER } from "../constants/api_constant.js";
 import {
   getElementById,
   getFormData,
-} from "../constants/functions.js";
+} from "../constants/helpers.js";
 //Constantes que establece la comunicación entre la API y el controller utilizando parametros y rutas
 const API_INDEX = SERVER + "publica/propiedad.php?action=";
 
@@ -30,7 +30,7 @@ export function fillPropiedad(dataset) {
     content += ` 
     <div class="col-md-3">
         <div class="card6 text-center">
-        <img src="../../api/imagenes/propiedad/${row.imagen}" class="card-img-top">
+        <img src="${row.imagen}" class="card-img-top">
           <div class="card-body">
             <h5 class="card-title">${row.municipio}</h5>
             <p>${row.habitaciones} Habitaciones</p>

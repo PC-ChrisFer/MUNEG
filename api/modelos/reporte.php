@@ -89,7 +89,7 @@ class reporte extends validator
         }
     }
 
-    public function setNoUpdatedImage($image) {
+    public function setImageName($image) {
         $this->imagen = $image;
         return true;
     }
